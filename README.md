@@ -45,6 +45,10 @@ As with floating point, `NaN != NaN`; all other values equal themselves.
 All values sort in the natural mathematical sense, except that `NaN` always
 sort to last, following the convention of floating point.
 
+### Additive inverse
+
+This code considers simplest forms as having a positive denominator.
+
 ## API
 
 In general, properties, methods, and operations do not have documentation,
@@ -60,6 +64,7 @@ counterpart.
 - `isNan()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
 infinite
+- `reciprocal()`, `pow(exponent)`
 
 ### Operators
 

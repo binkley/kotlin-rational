@@ -88,6 +88,16 @@ class Rational private constructor(
 
     operator fun rangeTo(other: Rational) = RationalProgression(this, other)
 
+    fun reciprocal() = new(denominator, numerator)
+    
+    fun pow(exponent: Int) = when {
+        0 == exponent -> ONE
+        0 < exponent ->
+            new(numerator.pow(exponent), denominator.pow(exponent))
+        else ->
+            new(denominator.pow(exponent), numerator.pow(exponent))
+    }
+
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()
 
