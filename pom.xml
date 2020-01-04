@@ -11,7 +11,6 @@
 
     <properties>
         <!-- @formatter:off -->
-        <atrium.version>0.8.0</atrium.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
         <junit.version>5.5.2</junit.version>
@@ -26,31 +25,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
-        <snapshot-repository.url>https://oss.sonatype.org/content/repositories/snapshots</snapshot-repository.url>
         <!-- @formatter:on -->
     </properties>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jcenter.bintray.com</id>
-            <url>https://jcenter.bintray.com</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>sonatype-snapshots</id>
-            <url>${snapshot-repository.url}</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <repositories>
-        <repository>
-            <id>jcenter.bintray.com</id>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>${snapshot-repository.url}</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
@@ -63,22 +39,11 @@
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-script-runtime</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.tutteli.atrium</groupId>
-            <artifactId>atrium-cc-en_GB-robstoll</artifactId>
-            <version>${atrium.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -94,13 +59,6 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <version>${kotlin.version}</version>
-                <configuration>
-                    <args>
-                        <arg>-progressive</arg>
-                        <arg>-Xjsr305=strict</arg>
-                        <arg>-Xjvm-default=enable</arg>
-                    </args>
-                </configuration>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -121,7 +79,6 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <dependencies>
