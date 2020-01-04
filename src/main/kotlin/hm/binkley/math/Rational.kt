@@ -68,53 +68,34 @@ class Rational private constructor(
     }
 
     operator fun unaryPlus() = this
-    operator fun unaryMinus() =
-        new(
-            numerator.negate(),
-            denominator
-        )
+    operator fun unaryMinus() = new(numerator.negate(), denominator)
+    operator fun inc() = new(numerator + denominator, denominator)
+    operator fun dec() = new(numerator - denominator, denominator)
 
-    operator fun inc() =
-        new(
-            numerator + denominator,
-            denominator
-        )
+    operator fun plus(b: Rational) = new(
+        numerator * b.denominator + b.numerator * denominator,
+        denominator * b.denominator
+    )
 
-    operator fun dec() =
-        new(
-            numerator - denominator,
-            denominator
-        )
+    operator fun minus(b: Rational) = new(
+        numerator * b.denominator - b.numerator * denominator,
+        denominator * b.denominator
+    )
 
-    operator fun plus(b: Rational) =
-        new(
-            numerator * b.denominator + b.numerator * denominator,
-            denominator * b.denominator
-        )
-
-    operator fun minus(b: Rational) =
-        new(
-            numerator * b.denominator - b.numerator * denominator,
-            denominator * b.denominator
-        )
-
-    operator fun times(b: Rational) =
-        new(
-            numerator * b.numerator,
-            denominator * b.denominator
-        )
+    operator fun times(b: Rational) = new(
+        numerator * b.numerator,
+        denominator * b.denominator
+    )
 
     /** NB -- Division by zero returns NaN, does not raise exception */
-    operator fun div(b: Rational) =
-        new(
-            numerator * b.denominator,
-            denominator * b.numerator
-        )
+    operator fun div(b: Rational) = new(
+        numerator * b.denominator,
+        denominator * b.numerator
+    )
 
     // TODO: operator fun rem
 
-    operator fun rangeTo(b: Rational) =
-        RationalProgression(this, b)
+    operator fun rangeTo(b: Rational) = RationalProgression(this, b)
 
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()
@@ -129,26 +110,11 @@ class Rational private constructor(
     companion object {
         // TODO: Consider alternative of Rational as a sealed class, with
         //  special cases able to handle themselves, eg, toString
-        val NaN = Rational(
-            BInt.ZERO,
-            BInt.ZERO
-        )
-        val ZERO = Rational(
-            BInt.ZERO,
-            BInt.ONE
-        )
-        val ONE = Rational(
-            BInt.ONE,
-            BInt.ONE
-        )
-        val POSITIVE_INFINITY = Rational(
-            BInt.ONE,
-            BInt.ZERO
-        )
-        val NEGATIVE_INFINITY = Rational(
-            BInt.ONE.negate(),
-            BInt.ZERO
-        )
+        val NaN = Rational(BInt.ZERO, BInt.ZERO)
+        val ZERO = Rational(BInt.ZERO, BInt.ONE)
+        val ONE = Rational(BInt.ONE, BInt.ONE)
+        val POSITIVE_INFINITY = Rational(BInt.ONE, BInt.ZERO)
+        val NEGATIVE_INFINITY = Rational(BInt.ONE.negate(), BInt.ZERO)
 
         fun new(numerator: BInt, denominator: BInt = BInt.ONE): Rational {
             var n = numerator
@@ -185,78 +151,30 @@ class Rational private constructor(
         }
 
         fun new(numerator: Long, denominator: Long = 1) =
-            new(
-                BInt.valueOf(numerator),
-                BInt.valueOf(denominator)
-            )
+            new(BInt.valueOf(numerator), BInt.valueOf(denominator))
 
         fun new(numerator: BInt, denominator: Long) =
-            new(
-                numerator,
-                BInt.valueOf(denominator)
-            )
+            new(numerator, BInt.valueOf(denominator))
 
         fun new(numerator: Long, denominator: BInt) =
-            new(
-                BInt.valueOf(numerator),
-                denominator
-            )
+            new(BInt.valueOf(numerator), denominator)
     }
 }
 
-infix fun BInt.over(denominator: BInt) =
-    Rational.new(
-        this,
-        denominator
-    )
-
-infix fun BInt.over(denominator: Long) =
-    Rational.new(
-        this,
-        denominator
-    )
-
+infix fun BInt.over(denominator: BInt) = Rational.new(this, denominator)
+infix fun BInt.over(denominator: Long) = Rational.new(this, denominator)
 infix fun BInt.over(denominator: Int) =
-    Rational.new(
-        this,
-        denominator.toLong()
-    )
+    Rational.new(this, denominator.toLong())
 
-infix fun Long.over(denominator: BInt) =
-    Rational.new(
-        this,
-        denominator
-    )
-
-infix fun Long.over(denominator: Long) =
-    Rational.new(
-        this,
-        denominator
-    )
-
+infix fun Long.over(denominator: BInt) = Rational.new(this, denominator)
+infix fun Long.over(denominator: Long) = Rational.new(this, denominator)
 infix fun Long.over(denominator: Int) =
-    Rational.new(
-        this,
-        denominator.toLong()
-    )
+    Rational.new(this, denominator.toLong())
 
-infix fun Int.over(denominator: BInt) =
-    Rational.new(
-        toLong(),
-        denominator
-    )
-
-infix fun Int.over(denominator: Long) =
-    Rational.new(
-        toLong(),
-        denominator
-    )
-
+infix fun Int.over(denominator: BInt) = Rational.new(toLong(), denominator)
+infix fun Int.over(denominator: Long) = Rational.new(toLong(), denominator)
 infix fun Int.over(denominator: Int) =
-    Rational.new(
-        toLong(),
-        denominator.toLong()
-    )
+    Rational.new(toLong(), denominator.toLong())
 
 class RationalIterator(
     start: Rational,
@@ -290,18 +208,10 @@ class RationalProgression(
     private val step: Rational = ONE
 ) : Iterable<Rational>, ClosedRange<Rational> {
     override fun iterator() =
-        RationalIterator(
-            start,
-            endInclusive,
-            step
-        )
+        RationalIterator(start, endInclusive, step)
 
     infix fun step(step: Rational) =
-        RationalProgression(
-            start,
-            endInclusive,
-            step
-        )
+        RationalProgression(start, endInclusive, step)
 }
 
 infix fun Rational.downTo(b: Rational) =
