@@ -1,9 +1,12 @@
-package x.scratch
+package hm.binkley
 
-import x.scratch.Rational.Companion.NEGATIVE_INFINITY
-import x.scratch.Rational.Companion.NaN
-import x.scratch.Rational.Companion.POSITIVE_INFINITY
-import x.scratch.Rational.Companion.ZERO
+import hm.binkley.math.Rational
+import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.Rational.Companion.NaN
+import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.Rational.Companion.ZERO
+import hm.binkley.math.downTo
+import hm.binkley.math.over
 
 fun main() {
     println("ZERO is $ZERO")

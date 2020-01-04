@@ -1,8 +1,8 @@
-package x.scratch
+package hm.binkley.math
 
 import org.junit.jupiter.api.Test
 
-internal class ScratchTest {
+internal class RationalTest {
     @Test
     fun nada() {
     }
