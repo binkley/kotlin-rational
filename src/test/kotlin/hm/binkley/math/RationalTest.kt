@@ -1,8 +1,16 @@
+@file:Suppress("NonAsciiCharacters")
+
 package hm.binkley.math
 
+import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.Rational.Companion.NaN
+import hm.binkley.math.Rational.Companion.ONE
+import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.Rational.Companion.ZERO
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Test
+import java.math.BigInteger
 
 internal class RationalTest {
     @Test
@@ -10,6 +18,78 @@ internal class RationalTest {
         assertSame(
             NaN,
             0 over 0
+        )
+    }
+
+    @Test
+    fun `should construct +∞`() {
+        assertSame(
+            POSITIVE_INFINITY,
+            Long.MAX_VALUE over 0
+        )
+    }
+
+    @Test
+    fun `should construct -∞`() {
+        assertSame(
+            NEGATIVE_INFINITY,
+            Long.MIN_VALUE over 0
+        )
+    }
+
+    @Test
+    fun `should construct 0`() {
+        assertSame(
+            ZERO,
+            0 over Long.MIN_VALUE
+        )
+    }
+
+    @Test
+    fun `should reduce fractions`() {
+        assertEquals(
+            Rational.new(2),
+            4 over 2
+        )
+    }
+
+    @Test
+    fun `should simplify fractions`() {
+        assertEquals(
+            1 over 2,
+            4 over 8
+        )
+        assertEquals(
+            BigInteger.valueOf(2),
+            (4 over 8).denominator
+        )
+    }
+
+    @Test
+    fun `should maintain positive denominator`() {
+        assertEquals(
+            -ONE,
+            4 over -4
+        )
+        assertEquals(
+            BigInteger.ONE,
+            (4 over -4).denominator
+        )
+    }
+
+    @Test
+    fun `should multiply`() {
+        assertEquals(
+            2 over 5,
+            (3 over 5) * (2 over 3)
+        )
+    }
+
+    @Test
+    fun `should divide`() {
+        assertEquals(
+            9 over 10,
+            (3 over 5) / (2 over 3)
         )
     }
 }
