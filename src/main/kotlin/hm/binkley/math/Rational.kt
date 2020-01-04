@@ -61,30 +61,34 @@ class Rational private constructor(
     operator fun inc() = new(numerator + denominator, denominator)
     operator fun dec() = new(numerator - denominator, denominator)
 
-    operator fun plus(b: Rational) = new(
-        numerator * b.denominator + b.numerator * denominator,
-        denominator * b.denominator
+    operator fun plus(other: Rational) = new(
+        numerator * other.denominator + other.numerator * denominator,
+        denominator * other.denominator
     )
 
-    operator fun minus(b: Rational) = new(
-        numerator * b.denominator - b.numerator * denominator,
-        denominator * b.denominator
+    operator fun minus(other: Rational) = new(
+        numerator * other.denominator - other.numerator * denominator,
+        denominator * other.denominator
     )
 
-    operator fun times(b: Rational) = new(
-        numerator * b.numerator,
-        denominator * b.denominator
+    operator fun times(other: Rational) = new(
+        numerator * other.numerator,
+        denominator * other.denominator
     )
 
     /** NB -- Division by zero returns NaN, does not raise exception */
-    operator fun div(b: Rational) = new(
-        numerator * b.denominator,
-        denominator * b.numerator
+    operator fun div(other: Rational) = new(
+        numerator * other.denominator,
+        denominator * other.numerator
     )
 
-    // TODO: operator fun rem
+    /** NB -- Remainder by zero or NaN returns NaN, does not raise exception */
+    operator fun rem(other: Rational): Rational {
+        // a % b = a - a / b * b
+        TODO("Proper rem, including handling of negative values")
+    }
 
-    operator fun rangeTo(b: Rational) = RationalProgression(this, b)
+    operator fun rangeTo(other: Rational) = RationalProgression(this, other)
 
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()
@@ -203,5 +207,5 @@ class RationalProgression(
         RationalProgression(start, endInclusive, step)
 }
 
-infix fun Rational.downTo(b: Rational) =
-    RationalProgression(this, b, -ONE)
+infix fun Rational.downTo(other: Rational) =
+    RationalProgression(this, other, -ONE)
