@@ -8,17 +8,6 @@ import java.util.Objects
 private typealias BInt = BigInteger
 
 /**
- * NB -- two choices for division by 0:
- * - Raise an error, as in whole numbers
- * - Produce a NaN, as in floating point
- *
- * This class produces a NaN, so I could explore the impact of NaN (generally,
- * too great).
- *
- * NB -- avoids use of LCM, and relies on factory ctor GCM to simplify.
- *
- * See https://developer.android.com/reference/kotlin/android/util/Rational
- *
  * @todo Propagate NaN-ness
  */
 class Rational private constructor(
@@ -103,9 +92,9 @@ class Rational private constructor(
     /** NB -- NaN is not infinite */
     fun isInfinite() = isPositiveInfinity() || isNegativeInfinity()
 
+    fun isNaN() = this === NaN
     fun isPositiveInfinity() = this === POSITIVE_INFINITY
     fun isNegativeInfinity() = this === NEGATIVE_INFINITY
-    fun isNaN() = this === NaN
 
     companion object {
         // TODO: Consider alternative of Rational as a sealed class, with
