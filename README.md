@@ -63,7 +63,7 @@ infinite
 
 ### Operators
 
-- All Kotlin numeric operators
+- All Kotlin numeric operators except `rem` (division is exact)
 - Ranges and progressions
 
 ## Implementation choices

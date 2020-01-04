@@ -83,10 +83,8 @@ class Rational private constructor(
     )
 
     /** NB -- Remainder by zero or NaN returns NaN, does not raise exception */
-    operator fun rem(other: Rational): Rational {
-        // a % b = a - a / b * b
-        TODO("Proper rem, including handling of negative values")
-    }
+    // TODO: Find if there is a sensible meaning for modulus of a fraction
+    //  operator fun rem(other: Rational): Rational
 
     operator fun rangeTo(other: Rational) = RationalProgression(this, other)
 
