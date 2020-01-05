@@ -132,4 +132,20 @@ internal class RationalTest {
             (-3 over 5).abs()
         )
     }
+
+    @Test
+    fun `should signum`() {
+        assertEquals(
+            1,
+            (3 over 5).signum()
+        )
+        assertEquals(
+            0,
+            (0 over 5).signum()
+        )
+        assertEquals(
+            -1,
+            (-3 over 5).signum()
+        )
+    }
 }

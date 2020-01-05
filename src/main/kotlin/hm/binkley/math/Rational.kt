@@ -94,6 +94,9 @@ class Rational private constructor(
 
     fun abs() = new(numerator.abs(), denominator)
 
+    /** @todo NaN has signum 0, but what is right? */
+    fun signum() = numerator.signum()
+
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()
 

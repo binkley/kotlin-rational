@@ -16,6 +16,21 @@ expecially treating `Rational` as a `kotlin.Number`, and methods such as
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
 infix `over` constructor
 
+### Always proper form
+
+This code always keeps rationals in proper form:
+
+1. The numerator and denominator share no factors
+2. The denominator is positive
+
+### Representation of positive and negative infinity, and not a number
+
+This code represents certain special cases via implied division by zero:
+
+* `+∞` is `1 over 0`
+* `NaN` is `0 over 0`
+* `-∞` is `-1 over 0`
+
 ### `Rational` is a `Number`
 
 In this code, `Rational` is a `kotlin.Number`, in part to pick up Kotlin
