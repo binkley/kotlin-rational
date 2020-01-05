@@ -297,7 +297,7 @@ internal class RationalTest {
     fun `should progress`() {
         assertEquals(
             listOf(ONE, (2 over 1)),
-            ((1 over 1)..(2 over 1)).toList()
+            ((1 over 1)..(5 over 2)).toList()
         )
         assertEquals(
             listOf(ONE, (3 over 1)),
@@ -313,7 +313,7 @@ internal class RationalTest {
         )
         assertEquals(
             listOf((2 over 1), ONE),
-            ((2 over 1) downTo (1 over 1)).toList()
+            ((2 over 1) downTo (1 over 2)).toList()
         )
     }
 
