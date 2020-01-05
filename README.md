@@ -56,7 +56,7 @@ infinitesimals.
 In this code, `Rational` is a `kotlin.Number`, in part to pick up Kotlin
 handling of numeric types.  One consequence: This code has no conversion from
 a `Rational` to a `Char`; it raises an error.  This conversion seemed
-perverse, eg, `3/5 -> ??some character`.
+perverse, _eg_, `3/5 -> ??some character`.
 
 This code treats other conversions numerically, performing the implied
 division of a rational.  This means rounding for conversion to whole numbers
@@ -69,8 +69,8 @@ signs).
 
 There are two ways to handle division by 0:
 
-- Raise an error, what whole numbers do (eg, `1 / 0`)
-- Produce a `NaN`, what floating point does (eg, `1.0 / 0`)
+- Raise an error, what whole numbers do (_eg_, `1 / 0`)
+- Produce a `NaN`, what floating point does (_eg_, `1.0 / 0`)
 
 This code produces `NaN`, mostly to explore the problem space (which turns
 out to be rather bothersome).  A production version might rather throw an
@@ -130,7 +130,7 @@ The `Rational.new` factory method ensures this.
 
 ### GCD vs LCM
 
-There are several places that might use LCM (eg, dividing rationals).  This
+There are several places that might use LCM (_eg_, dividing rationals).  This
 code relies on the factory constructor (`Rational.new`) to use GCM for
 reducing rationals to simplest form.
 
