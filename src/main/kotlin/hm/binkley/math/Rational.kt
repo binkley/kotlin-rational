@@ -19,7 +19,10 @@ class Rational private constructor(
     override fun toLong() = (numerator / denominator).toLong()
     override fun toShort() = toLong().toShort()
 
-    /** NB -- NaN is larger than all other values, and NaN != NaN */
+    /**
+     * Sorts while ignoring [equals].  So [NaN] sorts to the end, even as
+     * `NaN != NaN`.
+     * */
     override fun compareTo(other: Rational) = when {
         this === other -> 0 // Sort stability for constants
         isNegativeInfinity() -> -1
@@ -33,7 +36,7 @@ class Rational private constructor(
         }
     }
 
-    /** NB -- NaN != NaN */
+    /** NB -- NaN != NaN, nor infinities are equal to themselves */
     override fun equals(other: Any?) = when {
         isNaN() || isInfinite() -> false
         this === other -> true

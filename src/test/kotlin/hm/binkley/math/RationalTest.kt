@@ -123,6 +123,12 @@ internal class RationalTest {
     @Test
     fun `should be itself`() {
         assertTrue(1 over 2 == 1 over 2)
+        assertTrue(ZERO == ZERO)
+        assertTrue(ONE == ONE)
+    }
+
+    @Test
+    fun `should not be itself`() {
         assertFalse(NaN == NaN)
         assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
         assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
