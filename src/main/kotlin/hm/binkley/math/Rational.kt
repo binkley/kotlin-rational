@@ -66,10 +66,7 @@ class Rational private constructor(
         denominator * other.denominator
     )
 
-    operator fun minus(other: Rational) = new(
-        numerator * other.denominator - other.numerator * denominator,
-        denominator * other.denominator
-    )
+    operator fun minus(other: Rational) = this + -other
 
     operator fun times(other: Rational) = new(
         numerator * other.numerator,
@@ -77,10 +74,7 @@ class Rational private constructor(
     )
 
     /** NB -- Division by zero returns NaN, does not raise exception */
-    operator fun div(other: Rational) = new(
-        numerator * other.denominator,
-        denominator * other.numerator
-    )
+    operator fun div(other: Rational) = this * other.reciprocal()
 
     /** NB -- Remainder by zero or NaN returns NaN, does not raise exception */
     // TODO: Find if there is a sensible meaning for modulus of a fraction
@@ -89,7 +83,7 @@ class Rational private constructor(
     operator fun rangeTo(other: Rational) = RationalProgression(this, other)
 
     fun reciprocal() = new(denominator, numerator)
-    
+
     fun pow(exponent: Int) = when {
         0 == exponent -> ONE
         0 < exponent ->

@@ -78,6 +78,22 @@ internal class RationalTest {
     }
 
     @Test
+    fun `should add`() {
+        assertEquals(
+            19 over 15,
+            (3 over 5) + (2 over 3)
+        )
+    }
+
+    @Test
+    fun `should subtract`() {
+        assertEquals(
+            -1 over 15,
+            (3 over 5) - (2 over 3)
+        )
+    }
+
+    @Test
     fun `should multiply`() {
         assertEquals(
             2 over 5,
