@@ -114,6 +114,12 @@ internal class RationalTest {
     }
 
     @Test
+    fun `should be infinity`() {
+        assertTrue((2 over 0).isPositiveInfinity())
+        assertTrue((-2 over 0).isNegativeInfinity())
+    }
+
+    @Test
     fun `should provide properties`() {
         assertEquals(BigInteger.TWO, (2 over 3).numerator)
         assertEquals(BigInteger.valueOf(3), (2 over 3).denominator)

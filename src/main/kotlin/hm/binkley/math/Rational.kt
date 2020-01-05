@@ -26,8 +26,9 @@ class Rational private constructor(
     override fun compareTo(other: Rational) = when {
         this === other -> 0 // Sort stability for constants
         isNegativeInfinity() -> -1
+        // NaN sorts after +Inf
         isNaN() -> 1
-        other.isNaN() -> -1 // NaN sorts after +Inf
+        other.isNaN() -> -1
         // isPositiveInfinity() -> 1 -- else does the right thing
         else -> {
             val a = numerator * other.denominator
