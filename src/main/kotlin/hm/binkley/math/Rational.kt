@@ -91,6 +91,8 @@ class Rational private constructor(
         else ->
             new(denominator.pow(-exponent), numerator.pow(-exponent))
     }
+    
+    fun abs() = new(numerator.abs(), denominator)
 
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()

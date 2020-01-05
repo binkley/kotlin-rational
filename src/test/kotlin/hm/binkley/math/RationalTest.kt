@@ -120,4 +120,16 @@ internal class RationalTest {
             (3 over 5).pow(-2)
         )
     }
+
+    @Test
+    fun `should absolute`() {
+        assertEquals(
+            3 over 5,
+            (3 over 5).abs()
+        )
+        assertEquals(
+            3 over 5,
+            (-3 over 5).abs()
+        )
+    }
 }
