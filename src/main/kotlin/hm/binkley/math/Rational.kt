@@ -2,7 +2,6 @@ package hm.binkley.math
 
 import hm.binkley.math.Rational.Companion.ONE
 import hm.binkley.math.Rational.Companion.ZERO
-import lombok.Generated
 import java.math.BigInteger
 import java.util.Objects
 
@@ -15,25 +14,12 @@ class Rational private constructor(
     val numerator: BInt,
     val denominator: BInt
 ) : Number(), Comparable<Rational> {
-    @Generated // Lie to JaCoCo
     override fun toByte() = toLong().toByte()
-
-    @Generated // Lie to JaCoCo
     override fun toChar(): Char = error("Characters are non-numeric")
-
-    @Generated // Lie to JaCoCo
     override fun toDouble() = numerator.toDouble() / denominator.toDouble()
-
-    @Generated // Lie to JaCoCo
     override fun toFloat() = numerator.toFloat() / denominator.toFloat()
-
-    @Generated // Lie to JaCoCo
     override fun toInt() = toLong().toInt()
-
-    @Generated // Lie to JaCoCo
     override fun toLong() = (numerator / denominator).toLong()
-
-    @Generated // Lie to JaCoCo
     override fun toShort() = toLong().toShort()
 
     /** NB -- NaN is larger than all other values, and NaN != NaN */
@@ -60,7 +46,6 @@ class Rational private constructor(
                 && denominator == other.denominator
     }
 
-    @Generated // Lie to JaCoCo
     override fun hashCode() = Objects.hash(numerator, denominator)
 
     override fun toString() = when {

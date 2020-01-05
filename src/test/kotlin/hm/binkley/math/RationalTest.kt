@@ -61,6 +61,23 @@ internal class RationalTest {
     }
 
     @Test
+    fun `should be a number`() {
+        assertEquals(1L.toByte(), (11 over 10).toByte())
+        assertEquals(1L.toShort(), (11 over 10).toShort())
+        assertEquals(1L.toInt(), (11 over 10).toInt())
+        assertEquals(1L, (11 over 10).toLong())
+        assertEquals(1.1.toFloat(), (11 over 10).toFloat())
+        assertEquals(1.1, (11 over 10).toDouble())
+    }
+
+    @Test
+    fun `should not be a character`() {
+        assertThrows<IllegalStateException> {
+            ONE.toChar()
+        }
+    }
+
+    @Test
     fun `should reduce fractions`() {
         assertEquals(
             Rational.new(BigInteger.TWO),
@@ -101,6 +118,16 @@ internal class RationalTest {
         val r = 2 over 3
         assertEquals(BigInteger.TWO, r.numerator)
         assertEquals(BigInteger.valueOf(3), r.denominator)
+    }
+
+    @Test
+    fun `should not be NaN`() {
+        assertFalse(NaN == NaN)
+    }
+
+    @Test
+    fun `should hash separately`() {
+        assertFalse((1 over 2).hashCode() == (1 over 3).hashCode())
     }
 
     @Test
