@@ -16,9 +16,11 @@ These heavily influenced the API:
 
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational),
 expecially treating `Rational` as a `kotlin.Number`, and methods such as
-`isFinite()`
+`isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
 infix `over` constructor
+- [Rational number](https://en.wikipedia.org/wiki/Rational_number) describes
+mathematical properties of ℚ, the field of the rationals
 
 ### Always proper form
 
@@ -32,6 +34,9 @@ finite.)
 
 ### Representation of positive infinity, negative infinity, and not a number
 
+(It is unclear if this code should cope with infinities and not a number.  See
+[_Division by 0_](#division-by-0) for discussion.)
+
 This code represents certain special cases via implied division by zero:
 
 * `+∞` is `1 over 0`
@@ -43,10 +48,8 @@ And preserve standard meanings:
 * `NaN` propagates
 * Operations with infinities produce an infinity, or not a number
 
-#### TODO: Cope with infinitesimals
-
-This code incorrectly returns 0 when dividing by infinities.  It presently
-has no concept of _infinitesimals_.
+Division by an infinity is zero.  This code does not have a concept of
+infinitesimals.
 
 ### `Rational` is a `Number`
 
@@ -64,13 +67,17 @@ and closest approximation for conversion to floating point.
 There are two ways to handle division by 0:
 
 - Raise an error, what whole numbers do (eg, `1 / 0`)
-- Produce a `NaN`, what floating point does (eg, `1F / 0`)
+- Produce a `NaN`, what floating point does (eg, `1.0 / 0`)
 
 This code produces `NaN`, mostly to explore the problem space (which turns
-out to be rather bothersome).  A production version would likely raise an
-error rather than produce NaN.
+out to be rather bothersome).  A production version might rather raise an
+error than produce not a number.
 
 As with floating point, `NaN != NaN`; all other values equal themselves.
+
+This code also represents infinities as division by 0 (positive infinity is
+`1 / 0`; negative infinity is `-1 / 0`).  The field of rationals (ℚ) is
+complex (in the colloquial meaning) when considering infinities.
 
 ### Sorting
 
