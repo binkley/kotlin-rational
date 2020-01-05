@@ -34,6 +34,8 @@ fun main() {
     val ratE = Rational.new(1, 2)
     for (r in ratC..ratD step ratE) println(r)
     for (r in ratD downTo ratC) println(r)
+    println("Progress by halves:")
+    for (r in (1 over 2)..(3 over 2) step (1 over 2)) println(r)
     try {
         for (r in POSITIVE_INFINITY..NaN);
     } catch (e: IllegalStateException) {
