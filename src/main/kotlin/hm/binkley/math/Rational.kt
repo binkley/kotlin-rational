@@ -60,6 +60,7 @@ class Rational private constructor(
                 && denominator == other.denominator
     }
 
+    @Generated // Lie to JaCoCo
     override fun hashCode() = Objects.hash(numerator, denominator)
 
     override fun toString() = when {

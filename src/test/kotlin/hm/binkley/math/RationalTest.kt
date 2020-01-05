@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.math.BigInteger
 
 /**
@@ -62,7 +63,7 @@ internal class RationalTest {
     @Test
     fun `should reduce fractions`() {
         assertEquals(
-            Rational.new(2),
+            Rational.new(BigInteger.TWO),
             BigInteger.valueOf(4) over BigInteger.TWO
         )
     }
@@ -86,9 +87,20 @@ internal class RationalTest {
             +(4 over -4L)
         )
         assertEquals(
-            BigInteger.ONE,
-            (4 over -4).denominator
+            -ONE,
+            +(-4 over 4L)
         )
+        assertEquals(
+            ONE,
+            (-4 over -4)
+        )
+    }
+
+    @Test
+    fun `should provide properties`() {
+        val r = 2 over 3
+        assertEquals(BigInteger.TWO, r.numerator)
+        assertEquals(BigInteger.valueOf(3), r.denominator)
     }
 
     @Test
@@ -149,7 +161,7 @@ internal class RationalTest {
 
     @Test
     fun `should increment`() {
-        var a = ONE
+        var a = Rational.new(1L)
         assertEquals(
             2 over 1,
             ++a
@@ -260,6 +272,20 @@ internal class RationalTest {
             listOf((2 over 1), ONE),
             ((2 over 1) downTo (1 over 1)).toList()
         )
+    }
+
+    @Suppress("ControlFlowWithEmptyBody")
+    @Test
+    fun `should not progress`() {
+        assertThrows<IllegalStateException> {
+            for (r in ZERO..NaN);
+        }
+        assertThrows<IllegalStateException> {
+            for (r in NaN..ZERO);
+        }
+        assertThrows<IllegalStateException> {
+            for (r in ZERO..ZERO step NaN);
+        }
     }
 
     @Test
