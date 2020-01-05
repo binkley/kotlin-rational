@@ -99,17 +99,17 @@ class Rational private constructor(
 
     fun reciprocal() = new(denominator, numerator)
 
+    fun abs() = new(numerator.abs(), denominator)
+
+    /** @todo NaN has signum 0, but what is right? */
+    fun signum() = numerator.signum()
+
     fun pow(exponent: Int) = when {
         0 <= exponent ->
             new(numerator.pow(exponent), denominator.pow(exponent))
         else ->
             new(denominator.pow(-exponent), numerator.pow(-exponent))
     }
-
-    fun abs() = new(numerator.abs(), denominator)
-
-    /** @todo NaN has signum 0, but what is right? */
-    fun signum() = numerator.signum()
 
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()

@@ -79,11 +79,12 @@ counterpart.
 - `isNan()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
 infinite
-- `reciprocal()`, `pow(exponent)`
+- `reciprocal()`, `abs()`, `signum()`, `pow(exponent)`
 
 ### Operators
 
-- All Kotlin numeric operators except `rem` (division is exact)
+- All Kotlin numeric operators except `rem` (division is exact; also, avoid
+implementing LCM)
 - Ranges and progressions
 
 ## Implementation choices
@@ -102,6 +103,7 @@ constants, and relevant code checks for those constants.
 
 See:
 
-- `isNaN()`
-- `isPositiveInfinity()`
-- `isNegativeInfinity()`
+- `Nan`, `isNaN()`
+- `POSITIVE_INFINITY`, `isPositiveInfinity()`
+- `NEGATIVE_INFINITY`, `isNegativeInfinity()`
+- `ZERO`, `ONE`
