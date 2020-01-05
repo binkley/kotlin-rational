@@ -350,12 +350,16 @@ internal class RationalTest {
     @Test
     fun `should propagate NaN`() {
         assertTrue((ZERO + NaN).isNaN())
+        assertTrue((NaN + NaN).isNaN())
         assertTrue((NaN + ONE).isNaN())
         assertTrue((NaN - ZERO).isNaN())
+        assertTrue((NaN - NaN).isNaN())
         assertTrue((ZERO - NaN).isNaN())
         assertTrue((ONE * NaN).isNaN())
+        assertTrue((NaN * NaN).isNaN())
         assertTrue((NaN * ONE).isNaN())
         assertTrue((NaN / ONE).isNaN())
+        assertTrue((NaN / NaN).isNaN())
         assertTrue((ONE / NaN).isNaN())
     }
 
