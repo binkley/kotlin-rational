@@ -269,4 +269,12 @@ internal class RationalTest {
         assertFalse(NEGATIVE_INFINITY.isFinite())
         assertFalse(NaN.isFinite())
     }
+
+    @Test
+    fun `should check infinitude`() {
+        assertFalse(ZERO.isInfinite())
+        assertTrue(POSITIVE_INFINITY.isInfinite())
+        assertTrue(NEGATIVE_INFINITY.isInfinite())
+        assertFalse(NaN.isInfinite())
+    }
 }
