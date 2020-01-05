@@ -7,7 +7,9 @@ import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.Rational.Companion.ZERO
 import hm.binkley.math.downTo
 import hm.binkley.math.over
+import lombok.Generated
 
+@Generated // Lie to JaCoCo
 fun main() {
     println("ZERO is $ZERO")
     println("NaN is $NaN")

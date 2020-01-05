@@ -148,4 +148,16 @@ internal class RationalTest {
             (-3 over 5).signum()
         )
     }
+
+    @Test
+    fun `should progress`() {
+        assertEquals(
+            listOf(ONE, (2 over 1)),
+            ((1 over 1)..(2 over 1)).toList()
+        )
+        assertEquals(
+            listOf((2 over 1), ONE),
+            ((2 over 1) downTo (1 over 1)).toList()
+        )
+    }
 }
