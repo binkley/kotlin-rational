@@ -91,7 +91,7 @@ class Rational private constructor(
         else ->
             new(denominator.pow(-exponent), numerator.pow(-exponent))
     }
-    
+
     fun abs() = new(numerator.abs(), denominator)
 
     /** NB -- NaN is not finite */
@@ -121,12 +121,7 @@ class Rational private constructor(
                 d = d.negate()
             }
 
-            tailrec fun gcd(p: BInt, q: BInt): BInt {
-                if (q == BInt.ZERO) return p
-                return gcd(q, p % q)
-            }
-
-            val gcd = gcd(n, d).abs()
+            val gcd = numerator.gcd(denominator)
             if (gcd != BInt.ZERO) {
                 n /= gcd
                 d /= gcd
