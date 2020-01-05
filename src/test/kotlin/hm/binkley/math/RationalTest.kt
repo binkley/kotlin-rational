@@ -108,4 +108,16 @@ internal class RationalTest {
             (3 over 5) / (2 over 3)
         )
     }
+
+    @Test
+    fun `should raise`() {
+        assertEquals(
+            9 over 25,
+            (3 over 5).pow(2)
+        )
+        assertEquals(
+            25 over 9,
+            (3 over 5).pow(-2)
+        )
+    }
 }

@@ -89,7 +89,7 @@ class Rational private constructor(
         0 < exponent ->
             new(numerator.pow(exponent), denominator.pow(exponent))
         else ->
-            new(denominator.pow(exponent), numerator.pow(exponent))
+            new(denominator.pow(-exponent), numerator.pow(-exponent))
     }
 
     /** NB -- NaN is not finite */
