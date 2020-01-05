@@ -115,8 +115,7 @@ infinite
 
 ### Operators
 
-- All Kotlin numeric operators except `rem` (division is exact; also, avoid
-implementing LCM)
+- All numeric operators except `rem` (division is exact)
 - Ranges and progressions
 
 ## Implementation choices
