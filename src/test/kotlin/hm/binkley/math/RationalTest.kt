@@ -303,4 +303,24 @@ internal class RationalTest {
         assertTrue(NEGATIVE_INFINITY.isInfinite())
         assertFalse(NaN.isInfinite())
     }
+
+    @Test
+    fun `should propagate NaN`() {
+        assertTrue((ZERO + NaN).isNaN())
+        assertTrue((NaN - ZERO).isNaN())
+        assertTrue((ONE * NaN).isNaN())
+        assertTrue((NaN / ONE).isNaN())
+    }
+
+    @Test
+    fun `should propagate infinities`() {
+        assertEquals(POSITIVE_INFINITY, -NEGATIVE_INFINITY)
+        assertEquals(POSITIVE_INFINITY, ONE + POSITIVE_INFINITY)
+        assertEquals(NEGATIVE_INFINITY, NEGATIVE_INFINITY - ONE)
+        assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
+        assertEquals(NEGATIVE_INFINITY, POSITIVE_INFINITY * NEGATIVE_INFINITY)
+        assertTrue((POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN())
+        assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
+        assertTrue((NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
+    }
 }

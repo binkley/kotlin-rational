@@ -24,16 +24,24 @@ infix `over` constructor
 
 This code always keeps rationals in proper form:
 
-1. The numerator and denominator share no factors
-2. The denominator is positive
+1. The numerator and denominator are coprime
+2. The denominator is non-negative
 
-### Representation of positive and negative infinity, and not a number
+(In more detail, the denominator is always positive when the rational is
+finite.)
+
+### Representation of positive infinity, negative infinity, and not a number
 
 This code represents certain special cases via implied division by zero:
 
 * `+∞` is `1 over 0`
 * `NaN` is `0 over 0`
 * `-∞` is `-1 over 0`
+
+And preserve standard meanings:
+
+* `NaN` propagates
+* Operations with infinities produce an infinity, or not a number
 
 ### `Rational` is a `Number`
 
