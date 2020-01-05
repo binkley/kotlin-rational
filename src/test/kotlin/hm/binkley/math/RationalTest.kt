@@ -358,4 +358,28 @@ internal class RationalTest {
         assertEquals(ZERO, ONE / POSITIVE_INFINITY)
         assertEquals(ZERO, ONE / NEGATIVE_INFINITY)
     }
+
+    @Test
+    fun `should find GCD (HCF)`() {
+        assertEquals(
+            2 over 63,
+            (2 over 9).gcd(6 over 21)
+        )
+        assertEquals(
+            (2 over 9),
+            ZERO.gcd(2 over 9)
+        )
+    }
+
+    @Test
+    fun `should find LCM (LCD)`() {
+        assertEquals(
+            2 over 1,
+            (2 over 9).lcm(6 over 21)
+        )
+        assertEquals(
+            ZERO,
+            ZERO.lcm(6 over 21)
+        )
+    }
 }

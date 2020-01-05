@@ -96,6 +96,16 @@ class Rational private constructor(
             new(denominator.pow(-exponent), numerator.pow(-exponent))
     }
 
+    fun gcd(other: Rational) = new(
+        numerator.gcd(other.numerator),
+        denominator.lcm(other.denominator)
+    )
+
+    fun lcm(other: Rational) = new(
+        numerator.lcm(other.numerator),
+        denominator.gcd(other.denominator)
+    )
+
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()
 
@@ -105,6 +115,8 @@ class Rational private constructor(
     fun isNaN() = this === NaN
     fun isPositiveInfinity() = this === POSITIVE_INFINITY
     fun isNegativeInfinity() = this === NEGATIVE_INFINITY
+
+    private fun BInt.lcm(other: BInt) = this * (other / gcd(other))
 
     companion object {
         // TODO: Consider alternative of Rational as a sealed class, with

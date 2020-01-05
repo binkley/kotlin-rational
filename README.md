@@ -21,7 +21,6 @@ expecially treating `Rational` as a `kotlin.Number`, and methods such as
 infix `over` constructor
 - [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
 mathematical properties of ℚ, the field of the rationals
-- [_LCM of Fractions : Educational Articles  | Edugain USA_](https://us.edugain.com/articles/6/LCM-of-Fractions/)
 
 ### Always proper form
 
@@ -112,6 +111,7 @@ counterpart.
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
 infinite
 - `reciprocal()`, `abs()`, `signum()`, `pow(exponent)`
+- `gcm(other)`, `lcd(other)`
 
 ### Operators
 
