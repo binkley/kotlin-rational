@@ -43,6 +43,11 @@ And preserve standard meanings:
 * `NaN` propagates
 * Operations with infinities produce an infinity, or not a number
 
+#### TODO: Cope with infinitesimals
+
+This code incorrectly returns 0 when dividing by infinities.  It presently
+has no concept of _infinitesimals_.
+
 ### `Rational` is a `Number`
 
 In this code, `Rational` is a `kotlin.Number`, in part to pick up Kotlin
