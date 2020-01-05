@@ -115,9 +115,8 @@ internal class RationalTest {
 
     @Test
     fun `should provide properties`() {
-        val r = 2 over 3
-        assertEquals(BigInteger.TWO, r.numerator)
-        assertEquals(BigInteger.valueOf(3), r.denominator)
+        assertEquals(BigInteger.TWO, (2 over 3).numerator)
+        assertEquals(BigInteger.valueOf(3), (2 over 3).denominator)
     }
 
     @Test
