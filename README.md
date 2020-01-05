@@ -56,13 +56,16 @@ infinitesimals.
 In this code, `Rational` is a `kotlin.Number`, in part to pick up Kotlin
 handling of numeric types.  One consequence: This code has no conversion from
 a `Rational` to a `Char`; it raises an error.  This conversion seemed
-perverse, eg, `3/5 -> ??`.
+perverse, eg, `3/5 -> ??some character`.
 
 This code treats other conversions numerically, performing the implied
-division of a rational.  This means rounding for conversion to whole numbers,
-and closest approximation for conversion to floating point.
+division of a rational.  This means rounding for conversion to whole numbers
+following Java conventions (positive result if numerator and denominator
+have the same sign; negative result if they are oppositely signed), and
+closest approximation for conversion to floating point (similar rules on
+signs).
 
-### Division by 0
+### Division by 0, infinities
 
 There are two ways to handle division by 0:
 
@@ -70,10 +73,14 @@ There are two ways to handle division by 0:
 - Produce a `NaN`, what floating point does (eg, `1.0 / 0`)
 
 This code produces `NaN`, mostly to explore the problem space (which turns
-out to be rather bothersome).  A production version might rather raise an
-error than produce not a number.
+out to be rather bothersome).  A production version might rather throw an
+`ArithmeticError` than a `NaN`.
 
-As with floating point, `NaN != NaN`; all other values equal themselves.
+As with floating point, `NaN != NaN`, and finite values equals themselves.
+As with mathematics, inifities are also not equal to themselves, so
+`POSITIVE_INFINITY != POSITIVE_INFINTY` and
+`NEGATIVE_INFINITY != NEGATIVE_INFINITY`.  (This code does not provide the
+needed sense of equivalence, nor does it cope with infinitesimals.)
 
 This code also represents infinities as division by 0 (positive infinity is
 `1 / 0`; negative infinity is `-1 / 0`).  The field of rationals (ℚ) is
@@ -84,9 +91,9 @@ complex (in the colloquial meaning) when considering infinities.
 All values sort in the natural mathematical sense, except that `NaN` always
 sort to last, following the convention of floating point.
 
-### Additive inverse
-
-This code considers simplest forms as having a positive denominator.
+All `NaN` are "quiet"; none are "signaling", including sorting.  This follows
+the Java convention for floating point.  (See
+[`NaN`](https://en.wikipedia.org/wiki/NaN).)
 
 ## API
 

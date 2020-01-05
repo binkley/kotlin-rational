@@ -121,8 +121,11 @@ internal class RationalTest {
     }
 
     @Test
-    fun `should not be NaN`() {
+    fun `should be itself`() {
+        assertTrue(1 over 2 == 1 over 2)
         assertFalse(NaN == NaN)
+        assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
+        assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
     }
 
     @Test
@@ -206,7 +209,7 @@ internal class RationalTest {
 
     @Test
     fun `should sort`() {
-        val toSort = listOf(
+        val sorted = listOf(
             POSITIVE_INFINITY,
             NaN,
             ZERO,
@@ -215,20 +218,13 @@ internal class RationalTest {
             NEGATIVE_INFINITY,
             ZERO,
             NEGATIVE_INFINITY
-        )
-        val sorted = toSort.sorted()
-        // Careful, as NaN != NaN
-        assertEquals(
-            listOf(
-                NEGATIVE_INFINITY,
-                NEGATIVE_INFINITY,
-                ZERO,
-                ZERO,
-                POSITIVE_INFINITY,
-                POSITIVE_INFINITY
-            ),
-            sorted.slice(0..5)
-        )
+        ).sorted()
+        assertTrue(sorted[0].isNegativeInfinity())
+        assertTrue(sorted[1].isNegativeInfinity())
+        assertEquals(ZERO, sorted[2])
+        assertEquals(ZERO, sorted[3])
+        assertTrue(sorted[4].isPositiveInfinity())
+        assertTrue(sorted[5].isPositiveInfinity())
         assertTrue(sorted[6].isNaN())
         assertTrue(sorted[7].isNaN())
     }
@@ -345,11 +341,13 @@ internal class RationalTest {
 
     @Test
     fun `should propagate infinities`() {
-        assertEquals(POSITIVE_INFINITY, -NEGATIVE_INFINITY)
-        assertEquals(POSITIVE_INFINITY, ONE + POSITIVE_INFINITY)
-        assertEquals(NEGATIVE_INFINITY, NEGATIVE_INFINITY - ONE)
+        assertTrue((-NEGATIVE_INFINITY).isPositiveInfinity())
+        assertTrue((ONE + POSITIVE_INFINITY).isPositiveInfinity())
+        assertTrue((NEGATIVE_INFINITY - ONE).isNegativeInfinity())
         assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
-        assertEquals(NEGATIVE_INFINITY, POSITIVE_INFINITY * NEGATIVE_INFINITY)
+        assertTrue((POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity())
+        assertTrue((POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity())
+        assertTrue((NEGATIVE_INFINITY * NEGATIVE_INFINITY).isPositiveInfinity())
         assertTrue((POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN())
         assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
         assertTrue((NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
