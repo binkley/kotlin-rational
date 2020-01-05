@@ -29,7 +29,7 @@ class Rational private constructor(
         // NaN sorts after +Inf
         isNaN() -> 1
         other.isNaN() -> -1
-        // isPositiveInfinity() -> 1 -- else does the right thing
+        // isPositiveInfinity() -> 1 -- else handles this
         else -> {
             val a = numerator * other.denominator
             val b = other.numerator * denominator
