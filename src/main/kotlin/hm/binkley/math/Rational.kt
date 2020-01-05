@@ -123,7 +123,7 @@ class Rational private constructor(
     fun isPositiveInfinity() = this === POSITIVE_INFINITY
     fun isNegativeInfinity() = this === NEGATIVE_INFINITY
 
-    private fun BInt.lcm(other: BInt) = this * (other / gcd(other))
+    private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
     companion object {
         val NaN = Rational(BInt.ZERO, BInt.ZERO)
