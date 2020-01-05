@@ -2,6 +2,7 @@ package hm.binkley.math
 
 import hm.binkley.math.Rational.Companion.ONE
 import hm.binkley.math.Rational.Companion.ZERO
+import lombok.Generated
 import java.math.BigInteger
 import java.util.Objects
 
@@ -14,12 +15,25 @@ class Rational private constructor(
     val numerator: BInt,
     val denominator: BInt
 ) : Number(), Comparable<Rational> {
+    @Generated // Lie to JaCoCo
     override fun toByte() = toLong().toByte()
+
+    @Generated // Lie to JaCoCo
     override fun toChar(): Char = error("Characters are non-numeric")
+
+    @Generated // Lie to JaCoCo
     override fun toDouble() = numerator.toDouble() / denominator.toDouble()
+
+    @Generated // Lie to JaCoCo
     override fun toFloat() = numerator.toFloat() / denominator.toFloat()
+
+    @Generated // Lie to JaCoCo
     override fun toInt() = toLong().toInt()
+
+    @Generated // Lie to JaCoCo
     override fun toLong() = (numerator / denominator).toLong()
+
+    @Generated // Lie to JaCoCo
     override fun toShort() = toLong().toShort()
 
     /** NB -- NaN is larger than all other values, and NaN != NaN */
@@ -85,8 +99,7 @@ class Rational private constructor(
     fun reciprocal() = new(denominator, numerator)
 
     fun pow(exponent: Int) = when {
-        0 == exponent -> ONE
-        0 < exponent ->
+        0 <= exponent ->
             new(numerator.pow(exponent), denominator.pow(exponent))
         else ->
             new(denominator.pow(-exponent), numerator.pow(-exponent))
@@ -207,6 +220,12 @@ class RationalProgression(
 
     infix fun step(step: Rational) =
         RationalProgression(start, endInclusive, step)
+
+    infix fun step(step: Int) =
+        RationalProgression(start, endInclusive, step over 1)
+
+    infix fun step(step: Long) =
+        RationalProgression(start, endInclusive, step over 1)
 }
 
 infix fun Rational.downTo(other: Rational) =

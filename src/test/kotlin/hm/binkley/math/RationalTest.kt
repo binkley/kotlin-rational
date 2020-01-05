@@ -8,10 +8,16 @@ import hm.binkley.math.Rational.Companion.ONE
 import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.Rational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertSame
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.math.BigInteger
 
+/**
+ * NB -- the tests use a mixture of constructors while testing functionality.
+ * This is intentional, and raises coverage.
+ */
 internal class RationalTest {
     @Test
     fun `should construct NaN`() {
@@ -25,7 +31,7 @@ internal class RationalTest {
     fun `should construct +∞`() {
         assertSame(
             POSITIVE_INFINITY,
-            Long.MAX_VALUE over 0
+            Long.MAX_VALUE over 0L
         )
     }
 
@@ -33,7 +39,7 @@ internal class RationalTest {
     fun `should construct -∞`() {
         assertSame(
             NEGATIVE_INFINITY,
-            Long.MIN_VALUE over 0
+            Long.MIN_VALUE over BigInteger.ZERO
         )
     }
 
@@ -41,7 +47,15 @@ internal class RationalTest {
     fun `should construct 0`() {
         assertSame(
             ZERO,
-            0 over Long.MIN_VALUE
+            0L over Long.MIN_VALUE
+        )
+    }
+
+    @Test
+    fun `should construct 1`() {
+        assertSame(
+            ONE,
+            BigInteger.ONE over 1
         )
     }
 
@@ -49,19 +63,19 @@ internal class RationalTest {
     fun `should reduce fractions`() {
         assertEquals(
             Rational.new(2),
-            4 over 2
+            BigInteger.valueOf(4) over BigInteger.TWO
         )
     }
 
     @Test
     fun `should simplify fractions`() {
         assertEquals(
-            1 over 2,
-            4 over 8
+            1 over BigInteger.TWO,
+            BigInteger.valueOf(4) over 8L
         )
         assertEquals(
             BigInteger.valueOf(2),
-            (4 over 8).denominator
+            (4L over 8).denominator
         )
     }
 
@@ -69,11 +83,35 @@ internal class RationalTest {
     fun `should maintain positive denominator`() {
         assertEquals(
             -ONE,
-            4 over -4
+            +(4 over -4L)
         )
         assertEquals(
             BigInteger.ONE,
             (4 over -4).denominator
+        )
+    }
+
+    @Test
+    fun `should pretty print`() {
+        assertEquals(
+            "NaN",
+            NaN.toString()
+        )
+        assertEquals(
+            "+∞",
+            POSITIVE_INFINITY.toString()
+        )
+        assertEquals(
+            "-∞",
+            NEGATIVE_INFINITY.toString()
+        )
+        assertEquals(
+            "0",
+            ZERO.toString()
+        )
+        assertEquals(
+            "1/2",
+            (1 over 2).toString()
         )
     }
 
@@ -110,10 +148,61 @@ internal class RationalTest {
     }
 
     @Test
+    fun `should increment`() {
+        var a = ONE
+        assertEquals(
+            2 over 1,
+            ++a
+        )
+    }
+
+    @Test
+    fun `should decrement`() {
+        var a = ONE
+        assertEquals(
+            ZERO,
+            --a
+        )
+    }
+
+    @Test
+    fun `should sort`() {
+        val toSort = listOf(
+            POSITIVE_INFINITY,
+            NaN,
+            ZERO,
+            POSITIVE_INFINITY,
+            NaN,
+            NEGATIVE_INFINITY,
+            ZERO,
+            NEGATIVE_INFINITY
+        )
+        val sorted = toSort.sorted()
+        // Careful, as NaN != NaN
+        assertEquals(
+            listOf(
+                NEGATIVE_INFINITY,
+                NEGATIVE_INFINITY,
+                ZERO,
+                ZERO,
+                POSITIVE_INFINITY,
+                POSITIVE_INFINITY
+            ),
+            sorted.slice(0..5)
+        )
+        assertTrue(sorted[6].isNaN())
+        assertTrue(sorted[7].isNaN())
+    }
+
+    @Test
     fun `should raise`() {
         assertEquals(
             9 over 25,
             (3 over 5).pow(2)
+        )
+        assertEquals(
+            ONE,
+            (3 over 5).pow(0)
         )
         assertEquals(
             25 over 9,
@@ -156,8 +245,28 @@ internal class RationalTest {
             ((1 over 1)..(2 over 1)).toList()
         )
         assertEquals(
+            listOf(ONE, (3 over 1)),
+            ((1 over 1)..(3 over 1) step 2).toList()
+        )
+        assertEquals(
+            listOf(ONE, (3 over 1)),
+            ((1 over 1)..(3 over 1) step 2L).toList()
+        )
+        assertEquals(
+            listOf(ONE, (3 over 1)),
+            ((1 over 1)..(3 over 1) step (2 over 1)).toList()
+        )
+        assertEquals(
             listOf((2 over 1), ONE),
             ((2 over 1) downTo (1 over 1)).toList()
         )
+    }
+
+    @Test
+    fun `should check finitude`() {
+        assertTrue(ZERO.isFinite())
+        assertFalse(POSITIVE_INFINITY.isFinite())
+        assertFalse(NEGATIVE_INFINITY.isFinite())
+        assertFalse(NaN.isFinite())
     }
 }

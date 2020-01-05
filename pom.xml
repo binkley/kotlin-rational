@@ -12,7 +12,7 @@
     <properties>
         <!-- @formatter:off -->
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <jacoco-minimum-coverage>40%</jacoco-minimum-coverage>
+        <jacoco-minimum-line-coverage>91%</jacoco-minimum-line-coverage>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
         <junit.version>5.5.2</junit.version>
@@ -116,7 +116,7 @@
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>
-                                                ${jacoco-minimum-coverage}
+                                                ${jacoco-minimum-line-coverage}
                                             </minimum>
                                         </limit>
                                     </limits>
