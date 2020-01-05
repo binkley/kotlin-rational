@@ -260,17 +260,26 @@ internal class RationalTest {
     @Test
     fun `should signum`() {
         assertEquals(
-            1,
+            ONE,
             (3 over 5).signum()
         )
         assertEquals(
-            0,
+            ZERO,
             (0 over 5).signum()
         )
         assertEquals(
-            -1,
+            -ONE,
             (-3 over 5).signum()
         )
+        assertEquals(
+            -ONE,
+            NEGATIVE_INFINITY.signum()
+        )
+        assertEquals(
+            ONE,
+            POSITIVE_INFINITY.signum()
+        )
+        assertTrue(NaN.signum().isNaN())
     }
 
     @Test

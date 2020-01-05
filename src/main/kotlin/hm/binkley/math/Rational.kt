@@ -7,9 +7,6 @@ import java.util.Objects
 
 private typealias BInt = BigInteger
 
-/**
- * @todo Propagate NaN-ness
- */
 class Rational private constructor(
     val numerator: BInt,
     val denominator: BInt
@@ -86,8 +83,10 @@ class Rational private constructor(
 
     fun abs() = new(numerator.abs(), denominator)
 
-    /** @todo NaN has signum 0, but what is right? */
-    fun signum() = numerator.signum()
+    fun signum() = when {
+        isNaN() -> NaN
+        else -> new(numerator.signum())
+    }
 
     fun pow(exponent: Int) = when {
         0 <= exponent ->
@@ -119,8 +118,6 @@ class Rational private constructor(
     private fun BInt.lcm(other: BInt) = this * (other / gcd(other))
 
     companion object {
-        // TODO: Consider alternative of Rational as a sealed class, with
-        //  special cases able to handle themselves, eg, toString
         val NaN = Rational(BInt.ZERO, BInt.ZERO)
         val ZERO = Rational(BInt.ZERO, BInt.ONE)
         val ONE = Rational(BInt.ONE, BInt.ONE)
@@ -156,8 +153,11 @@ class Rational private constructor(
             return Rational(n, d)
         }
 
-        fun new(numerator: Long, denominator: Long = 1) =
+        fun new(numerator: Long, denominator: Long = 1L) =
             new(BInt.valueOf(numerator), BInt.valueOf(denominator))
+
+        fun new(numerator: Int, denominator: Int = 1) =
+            new(numerator.toLong(), denominator.toLong())
 
         fun new(numerator: BInt, denominator: Long) =
             new(numerator, BInt.valueOf(denominator))

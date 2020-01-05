@@ -139,3 +139,11 @@ See:
 - `POSITIVE_INFINITY`, `isPositiveInfinity()`
 - `NEGATIVE_INFINITY`, `isNegativeInfinity()`
 - `ZERO`, `ONE`
+
+### Special case handling _vs_ sealed class
+
+This code uses special case handling for `NaN`, `POSITIVE_INFINITY`, and
+`NEGATIVE_INFINITY`.  An alternative is to make `Rational` a sealed class with
+separate subclasses for those.  This would also allow for handling of
+infinitesimals.  However, the abstraction bleeds between subclasses.  It is
+unclear if a sealed class makes clearer code.
