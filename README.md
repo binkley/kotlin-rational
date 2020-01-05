@@ -12,15 +12,16 @@ impact of `NaN` (which is extensive).
 
 ## Design choices
 
-These heavily influenced the API:
+These were great help:
 
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational),
 expecially treating `Rational` as a `kotlin.Number`, and methods such as
 `isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
 infix `over` constructor
-- [Rational number](https://en.wikipedia.org/wiki/Rational_number) describes
+- [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
 mathematical properties of ℚ, the field of the rationals
+- [_LCM of Fractions : Educational Articles  | Edugain USA_](https://us.edugain.com/articles/6/LCM-of-Fractions/)
 
 ### Always proper form
 
@@ -35,7 +36,7 @@ finite.)
 ### Representation of positive infinity, negative infinity, and not a number
 
 (It is unclear if this code should cope with infinities and not a number.  See
-[_Division by 0_](#division-by-0) for discussion.)
+[Division by 0, infinities](#division-by-0-infinities) for discussion.)
 
 This code represents certain special cases via implied division by zero:
 
