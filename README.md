@@ -121,6 +121,13 @@ implementing LCM)
 
 ## Implementation choices
 
+### Always simplest terms
+
+(See [_Always proper form_](#always-proper-form).)
+
+Much of the code assumes the rational is in simplest terms (proper form).
+The `Rational.new` factory method ensures this.
+
 ### GCD vs LCM
 
 There are several places that might use LCM (eg, dividing rationals).  This
