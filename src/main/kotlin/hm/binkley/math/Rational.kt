@@ -39,10 +39,10 @@ class Rational private constructor(
 
     /** NB -- NaN != NaN, nor infinities are equal to themselves */
     override fun equals(other: Any?) = when {
-        isNaN() || isInfinite() -> false
+        !isFinite() -> false
         this === other -> true
         other !is Rational -> false
-        other.isNaN() || other.isInfinite() -> false
+        !other.isFinite() -> false
         else -> numerator == other.numerator
                 && denominator == other.denominator
     }
