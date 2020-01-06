@@ -41,6 +41,7 @@ fun main() {
     println()
 
     try {
+        @Suppress("ControlFlowWithEmptyBody")
         for (r in POSITIVE_INFINITY..NaN);
     } catch (e: IllegalStateException) {
         println("Expected error for progression containing $NaN: $e")

@@ -18,7 +18,7 @@ Try `./run.sh` for a demonstration.
 These were great help:
 
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational),
-expecially treating `Rational` as a `kotlin.Number`, and methods such as
+especially treating `Rational` as a `kotlin.Number`, and methods such as
 `isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
 infix `over` constructor, and various overloads
@@ -29,7 +29,7 @@ mathematical properties of ℚ, the field of the rationals
 
 This code always keeps rationals in proper form:
 
-1. The numerator and denominator are coprime ("lowest form")
+1. The numerator and denominator are coprime (in "lowest form")
 2. The denominator is non-negative
 
 (The denominator is always positive when the rational is finite; it is zero
@@ -118,7 +118,7 @@ counterpart.
 
 ### Properties
 
-- `numerator` and `denominator` behave as expected
+- `numerator`, `denominator` behave as expected
 
 ### Methods
 
@@ -143,7 +143,7 @@ then so is a `BigInteger`, `Long`, and `Int`.
 
 ## Implementation choices
 
-### Always simplest terms
+### Always in simplest terms
 
 (See [_Always proper form_](#always-proper-form).)
 
