@@ -4,11 +4,12 @@
 
 # Kotlin Rational
 
-An immutable, infinite-precision Rational (ratio, fraction) class for Kotlin
+An immutable, infinite-precision `Rational` (ratio, fraction) class for Kotlin
 
-This code is "finger exercise", largely demonstrating Kotlin operator
+This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading, and writing clear, concise, clean Kotlin.  It also explores the
-impact of `NaN` (which is extensive).
+impact of `NaN` (which is extensive) rather than raising an error on division
+by zero.
 
 ## Design choices
 
@@ -18,7 +19,7 @@ These were great help:
 expecially treating `Rational` as a `kotlin.Number`, and methods such as
 `isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
-infix `over` constructor
+infix `over` constructor, and various overloads
 - [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
 mathematical properties of ℚ, the field of the rationals
 
