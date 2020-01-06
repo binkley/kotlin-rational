@@ -25,8 +25,8 @@ class Rational private constructor(
 
     /**
      * Sorts while ignoring [equals].  So [NaN] sorts to the end, even as
-     * `NaN != NaN`.
-     * */
+     * `NaN != NaN` (and similarly for the infinities).
+     */
     override fun compareTo(other: Rational) = when {
         this === other -> 0 // Sort stability for constants
         isNegativeInfinity() -> -1
