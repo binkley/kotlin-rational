@@ -27,13 +27,14 @@ mathematical properties of ℚ, the field of the rationals
 
 This code always keeps rationals in proper form:
 
-1. The numerator and denominator are coprime
+1. The numerator and denominator are coprime ("lowest form")
 2. The denominator is non-negative
 
-(In more detail, the denominator is always positive when the rational is
-finite.)
+(The denominator is always positive when the rational is finite; it is zero
+for the special values `NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as
+an implementation detail).
 
-### Representation of positive infinity, negative infinity, and not a number
+### Representation of not a number and infinities
 
 (It is unclear if this code should cope with infinities and not a number.  See
 [Division by 0, infinities](#division-by-0-infinities) for discussion.)
@@ -49,8 +50,12 @@ And preserve standard meanings:
 * `NaN` propagates
 * Operations with infinities produce an infinity, or not a number
 
-Division by an infinity is zero.  This code does not have a concept of
-infinitesimals.
+So `NaN.denominator`, `POSITIVE_INFINITY.denominator`, and
+`NEGATIVE_INFINITY.denominator` all return zero.
+
+Division by an infinity is zero, as the reciprocal of an infinity.  This code
+does not have a concept of infinitesimals ("ϵ or δ").  See
+[_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for discussion.
 
 ### `Rational` is a `Number`
 
@@ -167,3 +172,9 @@ unclear if a sealed class makes clearer code.
 There are several places that might use LCM (_eg_, dividing rationals).  This
 code relies on the factory constructor (`Rational.new`) to use GCM for
 reducing rationals to simplest form.
+
+## Further reading
+
+- [_Wheel of fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
+- [_Surreal number_](https://en.wikipedia.org/wiki/Surreal_number)
+- [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
