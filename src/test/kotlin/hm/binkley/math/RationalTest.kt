@@ -556,4 +556,12 @@ internal class RationalTest {
             ZERO.lcm(6 over 21)
         )
     }
+
+    @Test
+    fun `should note dyadic rationals`() {
+        assertTrue((1 over 2).isDyadic())
+        assertTrue((2 over 1).isDyadic())
+        assertTrue(ZERO.isDyadic())
+        assertFalse((2 over 3).isDyadic())
+    }
 }

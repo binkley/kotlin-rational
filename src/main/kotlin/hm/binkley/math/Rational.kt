@@ -128,6 +128,10 @@ class Rational private constructor(
     /** NB -- NaN is not finite */
     fun isFinite() = !isNaN() && !isInfinite()
 
+    fun isDyadic() = isFinite()
+            && (BigInteger.ONE == denominator
+            || BigInteger.ZERO == denominator % BigInteger.TWO)
+
     /** NB -- NaN is not infinite */
     fun isInfinite() = isPositiveInfinity() || isNegativeInfinity()
 
