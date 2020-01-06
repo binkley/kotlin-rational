@@ -2,11 +2,15 @@ package hm.binkley.math
 
 import hm.binkley.math.Rational.Companion.ONE
 import hm.binkley.math.Rational.Companion.ZERO
+import hm.binkley.math.Rational.Companion.new
 import java.math.BigInteger
 import java.util.Objects
 
 private typealias BInt = BigInteger
 
+/**
+ * @todo Consider `Short` and `Byte` overloads
+ */
 class Rational private constructor(
     val numerator: BInt,
     val denominator: BInt
@@ -62,25 +66,36 @@ class Rational private constructor(
     operator fun inc() = new(numerator + denominator, denominator)
     operator fun dec() = new(numerator - denominator, denominator)
 
+    operator fun plus(other: Int) = this + other.toRational()
+    operator fun plus(other: Long) = this + other.toRational()
+    operator fun plus(other: BInt) = this + other.toRational()
     operator fun plus(other: Rational) = new(
         numerator * other.denominator + other.numerator * denominator,
         denominator * other.denominator
     )
 
+    operator fun minus(other: Int) = this - other.toRational()
+    operator fun minus(other: Long) = this - other.toRational()
+    operator fun minus(other: BInt) = this - other.toRational()
     operator fun minus(other: Rational) = this + -other
 
+    operator fun times(other: Int) = this * other.toRational()
+    operator fun times(other: Long) = this * other.toRational()
+    operator fun times(other: BInt) = this * other.toRational()
     operator fun times(other: Rational) = new(
         numerator * other.numerator,
         denominator * other.denominator
     )
 
+    operator fun div(other: Int) = this / other.toRational()
+    operator fun div(other: Long) = this / other.toRational()
+    operator fun div(other: BInt) = this / other.toRational()
     /** NB -- Division by zero returns NaN, does not raise exception */
     operator fun div(other: Rational) = this * other.reciprocal()
 
-    /** NB -- Remainder by zero or NaN returns NaN, does not raise exception */
-    // TODO: Find if there is a sensible meaning for modulus of a fraction
-    //  operator fun rem(other: Rational): Rational
-
+    operator fun rangeTo(other: Int) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Long) = rangeTo(other.toRational())
+    operator fun rangeTo(other: BInt) = rangeTo(other.toRational())
     operator fun rangeTo(other: Rational) = RationalProgression(this, other)
 
     /** NB -- Reciprocal of infinities is zero. */
@@ -172,20 +187,20 @@ class Rational private constructor(
     }
 }
 
-infix fun BInt.over(denominator: BInt) = Rational.new(this, denominator)
-infix fun BInt.over(denominator: Long) = Rational.new(this, denominator)
+infix fun BInt.over(denominator: BInt) = new(this, denominator)
+infix fun BInt.over(denominator: Long) = new(this, denominator)
 infix fun BInt.over(denominator: Int) =
-    Rational.new(this, denominator.toLong())
+    new(this, denominator.toLong())
 
-infix fun Long.over(denominator: BInt) = Rational.new(this, denominator)
-infix fun Long.over(denominator: Long) = Rational.new(this, denominator)
+infix fun Long.over(denominator: BInt) = new(this, denominator)
+infix fun Long.over(denominator: Long) = new(this, denominator)
 infix fun Long.over(denominator: Int) =
-    Rational.new(this, denominator.toLong())
+    new(this, denominator.toLong())
 
-infix fun Int.over(denominator: BInt) = Rational.new(toLong(), denominator)
-infix fun Int.over(denominator: Long) = Rational.new(toLong(), denominator)
+infix fun Int.over(denominator: BInt) = new(toLong(), denominator)
+infix fun Int.over(denominator: Long) = new(toLong(), denominator)
 infix fun Int.over(denominator: Int) =
-    Rational.new(toLong(), denominator.toLong())
+    new(toLong(), denominator.toLong())
 
 class RationalIterator(
     start: Rational,
@@ -236,3 +251,23 @@ class RationalProgression(
 
 infix fun Rational.downTo(other: Rational) =
     RationalProgression(this, other, -ONE)
+
+fun BInt.toRational() = new(this)
+fun Long.toRational() = new(this)
+fun Int.toRational() = new(this)
+
+operator fun BInt.plus(other: Rational) = toRational() + other
+operator fun Long.plus(other: Rational) = toRational() + other
+operator fun Int.plus(other: Rational) = toRational() + other
+operator fun BInt.minus(other: Rational) = toRational() - other
+operator fun Long.minus(other: Rational) = toRational() - other
+operator fun Int.minus(other: Rational) = toRational() - other
+operator fun BInt.times(other: Rational) = toRational() * other
+operator fun Long.times(other: Rational) = toRational() * other
+operator fun Int.times(other: Rational) = toRational() * other
+operator fun BInt.div(other: Rational) = toRational() / other
+operator fun Long.div(other: Rational) = toRational() / other
+operator fun Int.div(other: Rational) = toRational() / other
+operator fun BInt.rangeTo(other: Rational) = toRational()..other
+operator fun Long.rangeTo(other: Rational) = toRational()..other
+operator fun Int.rangeTo(other: Rational) = toRational()..other

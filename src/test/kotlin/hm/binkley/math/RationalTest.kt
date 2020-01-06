@@ -174,6 +174,30 @@ internal class RationalTest {
             19 over 15,
             (3 over 5) + (2 over 3)
         )
+        assertEquals(
+            2 over 1,
+            BigInteger.ONE + ONE
+        )
+        assertEquals(
+            2 over 1,
+            ONE + BigInteger.ONE
+        )
+        assertEquals(
+            2 over 1,
+            1L + ONE
+        )
+        assertEquals(
+            2 over 1,
+            ONE + 1L
+        )
+        assertEquals(
+            2 over 1,
+            1 + ONE
+        )
+        assertEquals(
+            2 over 1,
+            ONE + 1
+        )
     }
 
     @Test
@@ -181,6 +205,30 @@ internal class RationalTest {
         assertEquals(
             -1 over 15,
             (3 over 5) - (2 over 3)
+        )
+        assertEquals(
+            ZERO,
+            BigInteger.ONE - ONE
+        )
+        assertEquals(
+            ZERO,
+            ONE - BigInteger.ONE
+        )
+        assertEquals(
+            ZERO,
+            1L - ONE
+        )
+        assertEquals(
+            ZERO,
+            ONE - 1L
+        )
+        assertEquals(
+            ZERO,
+            1 - ONE
+        )
+        assertEquals(
+            ZERO,
+            ONE - 1
         )
     }
 
@@ -190,6 +238,30 @@ internal class RationalTest {
             2 over 5,
             (3 over 5) * (2 over 3)
         )
+        assertEquals(
+            ONE,
+            BigInteger.ONE * ONE
+        )
+        assertEquals(
+            ONE,
+            ONE * BigInteger.ONE
+        )
+        assertEquals(
+            ONE,
+            1L * ONE
+        )
+        assertEquals(
+            ONE,
+            ONE * 1L
+        )
+        assertEquals(
+            ONE,
+            1 * ONE
+        )
+        assertEquals(
+            ONE,
+            ONE * 1
+        )
     }
 
     @Test
@@ -197,6 +269,30 @@ internal class RationalTest {
         assertEquals(
             9 over 10,
             (3 over 5) / (2 over 3)
+        )
+        assertEquals(
+            ONE,
+            BigInteger.ONE / ONE
+        )
+        assertEquals(
+            ONE,
+            ONE / BigInteger.ONE
+        )
+        assertEquals(
+            ONE,
+            1L / ONE
+        )
+        assertEquals(
+            ONE,
+            ONE / 1L
+        )
+        assertEquals(
+            ONE,
+            1 / ONE
+        )
+        assertEquals(
+            ONE,
+            ONE / 1
         )
     }
 
@@ -301,15 +397,27 @@ internal class RationalTest {
         )
         assertEquals(
             listOf(ONE, (3 over 1)),
-            ((1 over 1)..(3 over 1) step 2).toList()
+            (BigInteger.ONE..(3 over 1) step 2).toList()
         )
         assertEquals(
             listOf(ONE, (3 over 1)),
-            ((1 over 1)..(3 over 1) step 2L).toList()
+            (ONE..BigInteger.valueOf(3) step 2).toList()
         )
         assertEquals(
             listOf(ONE, (3 over 1)),
-            ((1 over 1)..(3 over 1) step (2 over 1)).toList()
+            (1L..(3 over 1) step 2L).toList()
+        )
+        assertEquals(
+            listOf(ONE, (3 over 1)),
+            (ONE..3L step 2L).toList()
+        )
+        assertEquals(
+            listOf(ONE, (3 over 1)),
+            (1..(3 over 1) step (2 over 1)).toList()
+        )
+        assertEquals(
+            listOf(ONE, (3 over 1)),
+            (ONE..3 step (2 over 1)).toList()
         )
         assertEquals(
             listOf((2 over 1), ONE),
