@@ -11,6 +11,8 @@ overloading, and writing clear, concise, clean Kotlin.  It also explores the
 impact of `NaN` (which is extensive) rather than raising an error on division
 by zero.
 
+Try `./run.sh` for a demonstration.
+
 ## Design choices
 
 These were great help:
