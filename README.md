@@ -127,12 +127,6 @@ infinite
 Much of the code assumes the rational is in simplest terms (proper form).
 The `Rational.new` factory method ensures this.
 
-### GCD vs LCM
-
-There are several places that might use LCM (_eg_, dividing rationals).  This
-code relies on the factory constructor (`Rational.new`) to use GCM for
-reducing rationals to simplest form.
-
 ### Identity of constants
 
 Rather than check numerator and denominator throughout for special values,
@@ -146,6 +140,13 @@ See:
 - `NEGATIVE_INFINITY`, `isNegativeInfinity()`
 - `ZERO`, `ONE`
 
+### Factory constructor
+
+Rather than provide a public constructor, always use `Rational.new` factory
+method.  This maintains invariants such as "lowest terms" (numerator and
+denominator are coprime), sign handling, and reuse of special constant
+objects.
+
 ### Special case handling _vs_ sealed class
 
 This code uses special case handling for `NaN`, `POSITIVE_INFINITY`, and
@@ -153,3 +154,9 @@ This code uses special case handling for `NaN`, `POSITIVE_INFINITY`, and
 separate subclasses for those.  This would also allow for handling of
 infinitesimals.  However, the abstraction bleeds between subclasses.  It is
 unclear if a sealed class makes clearer code.
+
+### GCD vs LCM
+
+There are several places that might use LCM (_eg_, dividing rationals).  This
+code relies on the factory constructor (`Rational.new`) to use GCM for
+reducing rationals to simplest form.
