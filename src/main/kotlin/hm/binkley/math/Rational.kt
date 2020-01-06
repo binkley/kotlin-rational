@@ -83,11 +83,8 @@ class Rational private constructor(
 
     operator fun rangeTo(other: Rational) = RationalProgression(this, other)
 
-    /**
-     * Bypasses the factory constructor as [numerator] and [denominator] are
-     * coprime.
-     * */
-    fun reciprocal() = Rational(denominator, numerator)
+    /** NB -- Reciprocal of infinities is zero. */
+    fun reciprocal() = new(denominator, numerator)
 
     fun abs() = new(numerator.abs(), denominator)
 
