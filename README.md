@@ -67,6 +67,12 @@ handling of numeric types.  One consequence: This code raises an error for
 conversion between `Rational` and `Char`.  This conversion seemed perverse,
 _eg_, `3/5` to what character?
 
+This code does support conversion to `Double` and `Float` from a `Rational`,
+subject to overflow of `BigInteger.doubleValue`, and preserving infinities and
+not a number. However, this is no conversion to `Rational` from `Double` or
+`Float` (a research project; see
+[_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)).
+
 This code treats other conversions numerically, performing the implied
 division of a rational.  This means rounding for conversion to whole numbers
 following Java conventions (positive result if numerator and denominator
@@ -182,4 +188,3 @@ reducing rationals to simplest form.
 
 - [_Wheel of fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
 - [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
-- [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)

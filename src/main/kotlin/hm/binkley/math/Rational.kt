@@ -15,13 +15,19 @@ class Rational private constructor(
     val numerator: BInt,
     val denominator: BInt
 ) : Number(), Comparable<Rational> {
-    override fun toByte() = toLong().toByte()
     override fun toChar(): Char = error("Characters are non-numeric")
-    override fun toDouble() = numerator.toDouble() / denominator.toDouble()
-    override fun toFloat() = numerator.toFloat() / denominator.toFloat()
+    override fun toByte() = toLong().toByte()
+    override fun toShort() = toLong().toShort()
     override fun toInt() = toLong().toInt()
     override fun toLong() = (numerator / denominator).toLong()
-    override fun toShort() = toLong().toShort()
+    override fun toFloat() = toDouble().toFloat()
+
+    override fun toDouble() = when {
+        isNaN() -> Double.NaN
+        isPositiveInfinity() -> Double.POSITIVE_INFINITY
+        isNegativeInfinity() -> Double.NEGATIVE_INFINITY
+        else -> numerator.toDouble() / denominator.toDouble()
+    }
 
     /**
      * Sorts while ignoring [equals].  So [NaN] sorts to the end, even as
