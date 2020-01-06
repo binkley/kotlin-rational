@@ -224,10 +224,13 @@ class RationalProgression(
     infix fun step(step: Rational) =
         RationalProgression(start, endInclusive, step)
 
-    infix fun step(step: Int) =
+    infix fun step(step: BInt) =
         RationalProgression(start, endInclusive, step over 1)
 
     infix fun step(step: Long) =
+        RationalProgression(start, endInclusive, step over 1)
+
+    infix fun step(step: Int) =
         RationalProgression(start, endInclusive, step over 1)
 }
 

@@ -313,7 +313,7 @@ internal class RationalTest {
         )
         assertEquals(
             listOf((2 over 1), ONE),
-            ((2 over 1) downTo (1 over 2)).toList()
+            ((2 over 1) downTo (1 over 2) step -BigInteger.ONE).toList()
         )
     }
 

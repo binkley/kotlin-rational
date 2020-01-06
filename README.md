@@ -118,6 +118,12 @@ infinite
 - All numeric operators except `rem` (division is exact)
 - Ranges and progressions
 
+### Types
+
+This code attempts to ease programmer typing through overloading.  Where
+sensible, if a `Rational` is provided as an argument or extension method type,
+then so is a `BigInteger`, `Long`, and `Int`.
+
 ## Implementation choices
 
 ### Always simplest terms
