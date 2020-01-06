@@ -116,6 +116,8 @@ counterpart.
 - `isNan()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
 infinite
+- `isDyadic()` (see
+[_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational))
 - `reciprocal()`, `abs()`, `signum()`, `pow(exponent)`
 - `gcm(other)`, `lcd(other)`
 
@@ -176,5 +178,5 @@ reducing rationals to simplest form.
 ## Further reading
 
 - [_Wheel of fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
-- [_Surreal number_](https://en.wikipedia.org/wiki/Surreal_number)
 - [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
+- [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)
