@@ -55,16 +55,17 @@ And preserve standard meanings:
 So `NaN.denominator`, `POSITIVE_INFINITY.denominator`, and
 `NEGATIVE_INFINITY.denominator` all return zero.
 
-Division by an infinity is zero, as the reciprocal of an infinity.  This code
-does not have a concept of infinitesimals ("ϵ or δ").  See
-[_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for discussion.
+Division by an infinity is zero, as is the reciprocal of an infinity.  This
+code does not have a concept of infinitesimals ("ϵ or δ").  (See
+[_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for a
+discussion.)
 
 ### `Rational` is a `Number`
 
 In this code, `Rational` is a `kotlin.Number`, in part to pick up Kotlin
-handling of numeric types.  One consequence: This code has no conversion from
-a `Rational` to a `Char`; it raises an error.  This conversion seemed
-perverse, _eg_, `3/5 -> ??some character`.
+handling of numeric types.  One consequence: This code raises an error for
+conversion between `Rational` and `Char`.  This conversion seemed perverse,
+_eg_, `3/5` to what character?
 
 This code treats other conversions numerically, performing the implied
 division of a rational.  This means rounding for conversion to whole numbers
