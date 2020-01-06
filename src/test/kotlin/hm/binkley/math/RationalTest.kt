@@ -337,19 +337,21 @@ internal class RationalTest {
     }
 
     @Test
-    fun `should raise`() {
+    fun `should reciprocate`() {
         assertEquals(
-            9 over 25,
-            (3 over 5).pow(2)
+            -3 over 5,
+            (-5 over 3).reciprocal()
+        )
+        assertTrue(ZERO.reciprocal().isPositiveInfinity())
+        assertEquals(
+            ZERO,
+            POSITIVE_INFINITY.reciprocal()
         )
         assertEquals(
-            ONE,
-            (3 over 5).pow(0)
+            ZERO,
+            NEGATIVE_INFINITY.reciprocal()
         )
-        assertEquals(
-            25 over 9,
-            (3 over 5).pow(-2)
-        )
+        assertTrue(NaN.reciprocal().isNaN())
     }
 
     @Test
@@ -387,6 +389,22 @@ internal class RationalTest {
             POSITIVE_INFINITY.signum()
         )
         assertTrue(NaN.signum().isNaN())
+    }
+
+    @Test
+    fun `should raise`() {
+        assertEquals(
+            9 over 25,
+            (3 over 5).pow(2)
+        )
+        assertEquals(
+            ONE,
+            (3 over 5).pow(0)
+        )
+        assertEquals(
+            25 over 9,
+            (3 over 5).pow(-2)
+        )
     }
 
     @Test
