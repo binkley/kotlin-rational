@@ -64,15 +64,24 @@ fun main() {
     println("$toSort sorted is ${toSort.sorted()}")
 
     for (d in listOf(
-        Double.MIN_VALUE,
-        Double.MIN_VALUE / 10,
-        Rational.new(-1, 3).toDouble(),
+        -4.0,
+        -3.0,
+        -2.0,
+        -0.5,
+        -0.3,
+        -0.1,
         0.0,
-        java.lang.Double.MIN_NORMAL,
-        Rational.new(1, 3).toDouble(),
-        Double.MAX_VALUE / 10,
-        Double.MAX_VALUE // TODO: The algo has an edge case bug
-    )) dump(d)
+        0.1,
+        0.3,
+        0.5,
+        2.0,
+        3.0,
+        4.0,
+        Double.NaN,
+        Double.MAX_VALUE,
+        Double.MIN_VALUE
+    ))
+        dump(d)
 }
 
 @Generated // Lie to JaCoCo

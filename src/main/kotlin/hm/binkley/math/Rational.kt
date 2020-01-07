@@ -158,6 +158,7 @@ class Rational private constructor(
         val NaN = Rational(BInt.ZERO, BInt.ZERO)
         val ZERO = Rational(BInt.ZERO, BInt.ONE)
         val ONE = Rational(BInt.ONE, BInt.ONE)
+        val TWO = Rational(BInt.TWO, BInt.ONE)
         val POSITIVE_INFINITY = Rational(BInt.ONE, BInt.ZERO)
         val NEGATIVE_INFINITY = Rational(BInt.ONE.negate(), BInt.ZERO)
 
@@ -177,6 +178,7 @@ class Rational private constructor(
 
             fun BInt.isZero() = this == BInt.ZERO
             fun BInt.isOne() = this == BInt.ONE
+            fun BInt.isTwo() = this == BInt.TWO
 
             // Ensure constants return the *same* object
             if (d.isZero()) when {
@@ -185,7 +187,10 @@ class Rational private constructor(
                 n.negate().isOne() -> return NEGATIVE_INFINITY
             }
             if (n.isZero()) return ZERO
-            if (n.isOne() && d.isOne()) return ONE
+            if (d.isOne()) {
+                if (n.isOne()) return ONE
+                if (n.isTwo()) return TWO
+            }
 
             return Rational(n, d)
         }
@@ -291,40 +296,28 @@ operator fun BInt.rangeTo(other: Rational) = toRational()..other
 operator fun Long.rangeTo(other: Rational) = toRational()..other
 operator fun Int.rangeTo(other: Rational) = toRational()..other
 
+private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
+
+private fun exponent(d: Double) =
+    ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
+
+private fun factor(mantissa: Long): Rational {
+    val n = 1L shl 52
+    var d = 0L
+    for (e in 0..51)
+        d += (mantissa shr e and 1L shl e) // MSB stored first
+    return new(d + n, n)
+}
+
 /**
- * @todo Buggy on corner cases: Double.MAX_VALUE, Double.MIN_VALUE
- * @todo Conversion of 1/3 is horrible; produces very close to 1/2
+ * Since the conversion to a rational is _exact_, converting the resulting
+ * rational back to a `Double` should produce the original value.
  */
 private fun convert(d: Double) = when {
-    d.isInfinite() -> if (d < 0) NEGATIVE_INFINITY else POSITIVE_INFINITY
-    d.isNaN() -> NaN
     d == 0.0 -> ZERO
-    else -> {
-        // See https://stackoverflow.com/a/13222845
-        val bits = d.toBits()
-        val sign = bits ushr 63
-        val exponent = (bits ushr 52 xor (sign shl 11)).toInt() -
-                java.lang.Double.MAX_EXPONENT
-        val fraction = bits shl 12 // bits reversed
-
-        var a = BigInteger.ONE
-        var b = BigInteger.ONE
-
-        for (i in 63 downTo 12) { // unreverse bits
-            val addend = fraction ushr i and 1
-            if (addend != 0L) { // Avoid adding common factors
-                a = a * BigInteger.TWO + BigInteger.valueOf(addend)
-                b *= BigInteger.TWO
-            }
-        }
-
-        if (exponent > 0)
-            a *= BigInteger.valueOf(1L shl exponent)
-        else
-            b *= BigInteger.valueOf(1L shl (-exponent))
-
-        if (sign == 1L) a = a.negate()
-
-        new(a, b)
-    }
+    d == 1.0 -> ONE
+    d.isNaN() -> NaN
+    d.isInfinite() -> if (d < 0.0) NEGATIVE_INFINITY else POSITIVE_INFINITY
+    d < 0 -> -Rational.TWO.pow(exponent(d)) * factor(mantissa(d))
+    else -> Rational.TWO.pow(exponent(d)) * factor(mantissa(d))
 }
