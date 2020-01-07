@@ -4,6 +4,7 @@ import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.Rational.Companion.NaN
 import hm.binkley.math.Rational.Companion.ONE
 import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.Rational.Companion.TWO
 import hm.binkley.math.Rational.Companion.ZERO
 import hm.binkley.math.Rational.Companion.new
 import java.math.BigInteger
@@ -318,6 +319,6 @@ private fun convert(d: Double) = when {
     d == 1.0 -> ONE
     d.isNaN() -> NaN
     d.isInfinite() -> if (d < 0.0) NEGATIVE_INFINITY else POSITIVE_INFINITY
-    d < 0 -> -Rational.TWO.pow(exponent(d)) * factor(mantissa(d))
-    else -> Rational.TWO.pow(exponent(d)) * factor(mantissa(d))
+    d < 0 -> -TWO.pow(exponent(d)) * factor(mantissa(d))
+    else -> TWO.pow(exponent(d)) * factor(mantissa(d))
 }

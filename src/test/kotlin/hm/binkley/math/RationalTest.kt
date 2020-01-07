@@ -6,6 +6,7 @@ import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.Rational.Companion.NaN
 import hm.binkley.math.Rational.Companion.ONE
 import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.Rational.Companion.TWO
 import hm.binkley.math.Rational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -57,6 +58,14 @@ internal class RationalTest {
         assertSame(
             ONE,
             BigInteger.ONE over 1
+        )
+    }
+
+    @Test
+    fun `should construct 2`() {
+        assertSame(
+            TWO,
+            BigInteger.TWO over 1
         )
     }
 
