@@ -45,6 +45,7 @@ class Rational private constructor(
         isNaN() -> Double.NaN
         isPositiveInfinity() -> Double.POSITIVE_INFINITY
         isNegativeInfinity() -> Double.NEGATIVE_INFINITY
+        // TODO: This does not round trip :(
         else -> numerator.toDouble() / denominator.toDouble()
     }
 
