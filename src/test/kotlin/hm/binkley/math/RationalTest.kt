@@ -340,55 +340,58 @@ internal class RationalTest {
     fun `should reciprocate`() {
         assertEquals(
             -3 over 5,
-            (-5 over 3).reciprocal()
+            (-5 over 3).reciprocal
         )
-        assertTrue(ZERO.reciprocal().isPositiveInfinity())
+        assertTrue(ZERO.reciprocal.isPositiveInfinity())
         assertEquals(
             ZERO,
-            POSITIVE_INFINITY.reciprocal()
+            POSITIVE_INFINITY.reciprocal
         )
         assertEquals(
             ZERO,
-            NEGATIVE_INFINITY.reciprocal()
+            NEGATIVE_INFINITY.reciprocal
         )
-        assertTrue(NaN.reciprocal().isNaN())
+        assertTrue(NaN.reciprocal.isNaN())
     }
 
     @Test
     fun `should absolute`() {
         assertEquals(
             3 over 5,
-            (3 over 5).abs()
+            (3 over 5).absoluteValue
         )
         assertEquals(
             3 over 5,
-            (-3 over 5).abs()
+            (-3 over 5).absoluteValue
         )
+        assertTrue(NaN.absoluteValue.isNaN())
+        assertTrue(POSITIVE_INFINITY.absoluteValue.isPositiveInfinity())
+        assertTrue(NEGATIVE_INFINITY.absoluteValue.isPositiveInfinity())
     }
 
     @Test
     fun `should signum`() {
         assertEquals(
             ONE,
-            (3 over 5).signum()
+            (3 over 5).sign
         )
         assertEquals(
             ZERO,
-            (0 over 5).signum()
+            (0 over 5).sign
         )
         assertEquals(
             -ONE,
-            (-3 over 5).signum()
+            (-3 over 5).sign
         )
         assertEquals(
             -ONE,
-            NEGATIVE_INFINITY.signum()
+            NEGATIVE_INFINITY.sign
         )
         assertEquals(
             ONE,
-            POSITIVE_INFINITY.signum()
+            POSITIVE_INFINITY.sign
         )
-        assertTrue(NaN.signum().isNaN())
+        assertTrue(NaN.sign.isNaN())
     }
 
     @Test

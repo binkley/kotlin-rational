@@ -10,11 +10,25 @@ private typealias BInt = BigInteger
 
 /**
  * @todo Consider `Short` and `Byte` overloads
+ * @todo Assign properties at construction; avoid circular ctors
  */
 class Rational private constructor(
     val numerator: BInt,
     val denominator: BInt
 ) : Number(), Comparable<Rational> {
+    val sign: Rational
+        get() = when {
+            isNaN() -> NaN
+            else -> numerator.signum().toRational()
+        }
+
+    /** NB -- Reciprocal of infinities is zero. */
+    val reciprocal: Rational
+        get() = new(denominator, numerator)
+
+    val absoluteValue: Rational
+        get() = new(numerator.abs(), denominator)
+
     override fun toChar(): Char = error("Characters are non-numeric")
     override fun toByte() = toLong().toByte()
     override fun toShort() = toLong().toShort()
@@ -97,22 +111,12 @@ class Rational private constructor(
     operator fun div(other: Long) = this / other.toRational()
     operator fun div(other: BInt) = this / other.toRational()
     /** NB -- Division by zero returns NaN, does not raise exception */
-    operator fun div(other: Rational) = this * other.reciprocal()
+    operator fun div(other: Rational) = this * other.reciprocal
 
     operator fun rangeTo(other: Int) = rangeTo(other.toRational())
     operator fun rangeTo(other: Long) = rangeTo(other.toRational())
     operator fun rangeTo(other: BInt) = rangeTo(other.toRational())
     operator fun rangeTo(other: Rational) = RationalProgression(this, other)
-
-    /** NB -- Reciprocal of infinities is zero. */
-    fun reciprocal() = new(denominator, numerator)
-
-    fun abs() = new(numerator.abs(), denominator)
-
-    fun signum() = when {
-        isNaN() -> NaN
-        else -> new(numerator.signum())
-    }
 
     fun pow(exponent: Int) = when {
         0 <= exponent ->
