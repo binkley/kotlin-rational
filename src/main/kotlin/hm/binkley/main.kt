@@ -1,6 +1,5 @@
 package hm.binkley
 
-import hm.binkley.math.Rational
 import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.Rational.Companion.NaN
 import hm.binkley.math.Rational.Companion.ONE
@@ -17,7 +16,7 @@ fun main() {
     println("NaN is $NaN")
     println("POSITIVE_INFINITY is $POSITIVE_INFINITY")
     println("NEGATIVE_INFINITY is $NEGATIVE_INFINITY")
-    println("1 is ${Rational.new(1)}")
+    println("1 is ${1.toRational()}")
     println("4/10 is ${4 over 10}")
     println("4/2 is ${4 over 2}")
     println("0/0 is ${0 over 0}")
@@ -32,8 +31,8 @@ fun main() {
     println("$ratA ÷ $ratB is ${ratA / ratB}")
 
     val ratC = ZERO
-    val ratD = Rational.new(7, 3)
-    val ratE = Rational.new(1, 2)
+    val ratD = 7 over 3
+    val ratE = 1 over 2
     print("Progression from $ratC to $ratD incrementing by $ratE:")
     for (r in ratC..ratD step ratE) print(" $r")
     println()

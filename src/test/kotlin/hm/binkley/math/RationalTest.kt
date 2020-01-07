@@ -132,6 +132,32 @@ internal class RationalTest {
     }
 
     @Test
+    fun `should convert double`() {
+        assertEquals(ONE, BigInteger.ONE over 1.0)
+        assertEquals(ONE, 1L over 1.0)
+        assertEquals(ONE, 1 over 1.0)
+        assertEquals(ONE, 1.0 over 1.0)
+        assertEquals(ONE, 1.0f over 1.0)
+
+        assertEquals(ONE, 1.0 over BigInteger.ONE)
+        assertEquals(ONE, 1.0 over 1L)
+        assertEquals(ONE, 1.0 over 1)
+    }
+
+    @Test
+    fun `should convert float`() {
+        assertEquals(ONE, BigInteger.ONE over 1.0f)
+        assertEquals(ONE, 1L over 1.0f)
+        assertEquals(ONE, 1 over 1.0f)
+        assertEquals(ONE, 1.0 over 1.0f)
+        assertEquals(ONE, 1.0f over 1.0f)
+
+        assertEquals(ONE, 1.0f over BigInteger.ONE)
+        assertEquals(ONE, 1.0f over 1L)
+        assertEquals(ONE, 1.0f over 1)
+    }
+
+    @Test
     fun `should provide properties`() {
         assertEquals(BigInteger.TWO, (2 over 3).numerator)
         assertEquals(BigInteger.valueOf(3), (2 over 3).denominator)
@@ -310,7 +336,7 @@ internal class RationalTest {
 
     @Test
     fun `should increment`() {
-        var a = Rational.new(1L)
+        var a = 1L.toRational()
         assertEquals(
             2 over 1,
             ++a
@@ -578,6 +604,9 @@ internal class RationalTest {
         assertTrue((2 over 1).isDyadic())
         assertTrue(ZERO.isDyadic())
         assertFalse((2 over 3).isDyadic())
+        assertFalse(POSITIVE_INFINITY.isDyadic())
+        assertFalse(NEGATIVE_INFINITY.isDyadic())
+        assertFalse(NaN.isDyadic())
     }
 
     @Test
