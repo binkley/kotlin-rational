@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.math.BigDecimal
 import java.math.BigInteger
 
 /**
@@ -132,7 +133,24 @@ internal class RationalTest {
     }
 
     @Test
+    fun `should convert BigDecimal`() {
+        assertEquals(ZERO, BigDecimal.ZERO.toRational())
+        assertEquals(77 over 100, BigDecimal("7.70").toRational())
+        assertEquals(ONE, BigDecimal.ONE over BigDecimal.ONE)
+        assertEquals(ONE, BigInteger.ONE over BigDecimal.ONE)
+        assertEquals(ONE, 1L over BigDecimal.ONE)
+        assertEquals(ONE, 1 over BigDecimal.ONE)
+        assertEquals(ONE, 1.0 over BigDecimal.ONE)
+        assertEquals(ONE, 1.0f over BigDecimal.ONE)
+
+        assertEquals(ONE, BigDecimal.ONE over BigInteger.ONE)
+        assertEquals(ONE, BigDecimal.ONE over 1L)
+        assertEquals(ONE, BigDecimal.ONE over 1)
+    }
+
+    @Test
     fun `should convert double`() {
+        assertEquals(ONE, BigDecimal.ONE over 1.0)
         assertEquals(ONE, BigInteger.ONE over 1.0)
         assertEquals(ONE, 1L over 1.0)
         assertEquals(ONE, 1 over 1.0)
@@ -146,6 +164,7 @@ internal class RationalTest {
 
     @Test
     fun `should convert float`() {
+        assertEquals(ONE, BigDecimal.ONE over 1.0f)
         assertEquals(ONE, BigInteger.ONE over 1.0f)
         assertEquals(ONE, 1L over 1.0f)
         assertEquals(ONE, 1 over 1.0f)

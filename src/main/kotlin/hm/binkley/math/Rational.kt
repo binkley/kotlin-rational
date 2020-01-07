@@ -7,7 +7,6 @@ import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.Rational.Companion.TWO
 import hm.binkley.math.Rational.Companion.ZERO
 import hm.binkley.math.Rational.Companion.new
-import lombok.Generated
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Objects
@@ -200,39 +199,25 @@ class Rational private constructor(
     }
 }
 
-infix fun BInt.over(denominator: BInt) = new(this, denominator)
-infix fun BInt.over(denominator: Long) = new(this, denominator.toBigInteger())
-infix fun BInt.over(denominator: Int) = new(this, denominator.toBigInteger())
-infix fun BInt.over(denominator: Double) =
+infix fun BigDecimal.over(denominator: BigDecimal) =
     toRational() / denominator.toRational()
 
-infix fun BInt.over(denominator: Float) =
+infix fun BigDecimal.over(denominator: Double) =
     toRational() / denominator.toRational()
 
-infix fun Long.over(denominator: BInt) = new(toBigInteger(), denominator)
-infix fun Long.over(denominator: Long) =
-    new(toBigInteger(), denominator.toBigInteger())
-
-infix fun Long.over(denominator: Int) =
-    new(toBigInteger(), denominator.toBigInteger())
-
-infix fun Long.over(denominator: Double) =
+infix fun BigDecimal.over(denominator: Float) =
     toRational() / denominator.toRational()
 
-infix fun Long.over(denominator: Float) =
+infix fun BigDecimal.over(denominator: BInt) =
     toRational() / denominator.toRational()
 
-infix fun Int.over(denominator: BInt) = new(toBigInteger(), denominator)
-infix fun Int.over(denominator: Long) =
-    new(toBigInteger(), denominator.toBigInteger())
-
-infix fun Int.over(denominator: Int) =
-    new(toBigInteger(), denominator.toBigInteger())
-
-infix fun Int.over(denominator: Double) =
+infix fun BigDecimal.over(denominator: Long) =
     toRational() / denominator.toRational()
 
-infix fun Int.over(denominator: Float) =
+infix fun BigDecimal.over(denominator: Int) =
+    toRational() / denominator.toRational()
+
+infix fun Double.over(denominator: BigDecimal) =
     toRational() / denominator.toRational()
 
 infix fun Double.over(denominator: BInt) =
@@ -250,6 +235,9 @@ infix fun Double.over(denominator: Double) =
 infix fun Double.over(denominator: Float) =
     toRational() / denominator.toRational()
 
+infix fun Float.over(denominator: BigDecimal) =
+    toRational() / denominator.toRational()
+
 infix fun Float.over(denominator: BInt) =
     toRational() / denominator.toRational()
 
@@ -265,9 +253,52 @@ infix fun Float.over(denominator: Double) =
 infix fun Float.over(denominator: Float) =
     toRational() / denominator.toRational()
 
-@Generated
-fun BigDecimal.toRational(): Rational = TODO("IMPLEMENT")
+infix fun BInt.over(denominator: BigDecimal) =
+    toRational() / denominator.toRational()
 
+infix fun BInt.over(denominator: Double) =
+    toRational() / denominator.toRational()
+
+infix fun BInt.over(denominator: Float) =
+    toRational() / denominator.toRational()
+
+infix fun BInt.over(denominator: BInt) = new(this, denominator)
+infix fun BInt.over(denominator: Long) = new(this, denominator.toBigInteger())
+infix fun BInt.over(denominator: Int) = new(this, denominator.toBigInteger())
+
+infix fun Long.over(denominator: Double) =
+    toRational() / denominator.toRational()
+
+infix fun Long.over(denominator: Float) =
+    toRational() / denominator.toRational()
+
+infix fun Long.over(denominator: BigDecimal) =
+    toRational() / denominator.toRational()
+
+infix fun Long.over(denominator: BInt) = new(toBigInteger(), denominator)
+infix fun Long.over(denominator: Long) =
+    new(toBigInteger(), denominator.toBigInteger())
+
+infix fun Long.over(denominator: Int) =
+    new(toBigInteger(), denominator.toBigInteger())
+
+infix fun Int.over(denominator: BigDecimal) =
+    toRational() / denominator.toRational()
+
+infix fun Int.over(denominator: Double) =
+    toRational() / denominator.toRational()
+
+infix fun Int.over(denominator: Float) =
+    toRational() / denominator.toRational()
+
+infix fun Int.over(denominator: BInt) = new(toBigInteger(), denominator)
+infix fun Int.over(denominator: Long) =
+    new(toBigInteger(), denominator.toBigInteger())
+
+infix fun Int.over(denominator: Int) =
+    new(toBigInteger(), denominator.toBigInteger())
+
+fun BigDecimal.toRational() = convert(this)
 fun Double.toRational() = convert(this)
 fun Float.toRational() = toDouble().toRational()
 fun BInt.toRational() = new(this, BigInteger.ONE)
@@ -345,11 +376,26 @@ private fun exponent(d: Double) =
 
 private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
 
-private fun factor(d: Double): Rational {
+private fun factor(other: Double): Rational {
     val denominator = 1L shl 52
-    val numerator = mantissa(d) + denominator
-    
+    val numerator = mantissa(other) + denominator
+
     return new(numerator.toBigInteger(), denominator.toBigInteger())
+}
+
+private fun convert(other: BigDecimal) = when (other) {
+    BigDecimal.ONE -> ONE
+    BigDecimal.ZERO -> ZERO
+    else -> {
+        val bd = other.stripTrailingZeros()
+        val precision = bd.precision()
+        val scale = bd.scale()
+
+        val numerator = bd.movePointRight(scale)
+        val denominator = BigDecimal.TEN.movePointRight(precision - 1)
+
+        new(numerator.toBigInteger(), denominator.toBigInteger())
+    }
 }
 
 /**

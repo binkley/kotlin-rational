@@ -9,6 +9,7 @@ import hm.binkley.math.downTo
 import hm.binkley.math.over
 import hm.binkley.math.toRational
 import lombok.Generated
+import java.math.BigDecimal
 
 @Generated // Lie to JaCoCo
 fun main() {
@@ -81,6 +82,11 @@ fun main() {
         Double.MIN_VALUE
     ))
         dump(d)
+
+    println(BigDecimal("77.770").toRational())
+    println(BigDecimal.ZERO.toRational())
+    println(BigDecimal.ONE.toRational())
+    println(BigDecimal.ONE.movePointLeft(1).toRational())
 }
 
 @Generated // Lie to JaCoCo
