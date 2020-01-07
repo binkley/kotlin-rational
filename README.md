@@ -73,6 +73,9 @@ not a number. However, this is no conversion to `Rational` from `Double` or
 `Float` (a research project; see
 [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)).
 
+(The code has `Double.toRational` and `Float.toRational` as an experiment,
+but the results are poor for non-integers and non-powers of 2.)
+
 This code treats other conversions numerically, performing the implied
 division of a rational.  This means rounding for conversion to whole numbers
 following Java conventions (positive result if numerator and denominator

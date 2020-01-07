@@ -570,4 +570,88 @@ internal class RationalTest {
         assertTrue(ZERO.isDyadic())
         assertFalse((2 over 3).isDyadic())
     }
+
+    @Test
+    fun `should convert from double`() {
+        val doubles = listOf(
+            -4.0,
+            -3.0,
+            -2.0,
+            -1.0,
+            -0.5,
+            Rational.new(-1, 3).toDouble(),
+            0.0,
+            Rational.new(1, 3).toDouble(),
+            0.5,
+            1.0,
+            2.0,
+            3.0,
+            4.0
+        )
+        val rationals = listOf(
+            -4 over 1,
+            -3 over 1,
+            -2 over 1,
+            -1 over 1,
+            -1 over 2,
+            -134217727 over 268435456,
+            ZERO, // ACTUAL ZERO :)
+            134217727 over 268435456,
+            1 over 2,
+            ONE,
+            2 over 1,
+            3 over 1,
+            4 over 1
+        )
+        assertTrue(Double.NaN.toRational().isNaN())
+        assertTrue(Double.NEGATIVE_INFINITY.toRational().isNegativeInfinity())
+        assertTrue(Double.POSITIVE_INFINITY.toRational().isPositiveInfinity())
+        assertEquals(
+            rationals,
+            doubles.map {
+                it.toRational()
+            })
+    }
+
+    @Test
+    fun `should convert from float`() {
+        val floats = listOf(
+            -4.0f,
+            -3.0f,
+            -2.0f,
+            -1.0f,
+            -0.5f,
+            Rational.new(-1, 3).toFloat(),
+            0.0f,
+            Rational.new(1, 3).toFloat(),
+            0.5f,
+            1.0f,
+            2.0f,
+            3.0f,
+            4.0f
+        )
+        val rationals = listOf(
+            -4 over 1,
+            -3 over 1,
+            -2 over 1,
+            -1 over 1,
+            -1 over 2,
+            -8191 over 16384,
+            ZERO,
+            8191 over 16384,
+            1 over 2,
+            ONE,
+            2 over 1,
+            3 over 1,
+            4 over 1
+        )
+        assertTrue(Float.NaN.toRational().isNaN())
+        assertTrue(Float.NEGATIVE_INFINITY.toRational().isNegativeInfinity())
+        assertTrue(Float.POSITIVE_INFINITY.toRational().isPositiveInfinity())
+        assertEquals(
+            rationals,
+            floats.map {
+                it.toRational()
+            })
+    }
 }

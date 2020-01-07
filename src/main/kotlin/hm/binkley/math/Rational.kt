@@ -1,6 +1,9 @@
 package hm.binkley.math
 
+import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.Rational.Companion.NaN
 import hm.binkley.math.Rational.Companion.ONE
+import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.Rational.Companion.ZERO
 import hm.binkley.math.Rational.Companion.new
 import java.math.BigInteger
@@ -269,6 +272,8 @@ infix fun Rational.downTo(other: Rational) =
 fun BInt.toRational() = new(this)
 fun Long.toRational() = new(this)
 fun Int.toRational() = new(this)
+fun Double.toRational() = convert(this)
+fun Float.toRational() = toDouble().toRational()
 
 operator fun BInt.plus(other: Rational) = toRational() + other
 operator fun Long.plus(other: Rational) = toRational() + other
@@ -285,3 +290,41 @@ operator fun Int.div(other: Rational) = toRational() / other
 operator fun BInt.rangeTo(other: Rational) = toRational()..other
 operator fun Long.rangeTo(other: Rational) = toRational()..other
 operator fun Int.rangeTo(other: Rational) = toRational()..other
+
+/**
+ * @todo Buggy on corner cases: Double.MAX_VALUE, Double.MIN_VALUE
+ * @todo Conversion of 1/3 is horrible; produces very close to 1/2
+ */
+private fun convert(d: Double) = when {
+    d.isInfinite() -> if (d < 0) NEGATIVE_INFINITY else POSITIVE_INFINITY
+    d.isNaN() -> NaN
+    d == 0.0 -> ZERO
+    else -> {
+        // See https://stackoverflow.com/a/13222845
+        val bits = d.toBits()
+        val sign = bits ushr 63
+        val exponent = (bits ushr 52 xor (sign shl 11)).toInt() -
+                java.lang.Double.MAX_EXPONENT
+        val fraction = bits shl 12 // bits reversed
+
+        var a = BigInteger.ONE
+        var b = BigInteger.ONE
+
+        for (i in 63 downTo 12) { // unreverse bits
+            val addend = fraction ushr i and 1
+            if (addend != 0L) { // Avoid adding common factors
+                a = a * BigInteger.TWO + BigInteger.valueOf(addend)
+                b *= BigInteger.TWO
+            }
+        }
+
+        if (exponent > 0)
+            a *= BigInteger.valueOf(1L shl exponent)
+        else
+            b *= BigInteger.valueOf(1L shl (-exponent))
+
+        if (sign == 1L) a = a.negate()
+
+        new(a, b)
+    }
+}
