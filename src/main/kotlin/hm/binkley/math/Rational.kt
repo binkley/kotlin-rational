@@ -340,17 +340,16 @@ operator fun BInt.rangeTo(other: Rational) = toRational()..other
 operator fun Long.rangeTo(other: Rational) = toRational()..other
 operator fun Int.rangeTo(other: Rational) = toRational()..other
 
-private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
-
 private fun exponent(d: Double) =
     ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
 
-private fun factor(mantissa: Long): Rational {
-    val n = 1L shl 52
-    var d = 0L
-    for (e in 0..51)
-        d += (mantissa shr e and 1L shl e) // MSB stored first
-    return new((d + n).toBigInteger(), n.toBigInteger())
+private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
+
+private fun factor(d: Double): Rational {
+    val denominator = 1L shl 52
+    val numerator = mantissa(d) + denominator
+    
+    return new(numerator.toBigInteger(), denominator.toBigInteger())
 }
 
 /**
@@ -362,6 +361,6 @@ private fun convert(d: Double) = when {
     d == 1.0 -> ONE
     d.isNaN() -> NaN
     d.isInfinite() -> if (d < 0.0) NEGATIVE_INFINITY else POSITIVE_INFINITY
-    d < 0 -> -TWO.pow(exponent(d)) * factor(mantissa(d))
-    else -> TWO.pow(exponent(d)) * factor(mantissa(d))
+    d < 0 -> -TWO.pow(exponent(d)) * factor(d)
+    else -> TWO.pow(exponent(d)) * factor(d)
 }
