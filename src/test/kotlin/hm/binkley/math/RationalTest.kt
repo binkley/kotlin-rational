@@ -68,6 +68,9 @@ internal class RationalTest {
         assertEquals(1L, (11 over 10).toLong())
         assertEquals(1.1.toFloat(), (11 over 10).toFloat())
         assertEquals(1.1, (11 over 10).toDouble())
+        assertEquals(Double.NaN, NaN.toDouble())
+        assertEquals(Double.POSITIVE_INFINITY, POSITIVE_INFINITY.toDouble())
+        assertEquals(Double.NEGATIVE_INFINITY, NEGATIVE_INFINITY.toDouble())
     }
 
     @Test
