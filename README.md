@@ -73,9 +73,6 @@ constructs a power-of-2 rational following IEEE 754; so converting the
 resulting `Rational` back returns the original floating point value, including
 infinities and not a number.
 
-(*NB* &mdash; There is presently a bug in round trip conversion of certain
-`Double` values, _eg_, 123.456.)
-
 ### Division by 0, infinities
 
 There are two ways to handle division by 0:

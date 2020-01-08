@@ -645,7 +645,8 @@ internal class RationalTest {
             1.0,
             2.0,
             3.0,
-            4.0
+            4.0,
+            123.456
         )
         val rationals = listOf(
             -4 over 1,
@@ -662,7 +663,8 @@ internal class RationalTest {
             ONE,
             2 over 1,
             3 over 1,
-            4 over 1
+            4 over 1,
+            8687443681197687 over 70368744177664
         )
         assertTrue(Double.NaN.toRational().isNaN())
         assertTrue(Double.NEGATIVE_INFINITY.toRational().isNegativeInfinity())
@@ -697,7 +699,8 @@ internal class RationalTest {
             1.0f,
             2.0f,
             3.0f,
-            4.0f
+            4.0f,
+            123.456f
         )
         val rationals = listOf(
             -4 over 1,
@@ -714,7 +717,8 @@ internal class RationalTest {
             ONE,
             2 over 1,
             3 over 1,
-            4 over 1
+            4 over 1,
+            16181625 over 131072
         )
         assertTrue(Float.NaN.toRational().isNaN())
         assertTrue(Float.NEGATIVE_INFINITY.toRational().isNegativeInfinity())
