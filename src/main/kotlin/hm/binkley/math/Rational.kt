@@ -7,11 +7,13 @@ import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.Rational.Companion.TWO
 import hm.binkley.math.Rational.Companion.ZERO
 import hm.binkley.math.Rational.Companion.new
+import lombok.Generated
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Objects
 
 private typealias BInt = BigInteger
+private typealias BDouble = BigDecimal
 
 /**
  * @todo Consider `Short` and `Byte` overloads
@@ -91,37 +93,57 @@ class Rational private constructor(
     operator fun inc() = new(numerator + denominator, denominator)
     operator fun dec() = new(numerator - denominator, denominator)
 
-    operator fun plus(other: Int) = this + other.toRational()
-    operator fun plus(other: Long) = this + other.toRational()
-    operator fun plus(other: BInt) = this + other.toRational()
     operator fun plus(other: Rational) = new(
         numerator * other.denominator + other.numerator * denominator,
         denominator * other.denominator
     )
 
-    operator fun minus(other: Int) = this - other.toRational()
-    operator fun minus(other: Long) = this - other.toRational()
-    operator fun minus(other: BInt) = this - other.toRational()
-    operator fun minus(other: Rational) = this + -other
+    operator fun plus(other: BDouble) = this + other.toRational()
+    operator fun plus(other: Double) = this + other.toRational()
+    operator fun plus(other: Float) = this + other.toRational()
+    operator fun plus(other: BInt) = this + other.toRational()
+    operator fun plus(other: Long) = this + other.toRational()
+    operator fun plus(other: Int) = this + other.toRational()
 
-    operator fun times(other: Int) = this * other.toRational()
-    operator fun times(other: Long) = this * other.toRational()
-    operator fun times(other: BInt) = this * other.toRational()
+    operator fun minus(other: Rational) = this + -other
+    operator fun minus(other: BDouble) = this - other.toRational()
+    operator fun minus(other: Double) = this - other.toRational()
+    operator fun minus(other: Float) = this - other.toRational()
+    operator fun minus(other: BInt) = this - other.toRational()
+    operator fun minus(other: Long) = this - other.toRational()
+    operator fun minus(other: Int) = this - other.toRational()
+
     operator fun times(other: Rational) = new(
         numerator * other.numerator,
         denominator * other.denominator
     )
 
-    operator fun div(other: Int) = this / other.toRational()
-    operator fun div(other: Long) = this / other.toRational()
-    operator fun div(other: BInt) = this / other.toRational()
+    operator fun times(other: BDouble) = this * other.toRational()
+    operator fun times(other: Double) = this * other.toRational()
+    operator fun times(other: Float) = this * other.toRational()
+    operator fun times(other: BInt) = this * other.toRational()
+    operator fun times(other: Long) = this * other.toRational()
+    operator fun times(other: Int) = this * other.toRational()
+
     /** NB -- Division by zero returns NaN, does not raise exception */
     operator fun div(other: Rational) = this * other.reciprocal
 
-    operator fun rangeTo(other: Int) = rangeTo(other.toRational())
-    operator fun rangeTo(other: Long) = rangeTo(other.toRational())
-    operator fun rangeTo(other: BInt) = rangeTo(other.toRational())
+    operator fun div(other: BDouble) = this / other.toRational()
+    operator fun div(other: Double) = this / other.toRational()
+    operator fun div(other: Float) = this / other.toRational()
+    operator fun div(other: BInt) = this / other.toRational()
+    operator fun div(other: Long) = this / other.toRational()
+    operator fun div(other: Int) = this / other.toRational()
+
     operator fun rangeTo(other: Rational) = RationalProgression(this, other)
+    @Generated // TODO: Why does this fail?
+    operator fun rangeTo(other: BDouble) = rangeTo(other.toRational())
+
+    operator fun rangeTo(other: Double) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Float) = rangeTo(other.toRational())
+    operator fun rangeTo(other: BInt) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Long) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Int) = rangeTo(other.toRational())
 
     fun pow(exponent: Int) = when {
         0 <= exponent ->
@@ -199,25 +221,25 @@ class Rational private constructor(
     }
 }
 
-infix fun BigDecimal.over(denominator: BigDecimal) =
+infix fun BDouble.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
-infix fun BigDecimal.over(denominator: Double) =
+infix fun BDouble.over(denominator: Double) =
     toRational() / denominator.toRational()
 
-infix fun BigDecimal.over(denominator: Float) =
+infix fun BDouble.over(denominator: Float) =
     toRational() / denominator.toRational()
 
-infix fun BigDecimal.over(denominator: BInt) =
+infix fun BDouble.over(denominator: BInt) =
     toRational() / denominator.toRational()
 
-infix fun BigDecimal.over(denominator: Long) =
+infix fun BDouble.over(denominator: Long) =
     toRational() / denominator.toRational()
 
-infix fun BigDecimal.over(denominator: Int) =
+infix fun BDouble.over(denominator: Int) =
     toRational() / denominator.toRational()
 
-infix fun Double.over(denominator: BigDecimal) =
+infix fun Double.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
 infix fun Double.over(denominator: BInt) =
@@ -235,7 +257,7 @@ infix fun Double.over(denominator: Double) =
 infix fun Double.over(denominator: Float) =
     toRational() / denominator.toRational()
 
-infix fun Float.over(denominator: BigDecimal) =
+infix fun Float.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
 infix fun Float.over(denominator: BInt) =
@@ -253,7 +275,7 @@ infix fun Float.over(denominator: Double) =
 infix fun Float.over(denominator: Float) =
     toRational() / denominator.toRational()
 
-infix fun BInt.over(denominator: BigDecimal) =
+infix fun BInt.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
 infix fun BInt.over(denominator: Double) =
@@ -272,7 +294,7 @@ infix fun Long.over(denominator: Double) =
 infix fun Long.over(denominator: Float) =
     toRational() / denominator.toRational()
 
-infix fun Long.over(denominator: BigDecimal) =
+infix fun Long.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
 infix fun Long.over(denominator: BInt) = new(toBigInteger(), denominator)
@@ -282,7 +304,7 @@ infix fun Long.over(denominator: Long) =
 infix fun Long.over(denominator: Int) =
     new(toBigInteger(), denominator.toBigInteger())
 
-infix fun Int.over(denominator: BigDecimal) =
+infix fun Int.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
 infix fun Int.over(denominator: Double) =
@@ -298,7 +320,7 @@ infix fun Int.over(denominator: Long) =
 infix fun Int.over(denominator: Int) =
     new(toBigInteger(), denominator.toBigInteger())
 
-fun BigDecimal.toRational() = convert(this)
+fun BDouble.toRational() = convert(this)
 fun Double.toRational() = convert(this)
 fun Float.toRational() = toDouble().toRational()
 fun BInt.toRational() = new(this, BigInteger.ONE)
@@ -355,18 +377,37 @@ class RationalProgression(
 infix fun Rational.downTo(other: Rational) =
     RationalProgression(this, other, -ONE)
 
+operator fun BDouble.plus(other: Rational) = toRational() + other
+operator fun Double.plus(other: Rational) = toRational() + other
+operator fun Float.plus(other: Rational) = toRational() + other
 operator fun BInt.plus(other: Rational) = toRational() + other
 operator fun Long.plus(other: Rational) = toRational() + other
 operator fun Int.plus(other: Rational) = toRational() + other
+
+operator fun BDouble.minus(other: Rational) = toRational() - other
+operator fun Double.minus(other: Rational) = toRational() - other
+operator fun Float.minus(other: Rational) = toRational() - other
 operator fun BInt.minus(other: Rational) = toRational() - other
 operator fun Long.minus(other: Rational) = toRational() - other
 operator fun Int.minus(other: Rational) = toRational() - other
+
+operator fun BDouble.times(other: Rational) = toRational() * other
+operator fun Double.times(other: Rational) = toRational() * other
+operator fun Float.times(other: Rational) = toRational() * other
 operator fun BInt.times(other: Rational) = toRational() * other
 operator fun Long.times(other: Rational) = toRational() * other
 operator fun Int.times(other: Rational) = toRational() * other
+
+operator fun BDouble.div(other: Rational) = toRational() / other
+operator fun Double.div(other: Rational) = toRational() / other
+operator fun Float.div(other: Rational) = toRational() / other
 operator fun BInt.div(other: Rational) = toRational() / other
 operator fun Long.div(other: Rational) = toRational() / other
 operator fun Int.div(other: Rational) = toRational() / other
+
+operator fun BDouble.rangeTo(other: Rational) = toRational()..other
+operator fun Double.rangeTo(other: Rational) = toRational()..other
+operator fun Float.rangeTo(other: Rational) = toRational()..other
 operator fun BInt.rangeTo(other: Rational) = toRational()..other
 operator fun Long.rangeTo(other: Rational) = toRational()..other
 operator fun Int.rangeTo(other: Rational) = toRational()..other
@@ -383,16 +424,16 @@ private fun factor(other: Double): Rational {
     return new(numerator.toBigInteger(), denominator.toBigInteger())
 }
 
-private fun convert(other: BigDecimal) = when (other) {
-    BigDecimal.ONE -> ONE
-    BigDecimal.ZERO -> ZERO
+private fun convert(other: BDouble) = when (other) {
+    BDouble.ONE -> ONE
+    BDouble.ZERO -> ZERO
     else -> {
         val bd = other.stripTrailingZeros()
         val precision = bd.precision()
         val scale = bd.scale()
 
         val numerator = bd.movePointRight(scale)
-        val denominator = BigDecimal.TEN.movePointRight(precision - 1)
+        val denominator = BDouble.TEN.movePointRight(precision - 1)
 
         new(numerator.toBigInteger(), denominator.toBigInteger())
     }

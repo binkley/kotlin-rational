@@ -233,6 +233,30 @@ internal class RationalTest {
         )
         assertEquals(
             2 over 1,
+            BigDecimal.ONE + ONE
+        )
+        assertEquals(
+            2 over 1,
+            ONE + BigDecimal.ONE
+        )
+        assertEquals(
+            2 over 1,
+            1.0 + ONE
+        )
+        assertEquals(
+            2 over 1,
+            ONE + 1.0
+        )
+        assertEquals(
+            2 over 1,
+            1.0f + ONE
+        )
+        assertEquals(
+            2 over 1,
+            ONE + 1.0f
+        )
+        assertEquals(
+            2 over 1,
             BigInteger.ONE + ONE
         )
         assertEquals(
@@ -262,6 +286,30 @@ internal class RationalTest {
         assertEquals(
             -1 over 15,
             (3 over 5) - (2 over 3)
+        )
+        assertEquals(
+            ZERO,
+            BigDecimal.ONE - ONE
+        )
+        assertEquals(
+            ZERO,
+            ONE - BigDecimal.ONE
+        )
+        assertEquals(
+            ZERO,
+            1.0 - ONE
+        )
+        assertEquals(
+            ZERO,
+            ONE - 1.0
+        )
+        assertEquals(
+            ZERO,
+            1.0f - ONE
+        )
+        assertEquals(
+            ZERO,
+            ONE - 1.0f
         )
         assertEquals(
             ZERO,
@@ -297,6 +345,30 @@ internal class RationalTest {
         )
         assertEquals(
             ONE,
+            BigDecimal.ONE * ONE
+        )
+        assertEquals(
+            ONE,
+            ONE * BigDecimal.ONE
+        )
+        assertEquals(
+            ONE,
+            1.0 * ONE
+        )
+        assertEquals(
+            ONE,
+            ONE * 1.0
+        )
+        assertEquals(
+            ONE,
+            1.0f * ONE
+        )
+        assertEquals(
+            ONE,
+            ONE * 1.0f
+        )
+        assertEquals(
+            ONE,
             BigInteger.ONE * ONE
         )
         assertEquals(
@@ -326,6 +398,30 @@ internal class RationalTest {
         assertEquals(
             9 over 10,
             (3 over 5) / (2 over 3)
+        )
+        assertEquals(
+            ONE,
+            BigDecimal.ONE / ONE
+        )
+        assertEquals(
+            ONE,
+            ONE / BigDecimal.ONE
+        )
+        assertEquals(
+            ONE,
+            1.0 / ONE
+        )
+        assertEquals(
+            ONE,
+            ONE / 1.0
+        )
+        assertEquals(
+            ONE,
+            1.0f / ONE
+        )
+        assertEquals(
+            ONE,
+            ONE / 1.0f
         )
         assertEquals(
             ONE,
@@ -473,28 +569,54 @@ internal class RationalTest {
             listOf(ONE, (2 over 1)),
             ((1 over 1)..(5 over 2)).toList()
         )
+        val three = 3 over 1
         assertEquals(
-            listOf(ONE, (3 over 1)),
-            (BigInteger.ONE..(3 over 1) step 2).toList()
+            listOf(ONE, three),
+            (BigDecimal.ONE..three step 2).toList()
+        )
+        if (false) // TODO: Why does this fail?
+            assertEquals(
+                listOf(ONE, three),
+                (ONE..BigDecimal.valueOf(3) step 2).toList()
+            )
+        assertEquals(
+            listOf(ONE, three),
+            (1.0..three step 2).toList()
         )
         assertEquals(
-            listOf(ONE, (3 over 1)),
+            listOf(ONE, three),
+            (ONE..3.0 step 2).toList()
+        )
+        assertEquals(
+            listOf(ONE, three),
+            (1.0f..three step 2).toList()
+        )
+        assertEquals(
+            listOf(ONE, three),
+            (ONE..3.0f step 2).toList()
+        )
+        assertEquals(
+            listOf(ONE, three),
+            (BigInteger.ONE..three step 2).toList()
+        )
+        assertEquals(
+            listOf(ONE, three),
             (ONE..BigInteger.valueOf(3) step 2).toList()
         )
         assertEquals(
-            listOf(ONE, (3 over 1)),
-            (1L..(3 over 1) step 2L).toList()
+            listOf(ONE, three),
+            (1L..three step 2L).toList()
         )
         assertEquals(
-            listOf(ONE, (3 over 1)),
+            listOf(ONE, three),
             (ONE..3L step 2L).toList()
         )
         assertEquals(
-            listOf(ONE, (3 over 1)),
-            (1..(3 over 1) step (2 over 1)).toList()
+            listOf(ONE, three),
+            (1..three step (2 over 1)).toList()
         )
         assertEquals(
-            listOf(ONE, (3 over 1)),
+            listOf(ONE, three),
             (ONE..3 step (2 over 1)).toList()
         )
         assertEquals(

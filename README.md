@@ -94,6 +94,21 @@ This code also represents infinities as division by 0 (positive infinity is
 `1 / 0`; negative infinity is `-1 / 0`).  The field of rationals (ℚ) is
 complex (in the colloquial meaning) when considering infinities.
 
+### Conversions and operators
+
+This code provides conversions (`toRational` and ilk) and operator overloads
+for these `Number` types:
+
+- `BigDecimal`
+- `Double`
+- `Float`
+- `BigInteger`
+- `Long`
+- `Int`
+
+Adding support for `Short` and `Byte` is simple, but I did not consider it
+worthwhile.
+
 ### Sorting
 
 All values sort in the natural mathematical sense, except that `NaN` always
