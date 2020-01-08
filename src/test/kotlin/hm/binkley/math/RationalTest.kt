@@ -93,7 +93,7 @@ internal class RationalTest {
     @Test
     fun `should reduce fractions`() {
         assertEquals(
-            Rational.new(BigInteger.TWO),
+            2 over 1,
             BigInteger.valueOf(4) over BigInteger.TWO
         )
     }

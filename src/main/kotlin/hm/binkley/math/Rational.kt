@@ -165,7 +165,7 @@ class Rational private constructor(
         val POSITIVE_INFINITY = Rational(BInt.ONE, BInt.ZERO)
         val NEGATIVE_INFINITY = Rational(BInt.ONE.negate(), BInt.ZERO)
 
-        fun new(numerator: BInt, denominator: BInt = BInt.ONE): Rational {
+        fun new(numerator: BInt, denominator: BInt): Rational {
             var n = numerator
             var d = denominator
             if (d < BInt.ZERO) {
