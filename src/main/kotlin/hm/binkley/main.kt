@@ -1,10 +1,10 @@
 package hm.binkley
 
-import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.Rational.Companion.NaN
-import hm.binkley.math.Rational.Companion.ONE
-import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.Rational.Companion.ZERO
+import hm.binkley.math.BigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.BigRational.Companion.NaN
+import hm.binkley.math.BigRational.Companion.ONE
+import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.BigRational.Companion.ZERO
 import hm.binkley.math.downTo
 import hm.binkley.math.over
 import hm.binkley.math.toRational

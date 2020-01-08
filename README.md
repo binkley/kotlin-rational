@@ -4,7 +4,8 @@
 
 # Kotlin Rational
 
-An immutable, infinite-precision `Rational` (ratio, fraction) class for Kotlin
+An immutable, infinite-precision `BigRational` (ratio, fraction) class for
+Kotlin
 
 This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading, and writing clear, concise, clean Kotlin.  It also explores the
@@ -18,7 +19,7 @@ Try `./run.sh` for a demonstration.
 These were great help:
 
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational),
-especially treating `Rational` as a `kotlin.Number`, and methods such as
+especially treating `BigRational` as a `kotlin.Number`, and methods such as
 `isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
 infix `over` constructor, and various overloads
@@ -60,18 +61,18 @@ code does not have a concept of infinitesimals ("ϵ or δ").  (See
 [_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for a
 discussion.)
 
-### `Rational` is a `Number`
+### `BigRational` is a `Number`
 
-In this code, `Rational` is a `kotlin.Number`, in part to pick up Kotlin
+In this code, `BigRational` is a `kotlin.Number`, in part to pick up Kotlin
 handling of numeric types.  One consequence: This code raises an error for
-conversion between `Rational` and `Char`.  This conversion seemed perverse,
+conversion between `BigRational` and `Char`.  This conversion seemed perverse,
 _eg_, `3/5` to what character?
 
-This code supports conversion among `Double` and `Float`, and`Rational`,
+This code supports conversion among `Double` and `Float`, and `BigRational`,
 preserving infinities and not a number.  The conversion is _exact_: it
 constructs a power-of-2 rational following IEEE 754; so converting the
-resulting `Rational` back returns the original floating point value, including
-infinities and not a number.
+resulting `BigRational` back returns the original floating point value,
+including infinities and not a number.
 
 ### Division by 0, infinities
 
@@ -146,8 +147,9 @@ infinite
 ### Types
 
 This code attempts to ease programmer typing through overloading.  Where
-sensible, if a `Rational` is provided as an argument or extension method type,
-then so is a `BigInteger`, `Long`, and `Int`.
+sensible, if a `BigRational` is provided as an argument or extension method
+type, then so are `BigDecimal`, `Double`, `Float`, `BigInteger`, `Long`, and
+`Int`.
 
 ## Implementation choices
 
@@ -156,13 +158,14 @@ then so is a `BigInteger`, `Long`, and `Int`.
 (See [_Always proper form_](#always-proper-form).)
 
 Much of the code assumes the rational is in simplest terms (proper form).
-The `Rational.new` factory method ensures this.
+The `BigRational.new` factory method ensures this.  However you should usually
+use the `over` infix operator instead, _eg_, `1 over 2`.
 
 ### Identity of constants
 
 Rather than check numerator and denominator throughout for special values,
-this code relies on the factory constructor (`Rational.new`) to produce known
-constants, and relevant code checks for those constants.
+this code relies on the factory constructor (`BigRational.new`) to produce
+known constants, and relevant code checks for those constants.
 
 See:
 
@@ -173,23 +176,23 @@ See:
 
 ### Factory constructor
 
-Rather than provide a public constructor, always use `Rational.new` factory
-method.  This maintains invariants such as "lowest terms" (numerator and
-denominator are coprime), sign handling, and reuse of special constant
-objects.
+Rather than provide a public constructor, always use the `over` infix
+operator (or `BigRational.new` factory method.  This maintains invariants
+such as "lowest terms" (numerator and denominator are coprime), sign
+handling, and reuse of special constant objects.
 
 ### Special case handling _vs_ sealed class
 
 This code uses special case handling for `NaN`, `POSITIVE_INFINITY`, and
-`NEGATIVE_INFINITY`.  An alternative is to make `Rational` a sealed class with
-separate subclasses for those.  This would also allow for handling of
+`NEGATIVE_INFINITY`.  An alternative is to make `BigRational` a sealed class
+with separate subclasses for those.  This would also allow for handling of
 infinitesimals.  However, the abstraction bleeds between subclasses.  It is
 unclear if a sealed class makes clearer code.
 
 ### GCD vs LCM
 
 There are several places that might use LCM (_eg_, dividing rationals).  This
-code relies on the factory constructor (`Rational.new`) to use GCM for
+code relies on the factory constructor (`BigRational.new`) to use GCM for
 reducing rationals to simplest form.
 
 ## Further reading

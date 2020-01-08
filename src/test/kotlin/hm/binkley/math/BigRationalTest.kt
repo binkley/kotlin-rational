@@ -2,12 +2,12 @@
 
 package hm.binkley.math
 
-import hm.binkley.math.Rational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.Rational.Companion.NaN
-import hm.binkley.math.Rational.Companion.ONE
-import hm.binkley.math.Rational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.Rational.Companion.TWO
-import hm.binkley.math.Rational.Companion.ZERO
+import hm.binkley.math.BigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.BigRational.Companion.NaN
+import hm.binkley.math.BigRational.Companion.ONE
+import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.BigRational.Companion.TWO
+import hm.binkley.math.BigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertSame
@@ -21,7 +21,7 @@ import java.math.BigInteger
  * NB -- the tests use a mixture of constructors while testing functionality.
  * This is intentional, and raises coverage.
  */
-internal class RationalTest {
+internal class BigRationalTest {
     @Test
     fun `should construct NaN`() {
         assertSame(
