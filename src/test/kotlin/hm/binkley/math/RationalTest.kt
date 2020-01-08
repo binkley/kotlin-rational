@@ -672,6 +672,12 @@ internal class RationalTest {
             doubles.map {
                 it.toRational()
             })
+        assertEquals(
+            doubles,
+            rationals.map {
+                it.toDouble()
+            }
+        )
     }
 
     @Test
@@ -718,5 +724,11 @@ internal class RationalTest {
             floats.map {
                 it.toRational()
             })
+        assertEquals(
+            floats,
+            rationals.map {
+                it.toFloat()
+            }
+        )
     }
 }

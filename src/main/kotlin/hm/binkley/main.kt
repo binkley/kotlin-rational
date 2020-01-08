@@ -77,6 +77,7 @@ fun main() {
         2.0,
         3.0,
         4.0,
+        123.456,
         Double.NaN,
         Double.MAX_VALUE,
         Double.MIN_VALUE
