@@ -120,7 +120,6 @@ class BigRational private constructor(
         !isFinite() -> false
         this === other -> true
         other !is BigRational -> false
-        !other.isFinite() -> false
         else -> numerator == other.numerator
                 && denominator == other.denominator
     }
@@ -764,7 +763,7 @@ fun Int.toRational() = toBigInteger().toRational()
 class BigRationalIterator(
     start: BigRational,
     endInclusive: BigRational,
-    private val step: BigRational
+    val step: BigRational
 ) : Iterator<BigRational> {
     init {
         if (!step.isFinite()) error("Step must be finite.")
