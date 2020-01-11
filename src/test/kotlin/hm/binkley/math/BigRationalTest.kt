@@ -857,4 +857,9 @@ internal class BigRationalTest {
             }
         )
     }
+
+    @Test
+    fun `should wrap conversion to Byte`() {
+        assertEquals((-128).toByte(), ((Byte.MAX_VALUE + 1) over 1).toByte())
+    }
 }

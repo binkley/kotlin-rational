@@ -16,6 +16,19 @@ private typealias BInt = BigInteger
 private typealias BDouble = BigDecimal
 
 /**
+ * Immutable arbitrary-precision rationals (finite fractions).  BigRational
+ * provides analogues to all of Kotlin's `Long` operators where appropriate.
+ * Additionally, BigRational provides operations for GCD and LCM calculation.
+ *
+ * Comparison operations perform signed comparisons, analogous to those
+ * performed by Kotlin's relational and equality operators.
+ *
+ * Division by `ZERO` does not raise an `ArithmeticException`; rather, it
+ * produces infinities or "not a number".  Infinities and "not a number"
+ * propagate where appropriate.
+ *
+ * Ranges increment by 1 unless otherwise specified.
+ *
  * @todo Consider `Short` and `Byte` overloads
  * @todo Assign properties at construction; avoid circular ctors
  */
@@ -23,26 +36,52 @@ class BigRational private constructor(
     val numerator: BInt,
     val denominator: BInt
 ) : Number(), Comparable<BigRational> {
+    /**
+     * The signum of this BigRational: -1 for negative, 0 for zero, or
+     * 1 for positive.  Note that the BigRational `ZERO` <em>must</em> have
+     * a signum of 0.  This is necessary to ensures that there is exactly one
+     * representation for each BigRational value.
+     */
     val sign: BigRational
         get() = when {
             isNaN() -> NaN
             else -> numerator.signum().toRational()
         }
 
+    /**
+     * Returns a BigRational whose value is the absolute value of this
+     * BigRational.
+     */
     val absoluteValue: BigRational
         get() = new(numerator.abs(), denominator)
 
-    /** NB -- Reciprocal of infinities is zero. */
+    /**
+     * Returns a BigRational whose value is the reciprocal of this
+     * BigRational.
+     *
+     * NB -- Reciprocals of infinities are `ZERO`.
+     */
     val reciprocal: BigRational
         get() = new(denominator, numerator)
 
+    /**
+     * Raises an `IllegalStateException`.  Kotlin provides a `toChar` in its
+     * `Number` class; Java does not have a conversion to `Character` for
+     * `java.lang.Number`.
+     */
     override fun toChar(): Char = error("Characters are non-numeric")
+
     override fun toByte() = toLong().toByte()
     override fun toShort() = toLong().toShort()
     override fun toInt() = toLong().toInt()
     override fun toLong() = (numerator / denominator).toLong()
     override fun toFloat() = toDouble().toFloat()
 
+    /**
+     * Returns the value of this number as a [Double], which may involve
+     * rounding.  This should produce an _exact_ conversion, that is,
+     * `123.455.toRational().toDouble == 123.456`.
+     */
     override fun toDouble() = when {
         isNaN() -> Double.NaN
         isPositiveInfinity() -> Double.POSITIVE_INFINITY
@@ -51,8 +90,12 @@ class BigRational private constructor(
     }
 
     /**
-     * Sorts while ignoring [equals].  So [NaN] sorts to the end, even as
-     * `NaN != NaN` (and similarly for the infinities).
+     * Compares this object with the specified object for order. Returns
+     * 0 when this object is equal to the specified [other] object, -1 when
+     * it is less than [other], or 1 when it is greater than [other].
+     *
+     * Sorting ignores [equals] for special values.  [NaN] sorts to the end,
+     * even as `NaN != NaN` (and similarly for the infinities).
      */
     override fun compareTo(other: BigRational) = when {
         this === other -> 0 // Sort stability for constants
@@ -68,7 +111,11 @@ class BigRational private constructor(
         }
     }
 
-    /** NB -- NaN != NaN, nor infinities are equal to themselves */
+    /**
+     * NB -- Infinities and "not a number" are not equal to themselves.
+     *
+     * @see Any.equals
+     * */
     override fun equals(other: Any?) = when {
         !isFinite() -> false
         this === other -> true
@@ -80,6 +127,13 @@ class BigRational private constructor(
 
     override fun hashCode() = Objects.hash(numerator, denominator)
 
+    /**
+     * Returns a string representation of the object.  In particular:
+     * * `NaN` is "NaN"
+     * * `POSITIVE_INFINITY` is "+∞" (UNICODE)
+     * * `NEGATIVE_INFINITY` is "-∞" (UNICODE)
+     * * Finite values are _numerator_/_denominator_
+     */
     override fun toString() = when {
         isNaN() -> "NaN"
         isPositiveInfinity() -> "+∞"
@@ -88,9 +142,16 @@ class BigRational private constructor(
         else -> "$numerator/$denominator"
     }
 
+    /** Returns this value. */
     operator fun unaryPlus() = this
+
+    /** Returns the arithmetic inverse of this value. */
     operator fun unaryMinus() = new(numerator.negate(), denominator)
+
+    /** Increments this value by 1 (denominator / denominator). */
     operator fun inc() = new(numerator + denominator, denominator)
+
+    /** Decrements this value by 1 (denominator / denominator). */
     operator fun dec() = new(numerator - denominator, denominator)
 
     operator fun plus(other: BigRational) = new(
@@ -98,55 +159,117 @@ class BigRational private constructor(
         denominator * other.denominator
     )
 
-    operator fun plus(other: BDouble) = this + other.toRational()
-    operator fun plus(other: Double) = this + other.toRational()
-    operator fun plus(other: Float) = this + other.toRational()
-    operator fun plus(other: BInt) = this + other.toRational()
-    operator fun plus(other: Long) = this + other.toRational()
-    operator fun plus(other: Int) = this + other.toRational()
+    /** Adds the other value to this value. */
+    operator fun plus(addend: BDouble) = this + addend.toRational()
 
-    operator fun minus(other: BigRational) = this + -other
-    operator fun minus(other: BDouble) = this - other.toRational()
-    operator fun minus(other: Double) = this - other.toRational()
-    operator fun minus(other: Float) = this - other.toRational()
-    operator fun minus(other: BInt) = this - other.toRational()
-    operator fun minus(other: Long) = this - other.toRational()
-    operator fun minus(other: Int) = this - other.toRational()
+    /** Adds the other value to this value yielding a BigRational. */
+    operator fun plus(addend: Double) = this + addend.toRational()
+
+    /** Adds the other value to this value yielding a BigRational. */
+    operator fun plus(addend: Float) = this + addend.toRational()
+
+    /** Adds the other value to this value yielding a BigRational. */
+    operator fun plus(addend: BInt) = this + addend.toRational()
+
+    /** Adds the other value to this value yielding a BigRational. */
+    operator fun plus(addend: Long) = this + addend.toRational()
+
+    /** Adds the other value to this value yielding a BigRational. */
+    operator fun plus(addend: Int) = this + addend.toRational()
+
+    /** Subtracts the other value from this value. */
+    operator fun minus(subtrahend: BigRational) = this + -subtrahend
+
+    /** Subtracts the other value from this value yielding a BigRational. */
+    operator fun minus(subtrahend: BDouble) = this - subtrahend.toRational()
+
+    /** Subtracts the other value from this value yielding a BigRational. */
+    operator fun minus(subtrahend: Double) = this - subtrahend.toRational()
+
+    /** Subtracts the other value from this value yielding a BigRational. */
+    operator fun minus(subtrahend: Float) = this - subtrahend.toRational()
+
+    /** Subtracts the other value from this value yielding a BigRational. */
+    operator fun minus(subtrahend: BInt) = this - subtrahend.toRational()
+
+    /** Subtracts the other value from this value yielding a BigRational. */
+    operator fun minus(subtrahend: Long) = this - subtrahend.toRational()
+
+    /** Subtracts the other value from this value yielding a BigRational. */
+    operator fun minus(subtrahend: Int) = this - subtrahend.toRational()
 
     operator fun times(other: BigRational) = new(
         numerator * other.numerator,
         denominator * other.denominator
     )
 
-    operator fun times(other: BDouble) = this * other.toRational()
-    operator fun times(other: Double) = this * other.toRational()
-    operator fun times(other: Float) = this * other.toRational()
-    operator fun times(other: BInt) = this * other.toRational()
-    operator fun times(other: Long) = this * other.toRational()
-    operator fun times(other: Int) = this * other.toRational()
+    /** Multiplies this value by the other value. */
+    operator fun times(multiplicand: BDouble) =
+        this * multiplicand.toRational()
 
-    /** NB -- Division by zero returns NaN, does not raise exception */
-    operator fun div(other: BigRational) = this * other.reciprocal
+    /** Multiplies this value by the other value yielding a BigRational. */
+    operator fun times(multiplicand: Double) =
+        this * multiplicand.toRational()
 
-    operator fun div(other: BDouble) = this / other.toRational()
-    operator fun div(other: Double) = this / other.toRational()
-    operator fun div(other: Float) = this / other.toRational()
-    operator fun div(other: BInt) = this / other.toRational()
-    operator fun div(other: Long) = this / other.toRational()
-    operator fun div(other: Int) = this / other.toRational()
+    /** Multiplies this value by the other value yielding a BigRational. */
+    operator fun times(multiplicand: Float) = this * multiplicand.toRational()
 
+    /** Multiplies this value by the other value yielding a BigRational. */
+    operator fun times(multiplicand: BInt) = this * multiplicand.toRational()
+
+    /** Multiplies this value by the other value yielding a BigRational. */
+    operator fun times(multiplicand: Long) = this * multiplicand.toRational()
+
+    /** Multiplies this value by the other value yielding a BigRational. */
+    operator fun times(multiplicand: Int) = this * multiplicand.toRational()
+
+    /** Divides this value by the other value. */
+    operator fun div(divisor: BigRational) = this * divisor.reciprocal
+
+    /** Divides this value by the other value yielding a BigRational. */
+    operator fun div(divisor: BDouble) = this / divisor.toRational()
+
+    /** Divides this value by the other value yielding a BigRational. */
+    operator fun div(divisor: Double) = this / divisor.toRational()
+
+    /** Divides this value by the other value yielding a BigRational. */
+    operator fun div(divisor: Float) = this / divisor.toRational()
+
+    /** Divides this value by the other value yielding a BigRational. */
+    operator fun div(divisor: BInt) = this / divisor.toRational()
+
+    /** Divides this value by the other value yielding a BigRational. */
+    operator fun div(divisor: Long) = this / divisor.toRational()
+
+    /** Divides this value by the other value yielding a BigRational. */
+    operator fun div(divisor: Int) = this / divisor.toRational()
+
+    /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: BigRational) =
         BigRationalProgression(this, other)
 
     @Generated // TODO: Why does this fail?
     operator fun rangeTo(other: BDouble) = rangeTo(other.toRational())
 
+    /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Double) = rangeTo(other.toRational())
+
+    /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Float) = rangeTo(other.toRational())
+
+    /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: BInt) = rangeTo(other.toRational())
+
+    /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Long) = rangeTo(other.toRational())
+
+    /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Int) = rangeTo(other.toRational())
 
+    /**
+     * Returns a BigRational whose value is `(this^exponent)`. Note that
+     * `exponent` is an integer rather than a BigRational.
+     */
     fun pow(exponent: Int) = when {
         0 <= exponent ->
             new(numerator.pow(exponent), denominator.pow(exponent))
@@ -154,40 +277,122 @@ class BigRational private constructor(
             new(denominator.pow(-exponent), numerator.pow(-exponent))
     }
 
+    /**
+     * Returns a BigRational whose value is the greatest common divisor of
+     * the absolute values of `this` and `other`.  Returns 0 when `this` and
+     * `other` are both 0.
+     *
+     * @todo Tests for zero and negative cases
+     */
     fun gcd(other: BigRational) = new(
         numerator.gcd(other.numerator),
         denominator.lcm(other.denominator)
     )
 
+    /**
+     * Returns a BigRational whose value is the lowest common multiple of
+     * the absolute values of `this` and `other`.  Returns 1 when `this` and
+     * `other` are both 0.
+     *
+     * @todo Tests for zero and negative cases
+     * @todo Returns 0 when this and other are 0; correct thing to do?
+     */
     fun lcm(other: BigRational) = new(
         numerator.lcm(other.numerator),
         denominator.gcd(other.denominator)
     )
 
-    /** NB -- NaN is not finite */
+    /**
+     * Checks that this rational is a finite fraction.  Infinities and "not a
+     * number" are not finite.
+     */
     fun isFinite() = !isNaN() && !isInfinite()
 
+    /**
+     * Checks that this rational is dyadic, that is, the denominator is a power
+     * of 2.
+     *
+     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cote></a>
+     */
     fun isDyadic() = isFinite()
-            && (BigInteger.ONE == denominator
-            || BigInteger.ZERO == denominator % BigInteger.TWO)
+            && (denominator.isOne()
+            || (denominator % BigInteger.TWO).isZero())
 
-    /** NB -- NaN is not infinite */
+    /**
+     * Checks that this rational is infinite, positive or negative.  "Not a
+     * number" is not infinite.
+     */
     fun isInfinite() = isPositiveInfinity() || isNegativeInfinity()
 
+    /**
+     * Checks that this rational is "not a number".
+     *
+     * NB -- `NaN != NaN`
+     */
     fun isNaN() = this === NaN
+
+    /**
+     * Checks that this rational is positive infinity.
+     *
+     * NB -- `POSITIVE_INFINITY != POSITIVE_INFINITY`
+     */
     fun isPositiveInfinity() = this === POSITIVE_INFINITY
+
+    /**
+     * Checks that this rational is negative infinity.
+     *
+     * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
+     */
     fun isNegativeInfinity() = this === NEGATIVE_INFINITY
 
     private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
     companion object {
+        /**
+         * A constant holding "not a number" (NaN) value of type
+         * `BigRational`. It is equivalent `0 over 0`.
+         */
         val NaN = BigRational(BInt.ZERO, BInt.ZERO)
+        /**
+         * A constant holding 0 value of type `BigRational`. It is equivalent
+         * `0 over 1`.
+         */
         val ZERO = BigRational(BInt.ZERO, BInt.ONE)
+        /**
+         * A constant holding 1 value of type `BigRational`. It is equivalent
+         * `1 over 1`.
+         */
         val ONE = BigRational(BInt.ONE, BInt.ONE)
+        /**
+         * A constant holding 2 value of type `BigRational`. It is equivalent
+         * `2 over 1`.
+         */
         val TWO = BigRational(BInt.TWO, BInt.ONE)
+        /**
+         * A constant holding positive infinity value of type `BigRational`.
+         * It is equivalent `1 over 0`.
+         */
         val POSITIVE_INFINITY = BigRational(BInt.ONE, BInt.ZERO)
+        /**
+         * A constant holding negative infinity value of type `BigRational`.
+         * It is equivalent `-1 over 0`.
+         */
         val NEGATIVE_INFINITY = BigRational(BInt.ONE.negate(), BInt.ZERO)
 
+        /**
+         * Returns a BigRational whose value is equal to that of the
+         * specified ratio, `numerator / denominator`.
+         *
+         * This factory method is in preference to an explicit constructor
+         * allowing for reuse of frequently used BigRationals.  In particular:
+         *
+         * * NaN
+         * * POSITIVE_INFINITY
+         * * NEGATIVE_INFINITY
+         * * ZERO
+         * * ONE
+         * * TWO
+         */
         fun new(numerator: BInt, denominator: BInt): BigRational {
             var n = numerator
             var d = denominator
@@ -201,10 +406,6 @@ class BigRational private constructor(
                 n /= gcd
                 d /= gcd
             }
-
-            fun BInt.isZero() = this == BInt.ZERO
-            fun BInt.isOne() = this == BInt.ONE
-            fun BInt.isTwo() = this == BInt.TWO
 
             // Ensure constants return the *same* object
             if (d.isZero()) when {
@@ -223,130 +424,367 @@ class BigRational private constructor(
     }
 }
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BDouble.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BDouble.over(denominator: Double) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BDouble.over(denominator: Float) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BDouble.over(denominator: BInt) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BDouble.over(denominator: Long) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BDouble.over(denominator: Int) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Double.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Double.over(denominator: BInt) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Double.over(denominator: Long) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Double.over(denominator: Int) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Double.over(denominator: Double) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Double.over(denominator: Float) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Float.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Float.over(denominator: BInt) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Float.over(denominator: Long) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Float.over(denominator: Int) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Float.over(denominator: Double) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Float.over(denominator: Float) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BInt.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BInt.over(denominator: Double) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BInt.over(denominator: Float) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BInt.over(denominator: BInt) = new(this, denominator)
+
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BInt.over(denominator: Long) = new(this, denominator.toBigInteger())
+
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun BInt.over(denominator: Int) = new(this, denominator.toBigInteger())
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Long.over(denominator: Double) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Long.over(denominator: Float) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Long.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Long.over(denominator: BInt) = new(toBigInteger(), denominator)
+
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Long.over(denominator: Long) =
     new(toBigInteger(), denominator.toBigInteger())
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Long.over(denominator: Int) =
     new(toBigInteger(), denominator.toBigInteger())
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Int.over(denominator: BDouble) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Int.over(denominator: Double) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Int.over(denominator: Float) =
     toRational() / denominator.toRational()
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Int.over(denominator: BInt) = new(toBigInteger(), denominator)
+
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Int.over(denominator: Long) =
     new(toBigInteger(), denominator.toBigInteger())
 
+/**
+ * Returns a BigRational whose value is equal to that of the
+ * specified ratio, `numerator / denominator`.
+ *
+ * @see new
+ */
 infix fun Int.over(denominator: Int) =
     new(toBigInteger(), denominator.toBigInteger())
 
+/** Returns the value of this number as a BigRational. */
 fun BDouble.toRational() = convert(this)
+
+/** Returns the value of this number as a BigRational. */
 fun Double.toRational() = convert(this)
+
+/** Returns the value of this number as a BigRational. */
 fun Float.toRational() = toDouble().toRational()
+
+/** Returns the value of this number as a BigRational. */
 fun BInt.toRational() = new(this, BigInteger.ONE)
+
+/** Returns the value of this number as a BigRational. */
 fun Long.toRational() = toBigInteger().toRational()
+
+/** Returns the value of this number as a BigRational. */
 fun Int.toRational() = toBigInteger().toRational()
 
 class BigRationalIterator(
     start: BigRational,
-    private val endInclusive: BigRational,
+    endInclusive: BigRational,
     private val step: BigRational
 ) : Iterator<BigRational> {
     init {
-        if (step == ZERO) error("Infinite loop")
-        if (start.isNaN() || endInclusive.isNaN() || step.isNaN())
-            error("NaN != NaN")
+        if (!step.isFinite()) error("Step must be finite.")
+        if (!start.isFinite() || !endInclusive.isFinite())
+            error("Infinite bounds.")
     }
 
-    private var current = start
+    /** The first element in the progression. */
+    val first = start
+
+    /** The last element in the progression. */
+    val last = endInclusive
+
+    private var current = first
 
     override fun hasNext() =
         if (step > ZERO)
-            current <= endInclusive
+            current <= last
         else
-            current >= endInclusive
+            current >= last
 
     override fun next(): BigRational {
         val next = current
@@ -453,3 +891,7 @@ private fun convert(d: Double) = when {
     d < 0 -> -TWO.pow(exponent(d)) * factor(d)
     else -> TWO.pow(exponent(d)) * factor(d)
 }
+
+private fun BInt.isZero() = this == BInt.ZERO
+private fun BInt.isOne() = this == BInt.ONE
+private fun BInt.isTwo() = this == BInt.TWO
