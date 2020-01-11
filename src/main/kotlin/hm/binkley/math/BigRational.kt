@@ -29,12 +29,12 @@ class BigRational private constructor(
             else -> numerator.signum().toRational()
         }
 
+    val absoluteValue: BigRational
+        get() = new(numerator.abs(), denominator)
+
     /** NB -- Reciprocal of infinities is zero. */
     val reciprocal: BigRational
         get() = new(denominator, numerator)
-
-    val absoluteValue: BigRational
-        get() = new(numerator.abs(), denominator)
 
     override fun toChar(): Char = error("Characters are non-numeric")
     override fun toByte() = toLong().toByte()
