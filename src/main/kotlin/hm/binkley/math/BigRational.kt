@@ -792,6 +792,7 @@ class BigRationalIterator(
     }
 }
 
+/** @todo Provide `isEmpty`, `equals`, `hashCode`, `toString` */
 class BigRationalProgression(
     override val start: BigRational,
     override val endInclusive: BigRational,
