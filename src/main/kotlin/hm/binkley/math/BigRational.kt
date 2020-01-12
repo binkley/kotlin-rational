@@ -304,6 +304,8 @@ class BigRational private constructor(
     /**
      * Checks that this rational is a finite fraction.  Infinities and "not a
      * number" are not finite.
+     *
+     * @todo Consider separate types, which leads to sealed types
      */
     fun isFinite() = !isNaN() && !isInfinite()
 
