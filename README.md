@@ -200,4 +200,4 @@ reducing rationals to simplest form.
 - [_Wheel of fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
 - [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
 - [Double-precision floating-point format](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
-- [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)).
+- [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational).
