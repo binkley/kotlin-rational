@@ -934,4 +934,16 @@ internal class BigRationalTest {
             ONE + -ONE
         )
     }
+
+    @Test
+    fun `should cope with various infinities`() {
+        assertTrue((ZERO * POSITIVE_INFINITY).isNaN())
+        assertEquals(ZERO, ZERO / POSITIVE_INFINITY)
+        assertTrue((POSITIVE_INFINITY / ZERO).isPositiveInfinity())
+        assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
+        assertEquals(ZERO, ZERO / NEGATIVE_INFINITY)
+        assertTrue((NEGATIVE_INFINITY / ZERO).isNegativeInfinity())
+        assertTrue((POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity())
+        assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
+    }
 }
