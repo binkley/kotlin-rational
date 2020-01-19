@@ -280,13 +280,12 @@ class BigRational private constructor(
      * Returns a BigRational whose value is the greatest common divisor of
      * the absolute values of `this` and `other`.  Returns 0 when `this` and
      * `other` are both 0.
-     *
-     * @todo Tests for zero and negative cases
      */
-    fun gcd(other: BigRational) = new(
-        numerator.gcd(other.numerator),
-        denominator.lcm(other.denominator)
-    )
+    fun gcd(other: BigRational) =
+        if (ZERO == this) other else new(
+            numerator.gcd(other.numerator),
+            denominator.lcm(other.denominator)
+        )
 
     /**
      * Returns a BigRational whose value is the lowest common multiple of
@@ -296,10 +295,11 @@ class BigRational private constructor(
      * @todo Tests for zero and negative cases
      * @todo Returns 0 when this and other are 0; correct thing to do?
      */
-    fun lcm(other: BigRational) = new(
-        numerator.lcm(other.numerator),
-        denominator.gcd(other.denominator)
-    )
+    fun lcm(other: BigRational) =
+        if (ZERO == this) ZERO else new(
+            numerator.lcm(other.numerator),
+            denominator.gcd(other.denominator)
+        )
 
     /**
      * Checks that this rational is a finite fraction.  Infinities and "not a
@@ -408,7 +408,7 @@ class BigRational private constructor(
                 d /= gcd
             }
 
-            // Ensure constants return the *same* object
+            // Ensure constants return the _same_ object
             if (d.isZero()) when {
                 n.isZero() -> return NaN
                 n.isOne() -> return POSITIVE_INFINITY
@@ -765,19 +765,19 @@ fun Int.toRational() = toBigInteger().toRational()
 class BigRationalIterator(
     start: BigRational,
     endInclusive: BigRational,
-    val step: BigRational
+    private val step: BigRational
 ) : Iterator<BigRational> {
     init {
-        if (!step.isFinite()) error("Step must be finite.")
+        if (!step.isFinite()) error("Non-finite step.")
         if (!start.isFinite() || !endInclusive.isFinite())
-            error("Infinite bounds.")
+            error("Non-finite bounds.")
     }
 
     /** The first element in the progression. */
-    val first = start
+    private val first = start
 
     /** The last element in the progression. */
-    val last = endInclusive
+    private val last = endInclusive
 
     private var current = first
 
@@ -794,7 +794,6 @@ class BigRationalIterator(
     }
 }
 
-/** @todo Provide `isEmpty`, `equals`, `hashCode`, `toString` */
 class BigRationalProgression(
     override val start: BigRational,
     override val endInclusive: BigRational,

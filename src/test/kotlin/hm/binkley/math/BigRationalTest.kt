@@ -187,6 +187,8 @@ internal class BigRationalTest {
         assertTrue(1 over 2 == 1 over 2)
         assertTrue(ZERO == ZERO)
         assertTrue(ONE == ONE)
+        assertFalse(ZERO.equals(0))
+        assertFalse((2 over 3) == (2 over 5))
     }
 
     @Test
@@ -565,6 +567,8 @@ internal class BigRationalTest {
 
     @Test
     fun `should progress`() {
+        assertTrue(((ZERO..(-ONE)).isEmpty()))
+        assertTrue((ZERO..TWO).contains(ONE))
         assertEquals(
             listOf(ONE, (2 over 1)),
             ((1 over 1)..(5 over 2)).toList()
@@ -713,6 +717,10 @@ internal class BigRationalTest {
             (2 over 9),
             ZERO.gcd(2 over 9)
         )
+        assertEquals(
+            ZERO,
+            ZERO.gcd(ZERO)
+        )
     }
 
     @Test
@@ -736,6 +744,10 @@ internal class BigRationalTest {
         assertEquals(
             ZERO,
             ZERO.lcm(6 over 21)
+        )
+        assertEquals(
+            ZERO,
+            ZERO.lcm(ZERO)
         )
     }
 
