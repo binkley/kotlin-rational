@@ -874,4 +874,62 @@ internal class BigRationalTest {
     fun `should wrap conversion to Byte`() {
         assertEquals((-128).toByte(), ((Byte.MAX_VALUE + 1) over 1).toByte())
     }
+
+    @Test
+    fun `should be ℚ`() {
+        val twoThirds = 2 over 3
+        val threeHalves = 3 over 2
+        val fiveSevenths = 5 over 7
+
+        // Associativity
+        assertEquals(
+            twoThirds + (threeHalves + fiveSevenths),
+            (twoThirds + threeHalves) + fiveSevenths
+        )
+        assertEquals(
+            twoThirds * (threeHalves * fiveSevenths),
+            (twoThirds * threeHalves) * fiveSevenths
+        )
+
+        // Commutativity
+        assertEquals(
+            twoThirds + threeHalves,
+            threeHalves + twoThirds
+        )
+        assertEquals(
+            twoThirds * threeHalves,
+            threeHalves * twoThirds
+        )
+
+        // Identities
+        assertEquals(
+            twoThirds,
+            twoThirds + ZERO
+        )
+        assertEquals(
+            twoThirds,
+            twoThirds * ONE
+        )
+
+        // Inverses
+        assertEquals(
+            ZERO,
+            twoThirds + -twoThirds
+        )
+        assertEquals(
+            ONE,
+            twoThirds * twoThirds.reciprocal
+        )
+
+        // Distributive
+        assertEquals(
+            twoThirds * fiveSevenths + threeHalves * fiveSevenths,
+            (twoThirds + threeHalves) * fiveSevenths
+        )
+
+        assertEquals(
+            ZERO,
+            ONE + -ONE
+        )
+    }
 }
