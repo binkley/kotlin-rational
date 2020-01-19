@@ -6,7 +6,7 @@ import hm.binkley.math.BigRational.Companion.ONE
 import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.BigRational.Companion.TWO
 import hm.binkley.math.BigRational.Companion.ZERO
-import hm.binkley.math.BigRational.Companion.new
+import hm.binkley.math.BigRational.Companion.valueOf
 import lombok.Generated
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -53,7 +53,7 @@ class BigRational private constructor(
      * BigRational.
      */
     val absoluteValue: BigRational
-        get() = new(numerator.abs(), denominator)
+        get() = valueOf(numerator.abs(), denominator)
 
     /**
      * Returns a BigRational whose value is the reciprocal of this
@@ -62,7 +62,7 @@ class BigRational private constructor(
      * NB -- Reciprocals of infinities are `ZERO`.
      */
     val reciprocal: BigRational
-        get() = new(denominator, numerator)
+        get() = valueOf(denominator, numerator)
 
     /**
      * Raises an `IllegalStateException`.  Kotlin provides a `toChar` in its
@@ -145,15 +145,15 @@ class BigRational private constructor(
     operator fun unaryPlus() = this
 
     /** Returns the arithmetic inverse of this value. */
-    operator fun unaryMinus() = new(numerator.negate(), denominator)
+    operator fun unaryMinus() = valueOf(numerator.negate(), denominator)
 
     /** Increments this value by 1 (denominator / denominator). */
-    operator fun inc() = new(numerator + denominator, denominator)
+    operator fun inc() = valueOf(numerator + denominator, denominator)
 
     /** Decrements this value by 1 (denominator / denominator). */
-    operator fun dec() = new(numerator - denominator, denominator)
+    operator fun dec() = valueOf(numerator - denominator, denominator)
 
-    operator fun plus(other: BigRational) = new(
+    operator fun plus(other: BigRational) = valueOf(
         numerator * other.denominator + other.numerator * denominator,
         denominator * other.denominator
     )
@@ -197,7 +197,7 @@ class BigRational private constructor(
     /** Subtracts the other value from this value yielding a BigRational. */
     operator fun minus(subtrahend: Int) = this - subtrahend.toRational()
 
-    operator fun times(other: BigRational) = new(
+    operator fun times(other: BigRational) = valueOf(
         numerator * other.numerator,
         denominator * other.denominator
     )
@@ -271,9 +271,9 @@ class BigRational private constructor(
      */
     fun pow(exponent: Int) = when {
         0 <= exponent ->
-            new(numerator.pow(exponent), denominator.pow(exponent))
+            valueOf(numerator.pow(exponent), denominator.pow(exponent))
         else ->
-            new(denominator.pow(-exponent), numerator.pow(-exponent))
+            valueOf(denominator.pow(-exponent), numerator.pow(-exponent))
     }
 
     /**
@@ -282,7 +282,7 @@ class BigRational private constructor(
      * `other` are both 0.
      */
     fun gcd(other: BigRational) =
-        if (ZERO == this) other else new(
+        if (ZERO == this) other else valueOf(
             numerator.gcd(other.numerator),
             denominator.lcm(other.denominator)
         )
@@ -296,7 +296,7 @@ class BigRational private constructor(
      * @todo Returns 0 when this and other are 0; correct thing to do?
      */
     fun lcm(other: BigRational) =
-        if (ZERO == this) ZERO else new(
+        if (ZERO == this) ZERO else valueOf(
             numerator.lcm(other.numerator),
             denominator.gcd(other.denominator)
         )
@@ -394,7 +394,7 @@ class BigRational private constructor(
          * * ONE
          * * TWO
          */
-        fun new(numerator: BInt, denominator: BInt): BigRational {
+        fun valueOf(numerator: BInt, denominator: BInt): BigRational {
             var n = numerator
             var d = denominator
             if (d < BInt.ZERO) {
@@ -429,7 +429,7 @@ class BigRational private constructor(
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BDouble.over(denominator: BDouble) =
     toRational() / denominator.toRational()
@@ -438,7 +438,7 @@ infix fun BDouble.over(denominator: BDouble) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BDouble.over(denominator: Double) =
     toRational() / denominator.toRational()
@@ -447,7 +447,7 @@ infix fun BDouble.over(denominator: Double) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BDouble.over(denominator: Float) =
     toRational() / denominator.toRational()
@@ -456,7 +456,7 @@ infix fun BDouble.over(denominator: Float) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BDouble.over(denominator: BInt) =
     toRational() / denominator.toRational()
@@ -465,7 +465,7 @@ infix fun BDouble.over(denominator: BInt) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BDouble.over(denominator: Long) =
     toRational() / denominator.toRational()
@@ -474,7 +474,7 @@ infix fun BDouble.over(denominator: Long) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BDouble.over(denominator: Int) =
     toRational() / denominator.toRational()
@@ -483,7 +483,7 @@ infix fun BDouble.over(denominator: Int) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Double.over(denominator: BDouble) =
     toRational() / denominator.toRational()
@@ -492,7 +492,7 @@ infix fun Double.over(denominator: BDouble) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Double.over(denominator: BInt) =
     toRational() / denominator.toRational()
@@ -501,7 +501,7 @@ infix fun Double.over(denominator: BInt) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Double.over(denominator: Long) =
     toRational() / denominator.toRational()
@@ -510,7 +510,7 @@ infix fun Double.over(denominator: Long) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Double.over(denominator: Int) =
     toRational() / denominator.toRational()
@@ -519,7 +519,7 @@ infix fun Double.over(denominator: Int) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Double.over(denominator: Double) =
     toRational() / denominator.toRational()
@@ -528,7 +528,7 @@ infix fun Double.over(denominator: Double) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Double.over(denominator: Float) =
     toRational() / denominator.toRational()
@@ -537,7 +537,7 @@ infix fun Double.over(denominator: Float) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Float.over(denominator: BDouble) =
     toRational() / denominator.toRational()
@@ -546,7 +546,7 @@ infix fun Float.over(denominator: BDouble) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Float.over(denominator: BInt) =
     toRational() / denominator.toRational()
@@ -555,7 +555,7 @@ infix fun Float.over(denominator: BInt) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Float.over(denominator: Long) =
     toRational() / denominator.toRational()
@@ -564,7 +564,7 @@ infix fun Float.over(denominator: Long) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Float.over(denominator: Int) =
     toRational() / denominator.toRational()
@@ -573,7 +573,7 @@ infix fun Float.over(denominator: Int) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Float.over(denominator: Double) =
     toRational() / denominator.toRational()
@@ -582,7 +582,7 @@ infix fun Float.over(denominator: Double) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Float.over(denominator: Float) =
     toRational() / denominator.toRational()
@@ -591,7 +591,7 @@ infix fun Float.over(denominator: Float) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BInt.over(denominator: BDouble) =
     toRational() / denominator.toRational()
@@ -600,7 +600,7 @@ infix fun BInt.over(denominator: BDouble) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BInt.over(denominator: Double) =
     toRational() / denominator.toRational()
@@ -609,7 +609,7 @@ infix fun BInt.over(denominator: Double) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun BInt.over(denominator: Float) =
     toRational() / denominator.toRational()
@@ -618,31 +618,33 @@ infix fun BInt.over(denominator: Float) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
-infix fun BInt.over(denominator: BInt) = new(this, denominator)
+infix fun BInt.over(denominator: BInt) = valueOf(this, denominator)
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
-infix fun BInt.over(denominator: Long) = new(this, denominator.toBigInteger())
+infix fun BInt.over(denominator: Long) =
+    valueOf(this, denominator.toBigInteger())
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
-infix fun BInt.over(denominator: Int) = new(this, denominator.toBigInteger())
+infix fun BInt.over(denominator: Int) =
+    valueOf(this, denominator.toBigInteger())
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Long.over(denominator: Double) =
     toRational() / denominator.toRational()
@@ -651,7 +653,7 @@ infix fun Long.over(denominator: Double) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Long.over(denominator: Float) =
     toRational() / denominator.toRational()
@@ -660,7 +662,7 @@ infix fun Long.over(denominator: Float) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Long.over(denominator: BDouble) =
     toRational() / denominator.toRational()
@@ -669,33 +671,33 @@ infix fun Long.over(denominator: BDouble) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
-infix fun Long.over(denominator: BInt) = new(toBigInteger(), denominator)
+infix fun Long.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Long.over(denominator: Long) =
-    new(toBigInteger(), denominator.toBigInteger())
+    valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Long.over(denominator: Int) =
-    new(toBigInteger(), denominator.toBigInteger())
+    valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Int.over(denominator: BDouble) =
     toRational() / denominator.toRational()
@@ -704,7 +706,7 @@ infix fun Int.over(denominator: BDouble) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Int.over(denominator: Double) =
     toRational() / denominator.toRational()
@@ -713,7 +715,7 @@ infix fun Int.over(denominator: Double) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Int.over(denominator: Float) =
     toRational() / denominator.toRational()
@@ -722,27 +724,27 @@ infix fun Int.over(denominator: Float) =
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
-infix fun Int.over(denominator: BInt) = new(toBigInteger(), denominator)
+infix fun Int.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Int.over(denominator: Long) =
-    new(toBigInteger(), denominator.toBigInteger())
+    valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
  * Returns a BigRational whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
- * @see new
+ * @see valueOf
  */
 infix fun Int.over(denominator: Int) =
-    new(toBigInteger(), denominator.toBigInteger())
+    valueOf(toBigInteger(), denominator.toBigInteger())
 
 /** Returns the value of this number as a BigRational. */
 fun BDouble.toRational() = convert(this)
@@ -754,7 +756,7 @@ fun Double.toRational() = convert(this)
 fun Float.toRational() = toDouble().toRational()
 
 /** Returns the value of this number as a BigRational. */
-fun BInt.toRational() = new(this, BigInteger.ONE)
+fun BInt.toRational() = valueOf(this, BigInteger.ONE)
 
 /** Returns the value of this number as a BigRational. */
 fun Long.toRational() = toBigInteger().toRational()
@@ -862,7 +864,7 @@ private fun factor(other: Double): BigRational {
     val denominator = 1L shl 52
     val numerator = mantissa(other) + denominator
 
-    return new(numerator.toBigInteger(), denominator.toBigInteger())
+    return valueOf(numerator.toBigInteger(), denominator.toBigInteger())
 }
 
 private fun convert(other: BDouble) = when (other) {
@@ -876,7 +878,7 @@ private fun convert(other: BDouble) = when (other) {
         val numerator = bd.movePointRight(scale)
         val denominator = BDouble.TEN.movePointRight(precision - 1)
 
-        new(numerator.toBigInteger(), denominator.toBigInteger())
+        valueOf(numerator.toBigInteger(), denominator.toBigInteger())
     }
 }
 
