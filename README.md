@@ -5,12 +5,12 @@
 # Kotlin Rational
 
 An immutable, infinite-precision `BigRational` (ratio, fraction) class for
-Kotlin
+Kotlin.
 
 This code is a "finger exercise", largely demonstrating Kotlin operator
-overloading, and writing clear, concise, clean Kotlin.  It also explores the
-impact of `NaN` (which is extensive) rather than raising an error on division
-by zero.
+overloading and extension methods, and writing clean, clear, concise Kotlin.
+It also explores the impact of `NaN` (which is extensive) rather than
+raising an error on division by zero.
 
 Try `./run.sh` for a demonstration.
 
@@ -25,6 +25,11 @@ especially treating `BigRational` as a `kotlin.Number`, and methods such as
 infix `over` constructor, and various overloads
 - [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
 mathematical properties of ℚ, the field of the rationals
+
+This code extends ℚ, the field of rational numbers, with
+[division by zero](https://en.wikipedia.org/wiki/Division_by_zero), following
+the lead of [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754).  However, this
+code does not consider `+0` or `-0`, treating all zeros as `0`.
 
 ### Always proper form
 

@@ -185,6 +185,8 @@ internal class BigRationalTest {
     @Test
     fun `should be itself`() {
         assertTrue(1 over 2 == 1 over 2)
+        assertTrue(1 over 2 == +(1 over 2))
+        assertTrue(1 over 2 == -(-(1 over 2)))
         assertTrue(ZERO == ZERO)
         assertTrue(ONE == ONE)
         assertFalse(ZERO.equals(0))
