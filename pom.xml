@@ -71,6 +71,11 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <version>${kotlin.version}</version>
+                <configuration>
+                    <args>
+                        <arg>-progressive</arg>
+                    </args>
+                </configuration>
                 <executions>
                     <execution>
                         <id>compile</id>
