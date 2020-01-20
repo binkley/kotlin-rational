@@ -765,26 +765,20 @@ fun Long.toRational() = toBigInteger().toRational()
 fun Int.toRational() = toBigInteger().toRational()
 
 class BigRationalIterator(
-    start: BigRational,
-    endInclusive: BigRational,
+    /** The first element in the progression. */
+    first: BigRational,
+    /** The last element in the progression. */
+    private val last: BigRational,
     private val step: BigRational
 ) : Iterator<BigRational> {
     init {
         if (!step.isFinite()) error("Non-finite step.")
-        if (!start.isFinite() || !endInclusive.isFinite())
+        if (!first.isFinite() || !last.isFinite())
             error("Non-finite bounds.")
         if (step == ZERO) error("Step must be non-zero.")
-        if ((start < endInclusive && step < ZERO)
-            || (start > endInclusive && step > ZERO)
-        )
+        if ((first < last && step < ZERO) || (first > last && step > ZERO))
             error("Step must be advance range to avoid overflow.")
     }
-
-    /** The first element in the progression. */
-    private val first = start
-
-    /** The last element in the progression. */
-    private val last = endInclusive
 
     private var current = first
 
