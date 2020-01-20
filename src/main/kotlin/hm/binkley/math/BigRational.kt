@@ -805,16 +805,25 @@ class BigRationalProgression(
         BigRationalIterator(start, endInclusive, step)
 
     infix fun step(step: BigRational) =
-        BigRationalProgression(start, endInclusive, step)
+        SteppedBigRationalProgression(start, endInclusive, step)
 
     infix fun step(step: BInt) =
-        BigRationalProgression(start, endInclusive, step over 1)
+        SteppedBigRationalProgression(start, endInclusive, step over 1)
 
     infix fun step(step: Long) =
-        BigRationalProgression(start, endInclusive, step over 1)
+        SteppedBigRationalProgression(start, endInclusive, step over 1)
 
     infix fun step(step: Int) =
-        BigRationalProgression(start, endInclusive, step over 1)
+        SteppedBigRationalProgression(start, endInclusive, step over 1)
+}
+
+class SteppedBigRationalProgression(
+    override val start: BigRational,
+    override val endInclusive: BigRational,
+    private val step: BigRational
+) : Iterable<BigRational>, ClosedRange<BigRational> {
+    override fun iterator() =
+        BigRationalIterator(start, endInclusive, step)
 }
 
 infix fun BigRational.downTo(other: BigRational) =
