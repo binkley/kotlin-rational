@@ -572,23 +572,27 @@ internal class BigRationalTest {
 
     @Nested
     inner class BigRationalProgressionsTest {
+        @Suppress("ReplaceCallWithBinaryOperator")
         @Test
         fun `should be itself`() {
+            val zeroToOne = ZERO..ONE
+            assertEquals(zeroToOne, zeroToOne)
+            assertFalse(zeroToOne.equals(ZERO))
             assertEquals(
-                ZERO..ONE,
-                ZERO..ONE step ONE
+                zeroToOne,
+                zeroToOne step ONE
             )
             assertNotEquals(
-                ZERO..ONE,
-                ZERO..ONE step TWO
+                zeroToOne step ONE,
+                zeroToOne step TWO
             )
             assertNotEquals(
-                ZERO..ONE,
+                zeroToOne,
                 ZERO..TWO
             )
             assertEquals(
-                (ZERO..ONE step (1 over 2)).hashCode(),
-                (ZERO..ONE step (1 over 2)).hashCode()
+                (zeroToOne step (1 over 2)).hashCode(),
+                (zeroToOne step (1 over 2)).hashCode()
             )
         }
 
