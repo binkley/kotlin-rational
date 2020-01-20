@@ -6,6 +6,7 @@ import hm.binkley.math.BigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.BigRational.Companion.NaN
 import hm.binkley.math.BigRational.Companion.ONE
 import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.BigRational.Companion.TEN
 import hm.binkley.math.BigRational.Companion.TWO
 import hm.binkley.math.BigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -18,6 +19,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.math.BigDecimal
 import java.math.BigInteger
+
+private typealias BInt = BigInteger
+private typealias BDouble = BigDecimal
 
 /**
  * NB -- the tests use a mixture of constructors while testing functionality.
@@ -46,7 +50,7 @@ internal class BigRationalTest {
         fun `should construct -∞`() {
             assertSame(
                 NEGATIVE_INFINITY,
-                Long.MIN_VALUE over BigInteger.ZERO
+                Long.MIN_VALUE over BInt.ZERO
             )
         }
 
@@ -62,7 +66,7 @@ internal class BigRationalTest {
         fun `should construct 1`() {
             assertSame(
                 ONE,
-                BigInteger.ONE over 1
+                BInt.ONE over 1
             )
         }
 
@@ -70,7 +74,15 @@ internal class BigRationalTest {
         fun `should construct 2`() {
             assertSame(
                 TWO,
-                BigInteger.TWO over 1
+                BInt.TWO over 1
+            )
+        }
+
+        @Test
+        fun `should construct 10`() {
+            assertSame(
+                TEN,
+                BInt.TEN over 1
             )
         }
 
@@ -104,18 +116,18 @@ internal class BigRationalTest {
         fun `should reduce fractions`() {
             assertEquals(
                 2 over 1,
-                BigInteger.valueOf(4) over BigInteger.TWO
+                BInt.valueOf(4) over BInt.TWO
             )
         }
 
         @Test
         fun `should simplify fractions`() {
             assertEquals(
-                1 over BigInteger.TWO,
-                BigInteger.valueOf(4) over 8L
+                1 over BInt.TWO,
+                BInt.valueOf(4) over 8L
             )
             assertEquals(
-                BigInteger.valueOf(2),
+                BInt.valueOf(2),
                 (4L over 8).denominator
             )
         }
@@ -302,11 +314,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 2 over 1,
-                BigDecimal.ONE + ONE
+                BDouble.ONE + ONE
             )
             assertEquals(
                 2 over 1,
-                ONE + BigDecimal.ONE
+                ONE + BDouble.ONE
             )
             assertEquals(
                 2 over 1,
@@ -326,11 +338,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 2 over 1,
-                BigInteger.ONE + ONE
+                BInt.ONE + ONE
             )
             assertEquals(
                 2 over 1,
-                ONE + BigInteger.ONE
+                ONE + BInt.ONE
             )
             assertEquals(
                 2 over 1,
@@ -358,11 +370,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 ZERO,
-                BigDecimal.ONE - ONE
+                BDouble.ONE - ONE
             )
             assertEquals(
                 ZERO,
-                ONE - BigDecimal.ONE
+                ONE - BDouble.ONE
             )
             assertEquals(
                 ZERO,
@@ -382,11 +394,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 ZERO,
-                BigInteger.ONE - ONE
+                BInt.ONE - ONE
             )
             assertEquals(
                 ZERO,
-                ONE - BigInteger.ONE
+                ONE - BInt.ONE
             )
             assertEquals(
                 ZERO,
@@ -414,11 +426,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 ONE,
-                BigDecimal.ONE * ONE
+                BDouble.ONE * ONE
             )
             assertEquals(
                 ONE,
-                ONE * BigDecimal.ONE
+                ONE * BDouble.ONE
             )
             assertEquals(
                 ONE,
@@ -438,11 +450,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 ONE,
-                BigInteger.ONE * ONE
+                BInt.ONE * ONE
             )
             assertEquals(
                 ONE,
-                ONE * BigInteger.ONE
+                ONE * BInt.ONE
             )
             assertEquals(
                 ONE,
@@ -470,11 +482,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 ONE,
-                BigDecimal.ONE / ONE
+                BDouble.ONE / ONE
             )
             assertEquals(
                 ONE,
-                ONE / BigDecimal.ONE
+                ONE / BDouble.ONE
             )
             assertEquals(
                 ONE,
@@ -494,11 +506,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 ONE,
-                BigInteger.ONE / ONE
+                BInt.ONE / ONE
             )
             assertEquals(
                 ONE,
-                ONE / BigInteger.ONE
+                ONE / BInt.ONE
             )
             assertEquals(
                 ONE,
@@ -625,44 +637,62 @@ internal class BigRationalTest {
     inner class BigRationalConversionsTest {
         @Test
         fun `should convert BigDecimal in infix constructor`() {
-            assertEquals(ZERO, BigDecimal.ZERO.toRational())
-            assertEquals(77 over 100, BigDecimal("7.70").toRational())
-            assertEquals(ONE, BigDecimal.ONE over BigDecimal.ONE)
-            assertEquals(ONE, BigInteger.ONE over BigDecimal.ONE)
-            assertEquals(ONE, 1L over BigDecimal.ONE)
-            assertEquals(ONE, 1 over BigDecimal.ONE)
-            assertEquals(ONE, 1.0 over BigDecimal.ONE)
-            assertEquals(ONE, 1.0f over BigDecimal.ONE)
+            assertEquals(ZERO, BDouble.ZERO.toRational())
+            assertEquals(30 over 1, BDouble.valueOf(30L).toRational())
+            assertEquals(3 over 1, BDouble.valueOf(3).toRational())
+            assertEquals(3 over 10, BDouble("0.3").toRational())
+            assertEquals(77 over 10, BDouble("7.70").toRational())
+            assertEquals(ONE, BDouble.ONE over BDouble.ONE)
+            assertEquals(ONE, BInt.ONE over BDouble.ONE)
+            assertEquals(ONE, 1L over BDouble.ONE)
+            assertEquals(ONE, 1 over BDouble.ONE)
+            assertEquals(ONE, 1.0 over BDouble.ONE)
+            assertEquals(ONE, 1.0f over BDouble.ONE)
 
-            assertEquals(ONE, BigDecimal.ONE over BigInteger.ONE)
-            assertEquals(ONE, BigDecimal.ONE over 1L)
-            assertEquals(ONE, BigDecimal.ONE over 1)
+            assertEquals(ONE, BDouble.ONE over 1L)
+            assertEquals(ONE, BDouble.ONE over 1)
+        }
+
+        @Test
+        fun `should convert BigInteger in infix constructor`() {
+            assertEquals(ZERO, BInt.ZERO.toRational())
+            assertEquals(30 over 1, BInt.valueOf(30L).toRational())
+            assertEquals(3 over 1, BInt.valueOf(3).toRational())
+            assertEquals(ONE, BInt.ONE over BInt.ONE)
+            assertEquals(ONE, BDouble.ONE over BInt.ONE)
+            assertEquals(ONE, 1L over BInt.ONE)
+            assertEquals(ONE, 1 over BInt.ONE)
+            assertEquals(ONE, 1.0 over BInt.ONE)
+            assertEquals(ONE, 1.0f over BInt.ONE)
+
+            assertEquals(ONE, BInt.ONE over 1L)
+            assertEquals(ONE, BInt.ONE over 1)
         }
 
         @Test
         fun `should convert double in infix constructor`() {
-            assertEquals(ONE, BigDecimal.ONE over 1.0)
-            assertEquals(ONE, BigInteger.ONE over 1.0)
+            assertEquals(ONE, BDouble.ONE over 1.0)
+            assertEquals(ONE, BInt.ONE over 1.0)
             assertEquals(ONE, 1L over 1.0)
             assertEquals(ONE, 1 over 1.0)
             assertEquals(ONE, 1.0 over 1.0)
             assertEquals(ONE, 1.0f over 1.0)
 
-            assertEquals(ONE, 1.0 over BigInteger.ONE)
+            assertEquals(ONE, 1.0 over BInt.ONE)
             assertEquals(ONE, 1.0 over 1L)
             assertEquals(ONE, 1.0 over 1)
         }
 
         @Test
         fun `should convert float in infix constructor`() {
-            assertEquals(ONE, BigDecimal.ONE over 1.0f)
-            assertEquals(ONE, BigInteger.ONE over 1.0f)
+            assertEquals(ONE, BDouble.ONE over 1.0f)
+            assertEquals(ONE, BInt.ONE over 1.0f)
             assertEquals(ONE, 1L over 1.0f)
             assertEquals(ONE, 1 over 1.0f)
             assertEquals(ONE, 1.0 over 1.0f)
             assertEquals(ONE, 1.0f over 1.0f)
 
-            assertEquals(ONE, 1.0f over BigInteger.ONE)
+            assertEquals(ONE, 1.0f over BInt.ONE)
             assertEquals(ONE, 1.0f over 1L)
             assertEquals(ONE, 1.0f over 1)
         }
@@ -841,13 +871,12 @@ internal class BigRationalTest {
             val three = 3 over 1
             assertEquals(
                 listOf(ONE, three),
-                (BigDecimal.ONE..three step 2).toList()
+                (BDouble.ONE..three step 2).toList()
             )
-            if (false) // TODO: Why does this fail?
-                assertEquals(
-                    listOf(ONE, three),
-                    (ONE..BigDecimal.valueOf(3) step 2).toList()
-                )
+            assertEquals(
+                listOf(ONE, three),
+                (ONE..BDouble.valueOf(3) step 2).toList()
+            )
             assertEquals(
                 listOf(ONE, three),
                 (1.0..three step 2).toList()
@@ -866,11 +895,11 @@ internal class BigRationalTest {
             )
             assertEquals(
                 listOf(ONE, three),
-                (BigInteger.ONE..three step 2).toList()
+                (BInt.ONE..three step 2).toList()
             )
             assertEquals(
                 listOf(ONE, three),
-                (ONE..BigInteger.valueOf(3) step 2).toList()
+                (ONE..BInt.valueOf(3) step 2).toList()
             )
             assertEquals(
                 listOf(ONE, three),
@@ -890,7 +919,7 @@ internal class BigRationalTest {
             )
             assertEquals(
                 listOf((2 over 1), ONE),
-                ((2 over 1) downTo (1 over 2) step -BigInteger.ONE).toList()
+                ((2 over 1) downTo (1 over 2) step -BInt.ONE).toList()
             )
         }
 

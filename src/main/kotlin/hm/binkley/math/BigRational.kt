@@ -4,6 +4,7 @@ import hm.binkley.math.BigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.BigRational.Companion.NaN
 import hm.binkley.math.BigRational.Companion.ONE
 import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.BigRational.Companion.TEN
 import hm.binkley.math.BigRational.Companion.TWO
 import hm.binkley.math.BigRational.Companion.ZERO
 import hm.binkley.math.BigRational.Companion.valueOf
@@ -370,6 +371,11 @@ class BigRational private constructor(
          */
         val TWO = BigRational(BInt.TWO, BInt.ONE)
         /**
+         * A constant holding 10 value of type `BigRational`. It is equivalent
+         * `10 over 1`.
+         */
+        val TEN = BigRational(BInt.TEN, BInt.ONE)
+        /**
          * A constant holding positive infinity value of type `BigRational`.
          * It is equivalent `1 over 0`.
          */
@@ -418,6 +424,7 @@ class BigRational private constructor(
             if (d.isOne()) {
                 if (n.isOne()) return ONE
                 if (n.isTwo()) return TWO
+                if (n.isTen()) return TEN
             }
 
             return BigRational(n, d)
@@ -910,17 +917,18 @@ private fun factor(other: Double): BigRational {
 }
 
 private fun convert(other: BDouble) = when (other) {
-    BDouble.ONE -> ONE
     BDouble.ZERO -> ZERO
+    BDouble.ONE -> ONE
+    BDouble.TEN -> TEN
     else -> {
         val bd = other.stripTrailingZeros()
-        val precision = bd.precision()
         val scale = bd.scale()
-
-        val numerator = bd.movePointRight(scale)
-        val denominator = BDouble.TEN.movePointRight(precision - 1)
-
-        valueOf(numerator.toBigInteger(), denominator.toBigInteger())
+        val unscaledValue = bd.unscaledValue()
+        when {
+            0 == scale -> unscaledValue over 1
+            0 > scale -> (unscaledValue * BigInteger.TEN.pow(-scale)) over 1
+            else -> unscaledValue over BigInteger.TEN.pow(scale)
+        }
     }
 }
 
@@ -940,3 +948,4 @@ private fun convert(d: Double) = when {
 private fun BInt.isZero() = this == BInt.ZERO
 private fun BInt.isOne() = this == BInt.ONE
 private fun BInt.isTwo() = this == BInt.TWO
+private fun BInt.isTen() = this == BInt.TEN
