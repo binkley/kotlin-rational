@@ -773,6 +773,11 @@ class BigRationalIterator(
         if (!step.isFinite()) error("Non-finite step.")
         if (!start.isFinite() || !endInclusive.isFinite())
             error("Non-finite bounds.")
+        if (step == ZERO) error("Step must be non-zero.")
+        if ((start < endInclusive && step < ZERO)
+            || (start > endInclusive && step > ZERO)
+        )
+            error("Step must be advance range to avoid overflow.")
     }
 
     /** The first element in the progression. */
@@ -799,11 +804,8 @@ class BigRationalIterator(
 class BigRationalProgression(
     override val start: BigRational,
     override val endInclusive: BigRational,
-    private val step: BigRational = ONE
-) : Iterable<BigRational>, ClosedRange<BigRational> {
-    override fun iterator() =
-        BigRationalIterator(start, endInclusive, step)
-
+    step: BigRational = ONE
+) : SteppedBigRationalProgression(start, endInclusive, step) {
     infix fun step(step: BigRational) =
         SteppedBigRationalProgression(start, endInclusive, step)
 
@@ -817,13 +819,26 @@ class BigRationalProgression(
         SteppedBigRationalProgression(start, endInclusive, step over 1)
 }
 
-class SteppedBigRationalProgression(
+open class SteppedBigRationalProgression(
     override val start: BigRational,
     override val endInclusive: BigRational,
     private val step: BigRational
 ) : Iterable<BigRational>, ClosedRange<BigRational> {
-    override fun iterator() =
-        BigRationalIterator(start, endInclusive, step)
+    override fun iterator() = BigRationalIterator(start, endInclusive, step)
+
+    override fun equals(other: Any?) = when {
+        this === other -> true
+        other !is SteppedBigRationalProgression -> false
+        else -> start == other.start
+                && endInclusive == other.endInclusive
+                && step == other.step
+    }
+
+    override fun hashCode() = Objects.hash(start, endInclusive, step)
+
+    override fun toString() =
+        if (step < ZERO) "$start downTo $endInclusive step $step"
+        else "$start..$endInclusive step $step"
 }
 
 infix fun BigRational.downTo(other: BigRational) =

@@ -12,6 +12,8 @@ overloading and extension methods, and writing clean, clear, concise Kotlin.
 It also explores the impact of `NaN` (which is extensive) rather than
 raising an error on division by zero.
 
+A secondary goal is to model the Kotlin standard library.
+
 Try `./run.sh` for a demonstration.
 
 ## Design choices

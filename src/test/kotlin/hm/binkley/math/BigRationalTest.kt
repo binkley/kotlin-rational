@@ -10,8 +10,10 @@ import hm.binkley.math.BigRational.Companion.TWO
 import hm.binkley.math.BigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.math.BigDecimal
@@ -182,6 +184,7 @@ internal class BigRationalTest {
         assertEquals(BigInteger.valueOf(3), (2 over 3).denominator)
     }
 
+    @Suppress("ReplaceCallWithBinaryOperator")
     @Test
     fun `should be itself`() {
         assertTrue(1 over 2 == 1 over 2)
@@ -567,81 +570,131 @@ internal class BigRationalTest {
         )
     }
 
-    @Test
-    fun `should progress`() {
-        assertTrue(((ZERO..(-ONE)).isEmpty()))
-        assertTrue((ZERO..TWO).contains(ONE))
-        assertEquals(
-            listOf(ONE, (2 over 1)),
-            ((1 over 1)..(5 over 2)).toList()
-        )
-        val three = 3 over 1
-        assertEquals(
-            listOf(ONE, three),
-            (BigDecimal.ONE..three step 2).toList()
-        )
-        if (false) // TODO: Why does this fail?
+    @Nested
+    inner class BigRationalProgressionsTest {
+        @Test
+        fun `should be itself`() {
+            assertEquals(
+                ZERO..ONE,
+                ZERO..ONE step ONE
+            )
+            assertNotEquals(
+                ZERO..ONE,
+                ZERO..ONE step TWO
+            )
+            assertNotEquals(
+                ZERO..ONE,
+                ZERO..TWO
+            )
+            assertEquals(
+                (ZERO..ONE step (1 over 2)).hashCode(),
+                (ZERO..ONE step (1 over 2)).hashCode()
+            )
+        }
+
+        @Test
+        fun `should pretty print`() {
+            assertEquals(
+                "0..1 step 1",
+                "${(ZERO..ONE)}"
+            )
+            assertEquals(
+                "0..1 step 2",
+                "${(ZERO..ONE step 2)}"
+            )
+            assertEquals(
+                "1 downTo 0 step -1",
+                "${(ONE downTo ZERO)}"
+            )
+            assertEquals(
+                "1 downTo 0 step -2",
+                "${(ONE downTo ZERO step -TWO)}"
+            )
+        }
+
+        @Test
+        fun `should progress`() {
+            assertTrue(((ZERO..(-ONE)).isEmpty()))
+            assertTrue((ZERO..TWO).contains(ONE))
+            assertEquals(
+                listOf(ONE, (2 over 1)),
+                ((1 over 1)..(5 over 2)).toList()
+            )
+            val three = 3 over 1
             assertEquals(
                 listOf(ONE, three),
-                (ONE..BigDecimal.valueOf(3) step 2).toList()
+                (BigDecimal.ONE..three step 2).toList()
             )
-        assertEquals(
-            listOf(ONE, three),
-            (1.0..three step 2).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (ONE..3.0 step 2).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (1.0f..three step 2).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (ONE..3.0f step 2).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (BigInteger.ONE..three step 2).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (ONE..BigInteger.valueOf(3) step 2).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (1L..three step 2L).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (ONE..3L step 2L).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (1..three step (2 over 1)).toList()
-        )
-        assertEquals(
-            listOf(ONE, three),
-            (ONE..3 step (2 over 1)).toList()
-        )
-        assertEquals(
-            listOf((2 over 1), ONE),
-            ((2 over 1) downTo (1 over 2) step -BigInteger.ONE).toList()
-        )
-    }
+            if (false) // TODO: Why does this fail?
+                assertEquals(
+                    listOf(ONE, three),
+                    (ONE..BigDecimal.valueOf(3) step 2).toList()
+                )
+            assertEquals(
+                listOf(ONE, three),
+                (1.0..three step 2).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (ONE..3.0 step 2).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (1.0f..three step 2).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (ONE..3.0f step 2).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (BigInteger.ONE..three step 2).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (ONE..BigInteger.valueOf(3) step 2).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (1L..three step 2L).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (ONE..3L step 2L).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (1..three step (2 over 1)).toList()
+            )
+            assertEquals(
+                listOf(ONE, three),
+                (ONE..3 step (2 over 1)).toList()
+            )
+            assertEquals(
+                listOf((2 over 1), ONE),
+                ((2 over 1) downTo (1 over 2) step -BigInteger.ONE).toList()
+            )
+        }
 
-    @Suppress("ControlFlowWithEmptyBody")
-    @Test
-    fun `should not progress`() {
-        assertThrows<IllegalStateException> {
-            for (r in ZERO..NaN);
-        }
-        assertThrows<IllegalStateException> {
-            for (r in NaN..ZERO);
-        }
-        assertThrows<IllegalStateException> {
-            for (r in ZERO..ZERO step NaN);
+        @Suppress("ControlFlowWithEmptyBody")
+        @Test
+        fun `should not progress`() {
+            // TODO: Fails when advancing progression; should fail on creation
+            assertThrows<IllegalStateException> {
+                for (r in ZERO..NaN);
+            }
+            assertThrows<IllegalStateException> {
+                for (r in NaN..ZERO);
+            }
+            assertThrows<IllegalStateException> {
+                for (r in ZERO..ZERO step NaN);
+            }
+            assertThrows<IllegalStateException> {
+                for (r in ZERO..ONE step -1);
+            }
+            assertThrows<IllegalStateException> {
+                for (r in ONE downTo ZERO step 1);
+            }
         }
     }
 
