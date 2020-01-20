@@ -764,11 +764,9 @@ fun Long.toRational() = toBigInteger().toRational()
 /** Returns the value of this number as a BigRational. */
 fun Int.toRational() = toBigInteger().toRational()
 
-class BigRationalIterator(
-    /** The first element in the progression. */
+sealed class BigRationalIterator(
     first: BigRational,
-    /** The last element in the progression. */
-    private val last: BigRational,
+    protected val last: BigRational,
     private val step: BigRational
 ) : Iterator<BigRational> {
     init {
@@ -776,23 +774,45 @@ class BigRationalIterator(
         if (!first.isFinite() || !last.isFinite())
             error("Non-finite bounds.")
         if (step == ZERO) error("Step must be non-zero.")
-        if ((first < last && step < ZERO) || (first > last && step > ZERO))
-            error("Step must be advance range to avoid overflow.")
     }
 
-    private var current = first
-
-    override fun hasNext() =
-        if (step > ZERO)
-            current <= last
-        else
-            current >= last
+    protected var current = first
 
     override fun next(): BigRational {
         val next = current
         current += step
         return next
     }
+}
+
+class IncrementingBigRationalIterator(
+    /** The first element in the progression. */
+    first: BigRational,
+    /** The last element in the progression. */
+    last: BigRational,
+    step: BigRational
+) : BigRationalIterator(first, last, step) {
+    init {
+        if (first > last)
+            error("Step must be advance range to avoid overflow.")
+    }
+
+    override fun hasNext() = current <= last
+}
+
+class DecrementingBigRationalIterator(
+    /** The first element in the progression. */
+    first: BigRational,
+    /** The last element in the progression. */
+    last: BigRational,
+    step: BigRational
+) : BigRationalIterator(first, last, step) {
+    init {
+        if (first < last)
+            error("Step must be advance range to avoid overflow.")
+    }
+
+    override fun hasNext() = current >= last
 }
 
 class BigRationalProgression(
@@ -818,7 +838,11 @@ open class SteppedBigRationalProgression(
     override val endInclusive: BigRational,
     private val step: BigRational
 ) : Iterable<BigRational>, ClosedRange<BigRational> {
-    override fun iterator() = BigRationalIterator(start, endInclusive, step)
+    override fun iterator() =
+        if (step < ZERO)
+            DecrementingBigRationalIterator(start, endInclusive, step)
+        else
+            IncrementingBigRationalIterator(start, endInclusive, step)
 
     override fun equals(other: Any?) = when {
         this === other -> true
