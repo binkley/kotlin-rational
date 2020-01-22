@@ -7,7 +7,7 @@ import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.BigRational.Companion.ZERO
 import hm.binkley.math.downTo
 import hm.binkley.math.over
-import hm.binkley.math.toRational
+import hm.binkley.math.toBigRational
 import lombok.Generated
 import java.math.BigDecimal
 
@@ -17,7 +17,7 @@ fun main() {
     println("NaN is $NaN")
     println("POSITIVE_INFINITY is $POSITIVE_INFINITY")
     println("NEGATIVE_INFINITY is $NEGATIVE_INFINITY")
-    println("1 is ${1.toRational()}")
+    println("1 is ${1.toBigRational()}")
     println("4/10 is ${4 over 10}")
     println("4/2 is ${4 over 2}")
     println("0/0 is ${0 over 0}")
@@ -84,15 +84,15 @@ fun main() {
     ))
         dump(d)
 
-    println(BigDecimal("77.770").toRational())
-    println(BigDecimal.ZERO.toRational())
-    println(BigDecimal.ONE.toRational())
-    println(BigDecimal.ONE.movePointLeft(1).toRational())
+    println(BigDecimal("77.770").toBigRational())
+    println(BigDecimal.ZERO.toBigRational())
+    println(BigDecimal.ONE.toBigRational())
+    println(BigDecimal.ONE.movePointLeft(1).toBigRational())
 }
 
 @Generated // Lie to JaCoCo
 fun dump(d: Double) {
-    val rat = d.toRational()
+    val rat = d.toBigRational()
 
     println("$d is $rat is ${rat.toDouble()}")
 }

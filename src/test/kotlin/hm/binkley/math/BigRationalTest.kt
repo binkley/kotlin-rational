@@ -532,7 +532,7 @@ internal class BigRationalTest {
 
         @Test
         fun `should increment`() {
-            var a = 1L.toRational()
+            var a = 1L.toBigRational()
             assertEquals(
                 2 over 1,
                 ++a
@@ -637,11 +637,11 @@ internal class BigRationalTest {
     inner class BigRationalConversionsTest {
         @Test
         fun `should convert BigDecimal in infix constructor`() {
-            assertEquals(ZERO, BDouble.ZERO.toRational())
-            assertEquals(30 over 1, BDouble.valueOf(30L).toRational())
-            assertEquals(3 over 1, BDouble.valueOf(3).toRational())
-            assertEquals(3 over 10, BDouble("0.3").toRational())
-            assertEquals(77 over 10, BDouble("7.70").toRational())
+            assertEquals(ZERO, BDouble.ZERO.toBigRational())
+            assertEquals(30 over 1, BDouble.valueOf(30L).toBigRational())
+            assertEquals(3 over 1, BDouble.valueOf(3).toBigRational())
+            assertEquals(3 over 10, BDouble("0.3").toBigRational())
+            assertEquals(77 over 10, BDouble("7.70").toBigRational())
             assertEquals(ONE, BDouble.ONE over BDouble.ONE)
             assertEquals(ONE, BInt.ONE over BDouble.ONE)
             assertEquals(ONE, 1L over BDouble.ONE)
@@ -655,9 +655,9 @@ internal class BigRationalTest {
 
         @Test
         fun `should convert BigInteger in infix constructor`() {
-            assertEquals(ZERO, BInt.ZERO.toRational())
-            assertEquals(30 over 1, BInt.valueOf(30L).toRational())
-            assertEquals(3 over 1, BInt.valueOf(3).toRational())
+            assertEquals(ZERO, BInt.ZERO.toBigRational())
+            assertEquals(30 over 1, BInt.valueOf(30L).toBigRational())
+            assertEquals(3 over 1, BInt.valueOf(3).toBigRational())
             assertEquals(ONE, BInt.ONE over BInt.ONE)
             assertEquals(ONE, BDouble.ONE over BInt.ONE)
             assertEquals(ONE, 1L over BInt.ONE)
@@ -735,13 +735,13 @@ internal class BigRationalTest {
                 4 over 1,
                 8687443681197687 over 70368744177664
             )
-            assertTrue(Double.NaN.toRational().isNaN())
-            assertTrue(Double.NEGATIVE_INFINITY.toRational().isNegativeInfinity())
-            assertTrue(Double.POSITIVE_INFINITY.toRational().isPositiveInfinity())
+            assertTrue(Double.NaN.toBigRational().isNaN())
+            assertTrue(Double.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity())
+            assertTrue(Double.POSITIVE_INFINITY.toBigRational().isPositiveInfinity())
             assertEquals(
                 rationals,
                 doubles.map {
-                    it.toRational()
+                    it.toBigRational()
                 })
             assertEquals(
                 doubles,
@@ -789,13 +789,13 @@ internal class BigRationalTest {
                 4 over 1,
                 16181625 over 131072
             )
-            assertTrue(Float.NaN.toRational().isNaN())
-            assertTrue(Float.NEGATIVE_INFINITY.toRational().isNegativeInfinity())
-            assertTrue(Float.POSITIVE_INFINITY.toRational().isPositiveInfinity())
+            assertTrue(Float.NaN.toBigRational().isNaN())
+            assertTrue(Float.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity())
+            assertTrue(Float.POSITIVE_INFINITY.toBigRational().isPositiveInfinity())
             assertEquals(
                 rationals,
                 floats.map {
-                    it.toRational()
+                    it.toBigRational()
                 })
             assertEquals(
                 floats,

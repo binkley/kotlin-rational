@@ -46,7 +46,7 @@ class BigRational private constructor(
     val sign: BigRational
         get() = when {
             isNaN() -> NaN
-            else -> numerator.signum().toRational()
+            else -> numerator.signum().toBigRational()
         }
 
     /**
@@ -81,7 +81,7 @@ class BigRational private constructor(
     /**
      * Returns the value of this number as a [Double], which may involve
      * rounding.  This should produce an _exact_ conversion, that is,
-     * `123.455.toRational().toDouble == 123.456`.
+     * `123.455.toBigRational().toDouble == 123.456`.
      */
     override fun toDouble() = when {
         isNaN() -> Double.NaN
@@ -160,43 +160,44 @@ class BigRational private constructor(
     )
 
     /** Adds the other value to this value. */
-    operator fun plus(addend: BDouble) = this + addend.toRational()
+    operator fun plus(addend: BDouble) = this + addend.toBigRational()
 
     /** Adds the other value to this value yielding a BigRational. */
-    operator fun plus(addend: Double) = this + addend.toRational()
+    operator fun plus(addend: Double) = this + addend.toBigRational()
 
     /** Adds the other value to this value yielding a BigRational. */
-    operator fun plus(addend: Float) = this + addend.toRational()
+    operator fun plus(addend: Float) = this + addend.toBigRational()
 
     /** Adds the other value to this value yielding a BigRational. */
-    operator fun plus(addend: BInt) = this + addend.toRational()
+    operator fun plus(addend: BInt) = this + addend.toBigRational()
 
     /** Adds the other value to this value yielding a BigRational. */
-    operator fun plus(addend: Long) = this + addend.toRational()
+    operator fun plus(addend: Long) = this + addend.toBigRational()
 
     /** Adds the other value to this value yielding a BigRational. */
-    operator fun plus(addend: Int) = this + addend.toRational()
+    operator fun plus(addend: Int) = this + addend.toBigRational()
 
     /** Subtracts the other value from this value. */
     operator fun minus(subtrahend: BigRational) = this + -subtrahend
 
     /** Subtracts the other value from this value yielding a BigRational. */
-    operator fun minus(subtrahend: BDouble) = this - subtrahend.toRational()
+    operator fun minus(subtrahend: BDouble) =
+        this - subtrahend.toBigRational()
 
     /** Subtracts the other value from this value yielding a BigRational. */
-    operator fun minus(subtrahend: Double) = this - subtrahend.toRational()
+    operator fun minus(subtrahend: Double) = this - subtrahend.toBigRational()
 
     /** Subtracts the other value from this value yielding a BigRational. */
-    operator fun minus(subtrahend: Float) = this - subtrahend.toRational()
+    operator fun minus(subtrahend: Float) = this - subtrahend.toBigRational()
 
     /** Subtracts the other value from this value yielding a BigRational. */
-    operator fun minus(subtrahend: BInt) = this - subtrahend.toRational()
+    operator fun minus(subtrahend: BInt) = this - subtrahend.toBigRational()
 
     /** Subtracts the other value from this value yielding a BigRational. */
-    operator fun minus(subtrahend: Long) = this - subtrahend.toRational()
+    operator fun minus(subtrahend: Long) = this - subtrahend.toBigRational()
 
     /** Subtracts the other value from this value yielding a BigRational. */
-    operator fun minus(subtrahend: Int) = this - subtrahend.toRational()
+    operator fun minus(subtrahend: Int) = this - subtrahend.toBigRational()
 
     operator fun times(other: BigRational) = valueOf(
         numerator * other.numerator,
@@ -205,66 +206,70 @@ class BigRational private constructor(
 
     /** Multiplies this value by the other value. */
     operator fun times(multiplicand: BDouble) =
-        this * multiplicand.toRational()
+        this * multiplicand.toBigRational()
 
     /** Multiplies this value by the other value yielding a BigRational. */
     operator fun times(multiplicand: Double) =
-        this * multiplicand.toRational()
+        this * multiplicand.toBigRational()
 
     /** Multiplies this value by the other value yielding a BigRational. */
-    operator fun times(multiplicand: Float) = this * multiplicand.toRational()
+    operator fun times(multiplicand: Float) =
+        this * multiplicand.toBigRational()
 
     /** Multiplies this value by the other value yielding a BigRational. */
-    operator fun times(multiplicand: BInt) = this * multiplicand.toRational()
+    operator fun times(multiplicand: BInt) =
+        this * multiplicand.toBigRational()
 
     /** Multiplies this value by the other value yielding a BigRational. */
-    operator fun times(multiplicand: Long) = this * multiplicand.toRational()
+    operator fun times(multiplicand: Long) =
+        this * multiplicand.toBigRational()
 
     /** Multiplies this value by the other value yielding a BigRational. */
-    operator fun times(multiplicand: Int) = this * multiplicand.toRational()
+    operator fun times(multiplicand: Int) =
+        this * multiplicand.toBigRational()
 
     /** Divides this value by the other value. */
     operator fun div(divisor: BigRational) = this * divisor.reciprocal
 
     /** Divides this value by the other value yielding a BigRational. */
-    operator fun div(divisor: BDouble) = this / divisor.toRational()
+    operator fun div(divisor: BDouble) = this / divisor.toBigRational()
 
     /** Divides this value by the other value yielding a BigRational. */
-    operator fun div(divisor: Double) = this / divisor.toRational()
+    operator fun div(divisor: Double) = this / divisor.toBigRational()
 
     /** Divides this value by the other value yielding a BigRational. */
-    operator fun div(divisor: Float) = this / divisor.toRational()
+    operator fun div(divisor: Float) = this / divisor.toBigRational()
 
     /** Divides this value by the other value yielding a BigRational. */
-    operator fun div(divisor: BInt) = this / divisor.toRational()
+    operator fun div(divisor: BInt) = this / divisor.toBigRational()
 
     /** Divides this value by the other value yielding a BigRational. */
-    operator fun div(divisor: Long) = this / divisor.toRational()
+    operator fun div(divisor: Long) = this / divisor.toBigRational()
 
     /** Divides this value by the other value yielding a BigRational. */
-    operator fun div(divisor: Int) = this / divisor.toRational()
+    operator fun div(divisor: Int) = this / divisor.toBigRational()
 
     /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: BigRational) =
         BigRationalProgression(this, other)
 
     @Generated // TODO: Why does this fail?
-    operator fun rangeTo(other: BDouble) = rangeTo(other.toRational())
+    operator fun rangeTo(other: BDouble) = rangeTo(other.toBigRational())
 
     /** Creates a range from this value to the specified [other] value. */
-    operator fun rangeTo(other: Double) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Double) = rangeTo(other.toBigRational())
 
     /** Creates a range from this value to the specified [other] value. */
-    operator fun rangeTo(other: Float) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Float) = rangeTo(other.toBigRational())
 
     /** Creates a range from this value to the specified [other] value. */
-    operator fun rangeTo(other: BInt) = rangeTo(other.toRational())
+    operator fun rangeTo(other: BInt) = rangeTo(other.toBigRational())
 
     /** Creates a range from this value to the specified [other] value. */
-    operator fun rangeTo(other: Long) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Long) = rangeTo(other.toBigRational())
 
     /** Creates a range from this value to the specified [other] value. */
-    operator fun rangeTo(other: Int) = rangeTo(other.toRational())
+    operator fun rangeTo(other: Int) = rangeTo(other.toBigRational())
 
     /**
      * Returns a BigRational whose value is `(this^exponent)`. Note that
@@ -433,7 +438,7 @@ class BigRational private constructor(
  * @see valueOf
  */
 infix fun BDouble.over(denominator: BDouble) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -442,7 +447,7 @@ infix fun BDouble.over(denominator: BDouble) =
  * @see valueOf
  */
 infix fun BDouble.over(denominator: Double) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -451,7 +456,7 @@ infix fun BDouble.over(denominator: Double) =
  * @see valueOf
  */
 infix fun BDouble.over(denominator: Float) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -460,7 +465,7 @@ infix fun BDouble.over(denominator: Float) =
  * @see valueOf
  */
 infix fun BDouble.over(denominator: BInt) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -469,7 +474,7 @@ infix fun BDouble.over(denominator: BInt) =
  * @see valueOf
  */
 infix fun BDouble.over(denominator: Long) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -478,7 +483,7 @@ infix fun BDouble.over(denominator: Long) =
  * @see valueOf
  */
 infix fun BDouble.over(denominator: Int) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -487,7 +492,7 @@ infix fun BDouble.over(denominator: Int) =
  * @see valueOf
  */
 infix fun Double.over(denominator: BDouble) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -496,7 +501,7 @@ infix fun Double.over(denominator: BDouble) =
  * @see valueOf
  */
 infix fun Double.over(denominator: BInt) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -505,7 +510,7 @@ infix fun Double.over(denominator: BInt) =
  * @see valueOf
  */
 infix fun Double.over(denominator: Long) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -514,7 +519,7 @@ infix fun Double.over(denominator: Long) =
  * @see valueOf
  */
 infix fun Double.over(denominator: Int) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -523,7 +528,7 @@ infix fun Double.over(denominator: Int) =
  * @see valueOf
  */
 infix fun Double.over(denominator: Double) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -532,7 +537,7 @@ infix fun Double.over(denominator: Double) =
  * @see valueOf
  */
 infix fun Double.over(denominator: Float) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -541,7 +546,7 @@ infix fun Double.over(denominator: Float) =
  * @see valueOf
  */
 infix fun Float.over(denominator: BDouble) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -550,7 +555,7 @@ infix fun Float.over(denominator: BDouble) =
  * @see valueOf
  */
 infix fun Float.over(denominator: BInt) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -559,7 +564,7 @@ infix fun Float.over(denominator: BInt) =
  * @see valueOf
  */
 infix fun Float.over(denominator: Long) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -568,7 +573,7 @@ infix fun Float.over(denominator: Long) =
  * @see valueOf
  */
 infix fun Float.over(denominator: Int) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -577,7 +582,7 @@ infix fun Float.over(denominator: Int) =
  * @see valueOf
  */
 infix fun Float.over(denominator: Double) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -586,7 +591,7 @@ infix fun Float.over(denominator: Double) =
  * @see valueOf
  */
 infix fun Float.over(denominator: Float) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -595,7 +600,7 @@ infix fun Float.over(denominator: Float) =
  * @see valueOf
  */
 infix fun BInt.over(denominator: BDouble) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -604,7 +609,7 @@ infix fun BInt.over(denominator: BDouble) =
  * @see valueOf
  */
 infix fun BInt.over(denominator: Double) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -613,7 +618,7 @@ infix fun BInt.over(denominator: Double) =
  * @see valueOf
  */
 infix fun BInt.over(denominator: Float) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -648,7 +653,7 @@ infix fun BInt.over(denominator: Int) =
  * @see valueOf
  */
 infix fun Long.over(denominator: Double) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -657,7 +662,7 @@ infix fun Long.over(denominator: Double) =
  * @see valueOf
  */
 infix fun Long.over(denominator: Float) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -666,7 +671,7 @@ infix fun Long.over(denominator: Float) =
  * @see valueOf
  */
 infix fun Long.over(denominator: BDouble) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -701,7 +706,7 @@ infix fun Long.over(denominator: Int) =
  * @see valueOf
  */
 infix fun Int.over(denominator: BDouble) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -710,7 +715,7 @@ infix fun Int.over(denominator: BDouble) =
  * @see valueOf
  */
 infix fun Int.over(denominator: Double) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -719,7 +724,7 @@ infix fun Int.over(denominator: Double) =
  * @see valueOf
  */
 infix fun Int.over(denominator: Float) =
-    toRational() / denominator.toRational()
+    toBigRational() / denominator.toBigRational()
 
 /**
  * Returns a BigRational whose value is equal to that of the
@@ -748,22 +753,22 @@ infix fun Int.over(denominator: Int) =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /** Returns the value of this number as a BigRational. */
-fun BDouble.toRational() = convert(this)
+fun BDouble.toBigRational() = convert(this)
 
 /** Returns the value of this number as a BigRational. */
-fun Double.toRational() = convert(this)
+fun Double.toBigRational() = convert(this)
 
 /** Returns the value of this number as a BigRational. */
-fun Float.toRational() = toDouble().toRational()
+fun Float.toBigRational() = toDouble().toBigRational()
 
 /** Returns the value of this number as a BigRational. */
-fun BInt.toRational() = valueOf(this, BigInteger.ONE)
+fun BInt.toBigRational() = valueOf(this, BigInteger.ONE)
 
 /** Returns the value of this number as a BigRational. */
-fun Long.toRational() = toBigInteger().toRational()
+fun Long.toBigRational() = toBigInteger().toBigRational()
 
 /** Returns the value of this number as a BigRational. */
-fun Int.toRational() = toBigInteger().toRational()
+fun Int.toBigRational() = toBigInteger().toBigRational()
 
 private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
@@ -865,40 +870,40 @@ open class SteppedBigRationalProgression(
 infix fun BigRational.downTo(other: BigRational) =
     BigRationalProgression(this, other, -ONE)
 
-operator fun BDouble.plus(other: BigRational) = toRational() + other
-operator fun Double.plus(other: BigRational) = toRational() + other
-operator fun Float.plus(other: BigRational) = toRational() + other
-operator fun BInt.plus(other: BigRational) = toRational() + other
-operator fun Long.plus(other: BigRational) = toRational() + other
-operator fun Int.plus(other: BigRational) = toRational() + other
+operator fun BDouble.plus(other: BigRational) = toBigRational() + other
+operator fun Double.plus(other: BigRational) = toBigRational() + other
+operator fun Float.plus(other: BigRational) = toBigRational() + other
+operator fun BInt.plus(other: BigRational) = toBigRational() + other
+operator fun Long.plus(other: BigRational) = toBigRational() + other
+operator fun Int.plus(other: BigRational) = toBigRational() + other
 
-operator fun BDouble.minus(other: BigRational) = toRational() - other
-operator fun Double.minus(other: BigRational) = toRational() - other
-operator fun Float.minus(other: BigRational) = toRational() - other
-operator fun BInt.minus(other: BigRational) = toRational() - other
-operator fun Long.minus(other: BigRational) = toRational() - other
-operator fun Int.minus(other: BigRational) = toRational() - other
+operator fun BDouble.minus(other: BigRational) = toBigRational() - other
+operator fun Double.minus(other: BigRational) = toBigRational() - other
+operator fun Float.minus(other: BigRational) = toBigRational() - other
+operator fun BInt.minus(other: BigRational) = toBigRational() - other
+operator fun Long.minus(other: BigRational) = toBigRational() - other
+operator fun Int.minus(other: BigRational) = toBigRational() - other
 
-operator fun BDouble.times(other: BigRational) = toRational() * other
-operator fun Double.times(other: BigRational) = toRational() * other
-operator fun Float.times(other: BigRational) = toRational() * other
-operator fun BInt.times(other: BigRational) = toRational() * other
-operator fun Long.times(other: BigRational) = toRational() * other
-operator fun Int.times(other: BigRational) = toRational() * other
+operator fun BDouble.times(other: BigRational) = toBigRational() * other
+operator fun Double.times(other: BigRational) = toBigRational() * other
+operator fun Float.times(other: BigRational) = toBigRational() * other
+operator fun BInt.times(other: BigRational) = toBigRational() * other
+operator fun Long.times(other: BigRational) = toBigRational() * other
+operator fun Int.times(other: BigRational) = toBigRational() * other
 
-operator fun BDouble.div(other: BigRational) = toRational() / other
-operator fun Double.div(other: BigRational) = toRational() / other
-operator fun Float.div(other: BigRational) = toRational() / other
-operator fun BInt.div(other: BigRational) = toRational() / other
-operator fun Long.div(other: BigRational) = toRational() / other
-operator fun Int.div(other: BigRational) = toRational() / other
+operator fun BDouble.div(other: BigRational) = toBigRational() / other
+operator fun Double.div(other: BigRational) = toBigRational() / other
+operator fun Float.div(other: BigRational) = toBigRational() / other
+operator fun BInt.div(other: BigRational) = toBigRational() / other
+operator fun Long.div(other: BigRational) = toBigRational() / other
+operator fun Int.div(other: BigRational) = toBigRational() / other
 
-operator fun BDouble.rangeTo(other: BigRational) = toRational()..other
-operator fun Double.rangeTo(other: BigRational) = toRational()..other
-operator fun Float.rangeTo(other: BigRational) = toRational()..other
-operator fun BInt.rangeTo(other: BigRational) = toRational()..other
-operator fun Long.rangeTo(other: BigRational) = toRational()..other
-operator fun Int.rangeTo(other: BigRational) = toRational()..other
+operator fun BDouble.rangeTo(other: BigRational) = toBigRational()..other
+operator fun Double.rangeTo(other: BigRational) = toBigRational()..other
+operator fun Float.rangeTo(other: BigRational) = toBigRational()..other
+operator fun BInt.rangeTo(other: BigRational) = toBigRational()..other
+operator fun Long.rangeTo(other: BigRational) = toBigRational()..other
+operator fun Int.rangeTo(other: BigRational) = toBigRational()..other
 
 private fun exponent(d: Double) =
     ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
