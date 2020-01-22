@@ -134,17 +134,21 @@ counterpart.
 
 ### Properties
 
-- `numerator`, `denominator` behave as expected
+- `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
+as behave as expected
 
 ### Methods
 
 - `isNan()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
 infinite
+- `isWhole()`
 - `isDyadic()` (see
 [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational))
-- `reciprocal()`, `abs()`, `signum()`, `pow(exponent)`
 - `gcm(other)`, `lcd(other)`
+- `pow(exponent)`
+- `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
+towards 0
 
 ### Operators
 
