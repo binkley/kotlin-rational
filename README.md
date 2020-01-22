@@ -12,7 +12,8 @@ overloading and extension methods, and writing clean, clear, concise Kotlin.
 It also explores the impact of `NaN` (which is extensive) rather than
 raising an error on division by zero.
 
-A secondary goal is to model the Kotlin standard library.
+A secondary goal is to model the Kotlin standard library, and Java's
+`BigDecimal` and `BigInteger` types where sensible.
 
 Try `./run.sh` for a demonstration.
 
@@ -135,7 +136,7 @@ counterpart.
 ### Properties
 
 - `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
-as behave as expected
+behave as expected
 
 ### Methods
 
@@ -154,6 +155,7 @@ towards 0
 
 - All numeric operators except `rem` (division is exact)
 - Ranges and progressions
+- See also `divideAndRemainder`
 
 ### Types
 

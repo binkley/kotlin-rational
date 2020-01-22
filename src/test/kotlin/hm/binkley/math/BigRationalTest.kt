@@ -22,6 +22,7 @@ import java.math.BigInteger
 
 private typealias BInt = BigInteger
 private typealias BDouble = BigDecimal
+private typealias BigRationalAssertion = (BigRational) -> Unit
 
 /**
  * NB -- the tests use a mixture of constructors while testing functionality.
@@ -257,6 +258,52 @@ internal class BigRationalTest {
             ZERO,
             ONE + -ONE
         )
+    }
+
+    @Test
+    fun `should divide with remainder`() {
+        assertEquals(
+            (2 over 1) to (1 over 2),
+            (13 over 2).divideAndRemainder(3 over 1)
+        )
+
+        fun nonFiniteCheck(
+            dividend: BigRational,
+            divisor: BigRational,
+            assertion: BigRationalAssertion
+        ) {
+            val (quotient, remainder) = dividend.divideAndRemainder(divisor)
+            assertion(quotient)
+            assertion(remainder)
+        }
+
+        nonFiniteCheck((13 over 2), NaN) {
+            it.isNaN()
+        }
+        nonFiniteCheck(NaN, (3 over 1)) {
+            it.isNaN()
+        }
+        nonFiniteCheck(NaN, NaN) {
+            it.isNaN()
+        }
+        nonFiniteCheck((13 over 2), POSITIVE_INFINITY) {
+            it.isPositiveInfinity()
+        }
+        nonFiniteCheck(POSITIVE_INFINITY, (3 over 1)) {
+            it.isPositiveInfinity()
+        }
+        nonFiniteCheck(POSITIVE_INFINITY, POSITIVE_INFINITY) {
+            it.isPositiveInfinity()
+        }
+        nonFiniteCheck((13 over 2), NEGATIVE_INFINITY) {
+            it.isNegativeInfinity()
+        }
+        nonFiniteCheck(NEGATIVE_INFINITY, (3 over 1)) {
+            it.isNegativeInfinity()
+        }
+        nonFiniteCheck(NEGATIVE_INFINITY, NEGATIVE_INFINITY) {
+            it.isPositiveInfinity()
+        }
     }
 
     @Nested

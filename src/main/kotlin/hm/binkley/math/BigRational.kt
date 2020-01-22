@@ -228,25 +228,46 @@ class BigRational private constructor(
     operator fun times(multiplicand: Int) =
         this * multiplicand.toBigRational()
 
-    /** Divides this value by the other value. */
+    /**
+     * Divides this value by the other value exactly.
+     *
+     * @see [divideAndRemainder] */
     operator fun div(divisor: BigRational) = this * divisor.reciprocal
 
-    /** Divides this value by the other value yielding a BigRational. */
+    /**
+     * Divides this value by the other value exactly yielding a BigRational.
+     *
+     * @see [divideAndRemainder] */
     operator fun div(divisor: BDouble) = this / divisor.toBigRational()
 
-    /** Divides this value by the other value yielding a BigRational. */
+    /**
+     * Divides this value by the other value exactly yielding a BigRational.
+     *
+     * @see [divideAndRemainder] */
     operator fun div(divisor: Double) = this / divisor.toBigRational()
 
-    /** Divides this value by the other value yielding a BigRational. */
+    /**
+     * Divides this value by the other value exactly yielding a BigRational.
+     *
+     * @see [divideAndRemainder] */
     operator fun div(divisor: Float) = this / divisor.toBigRational()
 
-    /** Divides this value by the other value yielding a BigRational. */
+    /**
+     * Divides this value by the other value exactly yielding a BigRational.
+     *
+     * @see [divideAndRemainder] */
     operator fun div(divisor: BInt) = this / divisor.toBigRational()
 
-    /** Divides this value by the other value yielding a BigRational. */
+    /**
+     * Divides this value by the other value exactly yielding a BigRational.
+     *
+     * @see [divideAndRemainder] */
     operator fun div(divisor: Long) = this / divisor.toBigRational()
 
-    /** Divides this value by the other value yielding a BigRational. */
+    /**
+     * Divides this value by the other value exactly yielding a BigRational.
+     *
+     * @see [divideAndRemainder] */
     operator fun div(divisor: Int) = this / divisor.toBigRational()
 
     /** Creates a range from this value to the specified [other] value. */
@@ -267,6 +288,18 @@ class BigRational private constructor(
 
     /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Long) = rangeTo(other.toBigRational())
+
+    /**
+     * Returns a pair of `this / other` (quotient) and `this % other`
+     * (remainder) integral division and modulo operations.
+     *
+     * @see [div]
+     */
+    fun divideAndRemainder(other: BigRational): Pair<BigRational, BigRational> {
+        val quotient = (this / other).round()
+        val remainder = this - (other * quotient)
+        return quotient to remainder
+    }
 
     /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Int) = rangeTo(other.toBigRational())
