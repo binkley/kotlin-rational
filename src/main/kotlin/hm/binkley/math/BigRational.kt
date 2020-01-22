@@ -270,11 +270,10 @@ class BigRational private constructor(
      * Returns a BigRational whose value is `(this^exponent)`. Note that
      * `exponent` is an integer rather than a BigRational.
      */
-    fun pow(exponent: Int) = when {
+    fun pow(exponent: Int): BigRational /* type check issue */ = when {
         0 <= exponent ->
             valueOf(numerator.pow(exponent), denominator.pow(exponent))
-        else ->
-            valueOf(denominator.pow(-exponent), numerator.pow(-exponent))
+        else -> reciprocal.pow(-exponent)
     }
 
     /**
@@ -292,9 +291,6 @@ class BigRational private constructor(
      * Returns a BigRational whose value is the lowest common multiple of
      * the absolute values of `this` and `other`.  Returns 1 when `this` and
      * `other` are both 0.
-     *
-     * @todo Tests for zero and negative cases
-     * @todo Returns 0 when this and other are 0; correct thing to do?
      */
     fun lcm(other: BigRational) =
         if (ZERO == this) ZERO else valueOf(
@@ -346,8 +342,6 @@ class BigRational private constructor(
      * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
      */
     fun isNegativeInfinity() = this === NEGATIVE_INFINITY
-
-    private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
     companion object {
         /**
@@ -770,6 +764,8 @@ fun Long.toRational() = toBigInteger().toRational()
 
 /** Returns the value of this number as a BigRational. */
 fun Int.toRational() = toBigInteger().toRational()
+
+private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
 sealed class BigRationalIterator(
     first: BigRational,
