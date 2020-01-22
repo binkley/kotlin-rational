@@ -623,6 +623,16 @@ internal class BigRationalTest {
     }
 
     @Test
+    fun `should note whole rationals`() {
+        assertFalse((1 over 2).isWhole())
+        assertTrue((2 over 1).isWhole())
+        assertTrue(ZERO.isWhole())
+        assertFalse(POSITIVE_INFINITY.isWhole())
+        assertFalse(NEGATIVE_INFINITY.isWhole())
+        assertFalse(NaN.isWhole())
+    }
+
+    @Test
     fun `should note dyadic rationals`() {
         assertTrue((1 over 2).isDyadic())
         assertTrue((2 over 1).isDyadic())
@@ -631,6 +641,45 @@ internal class BigRationalTest {
         assertFalse(POSITIVE_INFINITY.isDyadic())
         assertFalse(NEGATIVE_INFINITY.isDyadic())
         assertFalse(NaN.isDyadic())
+    }
+
+    @Nested
+    inner class BigRationalRoundingTest {
+        @Test
+        fun `should round down`() {
+            assertEquals(ZERO, ZERO.floor())
+            assertTrue(NaN.floor().isNaN())
+            assertTrue(POSITIVE_INFINITY.floor().isPositiveInfinity())
+            assertTrue(NEGATIVE_INFINITY.floor().isNegativeInfinity())
+            assertEquals(ONE, (ONE).floor())
+            assertEquals(-ONE, (-ONE).floor())
+            assertEquals(ZERO, (1 over 2).floor())
+            assertEquals(-ONE, (-1 over 2).floor())
+        }
+
+        @Test
+        fun `should round up`() {
+            assertEquals(ZERO, ZERO.ceil())
+            assertTrue(NaN.ceil().isNaN())
+            assertTrue(POSITIVE_INFINITY.ceil().isPositiveInfinity())
+            assertTrue(NEGATIVE_INFINITY.ceil().isNegativeInfinity())
+            assertEquals(ONE, (ONE).ceil())
+            assertEquals(-ONE, (-ONE).ceil())
+            assertEquals(ONE, (1 over 2).ceil())
+            assertEquals(ZERO, (-1 over 2).ceil())
+        }
+
+        @Test
+        fun `should round towards 0`() {
+            assertEquals(ZERO, ZERO.round())
+            assertTrue(NaN.round().isNaN())
+            assertTrue(POSITIVE_INFINITY.round().isPositiveInfinity())
+            assertTrue(NEGATIVE_INFINITY.round().isNegativeInfinity())
+            assertEquals(ONE, (ONE).round())
+            assertEquals(-ONE, (-ONE).round())
+            assertEquals(ZERO, (1 over 2).round())
+            assertEquals(ZERO, (-1 over 2).round())
+        }
     }
 
     @Nested

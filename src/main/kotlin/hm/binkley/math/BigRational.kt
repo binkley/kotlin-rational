@@ -304,12 +304,47 @@ class BigRational private constructor(
         )
 
     /**
+     * Rounds to the nearest whole number _less than or equal_ to this
+     * BigRational.
+     */
+    fun floor() = when {
+        roundsToSelf() -> this
+        ZERO <= this -> round()
+        else -> round() - ONE
+    }
+
+    /**
+     * Rounds to the nearest whole number _greater than or equal_ to this
+     * BigRational.
+     */
+    fun ceil() = when {
+        roundsToSelf() -> this
+        ZERO <= this -> round() + ONE
+        else -> round()
+    }
+
+    /**
+     * Rounds to the nearest whole number _closer to 0_ than this BigRational,
+     * or when this BigRational is whole, the same BigRational.
+     */
+    fun round() = when {
+        roundsToSelf() -> this
+        else -> (numerator / denominator).toBigRational()
+    }
+
+    private fun roundsToSelf() =
+        isWhole() || isNaN() || isPositiveInfinity() || isNegativeInfinity()
+
+    /**
      * Checks that this rational is a finite fraction.  Infinities and "not a
      * number" are not finite.
      *
      * @todo Consider separate types, which leads to sealed types
      */
     fun isFinite() = !isNaN() && !isInfinite()
+
+    /** Checks that this rational is a whole number (an integer). */
+    fun isWhole() = BInt.ONE == denominator
 
     /**
      * Checks that this rational is dyadic, that is, the denominator is a power
