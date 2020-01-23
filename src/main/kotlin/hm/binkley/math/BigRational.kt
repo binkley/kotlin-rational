@@ -270,6 +270,55 @@ class BigRational private constructor(
      * @see [divideAndRemainder] */
     operator fun div(divisor: Int) = this / divisor.toBigRational()
 
+    /**
+     * Modulos this value by the other value; always 0 (division is exact).
+     *
+     * @see [divideAndRemainder] */
+    @Suppress("UNUSED_PARAMETER")
+    operator fun rem(divisor: BigRational) = ZERO
+
+    /**
+     * Modulos this value by the other value; always 0 (division is exact).
+     *
+     * @see [divideAndRemainder] */
+    @Suppress("UNUSED_PARAMETER")
+    operator fun rem(divisor: BDouble) = ZERO
+
+    /**
+     * Modulos this value by the other value; always 0 (division is exact).
+     *
+     * @see [divideAndRemainder] */
+    @Suppress("UNUSED_PARAMETER")
+    operator fun rem(divisor: Double) = ZERO
+
+    /**
+     * Modulos this value by the other value; always 0 (division is exact).
+     *
+     * @see [divideAndRemainder] */
+    @Suppress("UNUSED_PARAMETER")
+    operator fun rem(divisor: Float) = ZERO
+
+    /**
+     * Modulos this value by the other value; always 0 (division is exact).
+     *
+     * @see [divideAndRemainder] */
+    @Suppress("UNUSED_PARAMETER")
+    operator fun rem(divisor: BInt) = ZERO
+
+    /**
+     * Modulos this value by the other value; always 0 (division is exact).
+     *
+     * @see [divideAndRemainder] */
+    @Suppress("UNUSED_PARAMETER")
+    operator fun rem(divisor: Long) = ZERO
+
+    /**
+     * Modulos this value by the other value; always 0 (division is exact).
+     *
+     * @see [divideAndRemainder] */
+    @Suppress("UNUSED_PARAMETER")
+    operator fun rem(divisor: Int) = ZERO
+
     /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: BigRational) =
         BigRationalProgression(this, other)
@@ -965,6 +1014,24 @@ operator fun Float.div(other: BigRational) = toBigRational() / other
 operator fun BInt.div(other: BigRational) = toBigRational() / other
 operator fun Long.div(other: BigRational) = toBigRational() / other
 operator fun Int.div(other: BigRational) = toBigRational() / other
+
+@Suppress("UNUSED_PARAMETER")
+operator fun BDouble.rem(other: BigRational) = ZERO
+
+@Suppress("UNUSED_PARAMETER")
+operator fun Double.rem(other: BigRational) = ZERO
+
+@Suppress("UNUSED_PARAMETER")
+operator fun Float.rem(other: BigRational) = ZERO
+
+@Suppress("UNUSED_PARAMETER")
+operator fun BInt.rem(other: BigRational) = ZERO
+
+@Suppress("UNUSED_PARAMETER")
+operator fun Long.rem(other: BigRational) = ZERO
+
+@Suppress("UNUSED_PARAMETER")
+operator fun Int.rem(other: BigRational) = ZERO
 
 operator fun BDouble.rangeTo(other: BigRational) = toBigRational()..other
 operator fun Double.rangeTo(other: BigRational) = toBigRational()..other

@@ -523,6 +523,7 @@ internal class BigRationalTest {
 
         @Test
         fun `should divide`() {
+            // TODO: Tests for non-finites
             assertEquals(
                 9 over 10,
                 (3 over 5) / (2 over 3)
@@ -574,6 +575,63 @@ internal class BigRationalTest {
             assertEquals(
                 ONE,
                 ONE / 1
+            )
+        }
+
+        @Test
+        fun `should find remainder`() {
+            // TODO: Tests for non-finites
+            assertEquals(
+                ZERO,
+                (3 over 5) % (2 over 3)
+            )
+            assertEquals(
+                ZERO,
+                BDouble.ONE % ONE
+            )
+            assertEquals(
+                ZERO,
+                ONE % BDouble.ONE
+            )
+            assertEquals(
+                ZERO,
+                1.0 % ONE
+            )
+            assertEquals(
+                ZERO,
+                ONE % 1.0
+            )
+            assertEquals(
+                ZERO,
+                1.0f % ONE
+            )
+            assertEquals(
+                ZERO,
+                ONE % 1.0f
+            )
+            assertEquals(
+                ZERO,
+                BInt.ONE % ONE
+            )
+            assertEquals(
+                ZERO,
+                ONE % BInt.ONE
+            )
+            assertEquals(
+                ZERO,
+                1L % ONE
+            )
+            assertEquals(
+                ZERO,
+                ONE % 1L
+            )
+            assertEquals(
+                ZERO,
+                1 % ONE
+            )
+            assertEquals(
+                ZERO,
+                ONE % 1
             )
         }
 

@@ -153,7 +153,8 @@ towards 0
 
 ### Operators
 
-- All numeric operators except `rem` (division is exact)
+- All numeric operators
+- `rem` always returns `ZERO` (division is exact)
 - Ranges and progressions
 - See also `divideAndRemainder`
 
