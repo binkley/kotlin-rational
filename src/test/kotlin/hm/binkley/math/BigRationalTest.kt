@@ -1274,5 +1274,30 @@ internal class BigRationalTest {
                 ZERO.lcm(ZERO)
             )
         }
+
+        @Test
+        fun `should find continued fraction`() {
+            assertEquals(
+                listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1),
+                (3245 over 1000).continuedFraction()
+            )
+            assertEquals(
+                listOf(-3 over 1, -4 over 1, -12 over 1, -4 over 1),
+                (-3245 over 1000).continuedFraction()
+            )
+            assertEquals(
+                listOf(ZERO),
+                ZERO.continuedFraction()
+            )
+            var cf = NaN.continuedFraction()
+            assertEquals(1, cf.size)
+            assertTrue(cf[0].isNaN())
+            cf = POSITIVE_INFINITY.continuedFraction()
+            assertEquals(1, cf.size)
+            assertTrue(cf[0].isNaN())
+            cf = NEGATIVE_INFINITY.continuedFraction()
+            assertEquals(1, cf.size)
+            assertTrue(cf[0].isNaN())
+        }
     }
 }

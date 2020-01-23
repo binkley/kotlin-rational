@@ -424,6 +424,17 @@ class BigRational private constructor(
         isWhole() || isNaN() || isPositiveInfinity() || isNegativeInfinity()
 
     /**
+     * Returns the finite continued fraction of this BigRational.
+     *
+     * The continued fraction `[a0; a1, a2]` is the list `[a0, a1, a2]`.
+     * Non-finite BigRationals produce `[NaN]`.
+     */
+    fun continuedFraction() = when {
+        isNaN() || isPositiveInfinity() || isNegativeInfinity() -> listOf(NaN)
+        else -> continuedFraction0(this, mutableListOf())
+    }
+
+    /**
      * Checks that this rational is a finite fraction.  Infinities and "not a
      * number" are not finite.
      *
@@ -1092,3 +1103,13 @@ private fun BInt.isZero() = this == BInt.ZERO
 private fun BInt.isOne() = this == BInt.ONE
 private fun BInt.isTwo() = this == BInt.TWO
 private fun BInt.isTen() = this == BInt.TEN
+
+private tailrec fun continuedFraction0(
+    r: BigRational,
+    sequence: MutableList<BigRational>
+): List<BigRational> {
+    val (a_n, f) = r.divideAndRemainder(ONE)
+    sequence += a_n
+    if (f == ZERO) return sequence
+    return continuedFraction0(f.reciprocal, sequence)
+}
