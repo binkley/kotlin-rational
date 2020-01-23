@@ -266,6 +266,18 @@ internal class BigRationalTest {
             (2 over 1) to (1 over 2),
             (13 over 2).divideAndRemainder(3 over 1)
         )
+        assertEquals(
+            (2 over 1) to (-1 over 2),
+            (-13 over 2).divideAndRemainder(-3 over 1)
+        )
+        assertEquals(
+            (-2 over 1) to (-1 over 2),
+            (-13 over 2).divideAndRemainder(3 over 1)
+        )
+        assertEquals(
+            (-2 over 1) to (1 over 2),
+            (13 over 2).divideAndRemainder(-3 over 1)
+        )
 
         fun nonFiniteCheck(
             dividend: BigRational,
@@ -960,11 +972,21 @@ internal class BigRationalTest {
         }
 
         @Test
+        fun `should wrap conversion to Long`() {
+            assertEquals(
+                (-128).toByte(),
+                ((Byte.MAX_VALUE + 1) over 1).toByte()
+            )
+            assertEquals(0b0, NaN.toByte())
+        }
+
+        @Test
         fun `should wrap conversion to Byte`() {
             assertEquals(
                 (-128).toByte(),
                 ((Byte.MAX_VALUE + 1) over 1).toByte()
             )
+            assertEquals(0b0, NaN.toByte())
         }
     }
 

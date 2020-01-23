@@ -39,9 +39,7 @@ class BigRational private constructor(
 ) : Number(), Comparable<BigRational> {
     /**
      * The signum of this BigRational: -1 for negative, 0 for zero, or
-     * 1 for positive.  Note that the BigRational `ZERO` <em>must</em> have
-     * a signum of 0.  This is necessary to ensures that there is exactly one
-     * representation for each BigRational value.
+     * 1 for positive.  `sign` of `NaN` is another `NaN`.
      */
     val sign: BigRational
         get() = when {
@@ -51,16 +49,15 @@ class BigRational private constructor(
 
     /**
      * Returns a BigRational whose value is the absolute value of this
-     * BigRational.
+     * BigRational.  `absoluteValue` of `NaN` is another `NaN`.
      */
     val absoluteValue: BigRational
         get() = valueOf(numerator.abs(), denominator)
 
     /**
      * Returns a BigRational whose value is the reciprocal of this
-     * BigRational.
-     *
-     * NB -- Reciprocals of infinities are `ZERO`.
+     * BigRational.  `reciprocal` of `NaN` is another `NaN`.  Reciprocals of
+     * infinities are `ZERO`.
      */
     val reciprocal: BigRational
         get() = valueOf(denominator, numerator)
@@ -75,13 +72,22 @@ class BigRational private constructor(
     override fun toByte() = toLong().toByte()
     override fun toShort() = toLong().toShort()
     override fun toInt() = toLong().toInt()
-    override fun toLong() = (numerator / denominator).toLong()
+    /** @see [Double.toLong] */
+    override fun toLong() = when {
+        isNaN() -> 0L
+        isPositiveInfinity() -> Long.MAX_VALUE
+        isNegativeInfinity() -> Long.MIN_VALUE
+        else -> (numerator / denominator).toLong()
+    }
+
     override fun toFloat() = toDouble().toFloat()
 
     /**
      * Returns the value of this number as a [Double], which may involve
      * rounding.  This should produce an _exact_ conversion, that is,
      * `123.455.toBigRational().toDouble == 123.456`.
+     *
+     * @see [Double.toLong] which has similar behavior
      */
     override fun toDouble() = when {
         isNaN() -> Double.NaN
@@ -346,7 +352,7 @@ class BigRational private constructor(
      */
     fun divideAndRemainder(other: BigRational): Pair<BigRational, BigRational> {
         val quotient = (this / other).round()
-        val remainder = this - (other * quotient)
+        val remainder = this - other * quotient
         return quotient to remainder
     }
 
