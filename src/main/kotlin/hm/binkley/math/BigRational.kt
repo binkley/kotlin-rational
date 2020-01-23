@@ -521,32 +521,33 @@ class BigRational private constructor(
          * * ZERO
          * * ONE
          * * TWO
+         * * TEN
          */
         fun valueOf(numerator: BInt, denominator: BInt): BigRational {
+            if (denominator.isZero()) return when {
+                numerator.isZero() -> NaN
+                numerator.signum() == 1 -> POSITIVE_INFINITY
+                else -> NEGATIVE_INFINITY
+            }
+            if (numerator.isZero()) return ZERO
+            if (denominator.isOne()) return when {
+                numerator.isOne() -> ONE
+                numerator.isTwo() -> TWO
+                numerator.isTen() -> TEN
+                else -> BigRational(numerator, denominator)
+            }
+
             var n = numerator
             var d = denominator
-            if (d < BInt.ZERO) {
+            if (d.signum() == -1) {
                 n = n.negate()
                 d = d.negate()
             }
 
-            val gcd = numerator.gcd(denominator)
-            if (gcd != BInt.ZERO) {
+            val gcd = n.gcd(d)
+            if (!gcd.isZero()) {
                 n /= gcd
                 d /= gcd
-            }
-
-            // Ensure constants return the _same_ object
-            if (d.isZero()) when {
-                n.isZero() -> return NaN
-                n.isOne() -> return POSITIVE_INFINITY
-                n.negate().isOne() -> return NEGATIVE_INFINITY
-            }
-            if (n.isZero()) return ZERO
-            if (d.isOne()) {
-                if (n.isOne()) return ONE
-                if (n.isTwo()) return TWO
-                if (n.isTen()) return TEN
             }
 
             return BigRational(n, d)
