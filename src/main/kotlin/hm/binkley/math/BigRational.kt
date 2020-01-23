@@ -424,17 +424,6 @@ class BigRational private constructor(
         isWhole() || isNaN() || isPositiveInfinity() || isNegativeInfinity()
 
     /**
-     * Returns the finite continued fraction of this BigRational.
-     *
-     * The continued fraction `[a0; a1, a2]` is the list `[a0, a1, a2]`.
-     * Non-finite BigRationals produce `[NaN]`.
-     */
-    fun continuedFraction() = when {
-        isNaN() || isPositiveInfinity() || isNegativeInfinity() -> listOf(NaN)
-        else -> continuedFraction0(this, mutableListOf())
-    }
-
-    /**
      * Checks that this rational is a finite fraction.  Infinities and "not a
      * number" are not finite.
      *
@@ -1005,6 +994,52 @@ open class SteppedBigRationalProgression(
 infix fun BigRational.downTo(other: BigRational) =
     BigRationalProgression(this, other, -ONE)
 
+/**
+ * `ContinuedFraction` represents a BigRational as a finite continued fraction
+ * sequence with the integer part at the natural index of 0.  Subsequent
+ * fraction parts use their natural index, starting at 1.
+ *
+ * The continued fraction of a non-finite BigRational is `[NaN;]`
+ */
+class ContinuedFraction(
+    private val r: BigRational,
+    private val l: MutableList<BigRational> = mutableListOf()
+) : List<BigRational> by l {
+    init {
+        when {
+            !r.isFinite() -> l += NaN
+            else -> continuedFraction0(r, l)
+        }
+    }
+
+    /** The integer part of this continued fraction. */
+    val a0: BigRational
+        get() = this[0]
+
+    /**
+     * Checks that this is a finite continued fraction.  All finite
+     * BigRationals produce a finite continued fraction; all non-finite
+     * BigRationals produce a non-finite continued fraction.
+     */
+    fun isFinite() = a0.isFinite()
+
+    /** Returns the BigRational for the continued fraction. */
+    fun toBigRational() = r
+
+    /** Returns the canonical representation of this continued fraction. */
+    override fun toString() = when (size) {
+        1 -> "[$a0;]"
+        else -> l.toString().replaceFirst(',', ';')
+    }
+}
+
+/**
+ * Returns the finite continued fraction of this BigRational.
+ *
+ * Non-finite BigRationals produce `[NaN;]`.
+ */
+fun BigRational.toContinuedFraction() = ContinuedFraction(this)
+
 operator fun BDouble.plus(other: BigRational) = toBigRational() + other
 operator fun Double.plus(other: BigRational) = toBigRational() + other
 operator fun Float.plus(other: BigRational) = toBigRational() + other
@@ -1104,11 +1139,17 @@ private fun BInt.isOne() = this == BInt.ONE
 private fun BInt.isTwo() = this == BInt.TWO
 private fun BInt.isTen() = this == BInt.TEN
 
+private fun BigRational.integerAndFraction(): Pair<BigRational, BigRational> {
+    val integer = floor()
+    val fraction = this - integer
+    return integer to fraction
+}
+
 private tailrec fun continuedFraction0(
     r: BigRational,
     sequence: MutableList<BigRational>
 ): List<BigRational> {
-    val (a_n, f) = r.divideAndRemainder(ONE)
+    val (a_n, f) = r.integerAndFraction()
     sequence += a_n
     if (f == ZERO) return sequence
     return continuedFraction0(f.reciprocal, sequence)

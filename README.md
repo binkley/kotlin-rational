@@ -147,6 +147,7 @@ infinite
 - `isDyadic()` (see
 [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational))
 - `gcm(other)`, `lcd(other)`
+- `toContinuedFraction()`
 - `pow(exponent)`
 - `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
 towards 0

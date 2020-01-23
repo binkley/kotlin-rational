@@ -1277,27 +1277,43 @@ internal class BigRationalTest {
 
         @Test
         fun `should find continued fraction`() {
+            val cfA = (3245 over 1000).toContinuedFraction()
             assertEquals(
                 listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1),
-                (3245 over 1000).continuedFraction()
+                cfA
             )
+            assertEquals((3245 over 1000), cfA.toBigRational())
+            val negCfA = (-3245 over 1000).toContinuedFraction()
             assertEquals(
-                listOf(-3 over 1, -4 over 1, -12 over 1, -4 over 1),
-                (-3245 over 1000).continuedFraction()
+                listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
+                negCfA
             )
+            assertEquals((-3245 over 1000), negCfA.toBigRational())
             assertEquals(
                 listOf(ZERO),
-                ZERO.continuedFraction()
+                ZERO.toContinuedFraction()
             )
-            var cf = NaN.continuedFraction()
-            assertEquals(1, cf.size)
-            assertTrue(cf[0].isNaN())
-            cf = POSITIVE_INFINITY.continuedFraction()
-            assertEquals(1, cf.size)
-            assertTrue(cf[0].isNaN())
-            cf = NEGATIVE_INFINITY.continuedFraction()
-            assertEquals(1, cf.size)
-            assertTrue(cf[0].isNaN())
+            assertEquals(
+                listOf(ONE),
+                ONE.toContinuedFraction()
+            )
+            assertEquals(
+                listOf(ZERO, 3 over 1),
+                (1 over 3).toContinuedFraction()
+            )
+
+            val cfNaN = NaN.toContinuedFraction()
+            assertFalse(cfNaN.isFinite())
+            assertTrue(cfNaN.toBigRational().isNaN())
+            assertTrue(cfNaN.a0.isNaN())
+            val cfPosInf = POSITIVE_INFINITY.toContinuedFraction()
+            assertFalse(cfPosInf.isFinite())
+            assertTrue(cfPosInf.toBigRational().isPositiveInfinity())
+            assertTrue(cfPosInf.a0.isNaN())
+            val cfNegInf = NEGATIVE_INFINITY.toContinuedFraction()
+            assertFalse(cfNegInf.isFinite())
+            assertTrue(cfNegInf.toBigRational().isNegativeInfinity())
+            assertTrue(cfNegInf.a0.isNaN())
         }
     }
 }
