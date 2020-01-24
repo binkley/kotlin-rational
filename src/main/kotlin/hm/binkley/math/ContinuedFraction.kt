@@ -12,12 +12,15 @@ import hm.binkley.math.BigRational.Companion.ZERO
  * fractions of non-finite BigRations.  The continued fraction of a non-finite
  * BigRational is `[NaN;]`
  */
-@Suppress("LocalVariableName") // Underscores in names
+@Suppress("LocalVariableName", "PropertyName") // Underscores
 class ContinuedFraction private constructor(
     private val terms: List<BigRational>
 ) : List<BigRational> by terms {
-    /** The integer part of this continued fraction. */
-    val a0: BigRational
+    /**
+     * The integer part of this continued fraction.
+     *
+     * @todo Find name for first element of continued fraction */
+    val a_0: BigRational
         get() = terms.first()
 
     /**
@@ -25,7 +28,7 @@ class ContinuedFraction private constructor(
      * BigRationals produce a finite continued fraction; all non-finite
      * BigRationals produce a non-finite continued fraction.
      */
-    fun isFinite() = a0.isFinite()
+    fun isFinite() = a_0.isFinite()
 
     /**
      * Returns the BigRational for the continued fraction.
@@ -47,7 +50,7 @@ class ContinuedFraction private constructor(
 
     /** Returns the canonical representation of this continued fraction. */
     override fun toString() = when (size) {
-        1 -> "[$a0;]"
+        1 -> "[$a_0;]"
         else -> terms.toString().replaceFirst(',', ';')
     }
 

@@ -1351,15 +1351,15 @@ internal class BigRationalTest {
             val cfNaN = NaN.toContinuedFraction()
             assertFalse(cfNaN.isFinite())
             assertTrue(cfNaN.toBigRational().isNaN())
-            assertTrue(cfNaN.a0.isNaN())
+            assertTrue(cfNaN.a_0.isNaN())
             val cfPosInf = POSITIVE_INFINITY.toContinuedFraction()
             assertFalse(cfPosInf.isFinite())
             assertTrue(cfPosInf.toBigRational().isNaN())
-            assertTrue(cfPosInf.a0.isNaN())
+            assertTrue(cfPosInf.a_0.isNaN())
             val cfNegInf = NEGATIVE_INFINITY.toContinuedFraction()
             assertFalse(cfNegInf.isFinite())
             assertTrue(cfNegInf.toBigRational().isNaN())
-            assertTrue(cfNegInf.a0.isNaN())
+            assertTrue(cfNegInf.a_0.isNaN())
         }
 
         @Test
