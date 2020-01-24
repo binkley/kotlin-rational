@@ -421,7 +421,7 @@ class BigRational private constructor(
     }
 
     private fun roundsToSelf() =
-        isWhole() || isNaN() || isPositiveInfinity() || isNegativeInfinity()
+        isInteger() || isNaN() || isPositiveInfinity() || isNegativeInfinity()
 
     /**
      * Returns a BigRational between this BigRational and the other one, or
@@ -450,8 +450,8 @@ class BigRational private constructor(
      */
     fun isFinite() = !isNaN() && !isInfinite()
 
-    /** Checks that this rational is a whole number (an integer). */
-    fun isWhole() = BInt.ONE == denominator
+    /** Checks that this rational is an integer. */
+    fun isInteger() = BInt.ONE == denominator
 
     /**
      * Checks that this rational is dyadic, that is, the denominator is a power

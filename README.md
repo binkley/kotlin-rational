@@ -143,8 +143,7 @@ behave as expected
 - `isNan()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
 infinite
-- `isWhole()`
-- `isDyadic()` (see
+- `isInteger()`, `isDyadic()` (see
 [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational))
 - `gcm(other)`, `lcd(other)`
 - `toContinuedFraction()`

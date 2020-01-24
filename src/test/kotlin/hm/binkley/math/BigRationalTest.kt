@@ -740,13 +740,13 @@ internal class BigRationalTest {
     }
 
     @Test
-    fun `should note whole rationals`() {
-        assertFalse((1 over 2).isWhole())
-        assertTrue((2 over 1).isWhole())
-        assertTrue(ZERO.isWhole())
-        assertFalse(POSITIVE_INFINITY.isWhole())
-        assertFalse(NEGATIVE_INFINITY.isWhole())
-        assertFalse(NaN.isWhole())
+    fun `should note integer rationals`() {
+        assertFalse((1 over 2).isInteger())
+        assertTrue((2 over 1).isInteger())
+        assertTrue(ZERO.isInteger())
+        assertFalse(POSITIVE_INFINITY.isInteger())
+        assertFalse(NEGATIVE_INFINITY.isInteger())
+        assertFalse(NaN.isInteger())
     }
 
     @Test
