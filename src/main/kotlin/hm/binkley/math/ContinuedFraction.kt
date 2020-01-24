@@ -45,7 +45,7 @@ class ContinuedFraction private constructor(
             0,
             terms.size - 1
         ).asReversed().asSequence().fold(terms.last()) { previous, a_ni ->
-            previous.reciprocal + a_ni
+            a_ni + previous.reciprocal
         }
 
     /** Returns the canonical representation of this continued fraction. */
