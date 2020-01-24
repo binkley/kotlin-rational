@@ -420,8 +420,7 @@ class BigRational private constructor(
         else -> (numerator / denominator).toBigRational()
     }
 
-    private fun roundsToSelf() =
-        isInteger() || isNaN() || isPositiveInfinity() || isNegativeInfinity()
+    private fun roundsToSelf() = isInteger() || !isFinite()
 
     /**
      * Returns a BigRational between this BigRational and the other one, or
