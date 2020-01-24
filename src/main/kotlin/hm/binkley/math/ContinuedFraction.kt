@@ -1,5 +1,8 @@
 package hm.binkley.math
 
+import hm.binkley.math.BigRational.Companion.NaN
+import hm.binkley.math.BigRational.Companion.ZERO
+
 /**
  * `ContinuedFraction` represents a BigRational as a finite continued fraction
  * sequence with the integer part at the natural index of 0.  Subsequent
@@ -8,12 +11,12 @@ package hm.binkley.math
  * The continued fraction of a non-finite BigRational is `[NaN;]`
  */
 class ContinuedFraction(
-    private val r: BigRational,
+    r: BigRational,
     private val l: MutableList<BigRational> = mutableListOf()
 ) : List<BigRational> by l {
     init {
         when {
-            !r.isFinite() -> l += BigRational.NaN
+            !r.isFinite() -> l += NaN
             else -> continuedFraction0(r, l)
         }
     }
@@ -29,8 +32,23 @@ class ContinuedFraction(
      */
     fun isFinite() = a0.isFinite()
 
-    /** Returns the BigRational for the continued fraction. */
-    fun toBigRational() = r
+    /**
+     * Returns the BigRational for the continued fraction.
+     *
+     * Note that the roundtrip of BigRational → ContinuedFraction →
+     * BigRational is lossy for infinities, producing `NaN`.
+     *
+     * @todo A nicer way to have a `twofold` that processes two elements at a
+     *       time, rather than `fold`'s one at a gime.
+     */
+    fun toBigRational() =
+        if (!isFinite()) NaN
+        else l.subList(
+            0,
+            l.size - 1
+        ).asReversed().asSequence().fold(l.last()) { a_partial, a_ni ->
+            a_partial.reciprocal + a_ni
+        }
 
     /** Returns the canonical representation of this continued fraction. */
     override fun toString() = when (size) {
@@ -45,7 +63,7 @@ private tailrec fun continuedFraction0(
 ): List<BigRational> {
     val (a_n, f) = r.integerAndFraction()
     sequence += a_n
-    if (f == BigRational.ZERO) return sequence
+    if (f == ZERO) return sequence
     return continuedFraction0(f.reciprocal, sequence)
 }
 
@@ -54,3 +72,4 @@ private fun BigRational.integerAndFraction(): Pair<BigRational, BigRational> {
     val fraction = this - integer
     return integer to fraction
 }
+
