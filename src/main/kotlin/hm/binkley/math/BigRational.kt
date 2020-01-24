@@ -72,6 +72,7 @@ class BigRational private constructor(
     override fun toByte() = toLong().toByte()
     override fun toShort() = toLong().toShort()
     override fun toInt() = toLong().toInt()
+
     /** @see [Double.toLong] */
     override fun toLong() = when {
         isNaN() -> 0L
@@ -344,149 +345,8 @@ class BigRational private constructor(
     /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Long) = rangeTo(other.toBigRational())
 
-    /**
-     * Returns a pair of `this / other` (quotient) and `this % other`
-     * (remainder) integral division and modulo operations.
-     *
-     * @see [div]
-     */
-    fun divideAndRemainder(other: BigRational): Pair<BigRational, BigRational> {
-        val quotient = (this / other).round()
-        val remainder = this - other * quotient
-        return quotient to remainder
-    }
-
     /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: Int) = rangeTo(other.toBigRational())
-
-    /**
-     * Returns a BigRational whose value is `(this^exponent)`. Note that
-     * `exponent` is an integer rather than a BigRational.
-     */
-    fun pow(exponent: Int): BigRational /* type check issue */ = when {
-        0 <= exponent ->
-            valueOf(numerator.pow(exponent), denominator.pow(exponent))
-        else -> reciprocal.pow(-exponent)
-    }
-
-    /**
-     * Returns a BigRational whose value is the greatest common divisor of
-     * the absolute values of `this` and `other`.  Returns 0 when `this` and
-     * `other` are both 0.
-     */
-    fun gcd(other: BigRational) =
-        if (ZERO == this) other else valueOf(
-            numerator.gcd(other.numerator),
-            denominator.lcm(other.denominator)
-        )
-
-    /**
-     * Returns a BigRational whose value is the lowest common multiple of
-     * the absolute values of `this` and `other`.  Returns 1 when `this` and
-     * `other` are both 0.
-     */
-    fun lcm(other: BigRational) =
-        if (ZERO == this) ZERO else valueOf(
-            numerator.lcm(other.numerator),
-            denominator.gcd(other.denominator)
-        )
-
-    /**
-     * Rounds to the nearest whole number _less than or equal_ to this
-     * BigRational.
-     */
-    fun floor() = when {
-        roundsToSelf() -> this
-        ZERO <= this -> round()
-        else -> round() - ONE
-    }
-
-    /**
-     * Rounds to the nearest whole number _greater than or equal_ to this
-     * BigRational.
-     */
-    fun ceil() = when {
-        roundsToSelf() -> this
-        ZERO <= this -> round() + ONE
-        else -> round()
-    }
-
-    /**
-     * Rounds to the nearest whole number _closer to 0_ than this BigRational,
-     * or when this BigRational is whole, the same BigRational.
-     */
-    fun round() = when {
-        roundsToSelf() -> this
-        else -> (numerator / denominator).toBigRational()
-    }
-
-    private fun roundsToSelf() = isInteger() || !isFinite()
-
-    /**
-     * Returns a BigRational between this BigRational and the other one, or
-     * `NaN` if this or the other BigRational are `NaN` or the same.
-     *
-     * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
-     * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
-     * not matter).
-     */
-    fun between(other: BigRational) = when {
-        equals(other) -> NaN
-        isNaN() || other.isNaN() -> NaN
-        (isPositiveInfinity() && other.isNegativeInfinity())
-                || (isNegativeInfinity() && other.isPositiveInfinity()) -> ZERO
-        else -> valueOf(
-            numerator + other.numerator,
-            denominator + other.denominator
-        )
-    }
-
-    /**
-     * Checks that this rational is a finite fraction.  Infinities and "not a
-     * number" are not finite.
-     *
-     * @todo Consider separate types, which leads to sealed types
-     */
-    fun isFinite() = !isNaN() && !isInfinite()
-
-    /** Checks that this rational is an integer. */
-    fun isInteger() = BInt.ONE == denominator
-
-    /**
-     * Checks that this rational is dyadic, that is, the denominator is a power
-     * of 2.
-     *
-     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cote></a>
-     */
-    fun isDyadic() = isFinite() &&
-            (denominator.isOne() || (denominator % BigInteger.TWO).isZero())
-
-    /**
-     * Checks that this rational is infinite, positive or negative.  "Not a
-     * number" is not infinite.
-     */
-    fun isInfinite() = isPositiveInfinity() || isNegativeInfinity()
-
-    /**
-     * Checks that this rational is "not a number".
-     *
-     * NB -- `NaN != NaN`
-     */
-    fun isNaN() = this === NaN
-
-    /**
-     * Checks that this rational is positive infinity.
-     *
-     * NB -- `POSITIVE_INFINITY != POSITIVE_INFINITY`
-     */
-    fun isPositiveInfinity() = this === POSITIVE_INFINITY
-
-    /**
-     * Checks that this rational is negative infinity.
-     *
-     * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
-     */
-    fun isNegativeInfinity() = this === NEGATIVE_INFINITY
 
     companion object {
         /**
@@ -494,31 +354,37 @@ class BigRational private constructor(
          * `BigRational`. It is equivalent `0 over 0`.
          */
         val NaN = BigRational(BInt.ZERO, BInt.ZERO)
+
         /**
          * A constant holding 0 value of type `BigRational`. It is equivalent
          * `0 over 1`.
          */
         val ZERO = BigRational(BInt.ZERO, BInt.ONE)
+
         /**
          * A constant holding 1 value of type `BigRational`. It is equivalent
          * `1 over 1`.
          */
         val ONE = BigRational(BInt.ONE, BInt.ONE)
+
         /**
          * A constant holding 2 value of type `BigRational`. It is equivalent
          * `2 over 1`.
          */
         val TWO = BigRational(BInt.TWO, BInt.ONE)
+
         /**
          * A constant holding 10 value of type `BigRational`. It is equivalent
          * `10 over 1`.
          */
         val TEN = BigRational(BInt.TEN, BInt.ONE)
+
         /**
          * A constant holding positive infinity value of type `BigRational`.
          * It is equivalent `1 over 0`.
          */
         val POSITIVE_INFINITY = BigRational(BInt.ONE, BInt.ZERO)
+
         /**
          * A constant holding negative infinity value of type `BigRational`.
          * It is equivalent `-1 over 0`.
@@ -1011,13 +877,6 @@ open class SteppedBigRationalProgression(
 infix fun BigRational.downTo(other: BigRational) =
     BigRationalProgression(this, other, -ONE)
 
-/**
- * Returns the finite continued fraction of this BigRational.
- *
- * Non-finite BigRationals produce `[NaN;]`.
- */
-fun BigRational.toContinuedFraction() = ContinuedFraction.valueOf(this)
-
 operator fun BDouble.plus(other: BigRational) = toBigRational() + other
 operator fun Double.plus(other: BigRational) = toBigRational() + other
 operator fun Float.plus(other: BigRational) = toBigRational() + other
@@ -1116,3 +975,155 @@ private fun BInt.isZero() = this == BInt.ZERO
 private fun BInt.isOne() = this == BInt.ONE
 private fun BInt.isTwo() = this == BInt.TWO
 private fun BInt.isTen() = this == BInt.TEN
+
+/**
+ * Returns a pair of `this / other` (quotient) and `this % other`
+ * (remainder) integral division and modulo operations.
+ *
+ * @see [div]
+ */
+fun BigRational.divideAndRemainder(other: BigRational)
+        : Pair<BigRational, BigRational> {
+    val quotient = (this / other).round()
+    val remainder = this - other * quotient
+    return quotient to remainder
+}
+
+/**
+ * Returns a BigRational whose value is `(this^exponent)`. Note that
+ * `exponent` is an integer rather than a BigRational.
+ */
+fun BigRational.pow(exponent: Int): BigRational /* type check issue */ =
+    when {
+        0 <= exponent ->
+            valueOf(numerator.pow(exponent), denominator.pow(exponent))
+        else -> reciprocal.pow(-exponent)
+    }
+
+/**
+ * Returns a BigRational whose value is the greatest common divisor of
+ * the absolute values of `this` and `other`.  Returns 0 when `this` and
+ * `other` are both 0.
+ */
+fun BigRational.gcd(other: BigRational) =
+    if (ZERO == this) other else valueOf(
+        numerator.gcd(other.numerator),
+        denominator.lcm(other.denominator)
+    )
+
+/**
+ * Returns a BigRational whose value is the lowest common multiple of
+ * the absolute values of `this` and `other`.  Returns 1 when `this` and
+ * `other` are both 0.
+ */
+fun BigRational.lcm(other: BigRational) =
+    if (ZERO == this) ZERO else valueOf(
+        numerator.lcm(other.numerator),
+        denominator.gcd(other.denominator)
+    )
+
+/**
+ * Rounds to the nearest whole number _less than or equal_ to this
+ * BigRational.
+ */
+fun BigRational.floor() = when {
+    roundsToSelf() -> this
+    ZERO <= this -> round()
+    else -> round() - ONE
+}
+
+/**
+ * Rounds to the nearest whole number _greater than or equal_ to this
+ * BigRational.
+ */
+fun BigRational.ceil() = when {
+    roundsToSelf() -> this
+    ZERO <= this -> round() + ONE
+    else -> round()
+}
+
+/**
+ * Rounds to the nearest whole number _closer to 0_ than this BigRational,
+ * or when this BigRational is whole, the same BigRational.
+ */
+fun BigRational.round() = when {
+    roundsToSelf() -> this
+    else -> (numerator / denominator).toBigRational()
+}
+
+private fun BigRational.roundsToSelf() = isInteger() || !isFinite()
+
+/**
+ * Returns a BigRational between this BigRational and the other one, or
+ * `NaN` if this or the other BigRational are `NaN` or the same.
+ *
+ * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
+ * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
+ * not matter).
+ */
+fun BigRational.between(other: BigRational) = when {
+    equals(other) -> NaN
+    isNaN() || other.isNaN() -> NaN
+    (isPositiveInfinity() && other.isNegativeInfinity())
+            || (isNegativeInfinity() && other.isPositiveInfinity()) -> ZERO
+    else -> valueOf(
+        numerator + other.numerator,
+        denominator + other.denominator
+    )
+}
+
+/**
+ * Returns the finite continued fraction of this BigRational.
+ *
+ * Non-finite BigRationals produce `[NaN;]`.
+ */
+fun BigRational.toContinuedFraction() = ContinuedFraction.valueOf(this)
+
+/**
+ * Checks that this rational is a finite fraction.  Infinities and "not a
+ * number" are not finite.
+ *
+ * @todo Consider separate types, which leads to sealed types
+ */
+fun BigRational.isFinite() = !isNaN() && !isInfinite()
+
+/** Checks that this rational is an integer. */
+fun BigRational.isInteger() = BInt.ONE == denominator
+
+/**
+ * Checks that this rational is dyadic, that is, the denominator is a power
+ * of 2.
+ *
+ * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cote></a>
+ */
+fun BigRational.isDyadic() = isFinite() &&
+        (denominator.isOne() ||
+                (denominator % BigInteger.TWO).isZero())
+
+/**
+ * Checks that this rational is infinite, positive or negative.  "Not a
+ * number" is not infinite.
+ */
+fun BigRational.isInfinite() = isPositiveInfinity() || isNegativeInfinity()
+
+/**
+ * Checks that this rational is "not a number".
+ *
+ * NB -- `NaN != NaN`
+ */
+fun BigRational.isNaN() = this === NaN
+
+/**
+ * Checks that this rational is positive infinity.
+ *
+ * NB -- `POSITIVE_INFINITY != POSITIVE_INFINITY`
+ */
+fun BigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
+
+/**
+ * Checks that this rational is negative infinity.
+ *
+ * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
+ */
+fun BigRational.isNegativeInfinity() =
+    this === NEGATIVE_INFINITY

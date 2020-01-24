@@ -223,3 +223,4 @@ reducing rationals to simplest form.
 - [_Double-precision floating-point format_](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 - [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational).
 - [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
+* [_An introduction to context-oriented programming in Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
