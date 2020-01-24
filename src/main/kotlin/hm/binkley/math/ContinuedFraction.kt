@@ -53,12 +53,21 @@ class ContinuedFraction private constructor(
 
     companion object {
         fun valueOf(r: BigRational): ContinuedFraction {
-            val a_s = mutableListOf<BigRational>()
+            val terms = mutableListOf<BigRational>()
             when {
-                !r.isFinite() -> a_s += NaN
-                else -> continuedFraction0(r, a_s)
+                !r.isFinite() -> terms += NaN
+                else -> continuedFraction0(r, terms)
             }
-            return ContinuedFraction(a_s)
+            return ContinuedFraction(terms)
+        }
+
+        fun valueOf(
+            a0: BigRational,
+            vararg a_i: BigRational
+        ): ContinuedFraction {
+            val terms = mutableListOf(a0)
+            terms += a_i
+            return ContinuedFraction(terms)
         }
     }
 }

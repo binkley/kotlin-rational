@@ -1373,5 +1373,18 @@ internal class BigRationalTest {
                 (3245 over 1000).toContinuedFraction().toString()
             )
         }
+
+        @Test
+        fun `should convert from continued fraction`() {
+            assertEquals(
+                (3245 over 1000),
+                ContinuedFraction.valueOf(
+                    3 over 1,
+                    4 over 1,
+                    12 over 1,
+                    4 over 1
+                ).toBigRational()
+            )
+        }
     }
 }
