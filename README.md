@@ -115,6 +115,8 @@ for these `Number` types:
 - `Long`
 - `Int`
 
+In addition, there is convertion to and from `ContinuedFraction`.
+
 Adding support for `Short` and `Byte` is simple, but I did not consider it
 worthwhile.
 
@@ -174,6 +176,11 @@ type, then so are `BigDecimal`, `Double`, `Float`, `BigInteger`, `Long`, and
 Much of the code assumes the rational is in simplest terms (proper form).
 The `BigRational.new` factory method ensures this.  However you should usually
 use the `over` infix operator instead, _eg_, `1 over 2`.
+
+### Negative values
+
+Canonical form of negative values for rational numbers depends on context.
+For this code, the denominator is always non-negative.
 
 ### Identity of constants
 
