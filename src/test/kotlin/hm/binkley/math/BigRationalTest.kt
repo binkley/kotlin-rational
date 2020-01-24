@@ -1290,12 +1290,14 @@ internal class BigRationalTest {
                 listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1),
                 cfA
             )
+            assertTrue(cfA.isFinite())
             assertEquals((3245 over 1000), cfA.toBigRational())
             val negCfA = (-3245 over 1000).toContinuedFraction()
             assertEquals(
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
                 negCfA
             )
+            assertTrue(negCfA.isFinite())
             assertEquals((-3245 over 1000), negCfA.toBigRational())
             assertEquals(
                 listOf(ZERO),
