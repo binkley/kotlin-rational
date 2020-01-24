@@ -424,6 +424,25 @@ class BigRational private constructor(
         isWhole() || isNaN() || isPositiveInfinity() || isNegativeInfinity()
 
     /**
+     * Returns a BigRational between this BigRational and the other one, or
+     * `NaN` if this or the other BigRational are `NaN` or the same.
+     *
+     * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
+     * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
+     * not matter).
+     */
+    fun between(other: BigRational) = when {
+        equals(other) -> NaN
+        isNaN() || other.isNaN() -> NaN
+        (isPositiveInfinity() && other.isNegativeInfinity())
+                || (isNegativeInfinity() && other.isPositiveInfinity()) -> ZERO
+        else -> valueOf(
+            numerator + other.numerator,
+            denominator + other.denominator
+        )
+    }
+
+    /**
      * Checks that this rational is a finite fraction.  Infinities and "not a
      * number" are not finite.
      *

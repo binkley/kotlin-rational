@@ -1284,6 +1284,42 @@ internal class BigRationalTest {
         }
 
         @Test
+        fun `should find between`() {
+            assertTrue(NaN.between(NaN).isNaN())
+            assertTrue(ZERO.between(NaN).isNaN())
+            assertTrue(NaN.between(ZERO).isNaN())
+            assertTrue(ZERO.between(ZERO).isNaN())
+            assertEquals(
+                ZERO,
+                POSITIVE_INFINITY.between(NEGATIVE_INFINITY)
+            )
+            assertEquals(
+                ZERO,
+                NEGATIVE_INFINITY.between(POSITIVE_INFINITY)
+            )
+            assertEquals(
+                ONE,
+                POSITIVE_INFINITY.between(ZERO)
+            )
+            assertEquals(
+                ONE,
+                ZERO.between(POSITIVE_INFINITY)
+            )
+            assertEquals(
+                -ONE,
+                ZERO.between(NEGATIVE_INFINITY)
+            )
+            assertEquals(
+                -ONE,
+                NEGATIVE_INFINITY.between(ZERO)
+            )
+            assertEquals(
+                3 over 2,
+                ONE.between(TWO)
+            )
+        }
+
+        @Test
         fun `should find continued fraction`() {
             val cfA = (3245 over 1000).toContinuedFraction()
             assertEquals(
