@@ -12,11 +12,11 @@ import hm.binkley.math.BigRational.Companion.ZERO
  */
 @Suppress("LocalVariableName") // Underscores in names
 class ContinuedFraction private constructor(
-    private val l: List<BigRational>
-) : List<BigRational> by l {
+    private val terms: List<BigRational>
+) : List<BigRational> by terms {
     /** The integer part of this continued fraction. */
     val a0: BigRational
-        get() = l.first()
+        get() = terms.first()
 
     /**
      * Checks that this is a finite continued fraction.  All finite
@@ -32,21 +32,21 @@ class ContinuedFraction private constructor(
      * BigRational is lossy for infinities, producing `NaN`.
      *
      * @todo A nicer way to have a `twofold` that processes two elements at a
-     *       time, rather than `fold`'s one at a gime.
+     *       time, rather than `fold`'s one at a time.
      */
     fun toBigRational() =
         if (!isFinite()) NaN
-        else l.subList(
+        else terms.subList(
             0,
-            l.size - 1
-        ).asReversed().asSequence().fold(l.last()) { a_partial, a_ni ->
-            a_partial.reciprocal + a_ni
+            terms.size - 1
+        ).asReversed().asSequence().fold(terms.last()) { previous, a_ni ->
+            previous.reciprocal + a_ni
         }
 
     /** Returns the canonical representation of this continued fraction. */
     override fun toString() = when (size) {
         1 -> "[$a0;]"
-        else -> l.toString().replaceFirst(',', ';')
+        else -> terms.toString().replaceFirst(',', ';')
     }
 
     companion object {
