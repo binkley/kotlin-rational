@@ -902,8 +902,12 @@ internal class BigRationalTest {
                 8687443681197687 over 70368744177664
             )
             assertTrue(Double.NaN.toBigRational().isNaN())
-            assertTrue(Double.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity())
-            assertTrue(Double.POSITIVE_INFINITY.toBigRational().isPositiveInfinity())
+            assertTrue(
+                Double.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
+            )
+            assertTrue(
+                Double.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
+            )
             assertEquals(
                 rationals,
                 doubles.map {
@@ -956,8 +960,12 @@ internal class BigRationalTest {
                 16181625 over 131072
             )
             assertTrue(Float.NaN.toBigRational().isNaN())
-            assertTrue(Float.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity())
-            assertTrue(Float.POSITIVE_INFINITY.toBigRational().isPositiveInfinity())
+            assertTrue(
+                Float.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
+            )
+            assertTrue(
+                Float.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
+            )
             assertEquals(
                 rationals,
                 floats.map {
@@ -1314,6 +1322,18 @@ internal class BigRationalTest {
             assertFalse(cfNegInf.isFinite())
             assertTrue(cfNegInf.toBigRational().isNegativeInfinity())
             assertTrue(cfNegInf.a0.isNaN())
+        }
+
+        @Test
+        fun `should present continue fraction following convention`() {
+            assertEquals(
+                "[3;]",
+                (3 over 1).toContinuedFraction().toString()
+            )
+            assertEquals(
+                "[3; 4, 12, 4]",
+                (3245 over 1000).toContinuedFraction().toString()
+            )
         }
     }
 }
