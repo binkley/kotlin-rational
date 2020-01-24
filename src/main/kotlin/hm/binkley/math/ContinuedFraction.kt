@@ -8,7 +8,9 @@ import hm.binkley.math.BigRational.Companion.ZERO
  * sequence with the integer part at the natural index of 0.  Subsequent
  * fraction parts use their natural index, starting at 1.
  *
- * The continued fraction of a non-finite BigRational is `[NaN;]`
+ * Elements are `BigRational` (rather than `BigInteger`) to express continued
+ * fractions of non-finite BigRations.  The continued fraction of a non-finite
+ * BigRational is `[NaN;]`
  */
 @Suppress("LocalVariableName") // Underscores in names
 class ContinuedFraction private constructor(
