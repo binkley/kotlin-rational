@@ -127,8 +127,8 @@ class BigRational private constructor(
         !isFinite() -> false
         this === other -> true
         other !is BigRational -> false
-        else -> numerator == other.numerator
-                && denominator == other.denominator
+        else -> numerator == other.numerator &&
+                denominator == other.denominator
     }
 
     override fun hashCode() = Objects.hash(numerator, denominator)
@@ -459,9 +459,8 @@ class BigRational private constructor(
      *
      * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cote></a>
      */
-    fun isDyadic() = isFinite()
-            && (denominator.isOne()
-            || (denominator % BigInteger.TWO).isZero())
+    fun isDyadic() = isFinite() &&
+            (denominator.isOne() || (denominator % BigInteger.TWO).isZero())
 
     /**
      * Checks that this rational is infinite, positive or negative.  "Not a
@@ -998,9 +997,9 @@ open class SteppedBigRationalProgression(
     override fun equals(other: Any?) = when {
         this === other -> true
         other !is SteppedBigRationalProgression -> false
-        else -> start == other.start
-                && endInclusive == other.endInclusive
-                && step == other.step
+        else -> start == other.start &&
+                endInclusive == other.endInclusive &&
+                step == other.step
     }
 
     override fun hashCode() = Objects.hash(start, endInclusive, step)
