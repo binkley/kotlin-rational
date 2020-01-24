@@ -1016,7 +1016,7 @@ infix fun BigRational.downTo(other: BigRational) =
  *
  * Non-finite BigRationals produce `[NaN;]`.
  */
-fun BigRational.toContinuedFraction() = ContinuedFraction(this)
+fun BigRational.toContinuedFraction() = ContinuedFraction.valueOf(this)
 
 operator fun BDouble.plus(other: BigRational) = toBigRational() + other
 operator fun Double.plus(other: BigRational) = toBigRational() + other

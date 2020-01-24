@@ -10,20 +10,13 @@ import hm.binkley.math.BigRational.Companion.ZERO
  *
  * The continued fraction of a non-finite BigRational is `[NaN;]`
  */
-class ContinuedFraction(
-    r: BigRational,
-    private val l: MutableList<BigRational> = mutableListOf()
+@Suppress("LocalVariableName") // Underscores in names
+class ContinuedFraction private constructor(
+    private val l: List<BigRational>
 ) : List<BigRational> by l {
-    init {
-        when {
-            !r.isFinite() -> l += NaN
-            else -> continuedFraction0(r, l)
-        }
-    }
-
     /** The integer part of this continued fraction. */
     val a0: BigRational
-        get() = this[0]
+        get() = l.first()
 
     /**
      * Checks that this is a finite continued fraction.  All finite
@@ -54,6 +47,17 @@ class ContinuedFraction(
     override fun toString() = when (size) {
         1 -> "[$a0;]"
         else -> l.toString().replaceFirst(',', ';')
+    }
+
+    companion object {
+        fun valueOf(r: BigRational): ContinuedFraction {
+            val a_s = mutableListOf<BigRational>()
+            when {
+                !r.isFinite() -> a_s += NaN
+                else -> continuedFraction0(r, a_s)
+            }
+            return ContinuedFraction(a_s)
+        }
     }
 }
 
