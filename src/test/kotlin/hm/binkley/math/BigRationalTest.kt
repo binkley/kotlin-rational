@@ -664,6 +664,16 @@ internal class BigRationalTest {
                 --a
             )
         }
+
+        @Test
+        fun `should not order infinities`() {
+            assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
+            assertFalse(POSITIVE_INFINITY > POSITIVE_INFINITY)
+            assertFalse(POSITIVE_INFINITY < POSITIVE_INFINITY)
+            assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
+            assertFalse(NEGATIVE_INFINITY > NEGATIVE_INFINITY)
+            assertFalse(NEGATIVE_INFINITY < NEGATIVE_INFINITY)
+        }
     }
 
     @Nested

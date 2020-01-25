@@ -930,18 +930,6 @@ operator fun BInt.rangeTo(other: BigRational) = toBigRational()..other
 operator fun Long.rangeTo(other: BigRational) = toBigRational()..other
 operator fun Int.rangeTo(other: BigRational) = toBigRational()..other
 
-private fun exponent(d: Double) =
-    ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
-
-private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
-
-private fun factor(other: Double): BigRational {
-    val denominator = 1L shl 52
-    val numerator = mantissa(other) + denominator
-
-    return valueOf(numerator.toBigInteger(), denominator.toBigInteger())
-}
-
 private fun convert(other: BDouble) = when (other) {
     BDouble.ZERO -> ZERO
     BDouble.ONE -> ONE
@@ -970,6 +958,18 @@ private fun convert(d: Double) = when {
     d < 0 -> -TWO.pow(exponent(d)) * factor(d)
     else -> TWO.pow(exponent(d)) * factor(d)
 }
+
+private fun exponent(d: Double) =
+    ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
+
+private fun factor(other: Double): BigRational {
+    val denominator = 1L shl 52
+    val numerator = mantissa(other) + denominator
+
+    return valueOf(numerator.toBigInteger(), denominator.toBigInteger())
+}
+
+private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
 
 private fun BInt.isZero() = this == BInt.ZERO
 private fun BInt.isOne() = this == BInt.ONE
@@ -1125,5 +1125,4 @@ fun BigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
  *
  * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
  */
-fun BigRational.isNegativeInfinity() =
-    this === NEGATIVE_INFINITY
+fun BigRational.isNegativeInfinity() = this === NEGATIVE_INFINITY
