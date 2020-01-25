@@ -982,8 +982,8 @@ private fun BInt.isTen() = this == BInt.TEN
  *
  * @see [div]
  */
-fun BigRational.divideAndRemainder(other: BigRational)
-        : Pair<BigRational, BigRational> {
+fun BigRational.divideAndRemainder(other: BigRational):
+        Pair<BigRational, BigRational> {
     val quotient = (this / other).round()
     val remainder = this - other * quotient
     return quotient to remainder

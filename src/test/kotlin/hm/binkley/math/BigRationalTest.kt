@@ -1110,21 +1110,22 @@ internal class BigRationalTest {
         @Suppress("ControlFlowWithEmptyBody")
         @Test
         fun `should not progress`() {
+            val noop = { -> }
             // TODO: Fails when advancing progression; should fail on creation
             assertThrows<IllegalStateException> {
-                for (r in ZERO..NaN);
+                for (r in ZERO..NaN) noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in NaN..ZERO);
+                for (r in NaN..ZERO) noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in ZERO..ZERO step NaN);
+                for (r in ZERO..ZERO step NaN) noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in ZERO..ONE step -1);
+                for (r in ZERO..ONE step -1) noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in ONE downTo ZERO step 1);
+                for (r in ONE downTo ZERO step 1); noop()
             }
         }
     }
