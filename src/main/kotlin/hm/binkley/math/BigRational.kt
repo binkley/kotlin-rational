@@ -8,7 +8,6 @@ import hm.binkley.math.BigRational.Companion.TEN
 import hm.binkley.math.BigRational.Companion.TWO
 import hm.binkley.math.BigRational.Companion.ZERO
 import hm.binkley.math.BigRational.Companion.valueOf
-import lombok.Generated
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Objects
@@ -281,56 +280,57 @@ class BigRational private constructor(
      * Modulos this value by the other value; always 0 (division is exact).
      *
      * @see [divideAndRemainder] */
-    @Suppress("UNUSED_PARAMETER")
-    operator fun rem(divisor: BigRational) = ZERO
+    operator fun rem(divisor: BigRational) = when {
+        isNaN() || divisor.isNaN() -> NaN
+        else -> ZERO
+    }
 
     /**
-     * Modulos this value by the other value; always 0 (division is exact).
+     * Finds the remainder of this value by other: always 0 (division is
+     * exact), or not a number if either value is `NaN`.
      *
      * @see [divideAndRemainder] */
-    @Suppress("UNUSED_PARAMETER")
-    operator fun rem(divisor: BDouble) = ZERO
+    operator fun rem(divisor: BDouble) = this % divisor.toBigRational()
 
     /**
-     * Modulos this value by the other value; always 0 (division is exact).
+     * Finds the remainder of this value by other: always 0 (division is
+     * exact), or not a number if either value is `NaN`.
      *
      * @see [divideAndRemainder] */
-    @Suppress("UNUSED_PARAMETER")
-    operator fun rem(divisor: Double) = ZERO
+    operator fun rem(divisor: Double) = this % divisor.toBigRational()
 
     /**
-     * Modulos this value by the other value; always 0 (division is exact).
+     * Finds the remainder of this value by other: always 0 (division is
+     * exact), or not a number if either value is `NaN`.
      *
      * @see [divideAndRemainder] */
-    @Suppress("UNUSED_PARAMETER")
-    operator fun rem(divisor: Float) = ZERO
+    operator fun rem(divisor: Float) = this % divisor.toBigRational()
 
     /**
-     * Modulos this value by the other value; always 0 (division is exact).
+     * Finds the remainder of this value by other: always 0 (division is
+     * exact), or not a number if either value is `NaN`.
      *
      * @see [divideAndRemainder] */
-    @Suppress("UNUSED_PARAMETER")
-    operator fun rem(divisor: BInt) = ZERO
+    operator fun rem(divisor: BInt) = this % divisor.toBigRational()
 
     /**
-     * Modulos this value by the other value; always 0 (division is exact).
+     * Finds the remainder of this value by other: always 0 (division is
+     * exact), or not a number if either value is `NaN`.
      *
      * @see [divideAndRemainder] */
-    @Suppress("UNUSED_PARAMETER")
-    operator fun rem(divisor: Long) = ZERO
+    operator fun rem(divisor: Long) = this % divisor.toBigRational()
 
     /**
-     * Modulos this value by the other value; always 0 (division is exact).
+     * Finds the remainder of this value by other: always 0 (division is
+     * exact), or not a number if either value is `NaN`.
      *
      * @see [divideAndRemainder] */
-    @Suppress("UNUSED_PARAMETER")
-    operator fun rem(divisor: Int) = ZERO
+    operator fun rem(divisor: Int) = this % divisor.toBigRational()
 
     /** Creates a range from this value to the specified [other] value. */
     operator fun rangeTo(other: BigRational) =
         BigRationalProgression(this, other)
 
-    @Generated // TODO: Why does this fail?
     operator fun rangeTo(other: BDouble) = rangeTo(other.toBigRational())
 
     /** Creates a range from this value to the specified [other] value. */

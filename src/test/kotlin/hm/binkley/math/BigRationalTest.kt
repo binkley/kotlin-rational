@@ -535,7 +535,15 @@ internal class BigRationalTest {
 
         @Test
         fun `should divide`() {
-            // TODO: Tests for non-finites
+            assertTrue((ONE / NaN).isNaN())
+            assertEquals(
+                ZERO,
+                ONE / POSITIVE_INFINITY
+            )
+            assertEquals(
+                ZERO,
+                ONE / NEGATIVE_INFINITY
+            )
             assertEquals(
                 9 over 10,
                 (3 over 5) / (2 over 3)
@@ -592,7 +600,16 @@ internal class BigRationalTest {
 
         @Test
         fun `should find remainder`() {
-            // TODO: Tests for non-finites
+            assertTrue((ONE % NaN).isNaN())
+            assertEquals(
+                ZERO,
+                ONE % POSITIVE_INFINITY
+            )
+            assertEquals(
+                ZERO,
+                ONE % NEGATIVE_INFINITY
+            )
+
             assertEquals(
                 ZERO,
                 (3 over 5) % (2 over 3)
@@ -1121,7 +1138,7 @@ internal class BigRationalTest {
         @Test
         fun `should not progress`() {
             val noop = { -> }
-            // TODO: Fails when advancing progression; should fail on creation
+
             assertThrows<IllegalStateException> {
                 for (r in ZERO..NaN) noop()
             }

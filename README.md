@@ -69,6 +69,11 @@ code does not have a concept of infinitesimals ("ϵ or δ").  (See
 [_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for a
 discussion.)
 
+### Single concept of zero
+
+In this code there is only `ZERO`.  There is no sense of positive or negative
+zero which would represent approaching zero from different directions.
+
 ### `BigRational` is a `Number`
 
 In this code, `BigRational` is a `kotlin.Number`, in part to pick up Kotlin
