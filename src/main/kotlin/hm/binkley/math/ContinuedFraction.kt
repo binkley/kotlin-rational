@@ -11,6 +11,9 @@ import hm.binkley.math.BigRational.Companion.ZERO
  * Elements are `BigRational` (rather than `BigInteger`) to express continued
  * fractions of non-finite BigRations.  The continued fraction of a non-finite
  * BigRational is `[NaN;]`
+ *
+ * This class does not support infinite continued fractions; all represented
+ * values are convertible to `BigRational`.
  */
 @Suppress("LocalVariableName", "PropertyName") // Underscores
 class ContinuedFraction private constructor(

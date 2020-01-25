@@ -131,32 +131,33 @@ the Java convention for floating point.  (See
 
 ## API
 
-In general, properties, methods, and operations do not have documentation,
-with the understanding they behave the same as their floating point
-counterpart.
+In general, when properties, methods, and operations do not have
+documentation, they behave similarly as their floating point counterpart.
 
 ### Properties
 
 - `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
-behave as expected
+behave as expected.
 
 ### Methods
 
-- `isNan()`, `isPositiveInfinity()`, `isNegativeInfinity()`
+- `isNaN()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
-infinite
-- `isInteger()`, `isDyadic()` (see
-[_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational))
+infinite.
+- `isInteger()`, `isDyadic()` (See
+[_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational).)
 - `gcm(other)`, `lcd(other)`
 - `toContinuedFraction()`
 - `pow(exponent)`
+- `divideAndRemainder(other)`
 - `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
-towards 0
+towards 0.
 
 ### Operators
 
-- All numeric operators
-- `rem` always returns `ZERO` (division is exact)
+- All numeric operators (binary and unary `plus` and `minus`, `times`, `div`,
+and `rem`)
+- `rem` always returns `ZERO` or a non-finite value (division is exact)
 - Ranges and progressions
 - See also `divideAndRemainder`
 
@@ -174,8 +175,8 @@ type, then so are `BigDecimal`, `Double`, `Float`, `BigInteger`, `Long`, and
 (See [_Always proper form_](#always-proper-form).)
 
 Much of the code assumes the rational is in simplest terms (proper form).
-The `BigRational.new` factory method ensures this.  However you should usually
-use the `over` infix operator instead, _eg_, `1 over 2`.
+The `valueOf` factory method ensures this.  However you should usually use
+the `over` infix operator instead, _eg_, `1 over 2`.
 
 ### Negative values
 
@@ -185,8 +186,8 @@ For this code, the denominator is always non-negative.
 ### Identity of constants
 
 Rather than check numerator and denominator throughout for special values,
-this code relies on the factory constructor (`BigRational.new`) to produce
-known constants, and relevant code checks for those constants.
+this code relies on the factory constructor (`valueOf`) to produce known
+constants, and relevant code checks for those constants.
 
 See:
 
@@ -198,23 +199,28 @@ See:
 ### Factory constructor
 
 Rather than provide a public constructor, always use the `over` infix
-operator (or `BigRational.new` factory method.  This maintains invariants
-such as "lowest terms" (numerator and denominator are coprime), sign
-handling, and reuse of special constant objects.
+operator (or `valueOf` factory method.  This maintains invariants such as
+"lowest terms" (numerator and denominator are coprime), sign handling, and
+reuse of special constant objects.
 
 ### Special case handling _vs_ sealed class
 
-This code uses special case handling for `NaN`, `POSITIVE_INFINITY`, and
-`NEGATIVE_INFINITY`.  An alternative is to make `BigRational` a sealed class
-with separate subclasses for those.  This would also allow for handling of
-infinitesimals.  However, the abstraction bleeds between subclasses.  It is
-unclear if a sealed class makes clearer code.
+This code uses special case handling for non-finite values.  An alternative
+would be to make `BigRational` a sealed class with separate subclasses for
+special cases.  This would also allow for handling of infinitesimals.
+However, the abstraction bleeds between subclasses.  It is unclear if a
+sealed class makes clearer code.
 
 ### GCD vs LCM
 
 There are several places that might use LCM (_eg_, dividing rationals).  This
-code relies on the factory constructor (`BigRational.new`) to use GCM for
-reducing rationals to simplest form.
+code relies on the factory constructor (`valueOf`) for GCM in reducing
+rationals to simplest form.
+
+### Continued fractions
+
+This code chooses a separate class for representation of rationals as
+continued fractions.
 
 ## Further reading
 
