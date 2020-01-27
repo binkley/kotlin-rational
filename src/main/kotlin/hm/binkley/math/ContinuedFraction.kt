@@ -19,38 +19,6 @@ import hm.binkley.math.BigRational.Companion.ZERO
 class ContinuedFraction private constructor(
     private val terms: List<BigRational>
 ) : List<BigRational> by terms {
-    /**
-     * The integer part of this continued fraction.
-     *
-     * @todo Find name for first element of continued fraction */
-    val a_0: BigRational
-        get() = terms.first()
-
-    /**
-     * Checks that this is a finite continued fraction.  All finite
-     * BigRationals produce a finite continued fraction; all non-finite
-     * BigRationals produce a non-finite continued fraction.
-     */
-    fun isFinite() = a_0.isFinite()
-
-    /**
-     * Returns the BigRational for the continued fraction.
-     *
-     * Note that the roundtrip of BigRational → ContinuedFraction →
-     * BigRational is lossy for infinities, producing `NaN`.
-     *
-     * @todo A nicer way to have a `twofold` that processes two elements at a
-     *       time, rather than `fold`'s one at a time.
-     */
-    fun toBigRational() =
-        if (!isFinite()) NaN
-        else terms.subList(
-            0,
-            terms.size - 1
-        ).asReversed().asSequence().fold(terms.last()) { previous, a_ni ->
-            a_ni + previous.reciprocal
-        }
-
     /** Returns the canonical representation of this continued fraction. */
     override fun toString() = when (size) {
         1 -> "[$a_0;]"
@@ -77,6 +45,38 @@ class ContinuedFraction private constructor(
         }
     }
 }
+
+/**
+ * The integer part of this continued fraction.
+ *
+ * @todo Find name for first element of continued fraction */
+val ContinuedFraction.a_0: BigRational
+    get() = first()
+
+/**
+ * Checks that this is a finite continued fraction.  All finite
+ * BigRationals produce a finite continued fraction; all non-finite
+ * BigRationals produce a non-finite continued fraction.
+ */
+fun ContinuedFraction.isFinite() = a_0.isFinite()
+
+/**
+ * Returns the BigRational for the continued fraction.
+ *
+ * Note that the roundtrip of BigRational → ContinuedFraction →
+ * BigRational is lossy for infinities, producing `NaN`.
+ *
+ * @todo A nicer way to have a `twofold` that processes two elements at a
+ *       time, rather than `fold`'s one at a time.
+ */
+fun ContinuedFraction.toBigRational() =
+    if (!isFinite()) NaN
+    else subList(
+        0,
+        size - 1
+    ).asReversed().asSequence().fold(last()) { previous, a_ni ->
+        a_ni + previous.reciprocal
+    }
 
 private tailrec fun continuedFraction0(
     r: BigRational,
