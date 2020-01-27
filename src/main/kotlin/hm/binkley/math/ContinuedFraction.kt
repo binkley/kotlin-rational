@@ -88,4 +88,7 @@ private tailrec fun continuedFraction0(
     return continuedFraction0(f.reciprocal, sequence)
 }
 
-private fun BigRational.integerAndFraction() = floor() to (this - floor())
+private fun BigRational.integerAndFraction(): Pair<BigRational, BigRational> {
+    val floor = floor()
+    return floor to (this - floor)
+}
