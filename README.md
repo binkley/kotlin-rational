@@ -34,6 +34,11 @@ This code extends ℚ, the field of rational numbers, with
 the lead of [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754).  However, this
 code does not consider `+0` or `-0`, treating all zeros as `0`.
 
+### Prefer readability
+
+This code prefers more readable code over hard-to-read, but more performant
+code (although usually, more readable is also more performant).
+
 ### Always proper form
 
 This code always keeps rationals in proper form:
