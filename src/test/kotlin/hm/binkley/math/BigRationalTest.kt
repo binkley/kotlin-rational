@@ -1407,10 +1407,10 @@ internal class BigRationalTest {
             assertEquals(
                 (3245 over 1000),
                 ContinuedFraction.valueOf(
-                    3 over 1,
-                    4 over 1,
-                    12 over 1,
-                    4 over 1
+                    3.toBigInteger(),
+                    4.toBigInteger(),
+                    12.toBigInteger(),
+                    4.toBigInteger()
                 ).toBigRational()
             )
         }

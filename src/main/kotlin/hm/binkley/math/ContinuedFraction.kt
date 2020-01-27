@@ -2,6 +2,7 @@ package hm.binkley.math
 
 import hm.binkley.math.BigRational.Companion.NaN
 import hm.binkley.math.BigRational.Companion.ZERO
+import java.math.BigInteger
 
 /**
  * `ContinuedFraction` represents a BigRational as a finite continued fraction
@@ -26,6 +27,10 @@ class ContinuedFraction private constructor(
     }
 
     companion object {
+        /**
+         * Decomposes the given BigRational into a canonical continued
+         * fraction.
+         */
         fun valueOf(r: BigRational): ContinuedFraction {
             val terms = mutableListOf<BigRational>()
             when {
@@ -35,12 +40,15 @@ class ContinuedFraction private constructor(
             return ContinuedFraction(terms)
         }
 
+        /**
+         * Creates a continued fraction from the given decomposed elements.
+         */
         fun valueOf(
-            a0: BigRational,
-            vararg a_i: BigRational
+            a0: BigInteger,
+            vararg a_i: BigInteger
         ): ContinuedFraction {
-            val terms = mutableListOf(a0)
-            terms += a_i
+            val terms = mutableListOf(a0.toBigRational())
+            terms += a_i.map { it.toBigRational() }
             return ContinuedFraction(terms)
         }
     }
