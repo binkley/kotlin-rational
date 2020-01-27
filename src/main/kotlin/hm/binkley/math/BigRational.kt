@@ -428,10 +428,8 @@ class BigRational private constructor(
             }
 
             val gcd = n.gcd(d)
-            if (!gcd.isZero()) {
-                n /= gcd
-                d /= gcd
-            }
+            n /= gcd
+            d /= gcd
 
             return BigRational(n, d)
         }
