@@ -82,10 +82,9 @@ class BigRational private constructor(
     override fun compareTo(other: BigRational) = when {
         this === other -> 0 // Sort stability for constants
         isNegativeInfinity() -> -1
-        // NaN sorts after +Inf
-        isNaN() -> 1
-        other.isNaN() -> -1
-        // isPositiveInfinity() -> 1 -- else handles this
+        isNaN() -> 1 // NaN sorts after +Inf at the end
+        other.isNaN() -> -1 // @todo Test for stability
+        // isPositiveInfinity() -> 1 -- else handles this, why?s
         else -> {
             val a = numerator * other.denominator
             val b = other.numerator * denominator
