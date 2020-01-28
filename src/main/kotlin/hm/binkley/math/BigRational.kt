@@ -1103,7 +1103,7 @@ fun BigRational.isInteger() = BInt.ONE == denominator
  * Checks that this rational is dyadic, that is, the denominator is a power
  * of 2.
  *
- * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cote></a>
+ * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
  */
 fun BigRational.isDyadic() = isFinite() &&
         (denominator.isOne() ||
