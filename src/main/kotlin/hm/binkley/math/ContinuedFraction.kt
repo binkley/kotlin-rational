@@ -56,7 +56,9 @@ class ContinuedFraction private constructor(
 /**
  * The integer part of this continued fraction.
  *
- * @todo Find name for first element of continued fraction */
+ * @todo Find name for first element of continued fraction.  Integer part is
+ *       technically correct, but confusing in Kotlin source code
+ */
 val ContinuedFraction.a_0: BigRational
     get() = first()
 
@@ -89,13 +91,13 @@ private tailrec fun continuedFraction0(
     r: BigRational,
     sequence: MutableList<BigRational>
 ): List<BigRational> {
-    val (a_n, f) = r.integerAndFraction()
-    sequence += a_n
-    if (f == ZERO) return sequence
+    val (i, f) = r.toParts()
+    sequence += i
+    if (f === ZERO) return sequence
     return continuedFraction0(f.reciprocal, sequence)
 }
 
-private fun BigRational.integerAndFraction(): Pair<BigRational, BigRational> {
-    val floor = floor()
-    return floor to (this - floor)
+private fun BigRational.toParts(): Pair<BigRational, BigRational> {
+    val i = floor()
+    return i to (this - i)
 }
