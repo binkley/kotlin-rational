@@ -16,7 +16,6 @@ import java.math.BigInteger
  * This class does not support infinite continued fractions; all represented
  * values are convertible to `BigRational`.
  */
-@Suppress("LocalVariableName", "PropertyName") // Underscores
 class ContinuedFraction private constructor(
     private val terms: List<BigRational>
 ) : List<BigRational> by terms {
