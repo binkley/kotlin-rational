@@ -78,13 +78,22 @@ class BigRational private constructor(
      *
      * Sorting ignores [equals] for special values.  [NaN] sorts to the end,
      * even as `NaN != NaN` (and similarly for the infinities).
+     *
+     * Considering special values, stable ordering produces:
+     * - -∞
+     * - -1
+     * - 0
+     * - 1
+     * - +∞
+     * - NaN
      */
     override fun compareTo(other: BigRational) = when {
         this === other -> 0 // Sort stability for constants
         isNegativeInfinity() -> -1
         isNaN() -> 1 // NaN sorts after +Inf at the end
-        other.isNaN() -> -1 // @todo Test for stability
-        // isPositiveInfinity() -> 1 -- else handles this, why?s
+        other.isNaN() -> -1
+        // +∞ is handled by else, but be explicit to aid reading
+        isPositiveInfinity() -> 1
         else -> {
             val a = numerator * other.denominator
             val b = other.numerator * denominator
