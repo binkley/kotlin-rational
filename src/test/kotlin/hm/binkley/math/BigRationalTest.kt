@@ -419,6 +419,12 @@ internal class BigRationalTest {
                 2 over 1,
                 ONE + 1
             )
+            assertTrue((ONE + POSITIVE_INFINITY).isPositiveInfinity())
+            assertTrue((POSITIVE_INFINITY + POSITIVE_INFINITY).isNaN())
+            assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
+            assertTrue((ONE + NEGATIVE_INFINITY).isNegativeInfinity())
+            assertTrue((NEGATIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
+            assertTrue((NEGATIVE_INFINITY + POSITIVE_INFINITY).isNaN())
         }
 
         @Test
@@ -475,6 +481,12 @@ internal class BigRationalTest {
                 ZERO,
                 ONE - 1
             )
+            assertTrue((POSITIVE_INFINITY - ONE).isPositiveInfinity())
+            assertTrue((POSITIVE_INFINITY - POSITIVE_INFINITY).isNaN())
+            assertTrue((POSITIVE_INFINITY - NEGATIVE_INFINITY).isNaN())
+            assertTrue((NEGATIVE_INFINITY - ONE).isNegativeInfinity())
+            assertTrue((NEGATIVE_INFINITY - NEGATIVE_INFINITY).isNaN())
+            assertTrue((NEGATIVE_INFINITY - POSITIVE_INFINITY).isNaN())
         }
 
         @Test
@@ -531,19 +543,28 @@ internal class BigRationalTest {
                 ONE,
                 ONE * 1
             )
+            assertTrue((ZERO * POSITIVE_INFINITY).isNaN())
+            assertTrue((POSITIVE_INFINITY * ZERO).isNaN())
+            assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
+            assertTrue((NEGATIVE_INFINITY * ZERO).isNaN())
         }
 
         @Test
         fun `should divide`() {
             assertTrue((ONE / NaN).isNaN())
+            assertTrue((ZERO / ZERO).isNaN())
             assertEquals(
                 ZERO,
-                ONE / POSITIVE_INFINITY
+                ZERO / POSITIVE_INFINITY
             )
+            assertTrue((ONE / ZERO).isPositiveInfinity())
+            assertTrue((POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN())
             assertEquals(
                 ZERO,
-                ONE / NEGATIVE_INFINITY
+                ZERO / NEGATIVE_INFINITY
             )
+            assertTrue((-ONE / ZERO).isNegativeInfinity())
+            assertTrue((NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
             assertEquals(
                 9 over 10,
                 (3 over 5) / (2 over 3)
