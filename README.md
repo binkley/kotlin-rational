@@ -32,9 +32,14 @@ mathematical properties of ℚ, the field of the rationals
 This code extends ℚ, the field of rational numbers, with
 [division by zero](https://en.wikipedia.org/wiki/Division_by_zero), "not a
 number", -∞, and +∞, following the lead of
-[IEEE 754](https://en.wikipedia.org/wiki/IEEE_754). However, this code does
-not consider `+0` or `-0`, treating all zeros as `0`.  In these ways, this
-code does not represent a proper _field_.
+[IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), and using the
+_projectively extended real line_ as a model. However, this code does not
+consider `+0` or `-0`, treating all zeros as `0`, and distinguishes +∞ from
+-∞.  In these ways, this code does not represent a proper _field_.
+
+**TODO**: Consider modeling the _extended real line_ (rather than the
+_projectively extended real line_), in which case `+∞ + +∞ == +∞` rather
+than production `NaN`, _etc_.
 
 ### Prefer readability
 
