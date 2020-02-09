@@ -1183,7 +1183,6 @@ internal class BigRationalTest {
 
         @Test
         fun `should reciprocate`() {
-            // TODO: Division by 0 and inverting infinities needs rethink
             assertEquals(
                 -3 over 5,
                 (-5 over 3).reciprocal
