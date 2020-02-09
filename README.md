@@ -30,14 +30,16 @@ infix `over` constructor, and various overloads
 mathematical properties of ℚ, the field of the rationals
 
 This code extends ℚ, the field of rational numbers, with
-[division by zero](https://en.wikipedia.org/wiki/Division_by_zero), following
-the lead of [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754).  However, this
-code does not consider `+0` or `-0`, treating all zeros as `0`.
+[division by zero](https://en.wikipedia.org/wiki/Division_by_zero), "not a
+number", -∞, and +∞, following the lead of
+[IEEE 754](https://en.wikipedia.org/wiki/IEEE_754). However, this code does
+not consider `+0` or `-0`, treating all zeros as `0`.  In these ways, this
+code does not represent a proper _field_.
 
 ### Prefer readability
 
-This code prefers more readable code over hard-to-read, but more performant
-code (although usually, more readable is also more performant).
+This code prefers more readable code over harder-to-read, but more performant
+code (often though, more readable is also more performant).
 
 ### Always proper form
 
@@ -236,7 +238,9 @@ continued fractions.
 
 - [_Wheel of fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
 - [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
+- [_Projectively extended real line_](https://en.wikipedia.org/wiki/Projectively_extended_real_line)
+_vs_ [_Extended real number line_](https://en.wikipedia.org/wiki/Extended_real_number_line)
 - [_Double-precision floating-point format_](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 - [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational).
 - [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
-* [_An introduction to context-oriented programming in Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
+- [_An introduction to context-oriented programming in Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
