@@ -420,10 +420,10 @@ internal class BigRationalTest {
                 ONE + 1
             )
             assertTrue((ONE + POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY + POSITIVE_INFINITY).isNaN())
+            assertTrue((POSITIVE_INFINITY + POSITIVE_INFINITY).isPositiveInfinity())
             assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
             assertTrue((ONE + NEGATIVE_INFINITY).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
+            assertTrue((NEGATIVE_INFINITY + NEGATIVE_INFINITY).isNegativeInfinity())
             assertTrue((NEGATIVE_INFINITY + POSITIVE_INFINITY).isNaN())
         }
 
@@ -483,10 +483,10 @@ internal class BigRationalTest {
             )
             assertTrue((POSITIVE_INFINITY - ONE).isPositiveInfinity())
             assertTrue((POSITIVE_INFINITY - POSITIVE_INFINITY).isNaN())
-            assertTrue((POSITIVE_INFINITY - NEGATIVE_INFINITY).isNaN())
+            assertTrue((POSITIVE_INFINITY - NEGATIVE_INFINITY).isPositiveInfinity())
             assertTrue((NEGATIVE_INFINITY - ONE).isNegativeInfinity())
             assertTrue((NEGATIVE_INFINITY - NEGATIVE_INFINITY).isNaN())
-            assertTrue((NEGATIVE_INFINITY - POSITIVE_INFINITY).isNaN())
+            assertTrue((NEGATIVE_INFINITY - POSITIVE_INFINITY).isNegativeInfinity())
         }
 
         @Test
@@ -547,6 +547,7 @@ internal class BigRationalTest {
             assertTrue((POSITIVE_INFINITY * ZERO).isNaN())
             assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
             assertTrue((NEGATIVE_INFINITY * ZERO).isNaN())
+            assertTrue((POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity())
         }
 
         @Test

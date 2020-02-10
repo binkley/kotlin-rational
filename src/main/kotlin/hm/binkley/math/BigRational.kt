@@ -596,10 +596,13 @@ operator fun BigRational.inc() = valueOf(numerator + denominator, denominator)
 /** Decrements this value by 1 (denominator / denominator). */
 operator fun BigRational.dec() = valueOf(numerator - denominator, denominator)
 
-operator fun BigRational.plus(other: BigRational) = valueOf(
-    numerator * other.denominator + other.numerator * denominator,
-    denominator * other.denominator
-)
+operator fun BigRational.plus(other: BigRational) =
+    if (denominator == other.denominator)
+        valueOf(numerator + other.numerator, denominator)
+    else valueOf(
+        numerator * other.denominator + other.numerator * denominator,
+        denominator * other.denominator
+    )
 
 /** Adds the other value to this value. */
 operator fun BigRational.plus(addend: BDouble) = this + addend.toBigRational()
