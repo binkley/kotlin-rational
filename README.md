@@ -4,6 +4,8 @@
 
 # Kotlin Rational
 
+![Local Build](https://github.com/binkley/kotlin-rational/workflows/Local%20Build/badge.svg)
+
 An immutable, infinite-precision `BigRational` (ratio, fraction) class for
 Kotlin.
 
