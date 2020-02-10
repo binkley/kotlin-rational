@@ -693,6 +693,12 @@ internal class BigRationalTest {
                 2 over 1,
                 ++a
             )
+            var nonFinite = NaN
+            assertTrue((++nonFinite).isNaN())
+            nonFinite = POSITIVE_INFINITY
+            assertTrue((++nonFinite).isPositiveInfinity())
+            nonFinite = NEGATIVE_INFINITY
+            assertTrue((++nonFinite).isNegativeInfinity())
         }
 
         @Test
@@ -702,16 +708,12 @@ internal class BigRationalTest {
                 ZERO,
                 --a
             )
-        }
-
-        @Test
-        fun `should not order infinities`() {
-            assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
-            assertFalse(POSITIVE_INFINITY > POSITIVE_INFINITY)
-            assertFalse(POSITIVE_INFINITY < POSITIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY > NEGATIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY < NEGATIVE_INFINITY)
+            var nonFinite = NaN
+            assertTrue((--nonFinite).isNaN())
+            nonFinite = POSITIVE_INFINITY
+            assertTrue((--nonFinite).isPositiveInfinity())
+            nonFinite = NEGATIVE_INFINITY
+            assertTrue((--nonFinite).isNegativeInfinity())
         }
     }
 
@@ -1159,7 +1161,7 @@ internal class BigRationalTest {
         @Suppress("ControlFlowWithEmptyBody")
         @Test
         fun `should not progress`() {
-            val noop = { -> }
+            val noop = { }
 
             assertThrows<IllegalStateException> {
                 for (r in ZERO..NaN) noop()
@@ -1201,6 +1203,19 @@ internal class BigRationalTest {
             assertTrue(sorted[5].isPositiveInfinity())
             assertTrue(sorted[6].isNaN())
             assertTrue(sorted[7].isNaN())
+        }
+
+        @Test
+        fun `should not order non-finite values`() {
+            assertFalse(NaN == NaN)
+            assertFalse(NaN > NaN)
+            assertFalse(NaN < NaN)
+            assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
+            assertFalse(POSITIVE_INFINITY > POSITIVE_INFINITY)
+            assertFalse(POSITIVE_INFINITY < POSITIVE_INFINITY)
+            assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
+            assertFalse(NEGATIVE_INFINITY > NEGATIVE_INFINITY)
+            assertFalse(NEGATIVE_INFINITY < NEGATIVE_INFINITY)
         }
 
         @Test
