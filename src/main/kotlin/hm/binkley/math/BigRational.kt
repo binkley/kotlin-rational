@@ -575,7 +575,7 @@ fun Double.toBigRational() = convert(this)
 fun Float.toBigRational() = toDouble().toBigRational()
 
 /** Returns the value of this number as a BigRational. */
-fun BInt.toBigRational() = valueOf(this, BigInteger.ONE)
+fun BInt.toBigRational() = valueOf(this, BInt.ONE)
 
 /** Returns the value of this number as a BigRational. */
 fun Long.toBigRational() = toBigInteger().toBigRational()
@@ -958,8 +958,8 @@ private fun convert(other: BDouble) = when (other) {
         val unscaledValue = bd.unscaledValue()
         when {
             0 == scale -> unscaledValue over 1
-            0 > scale -> (unscaledValue * BigInteger.TEN.pow(-scale)) over 1
-            else -> unscaledValue over BigInteger.TEN.pow(scale)
+            0 > scale -> (unscaledValue * BInt.TEN.pow(-scale)) over 1
+            else -> unscaledValue over BInt.TEN.pow(scale)
         }
     }
 }
@@ -1009,7 +1009,8 @@ fun BigRational.divideAndRemainder(other: BigRational):
 
 /**
  * Returns a BigRational whose value is `(this^exponent)`. Note that
- * `exponent` is an integer rather than a BigRational.
+ * `exponent` is an integer rather than a BigRational (and the underlying
+ * BigInteger does not support `BInt.pow(BInt)`).
  */
 fun BigRational.pow(exponent: Int): BigRational /* type check issue */ =
     when {
@@ -1118,7 +1119,7 @@ fun BigRational.isInteger() = BInt.ONE == denominator
  */
 fun BigRational.isDyadic() = isFinite() &&
         (denominator.isOne() ||
-                (denominator % BigInteger.TWO).isZero())
+                (denominator % BInt.TWO).isZero())
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a
