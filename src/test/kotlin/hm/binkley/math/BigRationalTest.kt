@@ -811,6 +811,12 @@ internal class BigRationalTest {
         assertFalse(NaN.isDyadic())
     }
 
+    @Test
+    fun `should not even denominators`() {
+        assertTrue((1 over 2).isDenominatorEven())
+        assertFalse((1 over 3).isDenominatorEven())
+    }
+
     @Nested
     inner class BigRationalRoundingTest {
         @Test

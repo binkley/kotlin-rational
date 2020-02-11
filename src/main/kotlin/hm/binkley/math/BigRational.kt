@@ -1123,6 +1123,15 @@ fun BigRational.isDyadic() = isFinite() &&
                 (denominator % BInt.TWO).isZero())
 
 /**
+ * Checks that this rational has an even denominator.  The odds of a random
+ * rational number having an even denominator is exactly 1/3 (Salamin and
+ * Gosper 1972).
+ */
+fun BigRational.isDenominatorEven() = denominator.isEven()
+
+private fun BInt.isEven() = BInt.ZERO == this % BInt.TWO
+
+/**
  * Checks that this rational is infinite, positive or negative.  "Not a
  * number" is not infinite.
  */
