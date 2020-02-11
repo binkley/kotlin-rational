@@ -1045,7 +1045,7 @@ private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
 /**
  * Rounds to the nearest whole number _less than or equal_ to this
- * BigRational.
+ * BigRational.  Non-finite values return themselves.
  */
 fun BigRational.floor() = when {
     roundsToSelf() -> this
@@ -1055,7 +1055,7 @@ fun BigRational.floor() = when {
 
 /**
  * Rounds to the nearest whole number _greater than or equal_ to this
- * BigRational.
+ * BigRational.  Non-finite values return themselves.
  */
 fun BigRational.ceil() = when {
     roundsToSelf() -> this
@@ -1065,7 +1065,8 @@ fun BigRational.ceil() = when {
 
 /**
  * Rounds to the nearest whole number _closer to 0_ than this BigRational,
- * or when this BigRational is whole, the same BigRational.
+ * or when this BigRational is whole, the same BigRational.  Non-finite values
+ * return themselves.
  */
 fun BigRational.round() = when {
     roundsToSelf() -> this
@@ -1080,7 +1081,7 @@ private fun BigRational.roundsToSelf() = isInteger() || !isFinite()
  *
  * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
  * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
- * not matter).
+ * not matter).  When `a/b = c/d`, returns `NaN`.
  */
 fun BigRational.between(other: BigRational) = when {
     equals(other) -> NaN
