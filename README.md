@@ -100,6 +100,10 @@ constructs a power-of-2 rational following IEEE 754; so converting the
 resulting `BigRational` back returns the original floating point value,
 including infinities and not a number.
 
+When narrowing types, conversion may lose magnitude, precision, and/or sign
+(there is no overflow/underflow).  This code adopts the behavior of
+`BigDecimal` and `BigInteger` for narrowing.
+
 ### Division by 0, infinities
 
 There are two ways to handle division by 0:
