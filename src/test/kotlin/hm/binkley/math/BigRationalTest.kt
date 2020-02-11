@@ -203,7 +203,7 @@ internal class BigRationalTest {
     }
 
     @Test
-    fun `should be ℚ`() {
+    fun `should be ℚ-ish`() {
         val twoThirds = 2 over 3
         val threeHalves = 3 over 2
         val fiveSevenths = 5 over 7
