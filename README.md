@@ -21,6 +21,28 @@ Try `./run.sh` for a demonstration.
 
 There are no run-time dependencies.
 
+## Preparing
+
+Use `./mvnw` or `./batect build` to build, run tests, and create a demo
+program.
+
+When using [batect](https://batect.dev/), either create a local cache
+directory, or link to your user Maven cache directory:
+
+```
+$ mkdir .maven-cache
+```
+
+(Redownloads all Maven components and dependencies.)
+
+or:
+
+```
+$ ln -s ~/.m2 .maven-cache
+```
+
+(Shares Maven component and dependency downloads across projects.)
+
 ## Design choices
 
 These were great help:
