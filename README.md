@@ -19,6 +19,8 @@ A secondary goal is to model the Kotlin standard library, and Java's
 
 Try `./run.sh` for a demonstration.
 
+There are no run-time dependencies.
+
 ## Design choices
 
 These were great help:
