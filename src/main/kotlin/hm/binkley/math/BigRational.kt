@@ -10,7 +10,7 @@ import hm.binkley.math.BigRational.Companion.ZERO
 import hm.binkley.math.BigRational.Companion.valueOf
 import java.math.BigDecimal
 import java.math.BigInteger
-import java.util.Objects
+import java.util.Objects.hash
 
 private typealias BInt = BigInteger
 private typealias BDouble = BigDecimal
@@ -105,7 +105,7 @@ class BigRational private constructor(
      * NB -- Infinities and "not a number" are not equal to themselves.
      *
      * @see Any.equals
-     * */
+     */
     override fun equals(other: Any?) = when {
         !isFinite() -> false
         this === other -> true
@@ -114,7 +114,7 @@ class BigRational private constructor(
                 denominator == other.denominator
     }
 
-    override fun hashCode() = Objects.hash(numerator, denominator)
+    override fun hashCode() = hash(numerator, denominator)
 
     /**
      * Returns a string representation of the object.  In particular:
@@ -127,7 +127,7 @@ class BigRational private constructor(
         isNaN() -> "NaN"
         isPositiveInfinity() -> "+∞"
         isNegativeInfinity() -> "-∞"
-        denominator == BInt.ONE -> numerator.toString()
+        denominator.isOne() -> numerator.toString()
         else -> "$numerator/$denominator"
     }
 
@@ -885,7 +885,7 @@ open class SteppedBigRationalProgression(
                 step == other.step
     }
 
-    override fun hashCode() = Objects.hash(start, endInclusive, step)
+    override fun hashCode() = hash(start, endInclusive, step)
 
     override fun toString() =
         if (step < ZERO) "$start downTo $endInclusive step $step"
