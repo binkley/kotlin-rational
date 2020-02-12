@@ -193,11 +193,11 @@ internal class BigRationalTest {
             ZERO.toString()
         )
         assertEquals(
-            "1/2",
+            "1⁄2",
             (1 over 2).toString()
         )
         assertEquals(
-            "-1/2",
+            "-1⁄2",
             (1 over -2).toString()
         )
     }

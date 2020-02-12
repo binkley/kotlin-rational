@@ -128,7 +128,7 @@ class BigRational private constructor(
         isPositiveInfinity() -> "+∞"
         isNegativeInfinity() -> "-∞"
         denominator.isOne() -> numerator.toString()
-        else -> "$numerator/$denominator"
+        else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
 
     companion object {
