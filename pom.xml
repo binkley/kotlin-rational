@@ -9,6 +9,29 @@
     <artifactId>kotlin-rational</artifactId>
     <version>0-SNAPSHOT</version>
 
+    <name>kotlin-rational</name>
+    <description>
+        An immutable, infinite-precision "BigRational" (ratio, fraction) class
+        for Kotlin
+    </description>
+    <url>https://github.com/binkley/kotlin-rational</url>
+    <licenses>
+        <license>
+            <name>Public Domain</name>
+            <url>https://unlicense.org/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/binkley/kotlin-rational/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:git://github.com/binkley/kotlin-rational
+        </connection>
+        <url>https://github.com/binkley/kotlin-rational</url>
+    </scm>
+
     <properties>
         <!-- @formatter:off -->
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
@@ -25,6 +48,7 @@
         <main.class>hm.binkley.MainKt</main.class>
         <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <maven-versions-plugin.version>2.7</maven-versions-plugin.version>
@@ -201,6 +225,15 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${maven-project-info-reports-plugin.version}
+                    </version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <dependencies>
@@ -210,10 +243,6 @@
                             <version>${junit.version}</version>
                         </dependency>
                     </dependencies>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>${maven-site-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
