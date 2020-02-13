@@ -26,6 +26,9 @@ There are no run-time dependencies.
 Use `./mvnw` or `./batect build` to build, run tests, and create a demo
 program.
 
+This works "out of the box", however, and important optimization is to avoid
+redownloading plugins and dependencies.
+
 When using [batect](https://batect.dev/), either create a local cache
 directory, or link to your user Maven cache directory:
 
