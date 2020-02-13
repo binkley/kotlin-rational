@@ -85,7 +85,7 @@
     </dependencies>
 
     <build>
-        <defaultGoal>clean verify</defaultGoal>
+        <defaultGoal>verify</defaultGoal>
 
         <!-- @formatter:off -->
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
