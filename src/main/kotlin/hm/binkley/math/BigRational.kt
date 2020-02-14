@@ -205,14 +205,16 @@ class BigRational private constructor(
 
             var n = numerator
             var d = denominator
-            if (d.signum() == -1) {
+            if (-1 == d.signum()) {
                 n = n.negate()
                 d = d.negate()
             }
 
             val gcd = n.gcd(d)
-            n /= gcd
-            d /= gcd
+            if (!gcd.isOne()) {
+                n /= gcd
+                d /= gcd
+            }
 
             return BigRational(n, d)
         }
