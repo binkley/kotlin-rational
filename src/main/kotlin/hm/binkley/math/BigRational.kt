@@ -196,18 +196,19 @@ class BigRational private constructor(
                 else -> NEGATIVE_INFINITY
             }
             if (numerator.isZero()) return ZERO
-            if (denominator.isOne()) return when {
-                numerator.isOne() -> ONE
-                numerator.isTwo() -> TWO
-                numerator.isTen() -> TEN
-                else -> BigRational(numerator, denominator)
-            }
 
             var n = numerator
             var d = denominator
             if (-1 == d.signum()) {
                 n = n.negate()
                 d = d.negate()
+            }
+
+            if (d.isOne()) return when {
+                n.isOne() -> ONE
+                n.isTwo() -> TWO
+                n.isTen() -> TEN
+                else -> BigRational(n, d)
             }
 
             val gcd = n.gcd(d)

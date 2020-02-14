@@ -69,6 +69,10 @@ internal class BigRationalTest {
                 ONE,
                 BInt.ONE over 1
             )
+            assertSame(
+                ONE,
+                -1 over -1
+            )
         }
 
         @Test
@@ -77,6 +81,10 @@ internal class BigRationalTest {
                 TWO,
                 BInt.TWO over 1
             )
+            assertSame(
+                TWO,
+                -2 over -1
+            )
         }
 
         @Test
@@ -84,6 +92,10 @@ internal class BigRationalTest {
             assertSame(
                 TEN,
                 BInt.TEN over 1
+            )
+            assertSame(
+                TEN,
+                -10 over -1
             )
         }
 
