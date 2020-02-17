@@ -30,7 +30,7 @@ private typealias BigRationalAssertion = (BigRational) -> Unit
  */
 internal class BigRationalTest {
     @Nested
-    inner class BigRationalConstructionTest {
+    inner class ConstructionTests {
         @Test
         fun `should construct NaN`() {
             assertSame(
@@ -331,7 +331,7 @@ internal class BigRationalTest {
     }
 
     @Nested
-    inner class BigRationalOperatorsTest {
+    inner class OperatorTests {
         @Test
         fun `should do nothing arithmetically`() {
             val rightsideUp = 2 over 3
@@ -730,7 +730,7 @@ internal class BigRationalTest {
     }
 
     @Nested
-    inner class BigRationalSpecialCasesTest {
+    inner class SpecialCasesTests {
         @Test
         fun `should be infinity`() {
             assertTrue((2 over 0).isPositiveInfinity())
@@ -830,7 +830,7 @@ internal class BigRationalTest {
     }
 
     @Nested
-    inner class BigRationalRoundingTest {
+    inner class RoundingTests {
         @Test
         fun `should round down`() {
             assertEquals(ZERO, ZERO.floor())
@@ -869,7 +869,7 @@ internal class BigRationalTest {
     }
 
     @Nested
-    inner class BigRationalConversionsTest {
+    inner class ConversionTests {
         @Test
         fun `should convert BigDecimal in infix constructor`() {
             assertEquals(ZERO, BDouble.ZERO.toBigRational())
@@ -1068,7 +1068,7 @@ internal class BigRationalTest {
     }
 
     @Nested
-    inner class BigRationalProgressionsTest {
+    inner class ProgressionTests {
         @Suppress("ReplaceCallWithBinaryOperator")
         @Test
         fun `should be itself`() {
@@ -1200,7 +1200,7 @@ internal class BigRationalTest {
     }
 
     @Nested
-    inner class BigRationalOperationsTest {
+    inner class FunctionTests {
         @Test
         fun `should sort`() {
             val sorted = listOf(
@@ -1446,7 +1446,7 @@ internal class BigRationalTest {
         }
 
         @Test
-        fun `should present continue fraction following convention`() {
+        fun `should present continued fraction following convention`() {
             assertEquals(
                 "[3;]",
                 (3 over 1).toContinuedFraction().toString()
