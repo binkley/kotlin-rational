@@ -21,7 +21,7 @@ class ContinuedFraction private constructor(
 ) : List<BigRational> by terms {
     /** Returns the canonical representation of this continued fraction. */
     override fun toString() = when (size) {
-        1 -> "[$a_0;]"
+        1 -> "[$integerPart;]"
         else -> terms.toString().replaceFirst(',', ';')
     }
 
@@ -43,10 +43,10 @@ class ContinuedFraction private constructor(
          * Creates a continued fraction from the given decomposed elements.
          */
         fun valueOf(
-            a0: BigInteger,
+            integerPart: BigInteger,
             vararg a_i: BigInteger
         ): ContinuedFraction {
-            val terms = mutableListOf(a0.toBigRational())
+            val terms = mutableListOf(integerPart.toBigRational())
             terms += a_i.map { it.toBigRational() }
             return ContinuedFraction(terms)
         }
@@ -55,11 +55,8 @@ class ContinuedFraction private constructor(
 
 /**
  * The integer part of this continued fraction.
- *
- * @todo Find name for first element of continued fraction.  Integer part is
- *       technically correct, but confusing in Kotlin source code
  */
-val ContinuedFraction.a_0: BigRational
+val ContinuedFraction.integerPart: BigRational
     get() = first()
 
 /**
@@ -67,7 +64,7 @@ val ContinuedFraction.a_0: BigRational
  * BigRationals produce a finite continued fraction; all non-finite
  * BigRationals produce a non-finite continued fraction.
  */
-fun ContinuedFraction.isFinite() = a_0.isFinite()
+fun ContinuedFraction.isFinite() = integerPart.isFinite()
 
 /**
  * Returns the BigRational for the continued fraction.
