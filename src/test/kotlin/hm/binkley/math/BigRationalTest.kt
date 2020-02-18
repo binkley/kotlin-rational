@@ -1453,11 +1453,12 @@ internal class BigRationalTest {
                 (1 over 3).toContinuedFraction()
             )
 
-            // The ever popular Euler's number
-            val eulerApproximation = 271828182845 over 100_000_000_000
+            // The ever popular Euler's number, 2.71828 18284 59045...
+            val eulerApproximation =
+                (271828182845 over 100_000_000_000).toContinuedFraction()
             assertEquals(
                 listOf(2 over 1),
-                eulerApproximation.toContinuedFraction().terms(0)
+                eulerApproximation.terms(0)
             )
             assertEquals(
                 listOf(
@@ -1478,9 +1479,7 @@ internal class BigRationalTest {
                     10 over 1
                     // truncated from here
                 ),
-                // 2.71828 18284 59045...
-                eulerApproximation.toContinuedFraction()
-                    .terms(14)
+                eulerApproximation.terms(14)
             )
 
             val cfNaN = NaN.toContinuedFraction()
