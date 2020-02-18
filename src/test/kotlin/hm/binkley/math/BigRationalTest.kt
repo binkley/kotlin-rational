@@ -1385,8 +1385,14 @@ internal class BigRationalTest {
         @Test
         fun `should find between`() {
             assertTrue(NaN.between(NaN).isNaN())
-            assertTrue(ZERO.between(NaN).isNaN())
+            assertTrue(NaN.between(POSITIVE_INFINITY).isNaN())
+            assertTrue(POSITIVE_INFINITY.between(POSITIVE_INFINITY).isNaN())
+            assertTrue(NaN.between(NEGATIVE_INFINITY).isNaN())
+            assertTrue(NEGATIVE_INFINITY.between(NEGATIVE_INFINITY).isNaN())
             assertTrue(NaN.between(ZERO).isNaN())
+            assertTrue(ZERO.between(NaN).isNaN())
+            assertTrue(POSITIVE_INFINITY.between(NaN).isNaN())
+            assertTrue(NEGATIVE_INFINITY.between(NaN).isNaN())
             assertTrue(ZERO.between(ZERO).isNaN())
             assertEquals(
                 ZERO,
