@@ -19,6 +19,19 @@ import java.math.BigInteger
 class FiniteContinuedFraction private constructor(
     private val terms: List<BigRational>
 ) : List<BigRational> by terms {
+    /** The integer part of this continued fraction. */
+    val integerPart: BigRational = first()
+
+    /** The fractional parts of this continued fraction. */
+    val fractionalParts = terms.subList(1, terms.lastIndex + 1)
+
+    /** The multiplicative inverse of this continue fraction. */
+    val reciprocal: FiniteContinuedFraction
+        get() = if (ZERO === integerPart)
+            FiniteContinuedFraction(fractionalParts)
+        else
+            FiniteContinuedFraction(listOf(ZERO) + terms)
+
     /** Returns the canonical representation of this continued fraction. */
     override fun toString() = when (size) {
         1 -> "[$integerPart;]"
@@ -59,12 +72,6 @@ class FiniteContinuedFraction private constructor(
         }
     }
 }
-
-/**
- * The integer part of this continued fraction.
- */
-val FiniteContinuedFraction.integerPart: BigRational
-    get() = first()
 
 /**
  * Checks that this is a finite continued fraction.  All finite
