@@ -1224,6 +1224,22 @@ internal class BigRationalTest {
         }
 
         @Test
+        fun `should compare other number types`() {
+            assertTrue(BDouble.ONE > ZERO)
+            assertTrue(ONE > BDouble.ZERO)
+            assertTrue(Double.POSITIVE_INFINITY > ZERO)
+            assertTrue(ZERO > Double.NEGATIVE_INFINITY)
+            assertTrue(Float.NaN > ZERO)
+            assertTrue(NaN > Float.MAX_VALUE)
+            assertTrue(BInt.ZERO < ONE)
+            assertTrue(ZERO < BInt.ONE)
+            assertTrue(0L < ONE)
+            assertTrue(ZERO < 1L)
+            assertTrue(0 < ONE)
+            assertTrue(ZERO < 1)
+        }
+
+        @Test
         fun `should not order non-finite values`() {
             assertFalse(NaN == NaN)
             assertFalse(NaN > NaN)

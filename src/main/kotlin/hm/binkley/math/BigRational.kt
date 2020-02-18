@@ -586,6 +586,102 @@ fun Long.toBigRational() = toBigInteger().toBigRational()
 /** Returns the value of this number as a BigRational. */
 fun Int.toBigRational() = toBigInteger().toBigRational()
 
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BigRational.compareTo(other: BDouble) =
+    this.compareTo(other.toBigRational())
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BDouble.compareTo(other: BigRational) =
+    this.toBigRational().compareTo(other)
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BigRational.compareTo(other: Double) =
+    this.compareTo(other.toBigRational())
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun Double.compareTo(other: BigRational) =
+    this.toBigRational().compareTo(other)
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BigRational.compareTo(other: Float) =
+    this.compareTo(other.toBigRational())
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun Float.compareTo(other: BigRational) =
+    this.toBigRational().compareTo(other)
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BigRational.compareTo(other: BInt) =
+    this.compareTo(other.toBigRational())
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BInt.compareTo(other: BigRational) =
+    this.toBigRational().compareTo(other)
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BigRational.compareTo(other: Long) =
+    this.compareTo(other.toBigRational())
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun Long.compareTo(other: BigRational) =
+    this.toBigRational().compareTo(other)
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun BigRational.compareTo(other: Int) =
+    this.compareTo(other.toBigRational())
+
+/**
+ * Compares this value to the other.
+ *
+ * @see [BigRational.compareTo]
+ */
+operator fun Int.compareTo(other: BigRational) =
+    this.toBigRational().compareTo(other)
+
 /** Returns this value. */
 operator fun BigRational.unaryPlus() = this
 
