@@ -12,8 +12,8 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Objects.hash
 
-private typealias BInt = BigInteger
-private typealias BDouble = BigDecimal
+internal typealias BInt = BigInteger
+internal typealias BDouble = BigDecimal
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).  BigRational

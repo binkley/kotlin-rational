@@ -3,6 +3,8 @@ package hm.binkley.math
 import hm.binkley.math.BigRational.Companion.ONE
 import hm.binkley.math.BigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class FiniteContinuedFractionTest {
@@ -73,5 +75,11 @@ internal class FiniteContinuedFractionTest {
                 4.toBigInteger()
             ).toBigRational()
         )
+    }
+
+    @Test
+    fun `should check if simple`() {
+        assertTrue((2 over 1).toContinuedFraction().isSimple())
+        assertFalse((2 over 3).toContinuedFraction().isSimple())
     }
 }

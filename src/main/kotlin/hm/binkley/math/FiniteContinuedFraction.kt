@@ -74,6 +74,14 @@ class FiniteContinuedFraction private constructor(
 }
 
 /**
+ * Checks if this continued fraction is _simple_ (has only 1 in all
+ * numerators).
+ */
+fun FiniteContinuedFraction.isSimple(): Boolean {
+    return fractionalParts.none { BInt.ONE != it.numerator }
+}
+
+/**
  * Checks that this is a finite continued fraction.  All finite
  * BigRationals produce a finite continued fraction; all non-finite
  * BigRationals produce a non-finite continued fraction.
