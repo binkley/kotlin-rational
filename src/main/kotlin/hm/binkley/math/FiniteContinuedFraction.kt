@@ -25,6 +25,8 @@ class FiniteContinuedFraction private constructor(
         else -> terms.toString().replaceFirst(',', ';')
     }
 
+    fun terms(n: Int) = terms.subList(0, n)
+
     companion object {
         /**
          * Decomposes the given BigRational into a canonical continued

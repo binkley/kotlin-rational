@@ -1438,26 +1438,6 @@ internal class BigRationalTest {
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
                 negCfA
             )
-            // The ever popular Euler's number
-            assertEquals(
-                listOf(
-                    2 over 1,
-                    ONE,
-                    2 over 1,
-                    ONE,
-                    ONE,
-                    4 over 1,
-                    ONE,
-                    ONE,
-                    6 over 1,
-                    10 over 1,
-                    ONE,
-                    ONE,
-                    2 over 1
-                ),
-                // 2.71828...
-                (271828 over 100_000).toContinuedFraction()
-            )
             assertTrue(negCfA.isFinite())
             assertEquals((-3245 over 1000), negCfA.toBigRational())
             assertEquals(
@@ -1471,6 +1451,31 @@ internal class BigRationalTest {
             assertEquals(
                 listOf(ZERO, 3 over 1),
                 (1 over 3).toContinuedFraction()
+            )
+
+            // The ever popular Euler's number
+            assertEquals(
+                listOf(
+                    2 over 1,
+                    ONE,
+                    2 over 1,
+                    ONE,
+                    ONE,
+                    4 over 1,
+                    ONE,
+                    ONE,
+                    6 over 1,
+                    ONE,
+                    ONE,
+                    8 over 1,
+                    ONE,
+                    ONE,
+                    10 over 1
+                    // truncated from here
+                ),
+                // 2.71828 18284 59045...
+                (271828182845 over 100_000_000_000).toContinuedFraction()
+                    .terms(15)
             )
 
             val cfNaN = NaN.toContinuedFraction()
