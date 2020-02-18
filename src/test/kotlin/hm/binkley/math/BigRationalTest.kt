@@ -1438,6 +1438,26 @@ internal class BigRationalTest {
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
                 negCfA
             )
+            // The ever popular Euler's number
+            assertEquals(
+                listOf(
+                    2 over 1,
+                    ONE,
+                    2 over 1,
+                    ONE,
+                    ONE,
+                    4 over 1,
+                    ONE,
+                    ONE,
+                    6 over 1,
+                    10 over 1,
+                    ONE,
+                    ONE,
+                    2 over 1
+                ),
+                // 2.71828...
+                (271828 over 100_000).toContinuedFraction()
+            )
             assertTrue(negCfA.isFinite())
             assertEquals((-3245 over 1000), negCfA.toBigRational())
             assertEquals(
