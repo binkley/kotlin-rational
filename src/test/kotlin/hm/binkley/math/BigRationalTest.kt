@@ -1466,30 +1466,5 @@ internal class BigRationalTest {
             assertTrue(cfNegInf.toBigRational().isNaN())
             assertTrue(cfNegInf.integerPart.isNaN())
         }
-
-        @Test
-        fun `should present continued fraction following convention`() {
-            assertEquals(
-                "[3;]",
-                (3 over 1).toContinuedFraction().toString()
-            )
-            assertEquals(
-                "[3; 4, 12, 4]",
-                (3245 over 1000).toContinuedFraction().toString()
-            )
-        }
-
-        @Test
-        fun `should convert from continued fraction`() {
-            assertEquals(
-                (3245 over 1000),
-                FiniteContinuedFraction.valueOf(
-                    3.toBigInteger(),
-                    4.toBigInteger(),
-                    12.toBigInteger(),
-                    4.toBigInteger()
-                ).toBigRational()
-            )
-        }
     }
 }
