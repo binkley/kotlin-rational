@@ -25,7 +25,12 @@ class FiniteContinuedFraction private constructor(
         else -> terms.toString().replaceFirst(',', ';')
     }
 
-    fun terms(n: Int) = terms.subList(0, n)
+    /**
+     * Returns a limited list of terms for the continued fraction.  For
+     * example, `terms(0)` returns only the _integral part_ of this continued
+     * fraction.
+     */
+    fun terms(fractionalTerms: Int) = terms.subList(0, fractionalTerms + 1)
 
     companion object {
         /**
