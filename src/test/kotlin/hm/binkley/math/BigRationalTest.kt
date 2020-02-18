@@ -1477,7 +1477,7 @@ internal class BigRationalTest {
         fun `should convert from continued fraction`() {
             assertEquals(
                 (3245 over 1000),
-                ContinuedFraction.valueOf(
+                FiniteContinuedFraction.valueOf(
                     3.toBigInteger(),
                     4.toBigInteger(),
                     12.toBigInteger(),

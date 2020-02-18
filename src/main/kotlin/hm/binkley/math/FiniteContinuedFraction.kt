@@ -16,7 +16,7 @@ import java.math.BigInteger
  * This class does not support infinite continued fractions; all represented
  * values are convertible to `BigRational`.
  */
-class ContinuedFraction private constructor(
+class FiniteContinuedFraction private constructor(
     private val terms: List<BigRational>
 ) : List<BigRational> by terms {
     /** Returns the canonical representation of this continued fraction. */
@@ -30,13 +30,13 @@ class ContinuedFraction private constructor(
          * Decomposes the given BigRational into a canonical continued
          * fraction.
          */
-        fun valueOf(r: BigRational): ContinuedFraction {
+        fun valueOf(r: BigRational): FiniteContinuedFraction {
             val terms = mutableListOf<BigRational>()
             when {
                 !r.isFinite() -> terms += NaN
-                else -> continuedFraction0(r, terms)
+                else -> fractionateInPlace(r, terms)
             }
-            return ContinuedFraction(terms)
+            return FiniteContinuedFraction(terms)
         }
 
         /**
@@ -45,10 +45,10 @@ class ContinuedFraction private constructor(
         fun valueOf(
             integerPart: BigInteger,
             vararg a_i: BigInteger
-        ): ContinuedFraction {
+        ): FiniteContinuedFraction {
             val terms = mutableListOf(integerPart.toBigRational())
             terms += a_i.map { it.toBigRational() }
-            return ContinuedFraction(terms)
+            return FiniteContinuedFraction(terms)
         }
     }
 }
@@ -56,7 +56,7 @@ class ContinuedFraction private constructor(
 /**
  * The integer part of this continued fraction.
  */
-val ContinuedFraction.integerPart: BigRational
+val FiniteContinuedFraction.integerPart: BigRational
     get() = first()
 
 /**
@@ -64,7 +64,7 @@ val ContinuedFraction.integerPart: BigRational
  * BigRationals produce a finite continued fraction; all non-finite
  * BigRationals produce a non-finite continued fraction.
  */
-fun ContinuedFraction.isFinite() = integerPart.isFinite()
+fun FiniteContinuedFraction.isFinite() = integerPart.isFinite()
 
 /**
  * Returns the BigRational for the continued fraction.
@@ -75,7 +75,7 @@ fun ContinuedFraction.isFinite() = integerPart.isFinite()
  * @todo A nicer way to have a `twofold` that processes two elements at a
  *       time, rather than `fold`'s one at a time.
  */
-fun ContinuedFraction.toBigRational() =
+fun FiniteContinuedFraction.toBigRational() =
     if (!isFinite()) NaN
     else subList(
         0,
@@ -84,14 +84,14 @@ fun ContinuedFraction.toBigRational() =
         a_ni + previous.reciprocal
     }
 
-private tailrec fun continuedFraction0(
+private tailrec fun fractionateInPlace(
     r: BigRational,
     sequence: MutableList<BigRational>
 ): List<BigRational> {
     val (i, f) = r.toParts()
     sequence += i
     if (f === ZERO) return sequence
-    return continuedFraction0(f.reciprocal, sequence)
+    return fractionateInPlace(f.reciprocal, sequence)
 }
 
 private fun BigRational.toParts(): Pair<BigRational, BigRational> {

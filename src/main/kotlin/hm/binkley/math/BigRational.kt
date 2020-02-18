@@ -1198,7 +1198,7 @@ fun BigRational.between(other: BigRational) = when {
  *
  * Non-finite BigRationals produce `[NaN;]`.
  */
-fun BigRational.toContinuedFraction() = ContinuedFraction.valueOf(this)
+fun BigRational.toContinuedFraction() = FiniteContinuedFraction.valueOf(this)
 
 /**
  * Checks that this rational is a finite fraction.  Infinities and "not a
