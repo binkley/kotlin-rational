@@ -25,7 +25,7 @@ class FiniteContinuedFraction private constructor(
     /** The fractional parts of this continued fraction. */
     val fractionalParts = subList(1, terms.lastIndex + 1)
 
-    /** The multiplicative inverse of this continue fraction. */
+    /** The multiplicative inverse of this continued fraction. */
     val reciprocal: FiniteContinuedFraction
         get() = if (ZERO === integerPart)
             FiniteContinuedFraction(fractionalParts)
