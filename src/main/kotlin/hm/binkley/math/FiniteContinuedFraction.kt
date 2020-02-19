@@ -64,10 +64,10 @@ class FiniteContinuedFraction private constructor(
          */
         fun valueOf(
             integerPart: BigInteger,
-            vararg a_i: BigInteger
+            vararg fractionalParts: BigInteger
         ): FiniteContinuedFraction {
             val terms = mutableListOf(integerPart.toBigRational())
-            terms += a_i.map { it.toBigRational() }
+            terms += fractionalParts.map { it.toBigRational() }
             return FiniteContinuedFraction(terms)
         }
     }
