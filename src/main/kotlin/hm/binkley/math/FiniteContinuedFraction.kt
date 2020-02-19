@@ -23,7 +23,7 @@ class FiniteContinuedFraction private constructor(
     val integerPart: BigRational = first()
 
     /** The fractional parts of this continued fraction. */
-    val fractionalParts = terms.subList(1, terms.lastIndex + 1)
+    val fractionalParts = subList(1, terms.lastIndex + 1)
 
     /** The multiplicative inverse of this continue fraction. */
     val reciprocal: FiniteContinuedFraction
@@ -43,7 +43,7 @@ class FiniteContinuedFraction private constructor(
      * example, `terms(0)` returns only the _integral part_ of this continued
      * fraction.
      */
-    fun terms(fractionalTerms: Int) = terms.subList(0, fractionalTerms + 1)
+    fun terms(fractionalTerms: Int) = subList(0, fractionalTerms + 1)
 
     companion object {
         /**
@@ -78,7 +78,7 @@ class FiniteContinuedFraction private constructor(
  * numerators).
  */
 fun FiniteContinuedFraction.isSimple(): Boolean {
-    return fractionalParts.none { BInt.ONE != it.numerator }
+    return fractionalParts.all { BInt.ONE === it.numerator }
 }
 
 /**
@@ -112,7 +112,7 @@ private tailrec fun fractionateInPlace(
 ): List<BigRational> {
     val (i, f) = r.toParts()
     sequence += i
-    if (f === ZERO) return sequence
+    if (ZERO === f) return sequence
     return fractionateInPlace(f.reciprocal, sequence)
 }
 
