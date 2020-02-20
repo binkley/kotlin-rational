@@ -1,14 +1,11 @@
 @file:Suppress("NonAsciiCharacters")
 
-package hm.binkley.math
+package hm.binkley.math.finite
 
-import hm.binkley.math.BigRational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.BigRational.Companion.NaN
-import hm.binkley.math.BigRational.Companion.ONE
-import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.BigRational.Companion.TEN
-import hm.binkley.math.BigRational.Companion.TWO
-import hm.binkley.math.BigRational.Companion.ZERO
+import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
+import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
+import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
+import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -22,39 +19,14 @@ import java.math.BigInteger
 
 private typealias BInt = BigInteger
 private typealias BDouble = BigDecimal
-private typealias BigRationalAssertion = (BigRational) -> Unit
 
 /**
  * NB -- the tests use a mixture of constructors while testing functionality.
  * This is intentional, and raises coverage.
  */
-internal class BigRationalTest {
+internal class FiniteBigRationalTest {
     @Nested
     inner class ConstructionTests {
-        @Test
-        fun `should construct NaN`() {
-            assertSame(
-                NaN,
-                0 over 0
-            )
-        }
-
-        @Test
-        fun `should construct +∞`() {
-            assertSame(
-                POSITIVE_INFINITY,
-                Long.MAX_VALUE over 0L
-            )
-        }
-
-        @Test
-        fun `should construct -∞`() {
-            assertSame(
-                NEGATIVE_INFINITY,
-                Long.MIN_VALUE over BInt.ZERO
-            )
-        }
-
         @Test
         fun `should construct 0`() {
             assertSame(
@@ -107,15 +79,6 @@ internal class BigRationalTest {
             assertEquals(1L, (11 over 10).toLong())
             assertEquals(1.1.toFloat(), (11 over 10).toFloat())
             assertEquals(1.1, (11 over 10).toDouble())
-            assertEquals(Double.NaN, NaN.toDouble())
-            assertEquals(
-                Double.POSITIVE_INFINITY,
-                POSITIVE_INFINITY.toDouble()
-            )
-            assertEquals(
-                Double.NEGATIVE_INFINITY,
-                NEGATIVE_INFINITY.toDouble()
-            )
         }
 
         @Test
@@ -175,31 +138,12 @@ internal class BigRationalTest {
     }
 
     @Test
-    fun `should not be itself`() {
-        assertFalse(NaN == NaN)
-        assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
-        assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
-    }
-
-    @Test
     fun `should hash separately`() {
         assertFalse((1 over 2).hashCode() == (1 over 3).hashCode())
     }
 
     @Test
     fun `should pretty print`() {
-        assertEquals(
-            "NaN",
-            NaN.toString()
-        )
-        assertEquals(
-            "+∞",
-            POSITIVE_INFINITY.toString()
-        )
-        assertEquals(
-            "-∞",
-            NEGATIVE_INFINITY.toString()
-        )
         assertEquals(
             "0",
             ZERO.toString()
@@ -290,44 +234,6 @@ internal class BigRationalTest {
             (-2 over 1) to (1 over 2),
             (13 over 2).divideAndRemainder(-3 over 1)
         )
-
-        fun nonFiniteCheck(
-            dividend: BigRational,
-            divisor: BigRational,
-            assertion: BigRationalAssertion
-        ) {
-            val (quotient, remainder) = dividend.divideAndRemainder(divisor)
-            assertion(quotient)
-            assertion(remainder)
-        }
-
-        nonFiniteCheck((13 over 2), NaN) {
-            it.isNaN()
-        }
-        nonFiniteCheck(NaN, (3 over 1)) {
-            it.isNaN()
-        }
-        nonFiniteCheck(NaN, NaN) {
-            it.isNaN()
-        }
-        nonFiniteCheck((13 over 2), POSITIVE_INFINITY) {
-            it.isPositiveInfinity()
-        }
-        nonFiniteCheck(POSITIVE_INFINITY, (3 over 1)) {
-            it.isPositiveInfinity()
-        }
-        nonFiniteCheck(POSITIVE_INFINITY, POSITIVE_INFINITY) {
-            it.isPositiveInfinity()
-        }
-        nonFiniteCheck((13 over 2), NEGATIVE_INFINITY) {
-            it.isNegativeInfinity()
-        }
-        nonFiniteCheck(NEGATIVE_INFINITY, (3 over 1)) {
-            it.isNegativeInfinity()
-        }
-        nonFiniteCheck(NEGATIVE_INFINITY, NEGATIVE_INFINITY) {
-            it.isPositiveInfinity()
-        }
     }
 
     @Nested
@@ -431,12 +337,6 @@ internal class BigRationalTest {
                 2 over 1,
                 ONE + 1
             )
-            assertTrue((ONE + POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY + POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
-            assertTrue((ONE + NEGATIVE_INFINITY).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY + NEGATIVE_INFINITY).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY + POSITIVE_INFINITY).isNaN())
         }
 
         @Test
@@ -493,12 +393,6 @@ internal class BigRationalTest {
                 ZERO,
                 ONE - 1
             )
-            assertTrue((POSITIVE_INFINITY - ONE).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY - POSITIVE_INFINITY).isNaN())
-            assertTrue((POSITIVE_INFINITY - NEGATIVE_INFINITY).isPositiveInfinity())
-            assertTrue((NEGATIVE_INFINITY - ONE).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY - NEGATIVE_INFINITY).isNaN())
-            assertTrue((NEGATIVE_INFINITY - POSITIVE_INFINITY).isNegativeInfinity())
         }
 
         @Test
@@ -555,29 +449,10 @@ internal class BigRationalTest {
                 ONE,
                 ONE * 1
             )
-            assertTrue((ZERO * POSITIVE_INFINITY).isNaN())
-            assertTrue((POSITIVE_INFINITY * ZERO).isNaN())
-            assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
-            assertTrue((NEGATIVE_INFINITY * ZERO).isNaN())
-            assertTrue((POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity())
         }
 
         @Test
         fun `should divide`() {
-            assertTrue((ONE / NaN).isNaN())
-            assertTrue((ZERO / ZERO).isNaN())
-            assertEquals(
-                ZERO,
-                ZERO / POSITIVE_INFINITY
-            )
-            assertTrue((ONE / ZERO).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN())
-            assertEquals(
-                ZERO,
-                ZERO / NEGATIVE_INFINITY
-            )
-            assertTrue((-ONE / ZERO).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
             assertEquals(
                 9 over 10,
                 (3 over 5) / (2 over 3)
@@ -634,16 +509,6 @@ internal class BigRationalTest {
 
         @Test
         fun `should find remainder`() {
-            assertTrue((ONE % NaN).isNaN())
-            assertEquals(
-                ZERO,
-                ONE % POSITIVE_INFINITY
-            )
-            assertEquals(
-                ZERO,
-                ONE % NEGATIVE_INFINITY
-            )
-
             assertEquals(
                 ZERO,
                 (3 over 5) % (2 over 3)
@@ -700,17 +565,11 @@ internal class BigRationalTest {
 
         @Test
         fun `should increment`() {
-            var a = 1L.toBigRational()
+            var a = 1L.toFiniteBigRational()
             assertEquals(
                 2 over 1,
                 ++a
             )
-            var nonFinite = NaN
-            assertTrue((++nonFinite).isNaN())
-            nonFinite = POSITIVE_INFINITY
-            assertTrue((++nonFinite).isPositiveInfinity())
-            nonFinite = NEGATIVE_INFINITY
-            assertTrue((++nonFinite).isNegativeInfinity())
         }
 
         @Test
@@ -720,85 +579,6 @@ internal class BigRationalTest {
                 ZERO,
                 --a
             )
-            var nonFinite = NaN
-            assertTrue((--nonFinite).isNaN())
-            nonFinite = POSITIVE_INFINITY
-            assertTrue((--nonFinite).isPositiveInfinity())
-            nonFinite = NEGATIVE_INFINITY
-            assertTrue((--nonFinite).isNegativeInfinity())
-        }
-    }
-
-    @Nested
-    inner class SpecialCasesTests {
-        @Test
-        fun `should be infinity`() {
-            assertTrue((2 over 0).isPositiveInfinity())
-            assertTrue((-2 over 0).isNegativeInfinity())
-        }
-
-        @Test
-        fun `should check finitude`() {
-            assertTrue(ZERO.isFinite())
-            assertFalse(POSITIVE_INFINITY.isFinite())
-            assertFalse(NEGATIVE_INFINITY.isFinite())
-            assertFalse(NaN.isFinite())
-        }
-
-        @Test
-        fun `should check infinitude`() {
-            assertFalse(ZERO.isInfinite())
-            assertTrue(POSITIVE_INFINITY.isInfinite())
-            assertTrue(NEGATIVE_INFINITY.isInfinite())
-            assertFalse(NaN.isInfinite())
-        }
-
-        @Test
-        fun `should propagate NaN`() {
-            assertTrue((ZERO + NaN).isNaN())
-            assertTrue((NaN + NaN).isNaN())
-            assertTrue((NaN + ONE).isNaN())
-            assertTrue((NaN - ZERO).isNaN())
-            assertTrue((NaN - NaN).isNaN())
-            assertTrue((ZERO - NaN).isNaN())
-            assertTrue((ONE * NaN).isNaN())
-            assertTrue((NaN * NaN).isNaN())
-            assertTrue((NaN * ONE).isNaN())
-            assertTrue((NaN / ONE).isNaN())
-            assertTrue((NaN / NaN).isNaN())
-            assertTrue((ONE / NaN).isNaN())
-        }
-
-        @Test
-        fun `should propagate infinities`() {
-            assertTrue((-NEGATIVE_INFINITY).isPositiveInfinity())
-            assertTrue((ONE + POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue((NEGATIVE_INFINITY - ONE).isNegativeInfinity())
-            assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
-            assertTrue((POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY * NEGATIVE_INFINITY).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN())
-            assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
-            assertTrue((NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
-        }
-
-        @Test
-        fun `should invert infinities incorrectly`() {
-            assertEquals(ZERO, ONE / POSITIVE_INFINITY)
-            assertEquals(ZERO, ONE / NEGATIVE_INFINITY)
-        }
-
-        @Test
-        fun `should cope with various infinities`() {
-            assertTrue((ZERO * POSITIVE_INFINITY).isNaN())
-            assertEquals(ZERO, ZERO / POSITIVE_INFINITY)
-            assertTrue((POSITIVE_INFINITY / ZERO).isPositiveInfinity())
-            assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
-            assertEquals(ZERO, ZERO / NEGATIVE_INFINITY)
-            assertTrue((NEGATIVE_INFINITY / ZERO).isNegativeInfinity())
-            assertTrue((POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity())
-            assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
         }
     }
 
@@ -807,9 +587,6 @@ internal class BigRationalTest {
         assertFalse((1 over 2).isInteger())
         assertTrue((2 over 1).isInteger())
         assertTrue(ZERO.isInteger())
-        assertFalse(POSITIVE_INFINITY.isInteger())
-        assertFalse(NEGATIVE_INFINITY.isInteger())
-        assertFalse(NaN.isInteger())
     }
 
     @Test
@@ -818,9 +595,6 @@ internal class BigRationalTest {
         assertTrue((2 over 1).isDyadic())
         assertTrue(ZERO.isDyadic())
         assertFalse((2 over 3).isDyadic())
-        assertFalse(POSITIVE_INFINITY.isDyadic())
-        assertFalse(NEGATIVE_INFINITY.isDyadic())
-        assertFalse(NaN.isDyadic())
     }
 
     @Test
@@ -834,9 +608,6 @@ internal class BigRationalTest {
         @Test
         fun `should round down`() {
             assertEquals(ZERO, ZERO.floor())
-            assertTrue(NaN.floor().isNaN())
-            assertTrue(POSITIVE_INFINITY.floor().isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.floor().isNegativeInfinity())
             assertEquals(ONE, (ONE).floor())
             assertEquals(-ONE, (-ONE).floor())
             assertEquals(ZERO, (1 over 2).floor())
@@ -846,9 +617,6 @@ internal class BigRationalTest {
         @Test
         fun `should round up`() {
             assertEquals(ZERO, ZERO.ceil())
-            assertTrue(NaN.ceil().isNaN())
-            assertTrue(POSITIVE_INFINITY.ceil().isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.ceil().isNegativeInfinity())
             assertEquals(ONE, (ONE).ceil())
             assertEquals(-ONE, (-ONE).ceil())
             assertEquals(ONE, (1 over 2).ceil())
@@ -858,9 +626,6 @@ internal class BigRationalTest {
         @Test
         fun `should round towards 0`() {
             assertEquals(ZERO, ZERO.round())
-            assertTrue(NaN.round().isNaN())
-            assertTrue(POSITIVE_INFINITY.round().isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.round().isNegativeInfinity())
             assertEquals(ONE, (ONE).round())
             assertEquals(-ONE, (-ONE).round())
             assertEquals(ZERO, (1 over 2).round())
@@ -872,11 +637,14 @@ internal class BigRationalTest {
     inner class ConversionTests {
         @Test
         fun `should convert BigDecimal in infix constructor`() {
-            assertEquals(ZERO, BDouble.ZERO.toBigRational())
-            assertEquals(30 over 1, BDouble.valueOf(30L).toBigRational())
-            assertEquals(3 over 1, BDouble.valueOf(3).toBigRational())
-            assertEquals(3 over 10, BDouble("0.3").toBigRational())
-            assertEquals(77 over 10, BDouble("7.70").toBigRational())
+            assertEquals(ZERO, BDouble.ZERO.toFiniteBigRational())
+            assertEquals(
+                30 over 1,
+                BDouble.valueOf(30L).toFiniteBigRational()
+            )
+            assertEquals(3 over 1, BDouble.valueOf(3).toFiniteBigRational())
+            assertEquals(3 over 10, BDouble("0.3").toFiniteBigRational())
+            assertEquals(77 over 10, BDouble("7.70").toFiniteBigRational())
             assertEquals(ONE, BDouble.ONE over BDouble.ONE)
             assertEquals(ONE, BInt.ONE over BDouble.ONE)
             assertEquals(ONE, 1L over BDouble.ONE)
@@ -890,9 +658,9 @@ internal class BigRationalTest {
 
         @Test
         fun `should convert BigInteger in infix constructor`() {
-            assertEquals(ZERO, BInt.ZERO.toBigRational())
-            assertEquals(30 over 1, BInt.valueOf(30L).toBigRational())
-            assertEquals(3 over 1, BInt.valueOf(3).toBigRational())
+            assertEquals(ZERO, BInt.ZERO.toFiniteBigRational())
+            assertEquals(30 over 1, BInt.valueOf(30L).toFiniteBigRational())
+            assertEquals(3 over 1, BInt.valueOf(3).toFiniteBigRational())
             assertEquals(ONE, BInt.ONE over BInt.ONE)
             assertEquals(ONE, BDouble.ONE over BInt.ONE)
             assertEquals(ONE, 1L over BInt.ONE)
@@ -970,17 +738,10 @@ internal class BigRationalTest {
                 4 over 1,
                 8687443681197687 over 70368744177664
             )
-            assertTrue(Double.NaN.toBigRational().isNaN())
-            assertTrue(
-                Double.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
-            )
-            assertTrue(
-                Double.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
-            )
             assertEquals(
                 rationals,
                 doubles.map {
-                    it.toBigRational()
+                    it.toFiniteBigRational()
                 })
             assertEquals(
                 doubles,
@@ -1028,17 +789,10 @@ internal class BigRationalTest {
                 4 over 1,
                 16181625 over 131072
             )
-            assertTrue(Float.NaN.toBigRational().isNaN())
-            assertTrue(
-                Float.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
-            )
-            assertTrue(
-                Float.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
-            )
             assertEquals(
                 rationals,
                 floats.map {
-                    it.toBigRational()
+                    it.toFiniteBigRational()
                 })
             assertEquals(
                 floats,
@@ -1054,7 +808,6 @@ internal class BigRationalTest {
                 (-128).toByte(),
                 ((Byte.MAX_VALUE + 1) over 1).toByte()
             )
-            assertEquals(0b0, NaN.toByte())
         }
 
         @Test
@@ -1063,7 +816,6 @@ internal class BigRationalTest {
                 (-128).toByte(),
                 ((Byte.MAX_VALUE + 1) over 1).toByte()
             )
-            assertEquals(0b0, NaN.toByte())
         }
     }
 
@@ -1182,15 +934,6 @@ internal class BigRationalTest {
             val noop = { }
 
             assertThrows<IllegalStateException> {
-                for (r in ZERO..NaN) noop()
-            }
-            assertThrows<IllegalStateException> {
-                for (r in NaN..ZERO) noop()
-            }
-            assertThrows<IllegalStateException> {
-                for (r in ZERO..ZERO step NaN) noop()
-            }
-            assertThrows<IllegalStateException> {
                 for (r in ZERO..ONE step -1) noop()
             }
             assertThrows<IllegalStateException> {
@@ -1204,33 +947,39 @@ internal class BigRationalTest {
         @Test
         fun `should sort`() {
             val sorted = listOf(
-                POSITIVE_INFINITY,
-                NaN,
                 ZERO,
-                POSITIVE_INFINITY,
-                NaN,
-                NEGATIVE_INFINITY,
-                ZERO,
-                NEGATIVE_INFINITY
+                ZERO
             ).sorted()
-            assertTrue(sorted[0].isNegativeInfinity())
-            assertTrue(sorted[1].isNegativeInfinity())
-            assertEquals(ZERO, sorted[2])
-            assertEquals(ZERO, sorted[3])
-            assertTrue(sorted[4].isPositiveInfinity())
-            assertTrue(sorted[5].isPositiveInfinity())
-            assertTrue(sorted[6].isNaN())
-            assertTrue(sorted[7].isNaN())
+            assertEquals(ZERO, sorted[0])
+            assertEquals(ZERO, sorted[1])
         }
 
         @Test
         fun `should compare other number types`() {
             assertTrue(BDouble.ONE > ZERO)
             assertTrue(ONE > BDouble.ZERO)
-            assertTrue(Double.POSITIVE_INFINITY > ZERO)
-            assertTrue(ZERO > Double.NEGATIVE_INFINITY)
-            assertTrue(Float.NaN > ZERO)
-            assertTrue(NaN > Float.MAX_VALUE)
+            assertTrue(1.0 > ZERO)
+            assertTrue(ZERO < 1.0)
+            assertThrows<ArithmeticException> {
+                Double.POSITIVE_INFINITY > ZERO
+            }
+            assertThrows<ArithmeticException> {
+                ZERO < Double.POSITIVE_INFINITY
+            }
+            assertThrows<ArithmeticException> {
+                ZERO > Double.NEGATIVE_INFINITY
+            }
+            assertThrows<ArithmeticException> {
+                Double.NEGATIVE_INFINITY < ZERO
+            }
+            assertTrue(1.0f > ZERO)
+            assertTrue(ZERO < 1.0f)
+            assertThrows<ArithmeticException> {
+                Float.NaN > ZERO
+            }
+            assertThrows<ArithmeticException> {
+                ZERO < Float.NaN
+            }
             assertTrue(BInt.ZERO < ONE)
             assertTrue(ZERO < BInt.ONE)
             assertTrue(0L < ONE)
@@ -1240,34 +989,14 @@ internal class BigRationalTest {
         }
 
         @Test
-        fun `should not order non-finite values`() {
-            assertFalse(NaN == NaN)
-            assertFalse(NaN > NaN)
-            assertFalse(NaN < NaN)
-            assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
-            assertFalse(POSITIVE_INFINITY > POSITIVE_INFINITY)
-            assertFalse(POSITIVE_INFINITY < POSITIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY > NEGATIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY < NEGATIVE_INFINITY)
-        }
-
-        @Test
         fun `should reciprocate`() {
             assertEquals(
                 -3 over 5,
                 (-5 over 3).reciprocal
             )
-            assertTrue(ZERO.reciprocal.isPositiveInfinity())
-            assertEquals(
-                ZERO,
-                POSITIVE_INFINITY.reciprocal
-            )
-            assertEquals(
-                ZERO,
-                NEGATIVE_INFINITY.reciprocal
-            )
-            assertTrue(NaN.reciprocal.isNaN())
+            assertThrows<ArithmeticException> {
+                ZERO.reciprocal
+            }
         }
 
         @Test
@@ -1284,9 +1013,6 @@ internal class BigRationalTest {
                 3 over 5,
                 (-3 over 5).absoluteValue
             )
-            assertTrue(NaN.absoluteValue.isNaN())
-            assertTrue(POSITIVE_INFINITY.absoluteValue.isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.absoluteValue.isPositiveInfinity())
         }
 
         @Test
@@ -1303,15 +1029,6 @@ internal class BigRationalTest {
                 -ONE,
                 (-3 over 5).sign
             )
-            assertEquals(
-                -ONE,
-                NEGATIVE_INFINITY.sign
-            )
-            assertEquals(
-                ONE,
-                POSITIVE_INFINITY.sign
-            )
-            assertTrue(NaN.sign.isNaN())
         }
 
         @Test
@@ -1388,40 +1105,9 @@ internal class BigRationalTest {
 
         @Test
         fun `should find between`() {
-            assertTrue(NaN.between(NaN).isNaN())
-            assertTrue(NaN.between(POSITIVE_INFINITY).isNaN())
-            assertTrue(POSITIVE_INFINITY.between(POSITIVE_INFINITY).isNaN())
-            assertTrue(NaN.between(NEGATIVE_INFINITY).isNaN())
-            assertTrue(NEGATIVE_INFINITY.between(NEGATIVE_INFINITY).isNaN())
-            assertTrue(NaN.between(ZERO).isNaN())
-            assertTrue(ZERO.between(NaN).isNaN())
-            assertTrue(POSITIVE_INFINITY.between(NaN).isNaN())
-            assertTrue(NEGATIVE_INFINITY.between(NaN).isNaN())
-            assertTrue(ZERO.between(ZERO).isNaN())
-            assertEquals(
-                ZERO,
-                POSITIVE_INFINITY.between(NEGATIVE_INFINITY)
-            )
-            assertEquals(
-                ZERO,
-                NEGATIVE_INFINITY.between(POSITIVE_INFINITY)
-            )
-            assertEquals(
-                ONE,
-                POSITIVE_INFINITY.between(ZERO)
-            )
-            assertEquals(
-                ONE,
-                ZERO.between(POSITIVE_INFINITY)
-            )
-            assertEquals(
-                -ONE,
-                ZERO.between(NEGATIVE_INFINITY)
-            )
-            assertEquals(
-                -ONE,
-                NEGATIVE_INFINITY.between(ZERO)
-            )
+            assertThrows<ArithmeticException> {
+                ZERO.between(ZERO)
+            }
             assertEquals(
                 3 over 2,
                 ONE.between(TWO)
@@ -1435,15 +1121,13 @@ internal class BigRationalTest {
                 listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1),
                 cfA
             )
-            assertTrue(cfA.isFinite())
-            assertEquals((3245 over 1000), cfA.toBigRational())
+            assertEquals((3245 over 1000), cfA.toFiniteBigRational())
             val negCfA = (-3245 over 1000).toContinuedFraction()
             assertEquals(
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
                 negCfA
             )
-            assertTrue(negCfA.isFinite())
-            assertEquals((-3245 over 1000), negCfA.toBigRational())
+            assertEquals((-3245 over 1000), negCfA.toFiniteBigRational())
             assertEquals(
                 listOf(ZERO),
                 ZERO.toContinuedFraction()
@@ -1456,19 +1140,6 @@ internal class BigRationalTest {
                 listOf(ZERO, 3 over 1),
                 (1 over 3).toContinuedFraction()
             )
-
-            val cfNaN = NaN.toContinuedFraction()
-            assertFalse(cfNaN.isFinite())
-            assertTrue(cfNaN.toBigRational().isNaN())
-            assertTrue(cfNaN.integerPart.isNaN())
-            val cfPosInf = POSITIVE_INFINITY.toContinuedFraction()
-            assertFalse(cfPosInf.isFinite())
-            assertTrue(cfPosInf.toBigRational().isNaN())
-            assertTrue(cfPosInf.integerPart.isNaN())
-            val cfNegInf = NEGATIVE_INFINITY.toContinuedFraction()
-            assertFalse(cfNegInf.isFinite())
-            assertTrue(cfNegInf.toBigRational().isNaN())
-            assertTrue(cfNegInf.integerPart.isNaN())
         }
     }
 }

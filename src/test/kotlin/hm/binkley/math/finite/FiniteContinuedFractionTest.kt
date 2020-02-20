@@ -1,8 +1,8 @@
-package hm.binkley.math
+package hm.binkley.math.finite
 
-import hm.binkley.math.BigRational.Companion.ONE
-import hm.binkley.math.BigRational.Companion.TWO
-import hm.binkley.math.BigRational.Companion.ZERO
+import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
+import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
+import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -82,7 +82,7 @@ internal class FiniteContinuedFractionTest {
                 4.toBigInteger(),
                 12.toBigInteger(),
                 4.toBigInteger()
-            ).toBigRational()
+            ).toFiniteBigRational()
         )
     }
 
