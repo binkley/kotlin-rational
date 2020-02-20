@@ -15,6 +15,8 @@ import java.math.BigInteger
  *
  * This class does not support infinite continued fractions; all represented
  * values are convertible to `BigRational`.
+ *
+ * @todo Properties/methods for convergents
  */
 class FiniteContinuedFraction private constructor(
     private val terms: List<BigRational>
