@@ -20,14 +20,14 @@ class FiniteContinuedFraction private constructor(
     private val terms: List<FiniteBigRational>
 ) : List<FiniteBigRational> by terms {
     /** The integer part of this continued fraction. */
-    val integerPart: FiniteBigRational = first()
+    val integerPart = first()
 
     /** The fractional parts of this continued fraction. */
     val fractionalParts = subList(1, terms.lastIndex + 1)
 
     /** The multiplicative inverse of this continued fraction. */
     val reciprocal: FiniteContinuedFraction
-        get() = if (ZERO === integerPart)
+        get() = if (integerPart.isZero())
             FiniteContinuedFraction(fractionalParts)
         else
             FiniteContinuedFraction(listOf(ZERO) + terms)
@@ -101,7 +101,7 @@ private tailrec fun fractionateInPlace(
 ): List<FiniteBigRational> {
     val (i, f) = r.toParts()
     sequence += i
-    if (ZERO === f) return sequence
+    if (f.isZero()) return sequence
     return fractionateInPlace(f.reciprocal, sequence)
 }
 

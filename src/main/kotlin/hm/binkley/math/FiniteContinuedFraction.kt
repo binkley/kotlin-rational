@@ -8,7 +8,7 @@ class FiniteContinuedFraction private constructor(
     private val terms: List<BigRational>
 ) : List<BigRational> by terms {
     /** The integer part of this continued fraction. */
-    val integerPart: BigRational = first()
+    val integerPart = first()
     /**
      * `ContinuedFraction` represents a `BigRational` as a finite continued
      * fraction sequence with the integer part at the natural index of 0.
@@ -29,7 +29,7 @@ class FiniteContinuedFraction private constructor(
 
     /** The multiplicative inverse of this continued fraction. */
     val reciprocal: FiniteContinuedFraction
-        get() = if (ZERO === integerPart)
+        get() = if (integerPart.isZero())
             FiniteContinuedFraction(fractionalParts)
         else
             FiniteContinuedFraction(listOf(ZERO) + terms)
@@ -114,7 +114,7 @@ private tailrec fun fractionateInPlace(
 ): List<BigRational> {
     val (i, f) = r.toParts()
     sequence += i
-    if (ZERO === f) return sequence
+    if (f.isZero()) return sequence
     return fractionateInPlace(f.reciprocal, sequence)
 }
 

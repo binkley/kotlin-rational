@@ -1225,6 +1225,9 @@ fun BigRational.isFinite() = !isNaN() && !isInfinite()
 /** Checks that this rational is an integer. */
 fun BigRational.isInteger() = BInt.ONE == denominator
 
+/** Checks that this rational is 0. */
+fun BigRational.isZero() = ZERO === this
+
 /**
  * Checks that this rational is dyadic, that is, the denominator is a power
  * of 2.

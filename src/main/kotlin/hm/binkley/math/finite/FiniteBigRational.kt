@@ -1220,6 +1220,9 @@ fun FiniteBigRational.toContinuedFraction() =
 /** Checks that this rational is an integer. */
 fun FiniteBigRational.isInteger() = BInt.ONE == denominator
 
+/** Checks that this rational is 0. */
+fun FiniteBigRational.isZero() = ZERO === this
+
 /**
  * Checks that this rational is dyadic, that is, the denominator is a power
  * of 2.
