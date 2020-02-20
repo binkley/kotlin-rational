@@ -13,14 +13,15 @@ internal typealias BInt = BigInteger
 internal typealias BDouble = BigDecimal
 
 /**
- * Immutable arbitrary-precision rationals (finite fractions).  FiniteBigRational
- * provides analogues to all of Kotlin's [Long] operators where appropriate.
- * Additionally, FiniteBigRational provides operations for GCD and LCM calculation.
+ * Immutable arbitrary-precision rationals (finite fractions).
+ * `FiniteBigRational` provides analogues to all of Kotlin's [Long] operators
+ * where appropriate. Additionally, `FiniteBigRational` provides operations
+ * for GCD and LCM calculation.
  *
  * Comparison operations perform signed comparisons, analogous to those
  * performed by Kotlin's relational and equality operators.
  *
- * Division by [ZERO] throws [ArithmeticException].
+ * Division by [ZERO] (or implied) throws [ArithmeticException] in all cases.
  *
  * Ranges increment by 1 unless otherwise specified.
  *
@@ -121,7 +122,7 @@ class FiniteBigRational private constructor(
         val TEN = FiniteBigRational(BInt.TEN, BInt.ONE)
 
         /**
-         * Returns a FiniteBigRational whose value is equal to that of the
+         * Returns a `FiniteBigRational` whose value is equal to that of the
          * specified ratio, `numerator / denominator`.
          *
          * This factory method is in preference to an explicit constructor
@@ -171,21 +172,21 @@ val FiniteBigRational.sign: FiniteBigRational
     get() = numerator.signum().toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is the absolute value of this
+ * Returns a `FiniteBigRational` whose value is the absolute value of this
  * FiniteBigRational.
  */
 val FiniteBigRational.absoluteValue: FiniteBigRational
     get() = valueOf(numerator.abs(), denominator)
 
 /**
- * Returns a FiniteBigRational whose value is the reciprocal of this
- * FiniteBigRational.  Reciprocals throw [ArithmeticException].
+ * Returns a `FiniteBigRational` whose value is the reciprocal of this
+ * `FiniteBigRational`.  Reciprocals throw [ArithmeticException].
  */
 val FiniteBigRational.reciprocal: FiniteBigRational
     get() = valueOf(denominator, numerator)
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -194,7 +195,7 @@ infix fun BDouble.over(denominator: BDouble) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -203,7 +204,7 @@ infix fun BDouble.over(denominator: Double) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -212,7 +213,7 @@ infix fun BDouble.over(denominator: Float) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -221,7 +222,7 @@ infix fun BDouble.over(denominator: BInt) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -230,7 +231,7 @@ infix fun BDouble.over(denominator: Long) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -239,7 +240,7 @@ infix fun BDouble.over(denominator: Int) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -248,7 +249,7 @@ infix fun Double.over(denominator: BDouble) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -257,7 +258,7 @@ infix fun Double.over(denominator: BInt) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -266,7 +267,7 @@ infix fun Double.over(denominator: Long) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -275,7 +276,7 @@ infix fun Double.over(denominator: Int) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -284,7 +285,7 @@ infix fun Double.over(denominator: Double) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -293,7 +294,7 @@ infix fun Double.over(denominator: Float) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -302,7 +303,7 @@ infix fun Float.over(denominator: BDouble) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -311,7 +312,7 @@ infix fun Float.over(denominator: BInt) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -320,7 +321,7 @@ infix fun Float.over(denominator: Long) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -329,7 +330,7 @@ infix fun Float.over(denominator: Int) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -338,7 +339,7 @@ infix fun Float.over(denominator: Double) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -347,7 +348,7 @@ infix fun Float.over(denominator: Float) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -356,7 +357,7 @@ infix fun BInt.over(denominator: BDouble) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -365,7 +366,7 @@ infix fun BInt.over(denominator: Double) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -374,7 +375,7 @@ infix fun BInt.over(denominator: Float) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -382,7 +383,7 @@ infix fun BInt.over(denominator: Float) =
 infix fun BInt.over(denominator: BInt) = valueOf(this, denominator)
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -391,7 +392,7 @@ infix fun BInt.over(denominator: Long) =
     valueOf(this, denominator.toBigInteger())
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -400,7 +401,7 @@ infix fun BInt.over(denominator: Int) =
     valueOf(this, denominator.toBigInteger())
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -409,7 +410,7 @@ infix fun Long.over(denominator: Double) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -418,7 +419,7 @@ infix fun Long.over(denominator: Float) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -427,7 +428,7 @@ infix fun Long.over(denominator: BDouble) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -435,7 +436,7 @@ infix fun Long.over(denominator: BDouble) =
 infix fun Long.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -444,7 +445,7 @@ infix fun Long.over(denominator: Long) =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -453,7 +454,7 @@ infix fun Long.over(denominator: Int) =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -462,7 +463,7 @@ infix fun Int.over(denominator: BDouble) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -471,7 +472,7 @@ infix fun Int.over(denominator: Double) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -480,7 +481,7 @@ infix fun Int.over(denominator: Float) =
     toFiniteBigRational() / denominator.toFiniteBigRational()
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -488,7 +489,7 @@ infix fun Int.over(denominator: Float) =
 infix fun Int.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -497,7 +498,7 @@ infix fun Int.over(denominator: Long) =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
- * Returns a FiniteBigRational whose value is equal to that of the
+ * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -505,22 +506,22 @@ infix fun Int.over(denominator: Long) =
 infix fun Int.over(denominator: Int) =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
-/** Returns the value of this number as a FiniteBigRational. */
+/** Returns the value of this number as a `FiniteBigRational`. */
 fun BDouble.toFiniteBigRational() = convert(this)
 
-/** Returns the value of this number as a FiniteBigRational. */
+/** Returns the value of this number as a `FiniteBigRational`. */
 fun Double.toFiniteBigRational() = convert(this)
 
-/** Returns the value of this number as a FiniteBigRational. */
+/** Returns the value of this number as a `FiniteBigRational`. */
 fun Float.toFiniteBigRational() = toDouble().toFiniteBigRational()
 
-/** Returns the value of this number as a FiniteBigRational. */
+/** Returns the value of this number as a `FiniteBigRational`. */
 fun BInt.toFiniteBigRational() = valueOf(this, BInt.ONE)
 
-/** Returns the value of this number as a FiniteBigRational. */
+/** Returns the value of this number as a `FiniteBigRational`. */
 fun Long.toFiniteBigRational() = toBigInteger().toFiniteBigRational()
 
-/** Returns the value of this number as a FiniteBigRational. */
+/** Returns the value of this number as a `FiniteBigRational`. */
 fun Int.toFiniteBigRational() = toBigInteger().toFiniteBigRational()
 
 /**
@@ -646,23 +647,23 @@ operator fun FiniteBigRational.plus(other: FiniteBigRational) =
 operator fun FiniteBigRational.plus(addend: BDouble) =
     this + addend.toFiniteBigRational()
 
-/** Adds the other value to this value yielding a FiniteBigRational. */
+/** Adds the other value to this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.plus(addend: Double) =
     this + addend.toFiniteBigRational()
 
-/** Adds the other value to this value yielding a FiniteBigRational. */
+/** Adds the other value to this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.plus(addend: Float) =
     this + addend.toFiniteBigRational()
 
-/** Adds the other value to this value yielding a FiniteBigRational. */
+/** Adds the other value to this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.plus(addend: BInt) =
     this + addend.toFiniteBigRational()
 
-/** Adds the other value to this value yielding a FiniteBigRational. */
+/** Adds the other value to this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.plus(addend: Long) =
     this + addend.toFiniteBigRational()
 
-/** Adds the other value to this value yielding a FiniteBigRational. */
+/** Adds the other value to this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.plus(addend: Int) =
     this + addend.toFiniteBigRational()
 
@@ -670,27 +671,27 @@ operator fun FiniteBigRational.plus(addend: Int) =
 operator fun FiniteBigRational.minus(subtrahend: FiniteBigRational) =
     this + -subtrahend
 
-/** Subtracts the other value from this value yielding a FiniteBigRational. */
+/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.minus(subtrahend: BDouble) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a FiniteBigRational. */
+/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.minus(subtrahend: Double) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a FiniteBigRational. */
+/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.minus(subtrahend: Float) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a FiniteBigRational. */
+/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.minus(subtrahend: BInt) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a FiniteBigRational. */
+/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.minus(subtrahend: Long) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a FiniteBigRational. */
+/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.minus(subtrahend: Int) =
     this - subtrahend.toFiniteBigRational()
 
@@ -703,79 +704,87 @@ operator fun FiniteBigRational.times(other: FiniteBigRational) = valueOf(
 operator fun FiniteBigRational.times(multiplicand: BDouble) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a FiniteBigRational. */
+/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.times(multiplicand: Double) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a FiniteBigRational. */
+/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.times(multiplicand: Float) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a FiniteBigRational. */
+/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.times(multiplicand: BInt) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a FiniteBigRational. */
+/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.times(multiplicand: Long) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a FiniteBigRational. */
+/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.times(multiplicand: Int) =
     this * multiplicand.toFiniteBigRational()
 
 /**
  * Divides this value by the other value exactly.
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.div(divisor: FiniteBigRational) =
     this * divisor.reciprocal
 
 /**
  * Divides this value by the other value exactly yielding a FiniteBigRational.
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.div(divisor: BDouble) =
     this / divisor.toFiniteBigRational()
 
 /**
  * Divides this value by the other value exactly yielding a FiniteBigRational.
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.div(divisor: Double) =
     this / divisor.toFiniteBigRational()
 
 /**
  * Divides this value by the other value exactly yielding a FiniteBigRational.
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.div(divisor: Float) =
     this / divisor.toFiniteBigRational()
 
 /**
  * Divides this value by the other value exactly yielding a FiniteBigRational.
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.div(divisor: BInt) =
     this / divisor.toFiniteBigRational()
 
 /**
  * Divides this value by the other value exactly yielding a FiniteBigRational.
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.div(divisor: Long) =
     this / divisor.toFiniteBigRational()
 
 /**
  * Divides this value by the other value exactly yielding a FiniteBigRational.
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.div(divisor: Int) =
     this / divisor.toFiniteBigRational()
 
 /**
  * Modulos this value by the other value; always 0 (division is exact).
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 @Suppress("UNUSED_PARAMETER")
 operator fun FiniteBigRational.rem(divisor: FiniteBigRational) = ZERO
 
@@ -783,7 +792,8 @@ operator fun FiniteBigRational.rem(divisor: FiniteBigRational) = ZERO
  * Finds the remainder of this value by other: always 0 (division is
  * exact), or throws [ArithmeticException].
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.rem(divisor: BDouble) =
     this % divisor.toFiniteBigRational()
 
@@ -791,7 +801,8 @@ operator fun FiniteBigRational.rem(divisor: BDouble) =
  * Finds the remainder of this value by other: always 0 (division is
  * exact), or throws [ArithmeticException].
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.rem(divisor: Double) =
     this % divisor.toFiniteBigRational()
 
@@ -799,7 +810,8 @@ operator fun FiniteBigRational.rem(divisor: Double) =
  * Finds the remainder of this value by other: always 0 (division is
  * exact), or throws [ArithmeticException].
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.rem(divisor: Float) =
     this % divisor.toFiniteBigRational()
 
@@ -807,7 +819,8 @@ operator fun FiniteBigRational.rem(divisor: Float) =
  * Finds the remainder of this value by other: always 0 (division is
  * exact), or throws [ArithmeticException].
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.rem(divisor: BInt) =
     this % divisor.toFiniteBigRational()
 
@@ -815,7 +828,8 @@ operator fun FiniteBigRational.rem(divisor: BInt) =
  * Finds the remainder of this value by other: always 0 (division is
  * exact), or throws [ArithmeticException].
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.rem(divisor: Long) =
     this % divisor.toFiniteBigRational()
 
@@ -823,7 +837,8 @@ operator fun FiniteBigRational.rem(divisor: Long) =
  * Finds the remainder of this value by other: always 0 (division is
  * exact), or throws [ArithmeticException].
  *
- * @see [divideAndRemainder] */
+ * @see [divideAndRemainder]
+ */
 operator fun FiniteBigRational.rem(divisor: Int) =
     this % divisor.toFiniteBigRational()
 
@@ -1115,9 +1130,9 @@ fun FiniteBigRational.divideAndRemainder(other: FiniteBigRational):
 }
 
 /**
- * Returns a FiniteBigRational whose value is `(this^exponent)`. Note that
- * `exponent` is an integer rather than a FiniteBigRational (and the underlying
- * BigInteger does not support `BInt.pow(BInt)`).
+ * Returns a `FiniteBigRational` whose value is `(this^exponent)`. Note that
+ * `exponent` is an integer rather than a FiniteBigRational (and the
+ * underlying [BigInteger] does not support `BInt.pow(BInt)`).
  */
 fun FiniteBigRational.pow(exponent: Int): FiniteBigRational /* type check issue */ =
     when {
@@ -1127,7 +1142,7 @@ fun FiniteBigRational.pow(exponent: Int): FiniteBigRational /* type check issue 
     }
 
 /**
- * Returns a FiniteBigRational whose value is the greatest common divisor of
+ * Returns a `FiniteBigRational` whose value is the greatest common divisor of
  * the absolute values of `this` and `other`.  Returns 0 when `this` and
  * `other` are both 0.
  */
@@ -1138,7 +1153,7 @@ fun FiniteBigRational.gcd(other: FiniteBigRational) =
     )
 
 /**
- * Returns a FiniteBigRational whose value is the lowest common multiple of
+ * Returns a `FiniteBigRational` whose value is the lowest common multiple of
  * the absolute values of `this` and `other`.  Returns 1 when `this` and
  * `other` are both 0.
  */
@@ -1152,7 +1167,7 @@ private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
 /**
  * Rounds to the nearest whole number _less than or equal_ to this
- * FiniteBigRational.  Non-finite values return themselves.
+ * `FiniteBigRational`.  Non-finite values return themselves.
  */
 fun FiniteBigRational.floor() = when {
     roundsToSelf() -> this
@@ -1162,7 +1177,7 @@ fun FiniteBigRational.floor() = when {
 
 /**
  * Rounds to the nearest whole number _greater than or equal_ to this
- * FiniteBigRational.  Non-finite values return themselves.
+ * `FiniteBigRational`.  Non-finite values return themselves.
  */
 fun FiniteBigRational.ceil() = when {
     roundsToSelf() -> this
@@ -1172,7 +1187,7 @@ fun FiniteBigRational.ceil() = when {
 
 /**
  * Rounds to the nearest whole number _closer to 0_ than this FiniteBigRational,
- * or when this FiniteBigRational is whole, the same FiniteBigRational.  Non-finite values
+ * or when this FiniteBigRational is whole, the same `FiniteBigRational`.  Non-finite values
  * return themselves.
  */
 fun FiniteBigRational.round() = when {
@@ -1183,7 +1198,7 @@ fun FiniteBigRational.round() = when {
 private fun FiniteBigRational.roundsToSelf() = isInteger()
 
 /**
- * Returns a FiniteBigRational between this FiniteBigRational and the other
+ * Returns a `FiniteBigRational` between this FiniteBigRational and the other
  * one, or throws [ArithmeticException] if the endpoints are the same.
  *
  * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
@@ -1198,7 +1213,7 @@ fun FiniteBigRational.between(other: FiniteBigRational) = when {
     )
 }
 
-/** Returns the finite continued fraction of this FiniteBigRational. */
+/** Returns the finite continued fraction of this `FiniteBigRational`. */
 fun FiniteBigRational.toContinuedFraction() =
     FiniteContinuedFraction.valueOf(this)
 

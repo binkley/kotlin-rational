@@ -4,13 +4,12 @@ import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import java.math.BigInteger
 
 /**
- * `ContinuedFraction` represents a FiniteBigRational as a finite continued fraction
- * sequence with the integer part at the natural index of 0.  Subsequent
- * fraction parts use their natural index, starting at 1.
+ * `ContinuedFraction` represents a `FiniteBigRational` as a finite continued
+ * fraction sequence with the integer part at the natural index of 0.'
+ * Subsequent fraction parts use their natural index, starting at 1.
  *
- * Elements are `FiniteBigRational` (rather than `BigInteger`) to express continued
- * fractions of non-finite BigRations.  The continued fraction of a non-finite
- * FiniteBigRational is `[NaN;]`
+ * Elements are `FiniteBigRational` (rather than `BigInteger`) to express
+ * continued fractions of non-finite `FiniteBigRational`s.
  *
  * This class does not support infinite continued fractions; all represented
  * values are convertible to `FiniteBigRational`.

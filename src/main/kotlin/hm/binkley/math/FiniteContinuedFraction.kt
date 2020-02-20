@@ -4,25 +4,25 @@ import hm.binkley.math.BigRational.Companion.NaN
 import hm.binkley.math.BigRational.Companion.ZERO
 import java.math.BigInteger
 
-/**
- * `ContinuedFraction` represents a BigRational as a finite continued fraction
- * sequence with the integer part at the natural index of 0.  Subsequent
- * fraction parts use their natural index, starting at 1.
- *
- * Elements are `BigRational` (rather than `BigInteger`) to express continued
- * fractions of non-finite BigRations.  The continued fraction of a non-finite
- * BigRational is `[NaN;]`
- *
- * This class does not support infinite continued fractions; all represented
- * values are convertible to `BigRational`.
- *
- * @todo Properties/methods for convergents
- */
 class FiniteContinuedFraction private constructor(
     private val terms: List<BigRational>
 ) : List<BigRational> by terms {
     /** The integer part of this continued fraction. */
     val integerPart: BigRational = first()
+    /**
+     * `ContinuedFraction` represents a `BigRational` as a finite continued
+     * fraction sequence with the integer part at the natural index of 0.
+     * Subsequent fraction parts use their natural index, starting at 1.
+     *
+     * Elements are `BigRational` (rather than `BigInteger`) to express
+     * continued fractions of non-finite `BigRational`s.  The continued
+     * fraction sof a non-finite `BigRational` is `[NaN;]`
+     *
+     * This class does not support infinite continued fractions; all
+     * represented values are convertible to `BigRational`.
+     *
+     * @todo Properties/methods for convergents
+     */
 
     /** The fractional parts of this continued fraction. */
     val fractionalParts = subList(1, terms.lastIndex + 1)
