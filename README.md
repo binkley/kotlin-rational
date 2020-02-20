@@ -6,16 +6,20 @@
 
 ![Local Build](https://github.com/binkley/kotlin-rational/workflows/Local%20Build/badge.svg)
 
-An immutable, infinite-precision `BigRational` (ratio, fraction) class for
-Kotlin.
+An immutable, infinite-precision `BigRational` and `FiniteBigRational` (ratio,
+fraction) class for Kotlin.
+
+There are two versions, `BigRational` and `FiniteBigRational`, providing
+pseudo-IEEE 754 and purely finite versions.
 
 This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading and extension methods, and writing clean, clear, concise Kotlin.
-It also explores the impact of `NaN` (which is extensive) rather than
-raising an error on division by zero.
+It also explores the impact of `NaN` (on the `BigRational` version , which is
+extensive), rather than raising an error on division by zero (as the
+`FiniteBigRational` version does).
 
 A secondary goal is to model the Kotlin standard library, and Java's
-`BigDecimal` and `BigInteger` types where sensible.
+`BigDecimal` and `BigInteger` types, as well as `Number`.
 
 Try `./run.sh` for a demonstration.
 
@@ -48,6 +52,22 @@ $ ln -s ~/.m2 .maven-cache
 
 ## Design choices
 
+### Two choices
+
+This code provides `BigRational` and `FiniteBigRational`.  They differ by:
+
+<dl>
+<dt><code>BigRational</code></dt>
+<dd>An <em>approximation</em> of IEEE 754 behaviors, with <code>NaN</code>,
+<code>POSITIVE_INFINITY</code>, and <code>NEGATIVE_INFINITY</code></dd>
+<dt><code>FiniteBigRational</code></dt>
+<dd>A more mathematically correct representation, but raises
+<code>ArithmeticException</code> for operations requiring IEEE 754 behaviors
+</dd>
+</dl>
+
+### Direct references
+
 These were great help:
 
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational),
@@ -58,7 +78,7 @@ infix `over` constructor, and various overloads
 - [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
 mathematical properties of ℚ, the field of the rationals
 
-This code extends ℚ, the field of rational numbers, with
+The code for `BigRational` extends ℚ, the field of rational numbers, with
 [division by zero](https://en.wikipedia.org/wiki/Division_by_zero), "not a
 number", -∞, and +∞, following the lead of
 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), and using the
@@ -66,6 +86,9 @@ _affinely extended real line_ as a model. However, this code does not
 consider `+0` or `-0`, treating all zeros as `0`, and distinguishes +∞ from
 -∞ (as opposed to the projectively extended real line).  In these ways, this
 code does not represent a proper _field_.
+
+The code for `FiniteBigRational` _should_ simply be ℚ, and raise
+`ArithmeticException` when encountering impossible circumstances.
 
 ### Prefer readability
 
@@ -78,52 +101,62 @@ This code always keeps rationals in proper form:
 
 1. The numerator and denominator are coprime (in "lowest form")
 2. The denominator is non-negative
+3. For `BigRational`, the denominator is `0` for three special cases only:
+`NaN`, `POSITIVE_INFINITY` and `NEGATIVE_INFINITY.  Thus, for these cases,
+care should be taken
 
-(The denominator is always positive when the rational is finite; it is zero
-for the special values `NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as
-an implementation detail).
+The denominator is always non-negative; it is zero for the special values
+`NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as an implementation
+detail for `BigRational` (there is no proper representation in ℚ for these
+cases).
+
+One may conclude that `FiniteBigRational` is a _Field_, and `BigRational` is
+not.
 
 ### Representation of not a number and infinities
 
-(It is unclear if this code should cope with infinities and not a number.  See
-[Division by 0, infinities](#division-by-0-infinities) for discussion.)
+This section applies only to `BigRational`, and not to `FiniteBigRational`.
+See [Division by 0, infinities](#division-by-0-infinities) for discussion.
 
-This code represents certain special cases via implied division by zero:
+`BigRational` represents certain special cases via implied division by zero:
 
 * `+∞` is `1 over 0`
 * `NaN` is `0 over 0`
 * `-∞` is `-1 over 0`
+* There are no separate representations for `+0` or `-0`
 
-And preserve standard meanings:
+Preserving standard IEEE 754 understandings:
 
 * `NaN` propagates
-* Operations with infinities produce an infinity, or not a number
+* Operations with infinities produce an infinity, or `NaN`, as appropriate
 
-So `NaN.denominator`, `POSITIVE_INFINITY.denominator`, and
+Hence, `NaN.denominator`, `POSITIVE_INFINITY.denominator`, and
 `NEGATIVE_INFINITY.denominator` all return zero.
 
-Division by an infinity is zero, as is the reciprocal of an infinity.  This
-code does not have a concept of infinitesimals ("ϵ or δ").  (See
-[_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for a
+Division by an infinity is 0, as is the reciprocal of an infinity.
+`BigRational` does not have a concept of infinitesimals ("ϵ or δ").  (See
+[_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for
 discussion.)
 
 ### Single concept of zero
 
-In this code there is only `ZERO`.  There is no sense of positive or negative
-zero which would represent approaching zero from different directions.
+In this code there is only `ZERO` (0).  There are no positive or
+negative zeros which would represent approaching zero from different
+directions.
 
-### `BigRational` is a `Number`
+### `BigRational` and `FiniteBigRational` are a `Number`
 
-In this code, `BigRational` is a `kotlin.Number`, in part to pick up Kotlin
-handling of numeric types.  One consequence: This code raises an error for
-conversion between `BigRational` and `Char`.  This conversion seemed perverse,
-_eg_, `3/5` to what character?
+In this code, `BigRational` and `FiniteBigRational` are a `kotlin.Number`, in
+part to inherit Kotlin handling of numeric types.  One consequence: This
+code raises an error for conversion to and from `Character`.  This
+conversion seemed perverse, _eg_, `3/5` to what character?
 
-This code supports conversion among `Double` and `Float`, and `BigRational`,
-preserving infinities and not a number.  The conversion is _exact_: it
-constructs a power-of-2 rational following IEEE 754; so converting the
-resulting `BigRational` back returns the original floating point value,
-including infinities and not a number.
+This code supports conversion among `Double` and `Float`, and `BigRational`
+and `FiniteBigRational` for all finite values, and non-finite values for
+`BigRational`.  The conversion is _exact_: it constructs a power-of-2
+rational value following IEEE 754; so reconverting returns the original
+floating point value, and for `BigRational` converts non-finite values (for
+`FiniteBigRational` this raises `ArithmeticException`).
 
 When narrowing types, conversion may lose magnitude, precision, and/or sign
 (there is no overflow/underflow).  This code adopts the behavior of
@@ -133,27 +166,24 @@ When narrowing types, conversion may lose magnitude, precision, and/or sign
 
 There are two ways to handle division by 0:
 
-- Raise an error, what whole numbers do (_eg_, `1 / 0`)
-- Produce a `NaN`, what floating point does (_eg_, `1.0 / 0`)
+- Produce a `NaN`, what floating point does (_eg_, `1.0 / 0`) (`BigRational`)
+- Raise an error, what whole numbers do (_eg_, `1 / 0`) (`FiniteBigRational`)
 
-This code produces `NaN`, mostly to explore the problem space (which turns
-out to be rather bothersome).  A production version might rather throw an
-`ArithmeticError` than a `NaN`.
-
-As with floating point, `NaN != NaN`, and finite values equals themselves.
-As with mathematics, inifities are also not equal to themselves, so
-`POSITIVE_INFINITY != POSITIVE_INFINTY` and
-`NEGATIVE_INFINITY != NEGATIVE_INFINITY`.  (This code does not provide the
+For `BigRational`, as with floating point, `NaN != NaN`, and finite values
+equal themselves.  As with mathematics, infinities are not equal to
+themselves, so `POSITIVE_INFINITY != POSITIVE_INFINTY` and
+`NEGATIVE_INFINITY != NEGATIVE_INFINITY`.  (`BigRational` does not provide the
 needed sense of equivalence, nor does it cope with infinitesimals.)
 
-This code also represents infinities as division by 0 (positive infinity is
-`1 / 0`; negative infinity is `-1 / 0`).  The field of rationals (ℚ) is
-complex (in the colloquial meaning) when considering infinities.
+`BigRational` represents infinities as division by 0 (positive infinity is
+reduced to `1 / 0`, negative infinity to `-1 / 0`).  The field of rationals
+(ℚ) is complex ("difficult", in the colloquial meaning) when considering
+infinities.
 
 ### Conversions and operators
 
-This code provides conversions (`toRational` and ilk) and operator overloads
-for these `Number` types:
+This code provides conversions (`toBigRational`, `toFiniteBigRational`, and
+their ilk) and operator overloads for these `Number` types:
 
 - `BigDecimal`
 - `Double`
@@ -162,19 +192,20 @@ for these `Number` types:
 - `Long`
 - `Int`
 
-In addition, there is convertion to and from `ContinuedFraction`.
+In addition, there is conversion to and from `ContinuedFraction`.
 
-Adding support for `Short` and `Byte` is simple, but I did not consider it
-worthwhile.
+Adding support for `Short` and `Byte` is stright-forward, but I did not
+consider it worthwhile without more outside input.
 
 ### Sorting
 
-All values sort in the natural mathematical sense, except that `NaN` always
-sort to last, following the convention of floating point.
+All values sort in the natural mathematical sense, except that for
+`BigRational`, `NaN` sorts to last, following the convention of floating
+point.
 
-All `NaN` are "quiet"; none are "signaling", including sorting.  This follows
-the Java convention for floating point.  (See
-[`NaN`](https://en.wikipedia.org/wiki/NaN).)
+For `BigRational`, all `NaN` are "quiet"; none are "signaling", including
+sorting.  This follows the Java convention for floating point, and is a
+complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
 
 ## API
 
@@ -184,13 +215,13 @@ documentation, they behave similarly as their floating point counterpart.
 ### Properties
 
 - `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
-behave as expected.
+behave as expected
 
 ### Methods
 
 - `isNaN()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
-infinite.
+infinite
 - `isInteger()`, `isDyadic()` (See
 [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational).)
 - `gcm(other)`, `lcd(other)`
@@ -198,7 +229,7 @@ infinite.
 - `pow(exponent)`
 - `divideAndRemainder(other)`
 - `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
-towards 0.
+towards 0
 
 ### Operators
 
@@ -211,9 +242,9 @@ and `rem`)
 ### Types
 
 This code attempts to ease programmer typing through overloading.  Where
-sensible, if a `BigRational` is provided as an argument or extension method
-type, then so are `BigDecimal`, `Double`, `Float`, `BigInteger`, `Long`, and
-`Int`.
+sensible, if a `BigRational` and `FiniteBigRational` arte provided as
+argument or extension method types, then so are `BigDecimal`, `Double`,
+`Float`, `BigInteger`, `Long`, and `Int`.
 
 ## Implementation choices
 
@@ -221,14 +252,15 @@ type, then so are `BigDecimal`, `Double`, `Float`, `BigInteger`, `Long`, and
 
 (See [_Always proper form_](#always-proper-form).)
 
-Much of the code assumes the rational is in simplest terms (proper form).
-The `valueOf` factory method ensures this.  However you should usually use
-the `over` infix operator instead, _eg_, `1 over 2`.
+The code assumes rationals are in simplest terms (proper form). The
+`valueOf` factory method ensures this.  However, you should usually use
+the `over` infix operator instead, _eg_, `1 over 2` or `2 over 1`.
 
 ### Negative values
 
 Canonical form of negative values for rational numbers depends on context.
-For this code, the denominator is always non-negative.
+For this code, the denominator is always non-negative, and for values with
+`absoluteValue < 0`, the numerator is negative.
 
 ### Identity of constants
 
@@ -246,23 +278,24 @@ See:
 ### Factory constructor
 
 Rather than provide a public constructor, always use the `over` infix
-operator (or `valueOf` factory method.  This maintains invariants such as
+operator (or `valueOf` factory method).  This maintains invariants such as
 "lowest terms" (numerator and denominator are coprime), sign handling, and
-reuse of special constant objects.
+reuse of special case objects.
 
 ### Special case handling _vs_ sealed class
 
 This code uses special case handling for non-finite values.  An alternative
-would be to make `BigRational` a sealed class with separate subclasses for
-special cases.  This would also allow for handling of infinitesimals.
-However, the abstraction bleeds between subclasses.  It is unclear if a
-sealed class makes clearer code.
+would be to use a sealed class with separate subclasses for special cases.
+This would potentially provide handling of infinitesimals.  However, the
+abstraction bleeds between subclasses.  It is unclear if a sealed class
+makes clearer code.
 
 ### GCD vs LCM
 
 There are several places that might use LCM (_eg_, dividing rationals).  This
 code relies on the factory constructor (`valueOf`) for GCM in reducing
-rationals to simplest form.
+rationals to simplest form, and `gcm` and `lcm` methods are recursive between
+themselves.
 
 ### Continued fractions
 
@@ -280,3 +313,4 @@ _vs_ [_Extended real number line_](https://en.wikipedia.org/wiki/Extended_real_n
 - [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
 - [_An introduction to context-oriented programming in Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
 - [_Continued Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/ContinuedFractions.pdf)
+- [_Generalized continued fracion_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
