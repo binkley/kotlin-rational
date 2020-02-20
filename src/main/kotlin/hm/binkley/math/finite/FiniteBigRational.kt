@@ -14,15 +14,13 @@ internal typealias BDouble = BigDecimal
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).  FiniteBigRational
- * provides analogues to all of Kotlin's `Long` operators where appropriate.
+ * provides analogues to all of Kotlin's [Long] operators where appropriate.
  * Additionally, FiniteBigRational provides operations for GCD and LCM calculation.
  *
  * Comparison operations perform signed comparisons, analogous to those
  * performed by Kotlin's relational and equality operators.
  *
- * Division by `ZERO` does not raise an `ArithmeticException`; rather, it
- * produces infinities or "not a number".  Infinities and "not a number"
- * propagate where appropriate.
+ * Division by [ZERO] throws [ArithmeticException].
  *
  * Ranges increment by 1 unless otherwise specified.
  *
@@ -34,9 +32,8 @@ class FiniteBigRational private constructor(
     val denominator: BInt
 ) : Number(), Comparable<FiniteBigRational> {
     /**
-     * Raises an `IllegalStateException`.  Kotlin provides a `toChar` in its
-     * `Number` class; Java does not have a conversion to `Character` for
-     * `java.lang.Number`.
+     * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
+     * Java does not have a conversion to [Character] for [java.lang.Number].
      */
     override fun toChar(): Char = error("Characters are non-numeric")
 
@@ -51,7 +48,7 @@ class FiniteBigRational private constructor(
 
     /**
      * Returns the value of this number as a [Double], which may involve
-     * rounding.  This should produce an _exact_ conversion, that is,
+     * rounding.  This produces an _exact_ conversion, that is,
      * `123.455.toFiniteBigRational().toDouble == 123.456`.
      *
      * @see [Double.toLong] which has similar behavior
@@ -63,16 +60,10 @@ class FiniteBigRational private constructor(
      * 0 when this object is equal to the specified [other] object, -1 when
      * it is less than [other], or 1 when it is greater than [other].
      *
-     * Sorting ignores [equals] for special values.  [NaN] sorts to the end,
-     * even as `NaN != NaN` (and similarly for the infinities).
-     *
-     * Considering special values, stable ordering produces:
-     * - -∞
+     * Stable ordering produces:
      * - -1
      * - 0
      * - 1
-     * - +∞
-     * - NaN
      */
     override fun compareTo(other: FiniteBigRational) = when {
         this === other -> 0 // Sort stability for constants
@@ -97,10 +88,7 @@ class FiniteBigRational private constructor(
 
     /**
      * Returns a string representation of the object.  In particular:
-     * * `NaN` is "NaN"
-     * * `POSITIVE_INFINITY` is "+∞" (UNICODE)
-     * * `NEGATIVE_INFINITY` is "-∞" (UNICODE)
-     * * Finite values are _numerator_/_denominator_
+     * * Finite values are [numerator]/[denominator]
      */
     override fun toString() = when {
         denominator.isOne() -> numerator.toString()
@@ -109,26 +97,26 @@ class FiniteBigRational private constructor(
 
     companion object {
         /**
-         * A constant holding 0 value of type `FiniteBigRational`. It is equivalent
-         * `0 over 1`.
+         * A constant holding 0 value of type [FiniteBigRational]. It is
+         * equivalent `0 over 1`.
          */
         val ZERO = FiniteBigRational(BInt.ZERO, BInt.ONE)
 
         /**
-         * A constant holding 1 value of type `FiniteBigRational`. It is equivalent
-         * `1 over 1`.
+         * A constant holding 1 value of type [FiniteBigRational]. It is
+         * equivalent `1 over 1`.
          */
         val ONE = FiniteBigRational(BInt.ONE, BInt.ONE)
 
         /**
-         * A constant holding 2 value of type `FiniteBigRational`. It is equivalent
-         * `2 over 1`.
+         * A constant holding 2 value of type [FiniteBigRational]. It is
+         * equivalent `2 over 1`.
          */
         val TWO = FiniteBigRational(BInt.TWO, BInt.ONE)
 
         /**
-         * A constant holding 10 value of type `FiniteBigRational`. It is equivalent
-         * `10 over 1`.
+         * A constant holding 10 value of type [FiniteBigRational]. It is
+         * equivalent `10 over 1`.
          */
         val TEN = FiniteBigRational(BInt.TEN, BInt.ONE)
 
@@ -137,7 +125,8 @@ class FiniteBigRational private constructor(
          * specified ratio, `numerator / denominator`.
          *
          * This factory method is in preference to an explicit constructor
-         * allowing for reuse of frequently used FiniteBigRationals.  In particular:
+         * allowing for reuse of frequently used FiniteBigRationals.  In
+         * particular:
          *
          * * ZERO
          * * ONE
@@ -145,7 +134,8 @@ class FiniteBigRational private constructor(
          * * TEN
          */
         fun valueOf(numerator: BInt, denominator: BInt): FiniteBigRational {
-            if (denominator.isZero()) throw ArithmeticException("division by zero")
+            if (denominator.isZero())
+                throw ArithmeticException("division by zero")
             if (numerator.isZero()) return ZERO
 
             var n = numerator
@@ -175,22 +165,21 @@ class FiniteBigRational private constructor(
 
 /**
  * The signum of this FiniteBigRational: -1 for negative, 0 for zero, or
- * 1 for positive.  `sign` of `NaN` is another `NaN`.
+ * 1 for positive.
  */
 val FiniteBigRational.sign: FiniteBigRational
     get() = numerator.signum().toFiniteBigRational()
 
 /**
  * Returns a FiniteBigRational whose value is the absolute value of this
- * FiniteBigRational.  `absoluteValue` of `NaN` is another `NaN`.
+ * FiniteBigRational.
  */
 val FiniteBigRational.absoluteValue: FiniteBigRational
     get() = valueOf(numerator.abs(), denominator)
 
 /**
  * Returns a FiniteBigRational whose value is the reciprocal of this
- * FiniteBigRational.  `reciprocal` of `NaN` is another `NaN`.  Reciprocals of
- * infinities are `ZERO`.
+ * FiniteBigRational.  Reciprocals throw [ArithmeticException].
  */
 val FiniteBigRational.reciprocal: FiniteBigRational
     get() = valueOf(denominator, numerator)
@@ -792,7 +781,7 @@ operator fun FiniteBigRational.rem(divisor: FiniteBigRational) = ZERO
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or throws [ArithmeticException].
  *
  * @see [divideAndRemainder] */
 operator fun FiniteBigRational.rem(divisor: BDouble) =
@@ -800,7 +789,7 @@ operator fun FiniteBigRational.rem(divisor: BDouble) =
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or throws [ArithmeticException].
  *
  * @see [divideAndRemainder] */
 operator fun FiniteBigRational.rem(divisor: Double) =
@@ -808,7 +797,7 @@ operator fun FiniteBigRational.rem(divisor: Double) =
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or throws [ArithmeticException].
  *
  * @see [divideAndRemainder] */
 operator fun FiniteBigRational.rem(divisor: Float) =
@@ -816,7 +805,7 @@ operator fun FiniteBigRational.rem(divisor: Float) =
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or throws [ArithmeticException].
  *
  * @see [divideAndRemainder] */
 operator fun FiniteBigRational.rem(divisor: BInt) =
@@ -824,7 +813,7 @@ operator fun FiniteBigRational.rem(divisor: BInt) =
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or throws [ArithmeticException].
  *
  * @see [divideAndRemainder] */
 operator fun FiniteBigRational.rem(divisor: Long) =
@@ -832,7 +821,7 @@ operator fun FiniteBigRational.rem(divisor: Long) =
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or throws [ArithmeticException].
  *
  * @see [divideAndRemainder] */
 operator fun FiniteBigRational.rem(divisor: Int) =
@@ -1085,7 +1074,7 @@ private fun convert(other: BDouble) = when (other) {
 
 /**
  * Since the conversion to a rational is _exact_, converting the resulting
- * rational back to a `Double` should produce the original value.
+ * rational back to a [Double] produces the original value.
  */
 private fun convert(d: Double) = when {
     d == 0.0 -> ZERO
@@ -1194,12 +1183,12 @@ fun FiniteBigRational.round() = when {
 private fun FiniteBigRational.roundsToSelf() = isInteger()
 
 /**
- * Returns a FiniteBigRational between this FiniteBigRational and the other one, or
- * `NaN` if this or the other FiniteBigRational are `NaN` or the same.
+ * Returns a FiniteBigRational between this FiniteBigRational and the other
+ * one, or throws [ArithmeticException] if the endpoints are the same.
  *
  * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
  * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
- * not matter).  When `a/b = c/d`, returns `NaN`.
+ * not matter).  When `a/b = c/d`, throws [ArithmeticException].
  */
 fun FiniteBigRational.between(other: FiniteBigRational) = when {
     this === other || equals(other) -> throw ArithmeticException("nothing between")
@@ -1209,11 +1198,7 @@ fun FiniteBigRational.between(other: FiniteBigRational) = when {
     )
 }
 
-/**
- * Returns the finite continued fraction of this FiniteBigRational.
- *
- * Non-finite FiniteBigRationals produce `[NaN;]`.
- */
+/** Returns the finite continued fraction of this FiniteBigRational. */
 fun FiniteBigRational.toContinuedFraction() =
     FiniteContinuedFraction.valueOf(this)
 

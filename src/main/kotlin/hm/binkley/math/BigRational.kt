@@ -17,13 +17,13 @@ internal typealias BDouble = BigDecimal
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).  BigRational
- * provides analogues to all of Kotlin's `Long` operators where appropriate.
+ * provides analogues to all of Kotlin's [Long] operators where appropriate.
  * Additionally, BigRational provides operations for GCD and LCM calculation.
  *
  * Comparison operations perform signed comparisons, analogous to those
  * performed by Kotlin's relational and equality operators.
  *
- * Division by `ZERO` does not raise an `ArithmeticException`; rather, it
+ * Division by [ZERO] does not raise an [ArithmeticException]; rather, it
  * produces infinities or "not a number".  Infinities and "not a number"
  * propagate where appropriate.
  *
@@ -37,9 +37,8 @@ class BigRational private constructor(
     val denominator: BInt
 ) : Number(), Comparable<BigRational> {
     /**
-     * Raises an `IllegalStateException`.  Kotlin provides a `toChar` in its
-     * `Number` class; Java does not have a conversion to `Character` for
-     * `java.lang.Number`.
+     * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
+     * Java does not have a conversion to [Character] for [java.lang.Number].
      */
     override fun toChar(): Char = error("Characters are non-numeric")
 
@@ -118,10 +117,10 @@ class BigRational private constructor(
 
     /**
      * Returns a string representation of the object.  In particular:
-     * * `NaN` is "NaN"
-     * * `POSITIVE_INFINITY` is "+∞" (UNICODE)
-     * * `NEGATIVE_INFINITY` is "-∞" (UNICODE)
-     * * Finite values are _numerator_/_denominator_
+     * * [NaN] is "NaN"
+     * * [POSITIVE_INFINITY] is "+∞" (UNICODE)
+     * * [NEGATIVE_INFINITY] is "-∞" (UNICODE)
+     * * Finite values are [numerator]/[denominator]
      */
     override fun toString() = when {
         isNaN() -> "NaN"
@@ -134,42 +133,42 @@ class BigRational private constructor(
     companion object {
         /**
          * A constant holding "not a number" (NaN) value of type
-         * `BigRational`. It is equivalent `0 over 0`.
+         * [BigRational]. It is equivalent `0 over 0`.
          */
         val NaN = BigRational(BInt.ZERO, BInt.ZERO)
 
         /**
-         * A constant holding 0 value of type `BigRational`. It is equivalent
+         * A constant holding 0 value of type [BigRational]. It is equivalent
          * `0 over 1`.
          */
         val ZERO = BigRational(BInt.ZERO, BInt.ONE)
 
         /**
-         * A constant holding 1 value of type `BigRational`. It is equivalent
+         * A constant holding 1 value of type [BigRational]. It is equivalent
          * `1 over 1`.
          */
         val ONE = BigRational(BInt.ONE, BInt.ONE)
 
         /**
-         * A constant holding 2 value of type `BigRational`. It is equivalent
+         * A constant holding 2 value of type [BigRational]. It is equivalent
          * `2 over 1`.
          */
         val TWO = BigRational(BInt.TWO, BInt.ONE)
 
         /**
-         * A constant holding 10 value of type `BigRational`. It is equivalent
+         * A constant holding 10 value of type [BigRational]. It is equivalent
          * `10 over 1`.
          */
         val TEN = BigRational(BInt.TEN, BInt.ONE)
 
         /**
-         * A constant holding positive infinity value of type `BigRational`.
+         * A constant holding positive infinity value of type [BigRational].
          * It is equivalent `1 over 0`.
          */
         val POSITIVE_INFINITY = BigRational(BInt.ONE, BInt.ZERO)
 
         /**
-         * A constant holding negative infinity value of type `BigRational`.
+         * A constant holding negative infinity value of type [BigRational].
          * It is equivalent `-1 over 0`.
          */
         val NEGATIVE_INFINITY = BigRational(BInt.ONE.negate(), BInt.ZERO)
@@ -224,7 +223,7 @@ class BigRational private constructor(
 
 /**
  * The signum of this BigRational: -1 for negative, 0 for zero, or
- * 1 for positive.  `sign` of `NaN` is another `NaN`.
+ * 1 for positive.  `sign` of [NaN] is another [NaN].
  */
 val BigRational.sign: BigRational
     get() = when {
@@ -234,15 +233,15 @@ val BigRational.sign: BigRational
 
 /**
  * Returns a BigRational whose value is the absolute value of this
- * BigRational.  `absoluteValue` of `NaN` is another `NaN`.
+ * BigRational.  `absoluteValue` of [NaN] is another [NaN].
  */
 val BigRational.absoluteValue: BigRational
     get() = valueOf(numerator.abs(), denominator)
 
 /**
  * Returns a BigRational whose value is the reciprocal of this
- * BigRational.  `reciprocal` of `NaN` is another `NaN`.  Reciprocals of
- * infinities are `ZERO`.
+ * BigRational.  `reciprocal` of [NaN] is another [NaN].  Reciprocals of
+ * infinities are [ZERO].
  */
 val BigRational.reciprocal: BigRational
     get() = valueOf(denominator, numerator)
@@ -831,7 +830,7 @@ operator fun BigRational.rem(divisor: BigRational) = when {
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or not a number if either value is [NaN].
  *
  * @see [divideAndRemainder] */
 operator fun BigRational.rem(divisor: BDouble) =
@@ -839,35 +838,35 @@ operator fun BigRational.rem(divisor: BDouble) =
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or not a number if either value is [NaN].
  *
  * @see [divideAndRemainder] */
 operator fun BigRational.rem(divisor: Double) = this % divisor.toBigRational()
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or not a number if either value is [NaN].
  *
  * @see [divideAndRemainder] */
 operator fun BigRational.rem(divisor: Float) = this % divisor.toBigRational()
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or not a number if either value is [NaN].
  *
  * @see [divideAndRemainder] */
 operator fun BigRational.rem(divisor: BInt) = this % divisor.toBigRational()
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or not a number if either value is [NaN].
  *
  * @see [divideAndRemainder] */
 operator fun BigRational.rem(divisor: Long) = this % divisor.toBigRational()
 
 /**
  * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is `NaN`.
+ * exact), or not a number if either value is [NaN].
  *
  * @see [divideAndRemainder] */
 operator fun BigRational.rem(divisor: Int) = this % divisor.toBigRational()
@@ -1065,7 +1064,7 @@ private fun convert(other: BDouble) = when (other) {
 
 /**
  * Since the conversion to a rational is _exact_, converting the resulting
- * rational back to a `Double` should produce the original value.
+ * rational back to a [Double] produces the original value.
  */
 private fun convert(d: Double) = when {
     d == 0.0 -> ZERO
@@ -1176,11 +1175,11 @@ private fun BigRational.roundsToSelf() = isInteger() || !isFinite()
 
 /**
  * Returns a BigRational between this BigRational and the other one, or
- * `NaN` if this or the other BigRational are `NaN` or the same.
+ * [NaN] if this or the other BigRational are [NaN] or the same.
  *
  * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
  * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
- * not matter).  When `a/b = c/d`, returns `NaN`.
+ * not matter).  When `a/b = c/d`, returns [NaN].
  */
 fun BigRational.between(other: BigRational) = when {
     this === other || equals(other) -> NaN
