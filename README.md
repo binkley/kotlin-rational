@@ -30,8 +30,8 @@ There are no run-time dependencies.
 Use `./mvnw` or `./batect build` to build, run tests, and create a demo
 program.
 
-This works "out of the box", however, and important optimization is to avoid
-redownloading plugins and dependencies.
+This works "out of the box", however, an important optimization is to avoid
+redownloading plugins and dependencies from within a Docker container.
 
 When using [batect](https://batect.dev/), either create a local cache
 directory, or link to your user Maven cache directory:
@@ -40,7 +40,7 @@ directory, or link to your user Maven cache directory:
 $ mkdir .maven-cache
 ```
 
-(Redownloads all Maven components and dependencies.)
+(Redownloads all Maven components and dependencies, but one time only.)
 
 or:
 
@@ -49,6 +49,8 @@ $ ln -s ~/.m2 .maven-cache
 ```
 
 (Shares Maven component and dependency downloads across projects.)
+
+The batect Docker container will use this cache.
 
 ## Design choices
 
@@ -84,10 +86,10 @@ number", -∞, and +∞, following the lead of
 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), and using the
 _affinely extended real line_ as a model. However, this code does not
 consider `+0` or `-0`, treating all zeros as `0`, and distinguishes +∞ from
--∞ (as opposed to the projectively extended real line).  In these ways, this
-code does not represent a proper _field_.
+-∞ (as opposed to the projectively extended real line).  In these ways,
+`BigRational` does not represent a proper _Field_.
 
-The code for `FiniteBigRational` _should_ simply be ℚ, and raise
+The code for `FiniteBigRational`, however, _should_ simply be ℚ, and raises
 `ArithmeticException` when encountering impossible circumstances.
 
 ### Prefer readability
@@ -101,17 +103,17 @@ This code always keeps rationals in proper form:
 
 1. The numerator and denominator are coprime (in "lowest form")
 2. The denominator is non-negative
-3. For `BigRational`, the denominator is `0` for three special cases only:
-`NaN`, `POSITIVE_INFINITY` and `NEGATIVE_INFINITY.  Thus, for these cases,
-care should be taken
+3. For `BigRational`, the denominator is `0` for three special cases: `NaN`
+("0 / 0"), `POSITIVE_INFINITY` ("1 / 0") and `NEGATIVE_INFINITY` ("-1 / 0").
+Thus, for these cases, care should be taken in using their denominators
 
 The denominator is always non-negative; it is zero for the special values
 `NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as an implementation
 detail for `BigRational` (there is no proper representation in ℚ for these
 cases).
 
-One may conclude that `FiniteBigRational` is a _Field_, and `BigRational` is
-not.
+One may conclude that `FiniteBigRational` is a _Field_ under addition and
+multiplication, and `BigRational` is not.
 
 ### Representation of not a number and infinities
 
@@ -141,22 +143,29 @@ discussion.)
 ### Single concept of zero
 
 In this code there is only `ZERO` (0).  There are no positive or
-negative zeros which would represent approaching zero from different
-directions.
+negative zeros to represent approaching zero from different directions.
 
-### `BigRational` and `FiniteBigRational` are a `Number`
+### `BigRational` and `FiniteBigRational` are `Number`s
 
 In this code, `BigRational` and `FiniteBigRational` are a `kotlin.Number`, in
 part to inherit Kotlin handling of numeric types.  One consequence: This
 code raises an error for conversion to and from `Character`.  This
-conversion seemed perverse, _eg_, `3/5` to what character?
+conversion seemed perverse, _eg_, `3/5` converts to what character?
 
 This code supports conversion among `Double` and `Float`, and `BigRational`
 and `FiniteBigRational` for all finite values, and non-finite values for
 `BigRational`.  The conversion is _exact_: it constructs a power-of-2
 rational value following IEEE 754; so reconverting returns the original
-floating point value, and for `BigRational` converts non-finite values (for
-`FiniteBigRational` this raises `ArithmeticException`).
+floating point value, and for `BigRational` converts non-finite values to
+their corresponding values (for `FiniteBigRational` this raises
+`ArithmeticException`).
+
+|Floating point|`BigRational`|`FiniteBigRational`|
+|---|---|---|
+|`0.0`|`ZERO`|`ZERO`|
+|`NaN`|`NaN`|Raises exception|
+|`POSITIVE_INFINITY`|`POSITIVE_INFINITY`|Raises exception|
+|`NEGATIVE_INFINITY`|`NEGATIVE_INFINITY`|Raises exception|
 
 When narrowing types, conversion may lose magnitude, precision, and/or sign
 (there is no overflow/underflow).  This code adopts the behavior of
@@ -166,8 +175,10 @@ When narrowing types, conversion may lose magnitude, precision, and/or sign
 
 There are two ways to handle division by 0:
 
-- Produce a `NaN`, what floating point does (_eg_, `1.0 / 0`) (`BigRational`)
-- Raise an error, what whole numbers do (_eg_, `1 / 0`) (`FiniteBigRational`)
+- Produce a `NaN`, what floating point numbers do (_eg_, `1.0 / 0`)
+(`BigRational`)
+- Raise an error, what fixed point numbers do (_eg_, `1 / 0`)
+(`FiniteBigRational`)
 
 For `BigRational`, as with floating point, `NaN != NaN`, and finite values
 equal themselves.  As with mathematics, infinities are not equal to
@@ -180,6 +191,13 @@ reduced to `1 / 0`, negative infinity to `-1 / 0`).  The field of rationals
 (ℚ) is complex ("difficult", in the colloquial meaning) when considering
 infinities.
 
+|Infix constructor|`BigRational`|`FiniteBigRational`|
+|---|---|---|
+|`0 over 1`|`ZERO`|`ZERO`|
+|`0 over 0`|`NaN`|Raises exception|
+|`1 over 0`|`POSITIVE_INFINITY`|Raises exception|
+|`-1 over 0`|`NEGATIVE_INFINITY`|Raises exception|
+
 ### Conversions and operators
 
 This code provides conversions (`toBigRational`, `toFiniteBigRational`, and
@@ -189,13 +207,15 @@ their ilk) and operator overloads for these `Number` types:
 - `Double`
 - `Float`
 - `BigInteger`
-- `Long`
-- `Int`
+- `Long` (with truncation)
+- `Int` (with truncation)
 
-In addition, there is conversion to and from `ContinuedFraction`.
+In addition, there is conversion to and from `FiniteContinuedFraction`.
 
-Adding support for `Short` and `Byte` is stright-forward, but I did not
-consider it worthwhile without more outside input.
+Adding support for `Short` and `Byte` is straight-forward, but I did not
+consider it worthwhile without more outside input.  As discussed, support for
+`Character` does not make sense (and it is unfortunate Java's
+`java.lang.Number`, which `kotlin.Number` models, includes this conversion.)
 
 ### Sorting
 
@@ -212,6 +232,14 @@ complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
 In general, when properties, methods, and operations do not have
 documentation, they behave similarly as their floating point counterpart.
 
+### Constructors
+
+All constructors are _private_.  Please use:
+
+- `over` infix operators, _eg_, `2 over 1`
+- `valueOf` companion methods, _eg_,
+`BigRational.valueOf(BigInteger.TWO, BigInteger.ONE)`
+
 ### Properties
 
 - `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
@@ -225,7 +253,7 @@ infinite
 - `isInteger()`, `isDyadic()` (See
 [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational).)
 - `gcm(other)`, `lcd(other)`
-- `toContinuedFraction()`
+- `toFiniteContinuedFraction()`
 - `pow(exponent)`
 - `divideAndRemainder(other)`
 - `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
@@ -235,14 +263,15 @@ towards 0
 
 - All numeric operators (binary and unary `plus` and `minus`, `times`, `div`,
 and `rem`)
-- `rem` always returns `ZERO` or a non-finite value (division is exact)
+- `rem` always returns `ZERO` or a non-finite value (rational division is
+exact with no remainder)
 - Ranges and progressions
 - See also `divideAndRemainder`
 
 ### Types
 
 This code attempts to ease programmer typing through overloading.  Where
-sensible, if a `BigRational` and `FiniteBigRational` arte provided as
+sensible, if a `BigRational` and `FiniteBigRational` are provided as
 argument or extension method types, then so are `BigDecimal`, `Double`,
 `Float`, `BigInteger`, `Long`, and `Int`.
 
@@ -270,10 +299,10 @@ constants, and relevant code checks for those constants.
 
 See:
 
-- `Nan`, `isNaN()`
-- `POSITIVE_INFINITY`, `isPositiveInfinity()`
-- `NEGATIVE_INFINITY`, `isNegativeInfinity()`
-- `ZERO`, `ONE`, `TWO`, `TEN`
+- `Nan`, `isNaN()` (`BigRational`)
+- `POSITIVE_INFINITY`, `isPositiveInfinity()` (`BigRational`)
+- `NEGATIVE_INFINITY`, `isNegativeInfinity()` (`BigRational`)
+- `ZERO`, `ONE`, `TWO`, `TEN` (`BigRational` and `FiniteBigRational`)
 
 ### Factory constructor
 
@@ -297,10 +326,13 @@ code relies on the factory constructor (`valueOf`) for GCM in reducing
 rationals to simplest form, and `gcm` and `lcm` methods are recursive between
 themselves.
 
+Do note, however, this code implements GCD and LCM recursively in terms of
+each other.
+
 ### Continued fractions
 
 This code chooses a separate class for representation of rationals as
-continued fractions.
+continued fractions, `FiniteContinuedFraction`.
 
 ## Further reading
 
@@ -312,5 +344,5 @@ _vs_ [_Extended real number line_](https://en.wikipedia.org/wiki/Extended_real_n
 - [_Exact value of a floating-point number as a rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational).
 - [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
 - [_An introduction to context-oriented programming in Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
-- [_Continued Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/ContinuedFractions.pdf)
+- [_Continued Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/FiniteContinuedFractions.pdf)
 - [_Generalized continued fracion_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)

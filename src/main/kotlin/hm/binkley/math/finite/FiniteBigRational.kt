@@ -1154,7 +1154,7 @@ fun FiniteBigRational.gcd(other: FiniteBigRational) =
 
 /**
  * Returns a `FiniteBigRational` whose value is the lowest common multiple of
- * the absolute values of `this` and `other`.  Returns 1 when `this` and
+ * the absolute values of `this` and `other`.  Returns 0 when `this` and
  * `other` are both 0.
  */
 fun FiniteBigRational.lcm(other: FiniteBigRational) =
