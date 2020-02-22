@@ -82,7 +82,7 @@ fun main() {
         123.456,
         Double.NaN,
         Double.MAX_VALUE,
-        Double.MIN_VALUE
+        Double.MIN_VALUE // TODO: Conversion back yields 0.0 :(
     ))
         dump(d)
 
