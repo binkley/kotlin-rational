@@ -25,6 +25,10 @@ Try `./run.sh` for a demonstration.
 
 There are no run-time dependencies.
 
+## Platform
+
+This code is tested and verified on JDK 11 and JDK 13.
+
 ## Preparing
 
 Use `./mvnw` or `./batect build` to build, run tests, and create a demo
