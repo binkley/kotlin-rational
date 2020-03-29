@@ -4,7 +4,9 @@
 
 # Kotlin Rational
 
-![Local Build](https://github.com/binkley/kotlin-rational/workflows/Local%20Build/badge.svg)
+![build](https://github.com/binkley/kunits/workflows/Local%20Build/badge.svg)
+[![issues](https://img.shields.io/github/issues/binkley/kunits.svg)](https://github.com/binkley/kunits/issues/)
+[![Public Domain](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 An immutable, infinite-precision `BigRational` and `FiniteBigRational` (ratio,
 fraction) class for Kotlin.
