@@ -4,8 +4,8 @@
 
 # Kotlin Rational
 
-![build](https://github.com/binkley/kunits/workflows/Local%20Build/badge.svg)
-[![issues](https://img.shields.io/github/issues/binkley/kunits.svg)](https://github.com/binkley/kunits/issues/)
+![build](https://github.com/binkley/kolin-rational/workflows/Local%20Build/badge.svg)
+[![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![Public Domain](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 An immutable, infinite-precision `BigRational` and `FiniteBigRational` (ratio,
@@ -26,6 +26,10 @@ A secondary goal is to model the Kotlin standard library, and Java's
 Try `./run.sh` for a demonstration.
 
 There are no run-time dependencies.
+
+## Releases
+
+* 1.0.0 &mdash; Publishing for reuse by KUnits
 
 ## Platform
 
