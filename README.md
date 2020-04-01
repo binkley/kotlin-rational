@@ -43,16 +43,8 @@ program.
 This works "out of the box", however, an important optimization is to avoid
 redownloading plugins and dependencies from within a Docker container.
 
-When using [batect](https://batect.dev/), either create a local cache
-directory, or link to your user Maven cache directory:
-
-```
-$ mkdir .maven-cache
-```
-
-(Redownloads all Maven components and dependencies, but one time only.)
-
-or:
+When using [batect](https://batect.dev/), link to your user Maven cache
+directory:
 
 ```
 $ ln -s ~/.m2 .maven-cache
