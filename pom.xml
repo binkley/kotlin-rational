@@ -4,7 +4,7 @@
 
     <groupId>hm.binkley</groupId>
     <artifactId>kotlin-rational</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>kotlin-rational</name>
     <description>
@@ -27,7 +27,6 @@
         <connection>scm:git:git://github.com/binkley/kotlin-rational
         </connection>
         <url>https://github.com/binkley/kotlin-rational</url>
-        <tag>kotlin-rational-1.0.0</tag>
     </scm>
 
     <properties>
