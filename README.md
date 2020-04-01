@@ -4,7 +4,7 @@
 
 # Kotlin Rational
 
-![build](https://github.com/binkley/kolin-rational/workflows/Local%20Build/badge.svg)
+![build](https://github.com/binkley/kotlin-rational/workflows/Local%20Build/badge.svg)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![Public Domain](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
