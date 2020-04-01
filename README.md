@@ -4,8 +4,8 @@
 
 # Kotlin Rational
 
-![build](https://github.com/binkley/kunits/workflows/Local%20Build/badge.svg)
-[![issues](https://img.shields.io/github/issues/binkley/kunits.svg)](https://github.com/binkley/kunits/issues/)
+![build](https://github.com/binkley/kotlin-rational/workflows/Builds,%20verifies,%20and%20publishes/badge.svg)
+[![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![Public Domain](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 An immutable, infinite-precision `BigRational` and `FiniteBigRational` (ratio,
@@ -27,6 +27,10 @@ Try `./run.sh` for a demonstration.
 
 There are no run-time dependencies.
 
+## Releases
+
+* 1.0.0 &mdash; Publishing for reuse by KUnits
+
 ## Platform
 
 This code is tested and verified on JDK 11 and JDK 13.
@@ -39,16 +43,8 @@ program.
 This works "out of the box", however, an important optimization is to avoid
 redownloading plugins and dependencies from within a Docker container.
 
-When using [batect](https://batect.dev/), either create a local cache
-directory, or link to your user Maven cache directory:
-
-```
-$ mkdir .maven-cache
-```
-
-(Redownloads all Maven components and dependencies, but one time only.)
-
-or:
+When using [batect](https://batect.dev/), link to your user Maven cache
+directory:
 
 ```
 $ ln -s ~/.m2 .maven-cache
