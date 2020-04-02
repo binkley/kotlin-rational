@@ -43,11 +43,19 @@ class BigRational private constructor(
      */
     override fun toChar(): Char = error("Characters are non-numeric")
 
+    /** @see [Long.toByte] */
     override fun toByte() = toLong().toByte()
+
+    /** @see [Long.toShort] */
     override fun toShort() = toLong().toShort()
+
+    /** @see [Long.toInt] */
     override fun toInt() = toLong().toInt()
 
-    /** @see [Double.toLong] */
+    /**
+     * @see [Double.toLong]
+     * @see [BigDecimal.toLong]
+     */
     override fun toLong() = when {
         isNaN() -> 0L
         isPositiveInfinity() -> Long.MAX_VALUE
@@ -55,14 +63,21 @@ class BigRational private constructor(
         else -> (numerator / denominator).toLong()
     }
 
+    /**
+     * @see [Double.toFloat]
+     * @see [toDouble]
+     */
     override fun toFloat() = toDouble().toFloat()
 
     /**
      * Returns the value of this number as a [Double], which may involve
      * rounding.  This should produce an _exact_ conversion, that is,
-     * `123.455.toBigRational().toDouble == 123.456`.
+     * `123.456.toBigRational().toDouble == 123.456`.
      *
-     * @see [Double.toLong] which has similar behavior
+     * Handles special values `NaN`, `POSITIVE_INFINITY`, and
+     * `NEGATIVE_INFINITY`.
+     *
+     * @see [BigDecimal.toDouble] with similar behavior
      */
     override fun toDouble() = when {
         isNaN() -> Double.NaN

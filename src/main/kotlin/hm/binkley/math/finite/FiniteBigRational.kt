@@ -38,21 +38,30 @@ class FiniteBigRational private constructor(
      */
     override fun toChar(): Char = error("Characters are non-numeric")
 
+    /** @see [Long.toByte] */
     override fun toByte() = toLong().toByte()
+
+    /** @see [Long.toShort] */
     override fun toShort() = toLong().toShort()
+
+    /** @see [Long.toInt] */
     override fun toInt() = toLong().toInt()
 
-    /** @see [Double.toLong] */
+    /** @see [BigDecimal.toLong] */
     override fun toLong() = (numerator / denominator).toLong()
 
+    /**
+     * @see [Double.toFloat]
+     * @see [toDouble]
+     */
     override fun toFloat() = toDouble().toFloat()
 
     /**
      * Returns the value of this number as a [Double], which may involve
      * rounding.  This produces an _exact_ conversion, that is,
-     * `123.455.toFiniteBigRational().toDouble == 123.456`.
+     * `123.456.toFiniteBigRational().toDouble == 123.456`.
      *
-     * @see [Double.toLong] which has similar behavior
+     * @see [BigDecimal.toDouble] with similar behavior
      */
     override fun toDouble() = numerator.toDouble() / denominator.toDouble()
 
