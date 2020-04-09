@@ -11,6 +11,10 @@
 An immutable, infinite-precision `BigRational` and `FiniteBigRational` (ratio,
 fraction) class for Kotlin.
 
+*DISCLAIMER* This code has not been vetted by a mathematician in the way in
+which the JDK's `BigDecimal` has been.  It is a pleasure project, not a
+reviewed scientific library.
+
 There are two versions, `BigRational` and `FiniteBigRational`, providing
 pseudo-IEEE 754 and purely finite versions.
 
