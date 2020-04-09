@@ -2,6 +2,8 @@
 
 package hm.binkley.math.finite
 
+import hm.binkley.math.BDouble
+import hm.binkley.math.BInt
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
@@ -14,11 +16,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.math.BigDecimal
-import java.math.BigInteger
-
-private typealias BInt = BigInteger
-private typealias BDouble = BigDecimal
 
 /**
  * NB -- the tests use a mixture of constructors while testing functionality.

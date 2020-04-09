@@ -17,11 +17,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.math.BigDecimal
-import java.math.BigInteger
 
-private typealias BInt = BigInteger
-private typealias BDouble = BigDecimal
 private typealias BigRationalAssertion = (BigRational) -> Unit
 
 /**

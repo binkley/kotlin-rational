@@ -1,16 +1,23 @@
 package hm.binkley.math.finite
 
+import hm.binkley.math.BDouble
+import hm.binkley.math.BInt
+import hm.binkley.math.BigRationalBase
+import hm.binkley.math.exponent
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import hm.binkley.math.finite.FiniteBigRational.Companion.valueOf
-import java.math.BigDecimal
+import hm.binkley.math.isEven
+import hm.binkley.math.isOne
+import hm.binkley.math.isTen
+import hm.binkley.math.isTwo
+import hm.binkley.math.isZero
+import hm.binkley.math.lcm
+import hm.binkley.math.mantissa
 import java.math.BigInteger
 import java.util.Objects.hash
-
-internal typealias BInt = BigInteger
-internal typealias BDouble = BigDecimal
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).
@@ -29,82 +36,9 @@ internal typealias BDouble = BigDecimal
  * @todo Assign properties at construction; avoid circular ctors
  */
 class FiniteBigRational private constructor(
-    val numerator: BInt,
-    val denominator: BInt
-) : Number(), Comparable<FiniteBigRational> {
-    /**
-     * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
-     * Java does not have a conversion to [Character] for [java.lang.Number].
-     */
-    override fun toChar(): Char = error("Characters are non-numeric")
-
-    /** @see [Long.toByte] */
-    override fun toByte() = toLong().toByte()
-
-    /** @see [Long.toShort] */
-    override fun toShort() = toLong().toShort()
-
-    /** @see [Long.toInt] */
-    override fun toInt() = toLong().toInt()
-
-    /** @see [BigDecimal.toLong] */
-    override fun toLong() = (numerator / denominator).toLong()
-
-    /**
-     * @see [Double.toFloat]
-     * @see [toDouble]
-     */
-    override fun toFloat() = toDouble().toFloat()
-
-    /**
-     * Returns the value of this number as a [Double], which may involve
-     * rounding.  This produces an _exact_ conversion, that is,
-     * `123.456.toFiniteBigRational().toDouble == 123.456`.
-     *
-     * @see [BigDecimal.toDouble] with similar behavior
-     */
-    override fun toDouble() = numerator.toDouble() / denominator.toDouble()
-
-    /**
-     * Compares this object with the specified object for order. Returns
-     * 0 when this object is equal to the specified [other] object, -1 when
-     * it is less than [other], or 1 when it is greater than [other].
-     *
-     * Stable ordering produces:
-     * - -1
-     * - 0
-     * - 1
-     */
-    override fun compareTo(other: FiniteBigRational) = when {
-        this === other -> 0 // Sort stability for constants
-        else -> {
-            val a = numerator * other.denominator
-            val b = other.numerator * denominator
-            a.compareTo(b)
-        }
-    }
-
-    /**
-     * NB -- Infinities and "not a number" are not equal to themselves.
-     *
-     * @see Any.equals
-     */
-    override fun equals(other: Any?) = this === other ||
-            other is FiniteBigRational &&
-            numerator == other.numerator &&
-            denominator == other.denominator
-
-    override fun hashCode() = hash(numerator, denominator)
-
-    /**
-     * Returns a string representation of the object.  In particular:
-     * * Finite values are [numerator]/[denominator]
-     */
-    override fun toString() = when {
-        denominator.isOne() -> numerator.toString()
-        else -> "$numerator⁄$denominator" // UNICODE fraction slash
-    }
-
+    numerator: BInt,
+    denominator: BInt
+) : BigRationalBase<FiniteBigRational>(numerator, denominator) {
     companion object {
         /**
          * A constant holding 0 value of type [FiniteBigRational]. It is
@@ -1108,22 +1042,12 @@ private fun convert(d: Double) = when {
     else -> TWO.pow(exponent(d)) * factor(d)
 }
 
-private fun exponent(d: Double) =
-    ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
-
 private fun factor(other: Double): FiniteBigRational {
     val denominator = 1L shl 52
     val numerator = mantissa(other) + denominator
 
     return valueOf(numerator.toBigInteger(), denominator.toBigInteger())
 }
-
-private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
-
-private fun BInt.isZero() = this == BInt.ZERO
-private fun BInt.isOne() = this == BInt.ONE
-private fun BInt.isTwo() = this == BInt.TWO
-private fun BInt.isTen() = this == BInt.TEN
 
 /**
  * Returns a pair of `this / other` (quotient) and `this % other`
@@ -1171,8 +1095,6 @@ fun FiniteBigRational.lcm(other: FiniteBigRational) =
         numerator.lcm(other.numerator),
         denominator.gcd(other.denominator)
     )
-
-private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
 /**
  * Rounds to the nearest whole number _less than or equal_ to this
@@ -1247,5 +1169,3 @@ fun FiniteBigRational.isDyadic() = (denominator.isOne() ||
  * Gosper 1972).
  */
 fun FiniteBigRational.isDenominatorEven() = denominator.isEven()
-
-private fun BInt.isEven() = BInt.ZERO == this % BInt.TWO

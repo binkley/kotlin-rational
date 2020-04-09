@@ -12,9 +12,6 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Objects.hash
 
-internal typealias BInt = BigInteger
-internal typealias BDouble = BigDecimal
-
 /**
  * Immutable arbitrary-precision rationals (finite fractions).  `BigRational`
  * provides analogues to all of Kotlin's [Long] operators where appropriate.
@@ -33,25 +30,11 @@ internal typealias BDouble = BigDecimal
  * @todo Consider `Short` and `Byte` overloads
  * @todo Assign properties at construction; avoid circular ctors
  */
+@Suppress("EqualsOrHashCode")
 class BigRational private constructor(
-    val numerator: BInt,
-    val denominator: BInt
-) : Number(), Comparable<BigRational> {
-    /**
-     * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
-     * Java does not have a conversion to [Character] for [java.lang.Number].
-     */
-    override fun toChar(): Char = error("Characters are non-numeric")
-
-    /** @see [Long.toByte] */
-    override fun toByte() = toLong().toByte()
-
-    /** @see [Long.toShort] */
-    override fun toShort() = toLong().toShort()
-
-    /** @see [Long.toInt] */
-    override fun toInt() = toLong().toInt()
-
+    numerator: BInt,
+    denominator: BInt
+) : BigRationalBase<BigRational>(numerator, denominator) {
     /**
      * @see [Double.toLong]
      * @see [BigDecimal.toLong]
@@ -60,14 +43,8 @@ class BigRational private constructor(
         isNaN() -> 0L
         isPositiveInfinity() -> Long.MAX_VALUE
         isNegativeInfinity() -> Long.MIN_VALUE
-        else -> (numerator / denominator).toLong()
+        else -> super.toLong()
     }
-
-    /**
-     * @see [Double.toFloat]
-     * @see [toDouble]
-     */
-    override fun toFloat() = toDouble().toFloat()
 
     /**
      * Returns the value of this number as a [Double], which may involve
@@ -83,7 +60,7 @@ class BigRational private constructor(
         isNaN() -> Double.NaN
         isPositiveInfinity() -> Double.POSITIVE_INFINITY
         isNegativeInfinity() -> Double.NEGATIVE_INFINITY
-        else -> numerator.toDouble() / denominator.toDouble()
+        else -> super.toDouble()
     }
 
     /**
@@ -109,11 +86,7 @@ class BigRational private constructor(
         other.isNaN() -> -1
         // +∞ is handled by else, but be explicit to aid reading
         isPositiveInfinity() -> 1
-        else -> {
-            val a = numerator * other.denominator
-            val b = other.numerator * denominator
-            a.compareTo(b)
-        }
+        else -> super.compareTo(other)
     }
 
     /**
@@ -123,13 +96,8 @@ class BigRational private constructor(
      */
     override fun equals(other: Any?) = when {
         !isFinite() -> false
-        this === other -> true
-        other !is BigRational -> false
-        else -> numerator == other.numerator &&
-                denominator == other.denominator
+        else -> super.equals(other)
     }
-
-    override fun hashCode() = hash(numerator, denominator)
 
     /**
      * Returns a string representation of the object.  In particular:
@@ -142,8 +110,7 @@ class BigRational private constructor(
         isNaN() -> "NaN"
         isPositiveInfinity() -> "+∞"
         isNegativeInfinity() -> "-∞"
-        denominator.isOne() -> numerator.toString()
-        else -> "$numerator⁄$denominator" // UNICODE fraction slash
+        else -> super.toString()
     }
 
     companion object {
@@ -1105,22 +1072,12 @@ private fun convert(d: Double) = when {
     else -> TWO.pow(exponent(d)) * factor(d)
 }
 
-private fun exponent(d: Double) =
-    ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
-
 private fun factor(other: Double): BigRational {
     val denominator = 1L shl 52
     val numerator = mantissa(other) + denominator
 
     return valueOf(numerator.toBigInteger(), denominator.toBigInteger())
 }
-
-private fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
-
-private fun BInt.isZero() = this == BInt.ZERO
-private fun BInt.isOne() = this == BInt.ONE
-private fun BInt.isTwo() = this == BInt.TWO
-private fun BInt.isTen() = this == BInt.TEN
 
 /**
  * Returns a pair of `this / other` (quotient) and `this % other`
@@ -1168,8 +1125,6 @@ fun BigRational.lcm(other: BigRational) =
         numerator.lcm(other.numerator),
         denominator.gcd(other.denominator)
     )
-
-private fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
 /**
  * Rounds to the nearest whole number _less than or equal_ to this
@@ -1259,8 +1214,6 @@ fun BigRational.isDyadic() = isFinite() &&
  * Gosper 1972).
  */
 fun BigRational.isDenominatorEven() = denominator.isEven()
-
-private fun BInt.isEven() = BInt.ZERO == this % BInt.TWO
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a

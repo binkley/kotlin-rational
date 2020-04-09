@@ -1,5 +1,6 @@
 package hm.binkley.math.finite
 
+import hm.binkley.math.BInt
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import java.math.BigInteger
 
