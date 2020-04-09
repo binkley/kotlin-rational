@@ -37,26 +37,33 @@ There are no run-time dependencies.
 
 ## Platform
 
-This code is tested and verified on JDK 11 and JDK 13.
+This code has been built and passes tests on JDK 11, 13, and 14.
 
-## Preparing
+## Build
 
-Use `./mvnw` or `./batect build` to build, run tests, and create a demo
-program.
+* [DependencyCheck](https://github.com/jeremylong/DependencyCheck) scans
+for dependency security issues
+* [detekt](https://github.com/arturbosch/detekt) runs static code analysis
+for Kotlin
+* [JUnit](https://github.com/junit-team/junit5) runs tests
+* [JaCoCo](https://github.com/jacoco/jacoco) measures code coverage
+* [ktlint](https://github.com/pinterest/ktlint) keeps code tidy
 
-This works "out of the box", however, an important optimization is to avoid
-redownloading plugins and dependencies from within a Docker container.
+Use `./mvnw` (Maven) or `./batect build` (Batect) to build, run tests, and
+create a demo program.  Use `./run.sh` or `./batect run` to run the demo.
 
-When using [batect](https://batect.dev/), link to your user Maven cache
-directory:
+[Batect](https://batect.dev/) works "out of the box", however, an important
+optimization is to avoid redownloading plugins and dependencies from within
+a Docker container.
+
+With Batect, link to your user Maven cache directory:
 
 ```
 $ ln -s ~/.m2 .maven-cache
 ```
 
-(Shares Maven component and dependency downloads across projects.)
-
-The batect Docker container will use this cache.
+This shares Maven plugin and dependency downloads with the Docker container
+run by Batect.
 
 ## Design choices
 
