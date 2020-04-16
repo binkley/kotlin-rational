@@ -11,6 +11,7 @@ import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isDyadic
 import hm.binkley.math.isInteger
+import hm.binkley.math.isPAdic
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -595,6 +596,14 @@ internal class FiniteBigRationalTest {
         assertTrue((2 over 1).isDyadic())
         assertTrue(ZERO.isDyadic())
         assertFalse((2 over 3).isDyadic())
+    }
+
+    @Test
+    fun `should note p-adic rationals`() {
+        assertTrue((1 over 3).isPAdic(3))
+        assertTrue((2 over 1).isPAdic(3))
+        assertTrue(ZERO.isPAdic(3))
+        assertFalse((2 over 5).isPAdic(3))
     }
 
     @Test

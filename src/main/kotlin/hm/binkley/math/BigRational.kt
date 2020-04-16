@@ -1208,6 +1208,20 @@ fun BigRational.isDyadic() = isFinite() &&
                 (denominator % BInt.TWO).isZero())
 
 /**
+ * Checks that this rational is _p_-adic, that is, the denominator is a power
+ * of [p].
+ *
+ * *NB* &mdash; No check is made that [p] is prime, as required by the
+ * definition of _p_-adic numbers.
+ *
+ * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
+ * number</cite></a>
+ */
+fun BigRational.isPAdic(p: Long) = isFinite() &&
+        (denominator.isOne() ||
+                (denominator % BInt.valueOf(p)).isZero())
+
+/**
  * Checks that this rational is infinite, positive or negative.  "Not a
  * number" is not infinite.
  */

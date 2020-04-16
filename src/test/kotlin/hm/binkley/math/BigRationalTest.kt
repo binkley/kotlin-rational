@@ -838,6 +838,17 @@ internal class BigRationalTest {
     }
 
     @Test
+    fun `should note p-adic rationals`() {
+        assertTrue((1 over 3).isPAdic(3))
+        assertTrue((2 over 1).isPAdic(3))
+        assertTrue(ZERO.isPAdic(3))
+        assertFalse((2 over 5).isPAdic(3))
+        assertFalse(POSITIVE_INFINITY.isPAdic(3))
+        assertFalse(NEGATIVE_INFINITY.isPAdic(3))
+        assertFalse(NaN.isPAdic(3))
+    }
+
+    @Test
     fun `should not even denominators`() {
         assertTrue((1 over 2).isDenominatorEven())
         assertFalse((1 over 3).isDenominatorEven())
