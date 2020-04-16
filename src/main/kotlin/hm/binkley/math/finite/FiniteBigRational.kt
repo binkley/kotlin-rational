@@ -614,56 +614,83 @@ operator fun FiniteBigRational.plus(addend: Int) =
 operator fun FiniteBigRational.minus(subtrahend: FiniteBigRational) =
     this + -subtrahend
 
-/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
+/**
+ * Subtracts the other value from this value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.minus(subtrahend: BDouble) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
+/**
+ * Subtracts the other value from this value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.minus(subtrahend: Double) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
+/**
+ * Subtracts the other value from this value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.minus(subtrahend: Float) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
+/**
+ * Subtracts the other value from this value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.minus(subtrahend: BInt) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
+/**
+ * Subtracts the other value from this value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.minus(subtrahend: Long) =
     this - subtrahend.toFiniteBigRational()
 
-/** Subtracts the other value from this value yielding a `FiniteBigRational`. */
+/**
+ * Subtracts the other value from this value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.minus(subtrahend: Int) =
     this - subtrahend.toFiniteBigRational()
 
+/**
+ * Multiplies this value by the other value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.times(other: FiniteBigRational) = valueOf(
     numerator * other.numerator,
     denominator * other.denominator
 )
 
-/** Multiplies this value by the other value. */
+/**
+ * Multiplies this value by the other value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.times(multiplicand: BDouble) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
+/**
+ * Multiplies this value by the other value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.times(multiplicand: Double) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
+/**
+ * Multiplies this value by the other value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.times(multiplicand: Float) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
+/**
+ * Multiplies this value by the other value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.times(multiplicand: BInt) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
+/**
+ * Multiplies this value by the other value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.times(multiplicand: Long) =
     this * multiplicand.toFiniteBigRational()
 
-/** Multiplies this value by the other value yielding a `FiniteBigRational`. */
+/**
+ * Multiplies this value by the other value yielding a `FiniteBigRational`.
+ */
 operator fun FiniteBigRational.times(multiplicand: Int) =
     this * multiplicand.toFiniteBigRational()
 
@@ -1067,7 +1094,9 @@ fun FiniteBigRational.divideAndRemainder(other: FiniteBigRational):
  * `exponent` is an integer rather than a FiniteBigRational (and the
  * underlying [BigInteger] does not support `BInt.pow(BInt)`).
  */
-fun FiniteBigRational.pow(exponent: Int): FiniteBigRational /* type check issue */ =
+fun FiniteBigRational.pow(
+    exponent: Int
+): FiniteBigRational /* type check issue */ =
     when {
         0 <= exponent ->
             valueOf(numerator.pow(exponent), denominator.pow(exponent))
@@ -1117,9 +1146,9 @@ fun FiniteBigRational.ceil() = when {
 }
 
 /**
- * Rounds to the nearest whole number _closer to 0_ than this FiniteBigRational,
- * or when this FiniteBigRational is whole, the same `FiniteBigRational`.  Non-finite values
- * return themselves.
+ * Rounds to the nearest whole number _closer to 0_ than this
+ * FiniteBigRational, or when this FiniteBigRational is whole, the same
+ * `FiniteBigRational`.  Non-finite values return themselves.
  */
 fun FiniteBigRational.round() = when {
     roundsToSelf() -> this
@@ -1137,7 +1166,9 @@ private fun FiniteBigRational.roundsToSelf() = isInteger()
  * not matter).  When `a/b = c/d`, throws [ArithmeticException].
  */
 fun FiniteBigRational.between(other: FiniteBigRational) = when {
-    this === other || equals(other) -> throw ArithmeticException("nothing between")
+    this === other || equals(other) -> throw ArithmeticException(
+        "nothing between"
+    )
     else -> valueOf(
         numerator + other.numerator,
         denominator + other.denominator
