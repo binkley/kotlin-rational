@@ -264,7 +264,9 @@ behave as expected
 - `isFinite()`, `isInfinite()`.  Note than `NaN` is neither finite nor
 infinite
 - `isInteger()`, `isDyadic()` (See
-[_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational).)
+[_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational)),
+`isPAdic(p)` (See
+[_p_-adic number](https://en.wikipedia.org/wiki/P-adic_number))
 - `gcm(other)`, `lcd(other)`
 - `toFiniteContinuedFraction()`
 - `pow(exponent)`
