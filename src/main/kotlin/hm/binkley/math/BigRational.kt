@@ -90,6 +90,26 @@ class BigRational private constructor(
     }
 
     /**
+     * Checks that this rational is dyadic, that is, the denominator is a power
+     * of 2, or `false` if this number is not finite.
+     *
+     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
+     */
+    override fun isDyadic() = isFinite() && super.isDyadic()
+
+    /**
+     * Checks that this rational is _p_-adic, that is, the denominator is a power
+     * of [p], or `false` if this number is not finite.
+     *
+     * *NB* &mdash; No check is made that [p] is prime, as required by the
+     * definition of _p_-adic numbers.
+     *
+     * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
+     * number</cite></a>
+     */
+    override fun isPAdic(p: Long) = isFinite() && super.isPAdic(p)
+
+    /**
      * NB -- Infinities and "not a number" are not equal to themselves.
      *
      * @see Any.equals
@@ -1196,30 +1216,6 @@ fun BigRational.isFinite() = !isNaN() && !isInfinite()
 
 /** Checks that this rational is 0. */
 fun BigRational.isZero() = ZERO === this
-
-/**
- * Checks that this rational is dyadic, that is, the denominator is a power
- * of 2, or `false` if this number is not finite.
- *
- * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
- */
-fun BigRational.isDyadic() = isFinite() &&
-        (denominator.isOne() ||
-                (denominator % BInt.TWO).isZero())
-
-/**
- * Checks that this rational is _p_-adic, that is, the denominator is a power
- * of [p], or `false` if this number is not finite.
- *
- * *NB* &mdash; No check is made that [p] is prime, as required by the
- * definition of _p_-adic numbers.
- *
- * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
- * number</cite></a>
- */
-fun BigRational.isPAdic(p: Long) = isFinite() &&
-        (denominator.isOne() ||
-                (denominator % BInt.valueOf(p)).isZero())
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a

@@ -59,6 +59,28 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         }
     }
 
+    /**
+     * Checks that this rational is dyadic, that is, the denominator is a power
+     * of 2.
+     *
+     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
+     */
+    open fun isDyadic() = (denominator.isOne() ||
+            (denominator % BInt.TWO).isZero())
+
+    /**
+     * Checks that this rational is _p_-adic, that is, the denominator is a power
+     * of [p].
+     *
+     * *NB* &mdash; No check is made that [p] is prime, as required by the
+     * definition of _p_-adic numbers.
+     *
+     * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
+     * number</cite></a>
+     */
+    open fun isPAdic(p: Long) = (denominator.isOne() ||
+            (denominator % BInt.valueOf(p)).isZero())
+
     override fun equals(other: Any?) = this === other ||
             other is BigRationalBase<*> &&
             numerator == other.numerator &&
