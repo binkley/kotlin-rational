@@ -1082,7 +1082,7 @@ private fun factor(other: Double): BigRational {
 }
 
 /**
- * Returns a pair of `this / other` (quotient) and `this % other`
+ * Returns the pair of `this / other` (quotient) and `this % other`
  * (remainder) integral division and modulo operations.
  *
  * @see [div]
