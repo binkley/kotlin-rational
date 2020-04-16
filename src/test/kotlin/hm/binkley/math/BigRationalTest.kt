@@ -1413,49 +1413,49 @@ internal class BigRationalTest {
 
         @Test
         fun `should find between`() {
-            assertTrue(NaN.between(NaN).isNaN())
-            assertTrue(NaN.between(POSITIVE_INFINITY).isNaN())
+            assertTrue(NaN.mediant(NaN).isNaN())
+            assertTrue(NaN.mediant(POSITIVE_INFINITY).isNaN())
             assertTrue(
-                POSITIVE_INFINITY.between(POSITIVE_INFINITY)
+                POSITIVE_INFINITY.mediant(POSITIVE_INFINITY)
                     .isPositiveInfinity()
             )
-            assertTrue(NaN.between(NEGATIVE_INFINITY).isNaN())
+            assertTrue(NaN.mediant(NEGATIVE_INFINITY).isNaN())
             assertTrue(
-                NEGATIVE_INFINITY.between(NEGATIVE_INFINITY)
+                NEGATIVE_INFINITY.mediant(NEGATIVE_INFINITY)
                     .isNegativeInfinity()
             )
-            assertTrue(NaN.between(ZERO).isNaN())
-            assertTrue(ZERO.between(NaN).isNaN())
-            assertTrue(POSITIVE_INFINITY.between(NaN).isNaN())
-            assertTrue(NEGATIVE_INFINITY.between(NaN).isNaN())
-            assertTrue(ZERO.between(ZERO).isZero())
+            assertTrue(NaN.mediant(ZERO).isNaN())
+            assertTrue(ZERO.mediant(NaN).isNaN())
+            assertTrue(POSITIVE_INFINITY.mediant(NaN).isNaN())
+            assertTrue(NEGATIVE_INFINITY.mediant(NaN).isNaN())
+            assertTrue(ZERO.mediant(ZERO).isZero())
             assertEquals(
                 ZERO,
-                POSITIVE_INFINITY.between(NEGATIVE_INFINITY)
+                POSITIVE_INFINITY.mediant(NEGATIVE_INFINITY)
             )
             assertEquals(
                 ZERO,
-                NEGATIVE_INFINITY.between(POSITIVE_INFINITY)
+                NEGATIVE_INFINITY.mediant(POSITIVE_INFINITY)
             )
             assertEquals(
                 ONE,
-                POSITIVE_INFINITY.between(ZERO)
+                POSITIVE_INFINITY.mediant(ZERO)
             )
             assertEquals(
                 ONE,
-                ZERO.between(POSITIVE_INFINITY)
+                ZERO.mediant(POSITIVE_INFINITY)
             )
             assertEquals(
                 -ONE,
-                ZERO.between(NEGATIVE_INFINITY)
+                ZERO.mediant(NEGATIVE_INFINITY)
             )
             assertEquals(
                 -ONE,
-                NEGATIVE_INFINITY.between(ZERO)
+                NEGATIVE_INFINITY.mediant(ZERO)
             )
             assertEquals(
                 3 over 2,
-                ONE.between(TWO)
+                ONE.mediant(TWO)
             )
         }
 

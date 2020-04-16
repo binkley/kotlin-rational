@@ -9,9 +9,7 @@ import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import hm.binkley.math.isDenominatorEven
-import hm.binkley.math.isDyadic
 import hm.binkley.math.isInteger
-import hm.binkley.math.isPAdic
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -1114,10 +1112,10 @@ internal class FiniteBigRationalTest {
 
         @Test
         fun `should find between`() {
-            assertTrue(ZERO.between(ZERO).isZero())
+            assertTrue(ZERO.mediant(ZERO).isZero())
             assertEquals(
                 3 over 2,
-                ONE.between(TWO)
+                ONE.mediant(TWO)
             )
         }
 

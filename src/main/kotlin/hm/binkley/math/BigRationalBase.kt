@@ -67,8 +67,8 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     override fun hashCode() = hash(numerator, denominator)
 
     /**
-     * Returns a string representation of the object.  In particular:
-     * * Finite values are [numerator]/[denominator]
+     * Returns a string representation of the object,
+     * "[numerator]/[denominator]".
      */
     override fun toString() = when {
         denominator.isOne() -> numerator.toString()
