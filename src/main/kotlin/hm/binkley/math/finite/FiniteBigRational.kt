@@ -3,6 +3,7 @@ package hm.binkley.math.finite
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
+import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.exponent
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
@@ -752,7 +753,8 @@ operator fun FiniteBigRational.div(divisor: Int) =
     this / divisor.toFiniteBigRational()
 
 /**
- * Modulos this value by the other value; always 0 (division is exact).
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or throws [ArithmeticException] when [divisor] is [ZERO].
  *
  * @see [divideAndRemainder]
  */
@@ -760,8 +762,8 @@ operator fun FiniteBigRational.div(divisor: Int) =
 operator fun FiniteBigRational.rem(divisor: FiniteBigRational) = ZERO
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or throws [ArithmeticException].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or throws [ArithmeticException] when [divisor] is [ZERO].
  *
  * @see [divideAndRemainder]
  */
@@ -769,8 +771,8 @@ operator fun FiniteBigRational.rem(divisor: BDouble) =
     this % divisor.toFiniteBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or throws [ArithmeticException].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or throws [ArithmeticException] when [divisor] is [ZERO].
  *
  * @see [divideAndRemainder]
  */
@@ -778,8 +780,8 @@ operator fun FiniteBigRational.rem(divisor: Double) =
     this % divisor.toFiniteBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or throws [ArithmeticException].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or throws [ArithmeticException] when [divisor] is [ZERO].
  *
  * @see [divideAndRemainder]
  */
@@ -787,8 +789,8 @@ operator fun FiniteBigRational.rem(divisor: Float) =
     this % divisor.toFiniteBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or throws [ArithmeticException].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or throws [ArithmeticException] when [divisor] is [ZERO].
  *
  * @see [divideAndRemainder]
  */
@@ -796,8 +798,8 @@ operator fun FiniteBigRational.rem(divisor: BInt) =
     this % divisor.toFiniteBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or throws [ArithmeticException].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or throws [ArithmeticException] when [divisor] is [ZERO].
  *
  * @see [divideAndRemainder]
  */
@@ -805,8 +807,8 @@ operator fun FiniteBigRational.rem(divisor: Long) =
     this % divisor.toFiniteBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or throws [ArithmeticException].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or throws [ArithmeticException] when [divisor] is [ZERO].
  *
  * @see [divideAndRemainder]
  */

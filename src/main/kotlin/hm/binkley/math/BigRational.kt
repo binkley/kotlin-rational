@@ -811,7 +811,8 @@ operator fun BigRational.div(divisor: Long) = this / divisor.toBigRational()
 operator fun BigRational.div(divisor: Int) = this / divisor.toBigRational()
 
 /**
- * Modulos this value by the other value; always 0 (division is exact).
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or [NaN] if either value is [NaN].
  *
  * @see [divideAndRemainder]
  */
@@ -821,8 +822,8 @@ operator fun BigRational.rem(divisor: BigRational) = when {
 }
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is [NaN].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or [NaN] if either value is [NaN].
  *
  * @see [divideAndRemainder]
  */
@@ -830,40 +831,40 @@ operator fun BigRational.rem(divisor: BDouble) =
     this % divisor.toBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is [NaN].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or [NaN] if either value is [NaN].
  *
  * @see [divideAndRemainder]
  */
 operator fun BigRational.rem(divisor: Double) = this % divisor.toBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is [NaN].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or [NaN] if either value is [NaN].
  *
  * @see [divideAndRemainder]
  */
 operator fun BigRational.rem(divisor: Float) = this % divisor.toBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is [NaN].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or [NaN] if either value is [NaN].
  *
  * @see [divideAndRemainder]
  */
 operator fun BigRational.rem(divisor: BInt) = this % divisor.toBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is [NaN].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or [NaN] if either value is [NaN].
  *
  * @see [divideAndRemainder]
  */
 operator fun BigRational.rem(divisor: Long) = this % divisor.toBigRational()
 
 /**
- * Finds the remainder of this value by other: always 0 (division is
- * exact), or not a number if either value is [NaN].
+ * Finds the remainder of this value by other: always 0 (division is exact),
+ * or [NaN] if either value is [NaN].
  *
  * @see [divideAndRemainder]
  */
