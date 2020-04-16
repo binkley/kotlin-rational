@@ -1034,12 +1034,12 @@ private fun convert(other: BDouble) = when (other) {
  * Since the conversion to a rational is _exact_, converting the resulting
  * rational back to a [Double] produces the original value.
  */
-private fun convert(d: Double) = when {
-    d == 0.0 -> ZERO
-    d == 1.0 -> ONE
-    !d.isFinite() -> throw ArithmeticException("non-finite")
-    d < 0 -> -TWO.pow(exponent(d)) * factor(d)
-    else -> TWO.pow(exponent(d)) * factor(d)
+private fun convert(other: Double) = when {
+    other == 0.0 -> ZERO
+    other == 1.0 -> ONE
+    !other.isFinite() -> throw ArithmeticException("non-finite")
+    other < 0 -> -TWO.pow(exponent(other)) * factor(other)
+    else -> TWO.pow(exponent(other)) * factor(other)
 }
 
 private fun factor(other: Double): FiniteBigRational {
