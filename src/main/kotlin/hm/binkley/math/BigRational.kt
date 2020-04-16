@@ -685,9 +685,6 @@ operator fun BigRational.compareTo(other: Int) =
 operator fun Int.compareTo(other: BigRational) =
     this.toBigRational().compareTo(other)
 
-/** Returns this value. */
-operator fun BigRational.unaryPlus() = this
-
 /** Returns the arithmetic inverse of this value. */
 operator fun BigRational.unaryMinus() =
     valueOf(numerator.negate(), denominator)

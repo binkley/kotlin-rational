@@ -565,9 +565,6 @@ operator fun FiniteBigRational.compareTo(other: Int) =
 operator fun Int.compareTo(other: FiniteBigRational) =
     this.toFiniteBigRational().compareTo(other)
 
-/** Returns this value. */
-operator fun FiniteBigRational.unaryPlus() = this
-
 /** Returns the arithmetic inverse of this value. */
 operator fun FiniteBigRational.unaryMinus() =
     valueOf(numerator.negate(), denominator)

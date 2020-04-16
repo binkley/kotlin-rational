@@ -65,8 +65,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      *
      * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
      */
-    open fun isDyadic() = (denominator.isOne() ||
-            (denominator % BInt.TWO).isZero())
+    open fun isDyadic() = denominator.isDyadic()
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a power
@@ -78,8 +77,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
      * number</cite></a>
      */
-    open fun isPAdic(p: Long) = (denominator.isOne() ||
-            (denominator % BInt.valueOf(p)).isZero())
+    open fun isPAdic(p: Long) = denominator.isPAdic(p)
 
     override fun equals(other: Any?) = this === other ||
             other is BigRationalBase<*> &&
@@ -97,6 +95,9 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
 }
+
+/** Returns this value. */
+operator fun <T : BigRationalBase<T>> T.unaryPlus() = this
 
 /** Checks that this rational is an integer. */
 fun <T : BigRationalBase<T>> T.isInteger() = BInt.ONE == denominator

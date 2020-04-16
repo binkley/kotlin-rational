@@ -10,6 +10,7 @@ import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isInteger
+import hm.binkley.math.unaryPlus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
