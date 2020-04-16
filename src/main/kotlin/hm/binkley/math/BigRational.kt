@@ -1199,7 +1199,7 @@ fun BigRational.isZero() = ZERO === this
 
 /**
  * Checks that this rational is dyadic, that is, the denominator is a power
- * of 2.
+ * of 2, or `false` if this number is not finite.
  *
  * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
  */
@@ -1209,7 +1209,7 @@ fun BigRational.isDyadic() = isFinite() &&
 
 /**
  * Checks that this rational is _p_-adic, that is, the denominator is a power
- * of [p].
+ * of [p], or `false` if this number is not finite.
  *
  * *NB* &mdash; No check is made that [p] is prime, as required by the
  * definition of _p_-adic numbers.
