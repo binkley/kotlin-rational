@@ -1166,13 +1166,10 @@ private fun FiniteBigRational.roundsToSelf() = isInteger()
  * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
  * not matter).  When `a/b = c/d`, throws [ArithmeticException].
  */
-fun FiniteBigRational.between(other: FiniteBigRational) = when {
-    this === other || equals(other) -> this
-    else -> valueOf(
-        numerator + other.numerator,
-        denominator + other.denominator
-    )
-}
+fun FiniteBigRational.between(other: FiniteBigRational) = valueOf(
+    numerator + other.numerator,
+    denominator + other.denominator
+)
 
 /** Returns the finite continued fraction of this `FiniteBigRational`. */
 fun FiniteBigRational.toContinuedFraction() =

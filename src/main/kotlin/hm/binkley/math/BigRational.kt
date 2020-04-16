@@ -1169,7 +1169,6 @@ private fun BigRational.roundsToSelf() = isInteger() || !isFinite()
  * not matter).  When `a/b = c/d`, returns [NaN].
  */
 fun BigRational.between(other: BigRational) = when {
-    this === other || equals(other) -> this
     isNaN() || other.isNaN() -> NaN
     (isPositiveInfinity() && other.isNegativeInfinity())
             || (isNegativeInfinity() && other.isPositiveInfinity()) -> ZERO
