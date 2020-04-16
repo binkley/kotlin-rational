@@ -1192,9 +1192,6 @@ fun BigRational.toContinuedFraction() = FiniteContinuedFraction.valueOf(this)
  */
 fun BigRational.isFinite() = !isNaN() && !isInfinite()
 
-/** Checks that this rational is an integer. */
-fun BigRational.isInteger() = BInt.ONE == denominator
-
 /** Checks that this rational is 0. */
 fun BigRational.isZero() = ZERO === this
 
@@ -1207,13 +1204,6 @@ fun BigRational.isZero() = ZERO === this
 fun BigRational.isDyadic() = isFinite() &&
         (denominator.isOne() ||
                 (denominator % BInt.TWO).isZero())
-
-/**
- * Checks that this rational has an even denominator.  The odds of a random
- * rational number having an even denominator is exactly 1/3 (Salamin and
- * Gosper 1972).
- */
-fun BigRational.isDenominatorEven() = denominator.isEven()
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a

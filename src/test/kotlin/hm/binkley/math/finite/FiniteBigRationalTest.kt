@@ -8,6 +8,9 @@ import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
+import hm.binkley.math.isDenominatorEven
+import hm.binkley.math.isDyadic
+import hm.binkley.math.isInteger
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -237,15 +240,15 @@ internal class FiniteBigRationalTest {
     inner class OperatorTests {
         @Test
         fun `should do nothing arithmetically`() {
-            val rightsideUp = 2 over 3
-            val noChange = +rightsideUp
+            val rightSideUp = 2 over 3
+            val noChange = +rightSideUp
 
             assertEquals(
-                rightsideUp.numerator,
+                rightSideUp.numerator,
                 noChange.numerator
             )
             assertEquals(
-                rightsideUp.denominator,
+                rightSideUp.denominator,
                 noChange.denominator
             )
         }

@@ -75,3 +75,22 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
 }
+
+/** Checks that this rational is an integer. */
+fun <T : BigRationalBase<T>> T.isInteger() = BInt.ONE == denominator
+
+/**
+ * Checks that this rational is dyadic, that is, the denominator is a power
+ * of 2.
+ *
+ * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
+ */
+fun <T : BigRationalBase<T>> T.isDyadic() = (denominator.isOne() ||
+        (denominator % BInt.TWO).isZero())
+
+/**
+ * Checks that this rational has an even denominator.  The odds of a random
+ * rational number having an even denominator is exactly 1/3 (Salamin and
+ * Gosper 1972).
+ */
+fun <T : BigRationalBase<T>> T.isDenominatorEven() = denominator.isEven()

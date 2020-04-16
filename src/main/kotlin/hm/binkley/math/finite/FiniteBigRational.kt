@@ -9,7 +9,7 @@ import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import hm.binkley.math.finite.FiniteBigRational.Companion.valueOf
-import hm.binkley.math.isEven
+import hm.binkley.math.isInteger
 import hm.binkley.math.isOne
 import hm.binkley.math.isTen
 import hm.binkley.math.isTwo
@@ -1148,24 +1148,5 @@ fun FiniteBigRational.between(other: FiniteBigRational) = when {
 fun FiniteBigRational.toContinuedFraction() =
     FiniteContinuedFraction.valueOf(this)
 
-/** Checks that this rational is an integer. */
-fun FiniteBigRational.isInteger() = BInt.ONE == denominator
-
 /** Checks that this rational is 0. */
 fun FiniteBigRational.isZero() = ZERO === this
-
-/**
- * Checks that this rational is dyadic, that is, the denominator is a power
- * of 2.
- *
- * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
- */
-fun FiniteBigRational.isDyadic() = (denominator.isOne() ||
-        (denominator % BInt.TWO).isZero())
-
-/**
- * Checks that this rational has an even denominator.  The odds of a random
- * rational number having an even denominator is exactly 1/3 (Salamin and
- * Gosper 1972).
- */
-fun FiniteBigRational.isDenominatorEven() = denominator.isEven()
