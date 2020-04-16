@@ -1105,9 +1105,7 @@ internal class FiniteBigRationalTest {
 
         @Test
         fun `should find between`() {
-            assertThrows<ArithmeticException> {
-                ZERO.between(ZERO)
-            }
+            assertTrue(ZERO.between(ZERO).isZero())
             assertEquals(
                 3 over 2,
                 ONE.between(TWO)

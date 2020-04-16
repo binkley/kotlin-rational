@@ -1161,14 +1161,15 @@ private fun BigRational.roundsToSelf() = isInteger() || !isFinite()
 
 /**
  * Returns a `BigRational` between this BigRational and the other one, or
- * [NaN] if this or the other BigRational are [NaN] or the same.
+ * the same value when equal, or [NaN] either are [NaN].  Both infinities are
+ * between themselves.
  *
  * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
  * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
  * not matter).  When `a/b = c/d`, returns [NaN].
  */
 fun BigRational.between(other: BigRational) = when {
-    this === other || equals(other) -> NaN
+    this === other || equals(other) -> this
     isNaN() || other.isNaN() -> NaN
     (isPositiveInfinity() && other.isNegativeInfinity())
             || (isNegativeInfinity() && other.isPositiveInfinity()) -> ZERO

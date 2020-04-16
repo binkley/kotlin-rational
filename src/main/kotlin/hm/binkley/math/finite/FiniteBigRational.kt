@@ -1160,16 +1160,14 @@ private fun FiniteBigRational.roundsToSelf() = isInteger()
 
 /**
  * Returns a `FiniteBigRational` between this FiniteBigRational and the other
- * one, or throws [ArithmeticException] if the endpoints are the same.
+ * one, or the same value when equal.
  *
  * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
  * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
  * not matter).  When `a/b = c/d`, throws [ArithmeticException].
  */
 fun FiniteBigRational.between(other: FiniteBigRational) = when {
-    this === other || equals(other) -> throw ArithmeticException(
-        "nothing between"
-    )
+    this === other || equals(other) -> this
     else -> valueOf(
         numerator + other.numerator,
         denominator + other.denominator
