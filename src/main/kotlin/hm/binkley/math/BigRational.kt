@@ -223,8 +223,9 @@ val BigRational.absoluteValue: BigRational
 
 /**
  * Returns a `BigRational` whose value is the reciprocal of this
- * `BigRational`.  `reciprocal` of [NaN] is another [NaN].  Reciprocals of
- * infinities are [ZERO].
+ * `BigRational` expressed in _canonical form_.  The reciprocal of [NaN] is
+ * another [NaN].  Reciprocals of both infinities are [ZERO]; the reciprocal
+ * of [ZERO] is [POSITIVE_INFINITY].
  */
 val BigRational.reciprocal: BigRational
     get() = valueOf(denominator, numerator)

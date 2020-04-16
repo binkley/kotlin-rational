@@ -123,7 +123,8 @@ val FiniteBigRational.absoluteValue: FiniteBigRational
 
 /**
  * Returns a `FiniteBigRational` whose value is the reciprocal of this
- * `FiniteBigRational`.  Reciprocals throw [ArithmeticException].
+ * `FiniteBigRational` expressed in _canonical form_.  The reciprocal of
+ * [ZERO] throws [ArithmeticException].
  */
 val FiniteBigRational.reciprocal: FiniteBigRational
     get() = valueOf(denominator, numerator)
