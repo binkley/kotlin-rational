@@ -6,10 +6,13 @@ import java.util.Objects.hash
 interface BigRationalCompanion<T : BigRationalBase<T>> {
     /** A constant holding value 0. It is equivalent `0 over 1`. */
     val ZERO: T
+
     /** A constant holding value 1. It is equivalent `1 over 1`. */
     val ONE: T
+
     /** A constant holding value 2. It is equivalent `2 over 1`. */
     val TWO: T
+
     /** A constant holding value 10. It is equivalent `10 over 1`. */
     val TEN: T
 
@@ -48,7 +51,8 @@ interface BigRationalCompanion<T : BigRationalBase<T>> {
 
 abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     val numerator: BInt,
-    val denominator: BInt
+    val denominator: BInt,
+    internal val companion: BigRationalCompanion<T>
 ) : Number(), Comparable<T> {
     /**
      * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
@@ -139,8 +143,48 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     }
 }
 
+/** Returns the absolute value. */
+val <T : BigRationalBase<T>> T.absoluteValue: T
+    get() = companion.valueOf(numerator.abs(), denominator)
+
+/** Returns the reciprocal. */
+val <T : BigRationalBase<T>> T.reciprocal: T
+    get() = companion.valueOf(denominator, numerator)
+
 /** Returns this value. */
 operator fun <T : BigRationalBase<T>> T.unaryPlus() = this
+
+/** Returns the arithmetic inverse of this value. */
+operator fun <T : BigRationalBase<T>> T.unaryMinus() =
+    companion.valueOf(numerator.negate(), denominator)
+
+/** Adds the other value to this value. */
+operator fun <T : BigRationalBase<T>> T.plus(addend: T) =
+    if (denominator == addend.denominator)
+        companion.valueOf(numerator + addend.numerator, denominator)
+    else companion.valueOf(
+        numerator * addend.denominator + addend.numerator * denominator,
+        denominator * addend.denominator
+    )
+
+/** Subtracts the other value from this value. */
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: T) =
+    this + -subtrahend
+
+/** Multiplies this value by the other value. */
+operator fun <T : BigRationalBase<T>> T.times(multiplicand: T) =
+    companion.valueOf(
+        numerator * multiplicand.numerator,
+        denominator * multiplicand.denominator
+    )
+
+/**
+ * Divides this value by the other value exactly.
+ *
+ * @see [divideAndRemainder]
+ */
+operator fun <T : BigRationalBase<T>> T.div(divisor: T) =
+    this * divisor.reciprocal
 
 /** Checks that this rational is an integer. */
 fun <T : BigRationalBase<T>> T.isInteger() = BInt.ONE == denominator

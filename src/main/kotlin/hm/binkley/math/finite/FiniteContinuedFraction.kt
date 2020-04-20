@@ -2,6 +2,9 @@ package hm.binkley.math.finite
 
 import hm.binkley.math.BInt
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
+import hm.binkley.math.minus
+import hm.binkley.math.plus
+import hm.binkley.math.reciprocal
 import java.math.BigInteger
 
 /**

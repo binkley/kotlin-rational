@@ -4,6 +4,7 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
+import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.exponent
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
@@ -15,6 +16,11 @@ import hm.binkley.math.isInteger
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.mantissa
+import hm.binkley.math.minus
+import hm.binkley.math.plus
+import hm.binkley.math.reciprocal
+import hm.binkley.math.times
+import hm.binkley.math.unaryMinus
 import java.math.BigInteger
 import java.util.Objects.hash
 
@@ -37,7 +43,11 @@ import java.util.Objects.hash
 class FiniteBigRational private constructor(
     numerator: BInt,
     denominator: BInt
-) : BigRationalBase<FiniteBigRational>(numerator, denominator) {
+) : BigRationalBase<FiniteBigRational>(
+    numerator,
+    denominator,
+    FiniteBigRational
+) {
     companion object : BigRationalCompanion<FiniteBigRational> {
         override val ZERO = FiniteBigRational(BInt.ZERO, BInt.ONE)
         override val ONE = FiniteBigRational(BInt.ONE, BInt.ONE)
@@ -77,21 +87,6 @@ class FiniteBigRational private constructor(
  */
 val FiniteBigRational.sign: FiniteBigRational
     get() = numerator.signum().toFiniteBigRational()
-
-/**
- * Returns a `FiniteBigRational` whose value is the absolute value of this
- * FiniteBigRational.
- */
-val FiniteBigRational.absoluteValue: FiniteBigRational
-    get() = valueOf(numerator.abs(), denominator)
-
-/**
- * Returns a `FiniteBigRational` whose value is the reciprocal of this
- * `FiniteBigRational` expressed in _canonical form_.  The reciprocal of
- * [ZERO] throws [ArithmeticException].
- */
-val FiniteBigRational.reciprocal: FiniteBigRational
-    get() = valueOf(denominator, numerator)
 
 /**
  * Returns a `FiniteBigRational` whose value is equal to that of the
@@ -528,10 +523,6 @@ operator fun FiniteBigRational.compareTo(other: Int) =
 operator fun Int.compareTo(other: FiniteBigRational) =
     this.toFiniteBigRational().compareTo(other)
 
-/** Returns the arithmetic inverse of this value. */
-operator fun FiniteBigRational.unaryMinus() =
-    valueOf(numerator.negate(), denominator)
-
 /** Increments this value by 1 (denominator / denominator). */
 operator fun FiniteBigRational.inc() =
     valueOf(numerator + denominator, denominator)
@@ -539,14 +530,6 @@ operator fun FiniteBigRational.inc() =
 /** Decrements this value by 1 (denominator / denominator). */
 operator fun FiniteBigRational.dec() =
     valueOf(numerator - denominator, denominator)
-
-operator fun FiniteBigRational.plus(other: FiniteBigRational) =
-    if (denominator == other.denominator)
-        valueOf(numerator + other.numerator, denominator)
-    else valueOf(
-        numerator * other.denominator + other.numerator * denominator,
-        denominator * other.denominator
-    )
 
 /** Adds the other value to this value. */
 operator fun FiniteBigRational.plus(addend: BDouble) =
@@ -571,10 +554,6 @@ operator fun FiniteBigRational.plus(addend: Long) =
 /** Adds the other value to this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.plus(addend: Int) =
     this + addend.toFiniteBigRational()
-
-/** Subtracts the other value from this value. */
-operator fun FiniteBigRational.minus(subtrahend: FiniteBigRational) =
-    this + -subtrahend
 
 /**
  * Subtracts the other value from this value yielding a `FiniteBigRational`.
@@ -615,14 +594,6 @@ operator fun FiniteBigRational.minus(subtrahend: Int) =
 /**
  * Multiplies this value by the other value yielding a `FiniteBigRational`.
  */
-operator fun FiniteBigRational.times(other: FiniteBigRational) = valueOf(
-    numerator * other.numerator,
-    denominator * other.denominator
-)
-
-/**
- * Multiplies this value by the other value yielding a `FiniteBigRational`.
- */
 operator fun FiniteBigRational.times(multiplicand: BDouble) =
     this * multiplicand.toFiniteBigRational()
 
@@ -655,14 +626,6 @@ operator fun FiniteBigRational.times(multiplicand: Long) =
  */
 operator fun FiniteBigRational.times(multiplicand: Int) =
     this * multiplicand.toFiniteBigRational()
-
-/**
- * Divides this value by the other value exactly.
- *
- * @see [divideAndRemainder]
- */
-operator fun FiniteBigRational.div(divisor: FiniteBigRational) =
-    this * divisor.reciprocal
 
 /**
  * Divides this value by the other value exactly yielding a FiniteBigRational.

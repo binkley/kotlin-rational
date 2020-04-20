@@ -4,12 +4,19 @@ package hm.binkley.math.finite
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
+import hm.binkley.math.absoluteValue
+import hm.binkley.math.div
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isInteger
+import hm.binkley.math.minus
+import hm.binkley.math.plus
+import hm.binkley.math.reciprocal
+import hm.binkley.math.times
+import hm.binkley.math.unaryMinus
 import hm.binkley.math.unaryPlus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
