@@ -651,12 +651,6 @@ operator fun BigRational.compareTo(other: Int) =
 operator fun Int.compareTo(other: BigRational) =
     this.toBigRational().compareTo(other)
 
-/** Increments this value by 1 (denominator / denominator). */
-operator fun BigRational.inc() = valueOf(numerator + denominator, denominator)
-
-/** Decrements this value by 1 (denominator / denominator). */
-operator fun BigRational.dec() = valueOf(numerator - denominator, denominator)
-
 /** Adds the other value to this value. */
 operator fun BigRational.plus(addend: BDouble) = this + addend.toBigRational()
 

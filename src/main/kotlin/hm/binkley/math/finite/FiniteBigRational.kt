@@ -523,14 +523,6 @@ operator fun FiniteBigRational.compareTo(other: Int) =
 operator fun Int.compareTo(other: FiniteBigRational) =
     this.toFiniteBigRational().compareTo(other)
 
-/** Increments this value by 1 (denominator / denominator). */
-operator fun FiniteBigRational.inc() =
-    valueOf(numerator + denominator, denominator)
-
-/** Decrements this value by 1 (denominator / denominator). */
-operator fun FiniteBigRational.dec() =
-    valueOf(numerator - denominator, denominator)
-
 /** Adds the other value to this value. */
 operator fun FiniteBigRational.plus(addend: BDouble) =
     this + addend.toFiniteBigRational()

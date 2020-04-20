@@ -172,6 +172,14 @@ operator fun <T : BigRationalBase<T>> T.unaryPlus() = this
 operator fun <T : BigRationalBase<T>> T.unaryMinus() =
     companion.valueOf(numerator.negate(), denominator)
 
+/** Increments this value by 1. */
+operator fun <T : BigRationalBase<T>> T.inc() =
+    companion.valueOf(numerator + denominator, denominator)
+
+/** Decrements this value by 1. */
+operator fun <T : BigRationalBase<T>> T.dec() =
+    companion.valueOf(numerator - denominator, denominator)
+
 /** Adds the other value to this value. */
 operator fun <T : BigRationalBase<T>> T.plus(addend: T) =
     if (denominator == addend.denominator)
