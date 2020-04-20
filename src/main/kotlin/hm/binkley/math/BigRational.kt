@@ -197,29 +197,17 @@ class BigRational private constructor(
                 numerator.signum() == 1 -> POSITIVE_INFINITY
                 else -> NEGATIVE_INFINITY
             }
-            if (numerator.isZero()) return ZERO
 
-            var n = numerator
-            var d = denominator
-            if (-1 == d.signum()) {
-                n = n.negate()
-                d = d.negate()
+            return construct(
+                numerator,
+                denominator,
+                ZERO,
+                ONE,
+                TWO,
+                TEN
+            ) { n, d ->
+                BigRational(n, d)
             }
-
-            if (d.isOne()) return when {
-                n.isOne() -> ONE
-                n.isTwo() -> TWO
-                n.isTen() -> TEN
-                else -> BigRational(n, d)
-            }
-
-            val gcd = n.gcd(d)
-            if (!gcd.isOne()) {
-                n /= gcd
-                d /= gcd
-            }
-
-            return BigRational(n, d)
         }
     }
 }

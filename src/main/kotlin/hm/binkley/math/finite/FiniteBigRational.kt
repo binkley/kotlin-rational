@@ -3,6 +3,7 @@ package hm.binkley.math.finite
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
+import hm.binkley.math.construct
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.exponent
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
@@ -11,9 +12,6 @@ import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
 import hm.binkley.math.finite.FiniteBigRational.Companion.valueOf
 import hm.binkley.math.isInteger
-import hm.binkley.math.isOne
-import hm.binkley.math.isTen
-import hm.binkley.math.isTwo
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.mantissa
@@ -81,29 +79,17 @@ class FiniteBigRational private constructor(
         fun valueOf(numerator: BInt, denominator: BInt): FiniteBigRational {
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")
-            if (numerator.isZero()) return ZERO
 
-            var n = numerator
-            var d = denominator
-            if (-1 == d.signum()) {
-                n = n.negate()
-                d = d.negate()
+            return construct(
+                numerator,
+                denominator,
+                ZERO,
+                ONE,
+                TWO,
+                TEN
+            ) { n, d ->
+                FiniteBigRational(n, d)
             }
-
-            if (d.isOne()) return when {
-                n.isOne() -> ONE
-                n.isTwo() -> TWO
-                n.isTen() -> TEN
-                else -> FiniteBigRational(n, d)
-            }
-
-            val gcd = n.gcd(d)
-            if (!gcd.isOne()) {
-                n /= gcd
-                d /= gcd
-            }
-
-            return FiniteBigRational(n, d)
         }
     }
 }

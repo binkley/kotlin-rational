@@ -108,3 +108,37 @@ fun <T : BigRationalBase<T>> T.isInteger() = BInt.ONE == denominator
  * Gosper 1972).
  */
 fun <T : BigRationalBase<T>> T.isDenominatorEven() = denominator.isEven()
+
+fun <T : BigRationalBase<T>> construct(
+    numerator: BInt,
+    denominator: BInt,
+    zero: T,
+    one: T,
+    two: T,
+    ten: T,
+    ctor: (BInt, BInt) -> T
+): T {
+    if (numerator.isZero()) return zero
+
+    var n = numerator
+    var d = denominator
+    if (-1 == d.signum()) {
+        n = n.negate()
+        d = d.negate()
+    }
+
+    if (d.isOne()) return when {
+        n.isOne() -> one
+        n.isTwo() -> two
+        n.isTen() -> ten
+        else -> ctor(n, d)
+    }
+
+    val gcd = n.gcd(d)
+    if (!gcd.isOne()) {
+        n /= gcd
+        d /= gcd
+    }
+
+    return ctor(n, d)
+}
