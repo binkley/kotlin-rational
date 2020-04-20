@@ -90,6 +90,23 @@ class BigRational private constructor(
     }
 
     /**
+     * Returns the Farey value between this FiniteBigRational and [other], the
+     * same value when equal.  If either value is [NaN], returns [NaN]. [ZERO]
+     * is between the two infinities, and the infinities are between
+     * themselves.
+     *
+     * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
+     * this function returns `(a+c)/(b+d)` (order of `this` and [other] does
+     * not matter).
+     */
+    override fun mediant(other: BigRational) = when {
+        isNaN() || other.isNaN() -> NaN
+        (isPositiveInfinity() && other.isNegativeInfinity())
+                || (isNegativeInfinity() && other.isPositiveInfinity()) -> ZERO
+        else -> super.mediant(other)
+    }
+
+    /**
      * Checks that this rational is dyadic, that is, the denominator is a power
      * of 2, or `false` if this number is not finite.
      *
@@ -1098,25 +1115,6 @@ fun BigRational.round() = when {
 }
 
 private fun BigRational.roundsToSelf() = isInteger() || !isFinite()
-
-/**
- * Returns a `BigRational` between this BigRational and the other one, or
- * the same value when equal, or [NaN] either are [NaN].  Both infinities are
- * between themselves.
- *
- * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
- * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
- * not matter).  When `a/b = c/d`, returns [NaN].
- */
-fun BigRational.mediant(other: BigRational) = when {
-    isNaN() || other.isNaN() -> NaN
-    (isPositiveInfinity() && other.isNegativeInfinity())
-            || (isNegativeInfinity() && other.isPositiveInfinity()) -> ZERO
-    else -> valueOf(
-        numerator + other.numerator,
-        denominator + other.denominator
-    )
-}
 
 /**
  * Returns the finite continued fraction of this BigRational.

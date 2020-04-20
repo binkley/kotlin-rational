@@ -107,6 +107,19 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     }
 
     /**
+     * Returns the Farey value between this FiniteBigRational and [other], or
+     * the same value when equal.
+     *
+     * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
+     * this function returns `(a+c)/(b+d)` (order of `this` and [other] does
+     * not matter).
+     */
+    open fun mediant(other: T) = companion.valueOf(
+        numerator + other.numerator,
+        denominator + other.denominator
+    )
+
+    /**
      * Checks that this rational is dyadic, that is, the denominator is a power
      * of 2.
      *

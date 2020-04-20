@@ -1083,19 +1083,6 @@ fun FiniteBigRational.round() = when {
 
 private fun FiniteBigRational.roundsToSelf() = isInteger()
 
-/**
- * Returns a `FiniteBigRational` between this FiniteBigRational and the other
- * one, or the same value when equal.
- *
- * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
- * this function returns `(a+c)/(b+d)` (order of `this` and `other` does
- * not matter).  When `a/b = c/d`, throws [ArithmeticException].
- */
-fun FiniteBigRational.mediant(other: FiniteBigRational) = valueOf(
-    numerator + other.numerator,
-    denominator + other.denominator
-)
-
 /** Returns the finite continued fraction of this `FiniteBigRational`. */
 fun FiniteBigRational.toContinuedFraction() =
     FiniteContinuedFraction.valueOf(this)
