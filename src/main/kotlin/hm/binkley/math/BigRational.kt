@@ -133,36 +133,17 @@ class BigRational private constructor(
         else -> super.toString()
     }
 
-    companion object {
+    companion object : BigRationalCompanion<BigRational> {
         /**
          * A constant holding "not a number" (NaN) value of type
          * [BigRational]. It is equivalent `0 over 0`.
          */
         val NaN = BigRational(BInt.ZERO, BInt.ZERO)
 
-        /**
-         * A constant holding 0 value of type [BigRational]. It is equivalent
-         * `0 over 1`.
-         */
-        val ZERO = BigRational(BInt.ZERO, BInt.ONE)
-
-        /**
-         * A constant holding 1 value of type [BigRational]. It is equivalent
-         * `1 over 1`.
-         */
-        val ONE = BigRational(BInt.ONE, BInt.ONE)
-
-        /**
-         * A constant holding 2 value of type [BigRational]. It is equivalent
-         * `2 over 1`.
-         */
-        val TWO = BigRational(BInt.TWO, BInt.ONE)
-
-        /**
-         * A constant holding 10 value of type [BigRational]. It is equivalent
-         * `10 over 1`.
-         */
-        val TEN = BigRational(BInt.TEN, BInt.ONE)
+        override val ZERO = BigRational(BInt.ZERO, BInt.ONE)
+        override val ONE = BigRational(BInt.ONE, BInt.ONE)
+        override val TWO = BigRational(BInt.TWO, BInt.ONE)
+        override val TEN = BigRational(BInt.TEN, BInt.ONE)
 
         /**
          * A constant holding positive infinity value of type [BigRational].
@@ -191,21 +172,17 @@ class BigRational private constructor(
          * * TWO
          * * TEN
          */
-        fun valueOf(numerator: BInt, denominator: BInt): BigRational {
+        override fun valueOf(
+            numerator: BInt,
+            denominator: BInt
+        ): BigRational {
             if (denominator.isZero()) return when {
                 numerator.isZero() -> NaN
                 numerator.signum() == 1 -> POSITIVE_INFINITY
                 else -> NEGATIVE_INFINITY
             }
 
-            return construct(
-                numerator,
-                denominator,
-                ZERO,
-                ONE,
-                TWO,
-                TEN
-            ) { n, d ->
+            return construct(numerator, denominator) { n, d ->
                 BigRational(n, d)
             }
         }

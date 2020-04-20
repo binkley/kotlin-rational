@@ -3,7 +3,7 @@ package hm.binkley.math.finite
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
-import hm.binkley.math.construct
+import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.exponent
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
@@ -38,30 +38,11 @@ class FiniteBigRational private constructor(
     numerator: BInt,
     denominator: BInt
 ) : BigRationalBase<FiniteBigRational>(numerator, denominator) {
-    companion object {
-        /**
-         * A constant holding 0 value of type [FiniteBigRational]. It is
-         * equivalent `0 over 1`.
-         */
-        val ZERO = FiniteBigRational(BInt.ZERO, BInt.ONE)
-
-        /**
-         * A constant holding 1 value of type [FiniteBigRational]. It is
-         * equivalent `1 over 1`.
-         */
-        val ONE = FiniteBigRational(BInt.ONE, BInt.ONE)
-
-        /**
-         * A constant holding 2 value of type [FiniteBigRational]. It is
-         * equivalent `2 over 1`.
-         */
-        val TWO = FiniteBigRational(BInt.TWO, BInt.ONE)
-
-        /**
-         * A constant holding 10 value of type [FiniteBigRational]. It is
-         * equivalent `10 over 1`.
-         */
-        val TEN = FiniteBigRational(BInt.TEN, BInt.ONE)
+    companion object : BigRationalCompanion<FiniteBigRational> {
+        override val ZERO = FiniteBigRational(BInt.ZERO, BInt.ONE)
+        override val ONE = FiniteBigRational(BInt.ONE, BInt.ONE)
+        override val TWO = FiniteBigRational(BInt.TWO, BInt.ONE)
+        override val TEN = FiniteBigRational(BInt.TEN, BInt.ONE)
 
         /**
          * Returns a `FiniteBigRational` whose value is equal to that of the
@@ -76,18 +57,14 @@ class FiniteBigRational private constructor(
          * * TWO
          * * TEN
          */
-        fun valueOf(numerator: BInt, denominator: BInt): FiniteBigRational {
+        override fun valueOf(
+            numerator: BInt,
+            denominator: BInt
+        ): FiniteBigRational {
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")
 
-            return construct(
-                numerator,
-                denominator,
-                ZERO,
-                ONE,
-                TWO,
-                TEN
-            ) { n, d ->
+            return construct(numerator, denominator) { n, d ->
                 FiniteBigRational(n, d)
             }
         }

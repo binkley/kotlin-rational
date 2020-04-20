@@ -3,6 +3,49 @@ package hm.binkley.math
 import java.math.BigDecimal
 import java.util.Objects.hash
 
+interface BigRationalCompanion<T : BigRationalBase<T>> {
+    /** A constant holding value 0. It is equivalent `0 over 1`. */
+    val ZERO: T
+    /** A constant holding value 1. It is equivalent `1 over 1`. */
+    val ONE: T
+    /** A constant holding value 2. It is equivalent `2 over 1`. */
+    val TWO: T
+    /** A constant holding value 10. It is equivalent `10 over 1`. */
+    val TEN: T
+
+    fun valueOf(numerator: BInt, denominator: BInt): T
+
+    fun construct(
+        numerator: BInt,
+        denominator: BInt,
+        ctor: (BInt, BInt) -> T
+    ): T {
+        if (numerator.isZero()) return ZERO
+
+        var n = numerator
+        var d = denominator
+        if (-1 == d.signum()) {
+            n = n.negate()
+            d = d.negate()
+        }
+
+        if (d.isOne()) return when {
+            n.isOne() -> ONE
+            n.isTwo() -> TWO
+            n.isTen() -> TEN
+            else -> ctor(n, d)
+        }
+
+        val gcd = n.gcd(d)
+        if (!gcd.isOne()) {
+            n /= gcd
+            d /= gcd
+        }
+
+        return ctor(n, d)
+    }
+}
+
 abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     val numerator: BInt,
     val denominator: BInt
@@ -108,37 +151,3 @@ fun <T : BigRationalBase<T>> T.isInteger() = BInt.ONE == denominator
  * Gosper 1972).
  */
 fun <T : BigRationalBase<T>> T.isDenominatorEven() = denominator.isEven()
-
-fun <T : BigRationalBase<T>> construct(
-    numerator: BInt,
-    denominator: BInt,
-    zero: T,
-    one: T,
-    two: T,
-    ten: T,
-    ctor: (BInt, BInt) -> T
-): T {
-    if (numerator.isZero()) return zero
-
-    var n = numerator
-    var d = denominator
-    if (-1 == d.signum()) {
-        n = n.negate()
-        d = d.negate()
-    }
-
-    if (d.isOne()) return when {
-        n.isOne() -> one
-        n.isTwo() -> two
-        n.isTen() -> ten
-        else -> ctor(n, d)
-    }
-
-    val gcd = n.gcd(d)
-    if (!gcd.isOne()) {
-        n /= gcd
-        d /= gcd
-    }
-
-    return ctor(n, d)
-}
