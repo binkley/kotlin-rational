@@ -84,6 +84,34 @@ open class SteppedBigRationalProgression<T : BigRationalBase<T>>(
         else "$start..$endInclusive step $step"
 }
 
+infix fun <T : BigRationalBase<T>> SteppedBigRationalProgression<T>.step(step: T) =
+    SteppedBigRationalProgression(
+        start,
+        endInclusive,
+        step
+    )
+
+infix fun <T : BigRationalBase<T>> SteppedBigRationalProgression<T>.step(step: BInt) =
+    SteppedBigRationalProgression(
+        start,
+        endInclusive,
+        start.companion.valueOf(step, BInt.ONE)
+    )
+
+infix fun <T : BigRationalBase<T>> SteppedBigRationalProgression<T>.step(step: Long) =
+    SteppedBigRationalProgression(
+        start,
+        endInclusive,
+        start.companion.valueOf(step.toBigInteger(), BInt.ONE)
+    )
+
+infix fun <T : BigRationalBase<T>> SteppedBigRationalProgression<T>.step(step: Int) =
+    SteppedBigRationalProgression(
+        start,
+        endInclusive,
+        start.companion.valueOf(step.toBigInteger(), BInt.ONE)
+    )
+
 class BigRationalProgression<T : BigRationalBase<T>>(
     override val start: T,
     override val endInclusive: T,
@@ -92,32 +120,4 @@ class BigRationalProgression<T : BigRationalBase<T>>(
     start,
     endInclusive,
     step
-) {
-    infix fun step(step: T) =
-        SteppedBigRationalProgression(
-            start,
-            endInclusive,
-            step
-        )
-
-    infix fun step(step: BInt) =
-        SteppedBigRationalProgression(
-            start,
-            endInclusive,
-            start.companion.valueOf(step, BInt.ONE)
-        )
-
-    infix fun step(step: Long) =
-        SteppedBigRationalProgression(
-            start,
-            endInclusive,
-            start.companion.valueOf(step.toBigInteger(), BInt.ONE)
-        )
-
-    infix fun step(step: Int) =
-        SteppedBigRationalProgression(
-            start,
-            endInclusive,
-            start.companion.valueOf(step.toBigInteger(), BInt.ONE)
-        )
-}
+)

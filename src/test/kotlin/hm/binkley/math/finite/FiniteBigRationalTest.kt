@@ -18,6 +18,7 @@ import hm.binkley.math.minus
 import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.reciprocal
+import hm.binkley.math.step
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
 import hm.binkley.math.unaryPlus
