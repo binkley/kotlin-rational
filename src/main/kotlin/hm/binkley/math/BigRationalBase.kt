@@ -62,15 +62,9 @@ interface BigRationalCompanion<T : BigRationalBase<T>> {
     }
 
     fun valueOf(floatingPoint: Float) = valueOf(floatingPoint.toDouble())
-
-    fun valueOf(wholeNumber: BInt) =
-        valueOf(wholeNumber, BInt.ONE)
-
-    fun valueOf(wholeNumber: Long) =
-        valueOf(wholeNumber.toBigInteger())
-
-    fun valueOf(wholeNumber: Int) =
-        valueOf(wholeNumber.toBigInteger())
+    fun valueOf(wholeNumber: BInt) = valueOf(wholeNumber, BInt.ONE)
+    fun valueOf(wholeNumber: Long) = valueOf(wholeNumber.toBigInteger())
+    fun valueOf(wholeNumber: Int) = valueOf(wholeNumber.toBigInteger())
 
     fun iteratorCheck(first: T, last: T, step: T)
 

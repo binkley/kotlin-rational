@@ -22,15 +22,15 @@ import java.math.BigInteger
 class FiniteContinuedFraction private constructor(
     terms: List<FiniteBigRational>
 ) : ContinuedFractionBase<FiniteBigRational, FiniteContinuedFraction>(terms) {
-    override fun ctor(terms: List<FiniteBigRational>) =
+    override fun construct(terms: List<FiniteBigRational>) =
         FiniteContinuedFraction(terms)
 
     companion object :
         ContinuedFractionCompanionBase<FiniteBigRational, FiniteContinuedFraction> {
-        override fun ctor(integerPart: BInt) =
+        override fun construct(integerPart: BInt) =
             FiniteBigRational.valueOf(integerPart)
 
-        override fun ctor(terms: List<FiniteBigRational>) =
+        override fun construct(terms: List<FiniteBigRational>) =
             FiniteContinuedFraction(terms)
     }
 }
