@@ -1478,14 +1478,14 @@ internal class BigRationalTest {
                 cfA
             )
             assertTrue(cfA.isFinite())
-            assertEquals((3245 over 1000), cfA.toBigRational())
+            assertEquals((3245 over 1000), cfA.backAgain())
             val negCfA = (-3245 over 1000).toContinuedFraction()
             assertEquals(
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
                 negCfA
             )
             assertTrue(negCfA.isFinite())
-            assertEquals((-3245 over 1000), negCfA.toBigRational())
+            assertEquals((-3245 over 1000), negCfA.backAgain())
             assertEquals(
                 listOf(ZERO),
                 ZERO.toContinuedFraction()
@@ -1501,15 +1501,15 @@ internal class BigRationalTest {
 
             val cfNaN = NaN.toContinuedFraction()
             assertFalse(cfNaN.isFinite())
-            assertTrue(cfNaN.toBigRational().isNaN())
+            assertTrue(cfNaN.backAgain().isNaN())
             assertTrue(cfNaN.integerPart.isNaN())
             val cfPosInf = POSITIVE_INFINITY.toContinuedFraction()
             assertFalse(cfPosInf.isFinite())
-            assertTrue(cfPosInf.toBigRational().isNaN())
+            assertTrue(cfPosInf.backAgain().isNaN())
             assertTrue(cfPosInf.integerPart.isNaN())
             val cfNegInf = NEGATIVE_INFINITY.toContinuedFraction()
             assertFalse(cfNegInf.isFinite())
-            assertTrue(cfNegInf.toBigRational().isNaN())
+            assertTrue(cfNegInf.backAgain().isNaN())
             assertTrue(cfNegInf.integerPart.isNaN())
         }
     }
