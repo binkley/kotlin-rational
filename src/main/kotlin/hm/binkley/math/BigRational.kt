@@ -876,10 +876,12 @@ private fun convert(other: BDouble) = when (other) {
  * rational back to a [Double] produces the original value.
  */
 private fun convert(other: Double) = when {
-    other == 0.0 -> ZERO
-    other == 1.0 -> ONE
     other.isNaN() -> NaN
     other.isInfinite() -> if (other < 0.0) NEGATIVE_INFINITY else POSITIVE_INFINITY
+    other == 0.0 -> ZERO
+    other == 1.0 -> ONE
+    other == 2.0 -> TWO
+    // Not 10.0 -- decimal rounding to floating point is tricksy
     other < 0 -> -TWO.pow(exponent(other)) * factor(other)
     else -> TWO.pow(exponent(other)) * factor(other)
 }

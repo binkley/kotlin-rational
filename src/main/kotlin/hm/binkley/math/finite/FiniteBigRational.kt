@@ -818,6 +818,8 @@ private fun convert(other: BDouble) = when (other) {
 private fun convert(other: Double) = when {
     other == 0.0 -> ZERO
     other == 1.0 -> ONE
+    other == 2.0 -> TWO
+    // Not 10.0 -- decimal rounding to floating point is tricksy
     !other.isFinite() -> throw ArithmeticException("non-finite")
     other < 0 -> -TWO.pow(exponent(other)) * factor(other)
     else -> TWO.pow(exponent(other)) * factor(other)
