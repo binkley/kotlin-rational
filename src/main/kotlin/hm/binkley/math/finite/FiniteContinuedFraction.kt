@@ -3,6 +3,7 @@ package hm.binkley.math.finite
 import hm.binkley.math.BInt
 import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
+import hm.binkley.math.backAgain
 import java.math.BigInteger
 
 /**

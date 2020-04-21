@@ -33,19 +33,6 @@ abstract class ContinuedFractionBase<
      * fraction.
      */
     fun terms(fractionalTerms: Int) = subList(0, fractionalTerms + 1)
-
-    /**
-     * @todo A nicer way to have a `twofold` that processes two elements at a
-     *       time, rather than `fold`'s one at a time.
-     */
-    internal fun backAgain(): T {
-        return subList(
-            0,
-            size - 1
-        ).asReversed().asSequence().fold(last()) { previous, a_ni ->
-            a_ni + previous.reciprocal
-        }
-    }
 }
 
 interface ContinuedFractionCompanionBase<
@@ -77,6 +64,20 @@ interface ContinuedFractionCompanionBase<
         return ctor(terms)
     }
 }
+
+/**
+ * @todo A nicer way to have a `twofold` that processes two elements at a
+ *       time, rather than `fold`'s one at a time.
+ */
+internal fun <
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>
+        > C.backAgain() = subList(0, size - 1)
+    .asReversed()
+    .asSequence()
+    .fold(last()) { previous, a_ni ->
+        previous.reciprocal + a_ni
+    }
 
 /**
  * Checks if this continued fraction is _simple_ (has only 1 in all
