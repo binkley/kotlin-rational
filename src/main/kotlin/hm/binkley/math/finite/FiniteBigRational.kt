@@ -554,24 +554,6 @@ operator fun FiniteBigRational.minus(subtrahend: Float) =
     this - subtrahend.toFiniteBigRational()
 
 /**
- * Subtracts the other value from this value yielding a `FiniteBigRational`.
- */
-operator fun FiniteBigRational.minus(subtrahend: BInt) =
-    this - subtrahend.toFiniteBigRational()
-
-/**
- * Subtracts the other value from this value yielding a `FiniteBigRational`.
- */
-operator fun FiniteBigRational.minus(subtrahend: Long) =
-    this - subtrahend.toFiniteBigRational()
-
-/**
- * Subtracts the other value from this value yielding a `FiniteBigRational`.
- */
-operator fun FiniteBigRational.minus(subtrahend: Int) =
-    this - subtrahend.toFiniteBigRational()
-
-/**
  * Multiplies this value by the other value yielding a `FiniteBigRational`.
  */
 operator fun FiniteBigRational.times(multiplicand: BDouble) =
@@ -587,24 +569,6 @@ operator fun FiniteBigRational.times(multiplicand: Double) =
  * Multiplies this value by the other value yielding a `FiniteBigRational`.
  */
 operator fun FiniteBigRational.times(multiplicand: Float) =
-    this * multiplicand.toFiniteBigRational()
-
-/**
- * Multiplies this value by the other value yielding a `FiniteBigRational`.
- */
-operator fun FiniteBigRational.times(multiplicand: BInt) =
-    this * multiplicand.toFiniteBigRational()
-
-/**
- * Multiplies this value by the other value yielding a `FiniteBigRational`.
- */
-operator fun FiniteBigRational.times(multiplicand: Long) =
-    this * multiplicand.toFiniteBigRational()
-
-/**
- * Multiplies this value by the other value yielding a `FiniteBigRational`.
- */
-operator fun FiniteBigRational.times(multiplicand: Int) =
     this * multiplicand.toFiniteBigRational()
 
 /**
@@ -629,30 +593,6 @@ operator fun FiniteBigRational.div(divisor: Double) =
  * @see [divideAndRemainder]
  */
 operator fun FiniteBigRational.div(divisor: Float) =
-    this / divisor.toFiniteBigRational()
-
-/**
- * Divides this value by the other value exactly yielding a FiniteBigRational.
- *
- * @see [divideAndRemainder]
- */
-operator fun FiniteBigRational.div(divisor: BInt) =
-    this / divisor.toFiniteBigRational()
-
-/**
- * Divides this value by the other value exactly yielding a FiniteBigRational.
- *
- * @see [divideAndRemainder]
- */
-operator fun FiniteBigRational.div(divisor: Long) =
-    this / divisor.toFiniteBigRational()
-
-/**
- * Divides this value by the other value exactly yielding a FiniteBigRational.
- *
- * @see [divideAndRemainder]
- */
-operator fun FiniteBigRational.div(divisor: Int) =
     this / divisor.toFiniteBigRational()
 
 /**

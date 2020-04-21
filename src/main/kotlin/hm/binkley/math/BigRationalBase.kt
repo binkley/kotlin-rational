@@ -223,12 +223,36 @@ operator fun <T : BigRationalBase<T>> T.plus(addend: Int) =
 operator fun <T : BigRationalBase<T>> T.minus(subtrahend: T) =
     this + -subtrahend
 
+/** Subtracts the other value from this value. */
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BInt) =
+    this - companion.valueOf(subtrahend)
+
+/** Subtracts the other value from this value. */
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Long) =
+    this - companion.valueOf(subtrahend)
+
+/** Subtracts the other value from this value. */
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Int) =
+    this - companion.valueOf(subtrahend)
+
 /** Multiplies this value by the other value. */
 operator fun <T : BigRationalBase<T>> T.times(multiplicand: T) =
     companion.valueOf(
         numerator * multiplicand.numerator,
         denominator * multiplicand.denominator
     )
+
+/** Multiplies this value by the other value. */
+operator fun <T : BigRationalBase<T>> T.times(multiplicand: BInt) =
+    this * companion.valueOf(multiplicand)
+
+/** Multiplies this value by the other value. */
+operator fun <T : BigRationalBase<T>> T.times(multiplicand: Long) =
+    this * companion.valueOf(multiplicand)
+
+/** Multiplies this value by the other value. */
+operator fun <T : BigRationalBase<T>> T.times(multiplicand: Int) =
+    this * companion.valueOf(multiplicand)
 
 /**
  * Divides this value by the other value exactly.
@@ -237,6 +261,30 @@ operator fun <T : BigRationalBase<T>> T.times(multiplicand: T) =
  */
 operator fun <T : BigRationalBase<T>> T.div(divisor: T) =
     this * divisor.reciprocal
+
+/**
+ * Divides this value by the other value exactly.
+ *
+ * @see [divideAndRemainder]
+ */
+operator fun <T : BigRationalBase<T>> T.div(divisor: BInt) =
+    this / companion.valueOf(divisor)
+
+/**
+ * Divides this value by the other value exactly.
+ *
+ * @see [divideAndRemainder]
+ */
+operator fun <T : BigRationalBase<T>> T.div(divisor: Long) =
+    this / companion.valueOf(divisor)
+
+/**
+ * Divides this value by the other value exactly.
+ *
+ * @see [divideAndRemainder]
+ */
+operator fun <T : BigRationalBase<T>> T.div(divisor: Int) =
+    this / companion.valueOf(divisor)
 
 /**
  * Returns a the value `(this^exponent)`. Note that [exponent] is an integer

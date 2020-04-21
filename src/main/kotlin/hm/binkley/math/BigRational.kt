@@ -681,18 +681,6 @@ operator fun BigRational.minus(subtrahend: Double) =
 operator fun BigRational.minus(subtrahend: Float) =
     this - subtrahend.toBigRational()
 
-/** Subtracts the other value from this value yielding a `BigRational`. */
-operator fun BigRational.minus(subtrahend: BInt) =
-    this - subtrahend.toBigRational()
-
-/** Subtracts the other value from this value yielding a `BigRational`. */
-operator fun BigRational.minus(subtrahend: Long) =
-    this - subtrahend.toBigRational()
-
-/** Subtracts the other value from this value yielding a `BigRational`. */
-operator fun BigRational.minus(subtrahend: Int) =
-    this - subtrahend.toBigRational()
-
 /** Multiplies this value by the other value. */
 operator fun BigRational.times(multiplicand: BDouble) =
     this * multiplicand.toBigRational()
@@ -703,18 +691,6 @@ operator fun BigRational.times(multiplicand: Double) =
 
 /** Multiplies this value by the other value yielding a `BigRational`. */
 operator fun BigRational.times(multiplicand: Float) =
-    this * multiplicand.toBigRational()
-
-/** Multiplies this value by the other value yielding a `BigRational`. */
-operator fun BigRational.times(multiplicand: BInt) =
-    this * multiplicand.toBigRational()
-
-/** Multiplies this value by the other value yielding a `BigRational`. */
-operator fun BigRational.times(multiplicand: Long) =
-    this * multiplicand.toBigRational()
-
-/** Multiplies this value by the other value yielding a `BigRational`. */
-operator fun BigRational.times(multiplicand: Int) =
     this * multiplicand.toBigRational()
 
 /**
@@ -738,27 +714,6 @@ operator fun BigRational.div(divisor: Double) = this / divisor.toBigRational()
  * @see [divideAndRemainder]
  */
 operator fun BigRational.div(divisor: Float) = this / divisor.toBigRational()
-
-/**
- * Divides this value by the other value exactly yielding a `BigRational`.
- *
- * @see [divideAndRemainder]
- */
-operator fun BigRational.div(divisor: BInt) = this / divisor.toBigRational()
-
-/**
- * Divides this value by the other value exactly yielding a `BigRational`.
- *
- * @see [divideAndRemainder]
- */
-operator fun BigRational.div(divisor: Long) = this / divisor.toBigRational()
-
-/**
- * Divides this value by the other value exactly yielding a `BigRational`.
- *
- * @see [divideAndRemainder]
- */
-operator fun BigRational.div(divisor: Int) = this / divisor.toBigRational()
 
 /**
  * Finds the remainder of this value by other: always 0 (division is exact),
