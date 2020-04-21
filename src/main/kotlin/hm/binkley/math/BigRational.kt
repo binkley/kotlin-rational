@@ -556,13 +556,13 @@ fun Double.toBigRational() = convert(this)
 fun Float.toBigRational() = toDouble().toBigRational()
 
 /** Returns the value of this number as a `BigRational`. */
-fun BInt.toBigRational() = valueOf(this, BInt.ONE)
+fun BInt.toBigRational() = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-fun Long.toBigRational() = toBigInteger().toBigRational()
+fun Long.toBigRational() = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-fun Int.toBigRational() = toBigInteger().toBigRational()
+fun Int.toBigRational() = valueOf(this)
 
 /**
  * Compares this value to the other.
@@ -668,15 +668,6 @@ operator fun BigRational.plus(addend: Double) = this + addend.toBigRational()
 
 /** Adds the other value to this value yielding a `BigRational`. */
 operator fun BigRational.plus(addend: Float) = this + addend.toBigRational()
-
-/** Adds the other value to this value yielding a `BigRational`. */
-operator fun BigRational.plus(addend: BInt) = this + addend.toBigRational()
-
-/** Adds the other value to this value yielding a `BigRational`. */
-operator fun BigRational.plus(addend: Long) = this + addend.toBigRational()
-
-/** Adds the other value to this value yielding a `BigRational`. */
-operator fun BigRational.plus(addend: Int) = this + addend.toBigRational()
 
 /** Subtracts the other value from this value yielding a `BigRational`. */
 operator fun BigRational.minus(subtrahend: BDouble) =

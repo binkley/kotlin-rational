@@ -419,13 +419,13 @@ fun Double.toFiniteBigRational() = convert(this)
 fun Float.toFiniteBigRational() = toDouble().toFiniteBigRational()
 
 /** Returns the value of this number as a `FiniteBigRational`. */
-fun BInt.toFiniteBigRational() = valueOf(this, BInt.ONE)
+fun BInt.toFiniteBigRational() = valueOf(this)
 
 /** Returns the value of this number as a `FiniteBigRational`. */
-fun Long.toFiniteBigRational() = toBigInteger().toFiniteBigRational()
+fun Long.toFiniteBigRational() = valueOf(this)
 
 /** Returns the value of this number as a `FiniteBigRational`. */
-fun Int.toFiniteBigRational() = toBigInteger().toFiniteBigRational()
+fun Int.toFiniteBigRational() = valueOf(this)
 
 /**
  * Compares this value to the other.
@@ -533,18 +533,6 @@ operator fun FiniteBigRational.plus(addend: Double) =
 
 /** Adds the other value to this value yielding a `FiniteBigRational`. */
 operator fun FiniteBigRational.plus(addend: Float) =
-    this + addend.toFiniteBigRational()
-
-/** Adds the other value to this value yielding a `FiniteBigRational`. */
-operator fun FiniteBigRational.plus(addend: BInt) =
-    this + addend.toFiniteBigRational()
-
-/** Adds the other value to this value yielding a `FiniteBigRational`. */
-operator fun FiniteBigRational.plus(addend: Long) =
-    this + addend.toFiniteBigRational()
-
-/** Adds the other value to this value yielding a `FiniteBigRational`. */
-operator fun FiniteBigRational.plus(addend: Int) =
     this + addend.toFiniteBigRational()
 
 /**

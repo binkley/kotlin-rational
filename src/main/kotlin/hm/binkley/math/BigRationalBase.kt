@@ -207,6 +207,18 @@ operator fun <T : BigRationalBase<T>> T.plus(addend: T) =
         denominator * addend.denominator
     )
 
+/** Adds the other value to this value. */
+operator fun <T : BigRationalBase<T>> T.plus(addend: BInt) =
+    this + companion.valueOf(addend)
+
+/** Adds the other value to this value. */
+operator fun <T : BigRationalBase<T>> T.plus(addend: Long) =
+    this + companion.valueOf(addend)
+
+/** Adds the other value to this value. */
+operator fun <T : BigRationalBase<T>> T.plus(addend: Int) =
+    this + companion.valueOf(addend)
+
 /** Subtracts the other value from this value. */
 operator fun <T : BigRationalBase<T>> T.minus(subtrahend: T) =
     this + -subtrahend
