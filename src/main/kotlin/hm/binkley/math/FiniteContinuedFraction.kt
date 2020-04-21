@@ -14,8 +14,6 @@ import java.math.BigInteger
  *
  * This class supports infinite continued fractions in a very limited sense;
  * none are calculated to their limit; all convert to [NaN].
- *
- * @todo Properties/methods for convergents
  */
 class FiniteContinuedFraction private constructor(
     terms: List<BigRational>
