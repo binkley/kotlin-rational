@@ -208,6 +208,20 @@ operator fun <T : BigRationalBase<T>> T.times(multiplicand: T) =
 operator fun <T : BigRationalBase<T>> T.div(divisor: T) =
     this * divisor.reciprocal
 
+/**
+ * Returns a the value `(this^exponent)`. Note that [exponent] is an integer
+ * rather than a big rational.
+ */
+fun <T : BigRationalBase<T>> T.pow(exponent: Int): T /* type check issue */ =
+    when {
+        0 <= exponent ->
+            companion.valueOf(
+                numerator.pow(exponent),
+                denominator.pow(exponent)
+            )
+        else -> reciprocal.pow(-exponent)
+    }
+
 /** Checks that this rational is an integer. */
 fun <T : BigRationalBase<T>> T.isInteger() = BInt.ONE == denominator
 

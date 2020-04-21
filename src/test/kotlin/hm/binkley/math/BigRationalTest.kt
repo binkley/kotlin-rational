@@ -112,6 +112,14 @@ internal class BigRationalTest {
                 Double.NEGATIVE_INFINITY,
                 NEGATIVE_INFINITY.toDouble()
             )
+            assertEquals(
+                Long.MAX_VALUE,
+                POSITIVE_INFINITY.toLong()
+            )
+            assertEquals(
+                Long.MIN_VALUE,
+                NEGATIVE_INFINITY.toLong()
+            )
         }
 
         @Test
@@ -384,8 +392,8 @@ internal class BigRationalTest {
                 BDouble.ONE + ONE
             )
             assertEquals(
-                2 over 1,
-                ONE + BDouble.ONE
+                11 over 1,
+                ONE + BDouble.TEN
             )
             assertEquals(
                 2 over 1,
@@ -1220,6 +1228,9 @@ internal class BigRationalTest {
             }
             assertThrows<IllegalStateException> {
                 for (r in ONE downTo ZERO step 1); noop()
+            }
+            assertThrows<IllegalStateException> {
+                for (r in ZERO..ONE step ZERO); noop()
             }
         }
     }

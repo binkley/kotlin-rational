@@ -4,6 +4,7 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
+import hm.binkley.math.BigRationalProgression
 import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.exponent
@@ -18,11 +19,9 @@ import hm.binkley.math.lcm
 import hm.binkley.math.mantissa
 import hm.binkley.math.minus
 import hm.binkley.math.plus
-import hm.binkley.math.reciprocal
+import hm.binkley.math.pow
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
-import java.math.BigInteger
-import java.util.Objects.hash
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).
@@ -732,7 +731,7 @@ operator fun FiniteBigRational.rem(divisor: Int) =
 
 /** Creates a range from this value to the specified [other] value. */
 operator fun FiniteBigRational.rangeTo(other: FiniteBigRational) =
-    FiniteBigRationalProgression(this, other)
+    BigRationalProgression(this, other, ONE, iteratorCheck)
 
 operator fun FiniteBigRational.rangeTo(other: BDouble) =
     rangeTo(other.toFiniteBigRational())
@@ -757,100 +756,13 @@ operator fun FiniteBigRational.rangeTo(other: Long) =
 operator fun FiniteBigRational.rangeTo(other: Int) =
     rangeTo(other.toFiniteBigRational())
 
-sealed class FiniteBigRationalIterator(
-    first: FiniteBigRational,
-    protected val last: FiniteBigRational,
-    private val step: FiniteBigRational
-) : Iterator<FiniteBigRational> {
-    init {
+private val iteratorCheck =
+    { _: FiniteBigRational, _: FiniteBigRational, step: FiniteBigRational ->
         if (step == ZERO) error("Step must be non-zero.")
     }
 
-    protected var current = first
-
-    override fun next(): FiniteBigRational {
-        val next = current
-        current += step
-        return next
-    }
-}
-
-class IncrementingFiniteBigRationalIterator(
-    /** The first element in the progression. */
-    first: FiniteBigRational,
-    /** The last element in the progression. */
-    last: FiniteBigRational,
-    step: FiniteBigRational
-) : FiniteBigRationalIterator(first, last, step) {
-    init {
-        if (first > last)
-            error("Step must be advance range to avoid overflow.")
-    }
-
-    override fun hasNext() = current <= last
-}
-
-class DecrementingFiniteBigRationalIterator(
-    /** The first element in the progression. */
-    first: FiniteBigRational,
-    /** The last element in the progression. */
-    last: FiniteBigRational,
-    step: FiniteBigRational
-) : FiniteBigRationalIterator(first, last, step) {
-    init {
-        if (first < last)
-            error("Step must be advance range to avoid overflow.")
-    }
-
-    override fun hasNext() = current >= last
-}
-
-class FiniteBigRationalProgression(
-    override val start: FiniteBigRational,
-    override val endInclusive: FiniteBigRational,
-    step: FiniteBigRational = ONE
-) : SteppedFiniteBigRationalProgression(start, endInclusive, step) {
-    infix fun step(step: FiniteBigRational) =
-        SteppedFiniteBigRationalProgression(start, endInclusive, step)
-
-    infix fun step(step: BInt) =
-        SteppedFiniteBigRationalProgression(start, endInclusive, step over 1)
-
-    infix fun step(step: Long) =
-        SteppedFiniteBigRationalProgression(start, endInclusive, step over 1)
-
-    infix fun step(step: Int) =
-        SteppedFiniteBigRationalProgression(start, endInclusive, step over 1)
-}
-
-open class SteppedFiniteBigRationalProgression(
-    override val start: FiniteBigRational,
-    override val endInclusive: FiniteBigRational,
-    private val step: FiniteBigRational
-) : Iterable<FiniteBigRational>, ClosedRange<FiniteBigRational> {
-    override fun iterator() =
-        if (step < ZERO)
-            DecrementingFiniteBigRationalIterator(start, endInclusive, step)
-        else
-            IncrementingFiniteBigRationalIterator(start, endInclusive, step)
-
-    override fun equals(other: Any?) = when {
-        this === other -> true
-        other !is SteppedFiniteBigRationalProgression -> false
-        else -> start == other.start &&
-                endInclusive == other.endInclusive &&
-                step == other.step
-    }
-
-    override fun hashCode() = hash(start, endInclusive, step)
-
-    override fun toString() =
-        if (step < ZERO) "$start downTo $endInclusive step $step"
-        else "$start..$endInclusive step $step"
-}
-
 infix fun FiniteBigRational.downTo(other: FiniteBigRational) =
-    FiniteBigRationalProgression(this, other, -ONE)
+    BigRationalProgression(this, other, -ONE, iteratorCheck)
 
 operator fun BDouble.plus(other: FiniteBigRational) =
     toFiniteBigRational() + other
@@ -1006,20 +918,6 @@ fun FiniteBigRational.divideAndRemainder(other: FiniteBigRational):
     val remainder = this - other * quotient
     return quotient to remainder
 }
-
-/**
- * Returns a `FiniteBigRational` whose value is `(this^exponent)`. Note that
- * `exponent` is an integer rather than a FiniteBigRational (and the
- * underlying [BigInteger] does not support `BInt.pow(BInt)`).
- */
-fun FiniteBigRational.pow(
-    exponent: Int
-): FiniteBigRational /* type check issue */ =
-    when {
-        0 <= exponent ->
-            valueOf(numerator.pow(exponent), denominator.pow(exponent))
-        else -> reciprocal.pow(-exponent)
-    }
 
 /**
  * Returns a `FiniteBigRational` whose value is the greatest common divisor of

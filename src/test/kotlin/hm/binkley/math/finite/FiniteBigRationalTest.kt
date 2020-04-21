@@ -16,6 +16,8 @@ import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isInteger
 import hm.binkley.math.minus
 import hm.binkley.math.plus
+import hm.binkley.math.pow
+import hm.binkley.math.rangeTo
 import hm.binkley.math.reciprocal
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
@@ -303,8 +305,8 @@ internal class FiniteBigRationalTest {
                 BDouble.ONE + ONE
             )
             assertEquals(
-                2 over 1,
-                ONE + BDouble.ONE
+                11 over 1,
+                ONE + BDouble.TEN
             )
             assertEquals(
                 2 over 1,
@@ -955,6 +957,9 @@ internal class FiniteBigRationalTest {
             }
             assertThrows<IllegalStateException> {
                 for (r in ONE downTo ZERO step 1); noop()
+            }
+            assertThrows<IllegalStateException> {
+                for (r in ZERO..ONE step ZERO); noop()
             }
         }
     }
