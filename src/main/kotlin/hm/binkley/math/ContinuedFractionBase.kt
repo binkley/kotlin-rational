@@ -1,11 +1,11 @@
 package hm.binkley.math
 
-import java.math.BigInteger
-
 abstract class ContinuedFractionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
-        >(private val terms: List<T>) : List<T> by terms {
+        >(
+    private val terms: List<T>
+) : List<T> by terms {
     protected abstract fun ctor(terms: List<T>): C
 
     /** The integer part of this continued fraction. */
@@ -56,8 +56,8 @@ interface ContinuedFractionCompanionBase<
      * Creates a continued fraction from the given decomposed elements.
      */
     fun valueOf(
-        integerPart: BigInteger,
-        vararg fractionalParts: BigInteger
+        integerPart: BInt,
+        vararg fractionalParts: BInt
     ): C {
         val terms = mutableListOf(ctor(integerPart))
         terms += fractionalParts.map { ctor(it) }
