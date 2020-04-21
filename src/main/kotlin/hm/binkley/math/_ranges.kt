@@ -76,12 +76,76 @@ open class BigRationalProgression<T : BigRationalBase<T>>(
         else "$start..$endInclusive step $step"
 }
 
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> T.rangeTo(endInclusive: T) =
+    BigRationalProgression(this, endInclusive, companion.ONE)
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> T.rangeTo(endInclusive: BDouble) =
+    this..companion.valueOf(endInclusive)
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> BDouble.rangeTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this)..endInclusive
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> T.rangeTo(endInclusive: Double) =
+    this..companion.valueOf(endInclusive)
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> Double.rangeTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this)..endInclusive
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> T.rangeTo(endInclusive: Float) =
+    this..companion.valueOf(endInclusive)
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> Float.rangeTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this)..endInclusive
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> T.rangeTo(endInclusive: BInt) =
+    this..companion.valueOf(endInclusive)
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> BInt.rangeTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this)..endInclusive
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> T.rangeTo(endInclusive: Long) =
+    this..companion.valueOf(endInclusive)
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> Long.rangeTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this)..endInclusive
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> T.rangeTo(endInclusive: Int) =
+    this..companion.valueOf(endInclusive)
+
+/** Creates a range from this value to [endInclusive]. */
+operator fun <T : BigRationalBase<T>> Int.rangeTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this)..endInclusive
+
+/** Creates a range from this value _down_ to [endInclusive]. */
+infix fun <T : BigRationalBase<T>> T.downTo(endInclusive: T) =
+    BigRationalProgression(this, endInclusive, -companion.ONE)
+
+/** Creates a range from this value _down_ to [endInclusive]. */
+infix fun <T : BigRationalBase<T>> BInt.downTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this) downTo endInclusive
+
+/** Creates a range from this value _down_ to [endInclusive]. */
+infix fun <T : BigRationalBase<T>> Long.downTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this) downTo endInclusive
+
+/** Creates a range from this value _down_ to [endInclusive]. */
+infix fun <T : BigRationalBase<T>> Int.downTo(endInclusive: T) =
+    endInclusive.companion.valueOf(this) downTo endInclusive
+
 infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: T) =
-    BigRationalProgression(
-        start,
-        endInclusive,
-        step
-    )
+    BigRationalProgression(start, endInclusive, step)
 
 infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: BInt) =
     BigRationalProgression(start, endInclusive, start.companion.valueOf(step))

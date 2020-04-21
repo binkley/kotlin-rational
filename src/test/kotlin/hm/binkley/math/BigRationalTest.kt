@@ -1142,7 +1142,7 @@ internal class BigRationalTest {
             )
             assertEquals(
                 "1 downTo 0 step -2",
-                "${(ONE downTo ZERO step -TWO)}"
+                "${(1 downTo ZERO step -TWO)}"
             )
         }
 
@@ -1227,10 +1227,10 @@ internal class BigRationalTest {
                 for (r in ZERO..ONE step -1) noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in ONE downTo ZERO step 1); noop()
+                for (r in BInt.ONE downTo ZERO step 1); noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in ZERO..ONE step ZERO); noop()
+                for (r in 0L downTo ONE step ZERO); noop()
             }
         }
     }

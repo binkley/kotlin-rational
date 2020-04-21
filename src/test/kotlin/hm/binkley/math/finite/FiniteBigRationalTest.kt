@@ -5,19 +5,29 @@ package hm.binkley.math.finite
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.absoluteValue
+import hm.binkley.math.ceil
+import hm.binkley.math.compareTo
 import hm.binkley.math.dec
 import hm.binkley.math.div
+import hm.binkley.math.divideAndRemainder
+import hm.binkley.math.downTo
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TEN
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
+import hm.binkley.math.floor
+import hm.binkley.math.gcd
 import hm.binkley.math.inc
 import hm.binkley.math.isDenominatorEven
-import hm.binkley.math.isInteger
+import hm.binkley.math.isZero
+import hm.binkley.math.lcm
 import hm.binkley.math.minus
 import hm.binkley.math.plus
 import hm.binkley.math.pow
+import hm.binkley.math.rangeTo
 import hm.binkley.math.reciprocal
+import hm.binkley.math.rem
+import hm.binkley.math.round
 import hm.binkley.math.step
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
@@ -880,7 +890,7 @@ internal class FiniteBigRationalTest {
             )
             assertEquals(
                 "1 downTo 0 step -2",
-                "${(ONE downTo ZERO step -TWO)}"
+                "${(1 downTo ZERO step -TWO)}"
             )
         }
 
@@ -956,10 +966,10 @@ internal class FiniteBigRationalTest {
                 for (r in ZERO..ONE step -1) noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in ONE downTo ZERO step 1); noop()
+                for (r in BInt.ONE downTo ZERO step 1); noop()
             }
             assertThrows<IllegalStateException> {
-                for (r in ZERO..ONE step ZERO); noop()
+                for (r in 0L downTo ZERO step ZERO); noop()
             }
         }
     }
