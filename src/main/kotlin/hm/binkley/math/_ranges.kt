@@ -1,6 +1,6 @@
 package hm.binkley.math
 
-import java.util.Objects
+import java.util.Objects.hash
 
 sealed class BigRationalIterator<T : BigRationalBase<T>>(
     first: T,
@@ -57,17 +57,9 @@ open class BigRationalProgression<T : BigRationalBase<T>>(
 ) : Iterable<T>, ClosedRange<T> {
     override fun iterator() =
         if (step < start.companion.ZERO)
-            DecrementingBigRationalIterator(
-                start,
-                endInclusive,
-                step
-            )
+            DecrementingBigRationalIterator(start, endInclusive, step)
         else
-            IncrementingBigRationalIterator(
-                start,
-                endInclusive,
-                step
-            )
+            IncrementingBigRationalIterator(start, endInclusive, step)
 
     override fun equals(other: Any?) = when {
         this === other -> true
@@ -77,7 +69,7 @@ open class BigRationalProgression<T : BigRationalBase<T>>(
                 step == other.step
     }
 
-    override fun hashCode() = Objects.hash(start, endInclusive, step)
+    override fun hashCode() = hash(start, endInclusive, step)
 
     override fun toString() =
         if (step < start.companion.ZERO) "$start downTo $endInclusive step $step"
@@ -92,22 +84,10 @@ infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: T) =
     )
 
 infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: BInt) =
-    BigRationalProgression(
-        start,
-        endInclusive,
-        start.companion.valueOf(step, BInt.ONE)
-    )
+    BigRationalProgression(start, endInclusive, start.companion.valueOf(step))
 
 infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: Long) =
-    BigRationalProgression(
-        start,
-        endInclusive,
-        start.companion.valueOf(step.toBigInteger(), BInt.ONE)
-    )
+    BigRationalProgression(start, endInclusive, start.companion.valueOf(step))
 
 infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: Int) =
-    BigRationalProgression(
-        start,
-        endInclusive,
-        start.companion.valueOf(step.toBigInteger(), BInt.ONE)
-    )
+    BigRationalProgression(start, endInclusive, start.companion.valueOf(step))

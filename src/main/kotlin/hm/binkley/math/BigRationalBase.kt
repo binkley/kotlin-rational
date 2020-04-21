@@ -19,6 +19,15 @@ interface BigRationalCompanion<T : BigRationalBase<T>> {
 
     fun valueOf(numerator: BInt, denominator: BInt): T
 
+    fun valueOf(wholeNumber: BInt) =
+        valueOf(wholeNumber, BInt.ONE)
+
+    fun valueOf(wholeNumber: Long) =
+        valueOf(wholeNumber.toBigInteger())
+
+    fun valueOf(wholeNumber: Int) =
+        valueOf(wholeNumber.toBigInteger())
+
     fun iteratorCheck(first: T, last: T, step: T)
 
     fun construct(
@@ -114,7 +123,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * positive.
      */
     open val sign: T
-        get() = companion.valueOf(numerator.signum().toBigInteger(), BInt.ONE)
+        get() = companion.valueOf(numerator.signum())
 
     /**
      * Returns the Farey value between this FiniteBigRational and [other], or
