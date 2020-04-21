@@ -88,6 +88,16 @@ class BigRational private constructor(
     }
 
     /**
+     * The signum of this value: -1 for negative, 0 for zero, or 1 for
+     * positive.  `sign` of [NaN] is [NaN].
+     */
+    override val sign: BigRational
+        get() = when {
+            isNaN() -> NaN
+            else -> super.sign
+        }
+
+    /**
      * Returns the Farey value between this FiniteBigRational and [other], the
      * same value when equal.  If either value is [NaN], returns [NaN]. [ZERO]
      * is between the two infinities, and the infinities are between
@@ -214,16 +224,6 @@ class BigRational private constructor(
         }
     }
 }
-
-/**
- * The signum of this `BigRational`: -1 for negative, 0 for zero, or 1 for
- * positive.  `sign` of [NaN] is another [NaN].
- */
-val BigRational.sign: BigRational
-    get() = when {
-        isNaN() -> NaN
-        else -> numerator.signum().toBigRational()
-    }
 
 /**
  * Returns a `BigRational` whose value is equal to that of the

@@ -89,13 +89,6 @@ class FiniteBigRational private constructor(
 }
 
 /**
- * The signum of this FiniteBigRational: -1 for negative, 0 for zero, or
- * 1 for positive.
- */
-val FiniteBigRational.sign: FiniteBigRational
-    get() = numerator.signum().toFiniteBigRational()
-
-/**
  * Returns a `FiniteBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *

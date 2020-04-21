@@ -17,7 +17,6 @@ import hm.binkley.math.isInteger
 import hm.binkley.math.minus
 import hm.binkley.math.plus
 import hm.binkley.math.pow
-import hm.binkley.math.rangeTo
 import hm.binkley.math.reciprocal
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus

@@ -110,6 +110,13 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     }
 
     /**
+     * The signum of this value: -1 for negative, 0 for zero, or 1 for
+     * positive.
+     */
+    open val sign: T
+        get() = companion.valueOf(numerator.signum().toBigInteger(), BInt.ONE)
+
+    /**
      * Returns the Farey value between this FiniteBigRational and [other], or
      * the same value when equal.
      *
