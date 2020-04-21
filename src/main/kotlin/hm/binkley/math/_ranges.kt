@@ -5,11 +5,10 @@ import java.util.Objects
 sealed class BigRationalIterator<T : BigRationalBase<T>>(
     first: T,
     protected val last: T,
-    private val step: T,
-    check: (T, T, T) -> Unit
+    private val step: T
 ) : Iterator<T> {
     init {
-        check(first, last, step)
+        first.companion.iteratorCheck(first, last, step)
     }
 
     protected var current = first
@@ -26,9 +25,8 @@ class IncrementingBigRationalIterator<T : BigRationalBase<T>>(
     first: T,
     /** The last element in the progression. */
     last: T,
-    step: T,
-    baseCheck: (T, T, T) -> Unit
-) : BigRationalIterator<T>(first, last, step, baseCheck) {
+    step: T
+) : BigRationalIterator<T>(first, last, step) {
     init {
         if (first > last)
             error("Step must be advance range to avoid overflow.")
@@ -42,9 +40,8 @@ class DecrementingBigRationalIterator<T : BigRationalBase<T>>(
     first: T,
     /** The last element in the progression. */
     last: T,
-    step: T,
-    baseCheck: (T, T, T) -> Unit
-) : BigRationalIterator<T>(first, last, step, baseCheck) {
+    step: T
+) : BigRationalIterator<T>(first, last, step) {
     init {
         if (first < last)
             error("Step must be advance range to avoid overflow.")
@@ -56,23 +53,20 @@ class DecrementingBigRationalIterator<T : BigRationalBase<T>>(
 open class SteppedBigRationalProgression<T : BigRationalBase<T>>(
     override val start: T,
     override val endInclusive: T,
-    private val step: T,
-    private val iteratorCheck: (T, T, T) -> Unit
+    private val step: T
 ) : Iterable<T>, ClosedRange<T> {
     override fun iterator() =
         if (step < start.companion.ZERO)
             DecrementingBigRationalIterator(
                 start,
                 endInclusive,
-                step,
-                iteratorCheck
+                step
             )
         else
             IncrementingBigRationalIterator(
                 start,
                 endInclusive,
-                step,
-                iteratorCheck
+                step
             )
 
     override fun equals(other: Any?) = when {
@@ -93,43 +87,37 @@ open class SteppedBigRationalProgression<T : BigRationalBase<T>>(
 class BigRationalProgression<T : BigRationalBase<T>>(
     override val start: T,
     override val endInclusive: T,
-    step: T,
-    private val iteratorCheck: (T, T, T) -> Unit
+    step: T
 ) : SteppedBigRationalProgression<T>(
     start,
     endInclusive,
-    step,
-    iteratorCheck
+    step
 ) {
     infix fun step(step: T) =
         SteppedBigRationalProgression(
             start,
             endInclusive,
-            step,
-            iteratorCheck
+            step
         )
 
     infix fun step(step: BInt) =
         SteppedBigRationalProgression(
             start,
             endInclusive,
-            start.companion.valueOf(step, BInt.ONE),
-            iteratorCheck
+            start.companion.valueOf(step, BInt.ONE)
         )
 
     infix fun step(step: Long) =
         SteppedBigRationalProgression(
             start,
             endInclusive,
-            start.companion.valueOf(step.toBigInteger(), BInt.ONE),
-            iteratorCheck
+            start.companion.valueOf(step.toBigInteger(), BInt.ONE)
         )
 
     infix fun step(step: Int) =
         SteppedBigRationalProgression(
             start,
             endInclusive,
-            start.companion.valueOf(step.toBigInteger(), BInt.ONE),
-            iteratorCheck
+            start.companion.valueOf(step.toBigInteger(), BInt.ONE)
         )
 }

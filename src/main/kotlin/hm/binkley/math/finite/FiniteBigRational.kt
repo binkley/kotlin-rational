@@ -77,6 +77,14 @@ class FiniteBigRational private constructor(
                 FiniteBigRational(n, d)
             }
         }
+
+        override fun iteratorCheck(
+            first: FiniteBigRational,
+            last: FiniteBigRational,
+            step: FiniteBigRational
+        ) {
+            if (step == ZERO) error("Step must be non-zero.")
+        }
     }
 }
 
@@ -731,7 +739,7 @@ operator fun FiniteBigRational.rem(divisor: Int) =
 
 /** Creates a range from this value to the specified [other] value. */
 operator fun FiniteBigRational.rangeTo(other: FiniteBigRational) =
-    BigRationalProgression(this, other, ONE, iteratorCheck)
+    BigRationalProgression(this, other, ONE)
 
 operator fun FiniteBigRational.rangeTo(other: BDouble) =
     rangeTo(other.toFiniteBigRational())
@@ -756,13 +764,8 @@ operator fun FiniteBigRational.rangeTo(other: Long) =
 operator fun FiniteBigRational.rangeTo(other: Int) =
     rangeTo(other.toFiniteBigRational())
 
-private val iteratorCheck =
-    { _: FiniteBigRational, _: FiniteBigRational, step: FiniteBigRational ->
-        if (step == ZERO) error("Step must be non-zero.")
-    }
-
 infix fun FiniteBigRational.downTo(other: FiniteBigRational) =
-    BigRationalProgression(this, other, -ONE, iteratorCheck)
+    BigRationalProgression(this, other, -ONE)
 
 operator fun BDouble.plus(other: FiniteBigRational) =
     toFiniteBigRational() + other

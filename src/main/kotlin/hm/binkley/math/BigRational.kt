@@ -201,6 +201,17 @@ class BigRational private constructor(
                 BigRational(n, d)
             }
         }
+
+        override fun iteratorCheck(
+            first: BigRational,
+            last: BigRational,
+            step: BigRational
+        ) {
+            if (!step.isFinite()) error("Non-finite step.")
+            if (!first.isFinite() || !last.isFinite())
+                error("Non-finite bounds.")
+            if (step == ZERO) error("Step must be non-zero.")
+        }
     }
 }
 
@@ -820,7 +831,7 @@ operator fun BigRational.rem(divisor: Int) = this % divisor.toBigRational()
 
 /** Creates a range from this value to the specified [other] value. */
 operator fun BigRational.rangeTo(other: BigRational) =
-    BigRationalProgression(this, other, ONE, iteratorCheck)
+    BigRationalProgression(this, other, ONE)
 
 operator fun BigRational.rangeTo(other: BDouble) =
     rangeTo(other.toBigRational())
@@ -842,16 +853,8 @@ operator fun BigRational.rangeTo(other: Long) = rangeTo(other.toBigRational())
 /** Creates a range from this value to the specified [other] value. */
 operator fun BigRational.rangeTo(other: Int) = rangeTo(other.toBigRational())
 
-private val iteratorCheck =
-    { first: BigRational, last: BigRational, step: BigRational ->
-        if (!step.isFinite()) error("Non-finite step.")
-        if (!first.isFinite() || !last.isFinite())
-            error("Non-finite bounds.")
-        if (step == ZERO) error("Step must be non-zero.")
-    }
-
 infix fun BigRational.downTo(other: BigRational) =
-    BigRationalProgression(this, other, -ONE, iteratorCheck)
+    BigRationalProgression(this, other, -ONE)
 
 operator fun BDouble.plus(other: BigRational) = toBigRational() + other
 operator fun Double.plus(other: BigRational) = toBigRational() + other

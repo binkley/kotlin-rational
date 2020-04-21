@@ -19,6 +19,8 @@ interface BigRationalCompanion<T : BigRationalBase<T>> {
 
     fun valueOf(numerator: BInt, denominator: BInt): T
 
+    fun iteratorCheck(first: T, last: T, step: T)
+
     fun construct(
         numerator: BInt,
         denominator: BInt,
