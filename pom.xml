@@ -37,7 +37,6 @@
         <detekt.version>1.8.0</detekt.version>
         <dokka.version>0.10.1</dokka.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <jacoco-minimum-line-coverage>100%</jacoco-minimum-line-coverage>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
         <junit.version>5.6.2</junit.version>
@@ -196,12 +195,15 @@
                                 <rule>
                                     <element>CLASS</element>
                                     <limits>
+                                        <!-- <limit>-->
+                                        <!-- <counter>BRANCH</counter>-->
+                                        <!-- <value>COVEREDRATIO</value>-->
+                                        <!-- <minimum>100%</minimum>-->
+                                        <!-- </limit>-->
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>
-                                                ${jacoco-minimum-line-coverage}
-                                            </minimum>
+                                            <minimum>100%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

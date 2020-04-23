@@ -42,7 +42,7 @@ abstract class ContinuedFractionBase<
      */
     fun convergent(n: Int): T {
         if (0 > n) error("Convergents start at the 0th")
-        if (size < n) error("Not enough terms for convergent: $n")
+        if (size <= n) error("Not enough terms for convergent: $n")
 
         val c0 = integerPart
 

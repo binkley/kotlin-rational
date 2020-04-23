@@ -1,10 +1,13 @@
 package hm.binkley.math
 
+import hm.binkley.math.BigRational.Companion.NaN
 import hm.binkley.math.BigRational.Companion.ONE
+import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.BigRational.Companion.TWO
 import hm.binkley.math.BigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -86,6 +89,10 @@ internal class FiniteContinuedFractionTest {
                 4.toBigInteger()
             ).toBigRational()
         )
+
+        assertSame(
+            NaN, POSITIVE_INFINITY.toContinuedFraction().toBigRational()
+        )
     }
 
     @Test
@@ -103,6 +110,9 @@ internal class FiniteContinuedFractionTest {
 
         assertThrows<IllegalStateException> {
             eulerApproximation.convergent(-1)
+        }
+        assertThrows<IllegalStateException> {
+            (ONE.toContinuedFraction()).convergent(1)
         }
     }
 }

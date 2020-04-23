@@ -105,5 +105,8 @@ internal class FiniteContinuedFractionTest {
         assertThrows<IllegalStateException> {
             eulerApproximation.convergent(-1)
         }
+        assertThrows<IllegalStateException> {
+            (ONE.toContinuedFraction()).convergent(1)
+        }
     }
 }

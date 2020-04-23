@@ -854,6 +854,10 @@ internal class FiniteBigRationalTest {
         @Test
         fun `should be itself`() {
             val zeroToOne = ZERO..ONE
+            assertEquals(
+                zeroToOne,
+                ZERO..ONE
+            )
             assertEquals(zeroToOne, zeroToOne)
             assertFalse(zeroToOne.equals(ZERO))
             assertEquals(

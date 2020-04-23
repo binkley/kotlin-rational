@@ -1107,6 +1107,10 @@ internal class BigRationalTest {
         fun `should be itself`() {
             val zeroToOne = ZERO..ONE
             assertEquals(zeroToOne, zeroToOne)
+            assertEquals(
+                zeroToOne,
+                ZERO..ONE
+            )
             assertFalse(zeroToOne.equals(ZERO))
             assertEquals(
                 zeroToOne,
