@@ -33,6 +33,42 @@ abstract class ContinuedFractionBase<
      * fraction.
      */
     fun terms(fractionalTerms: Int) = subList(0, fractionalTerms + 1)
+
+    /**
+     * Returns the convergent.
+     *
+     * See
+     * [Infinite continued fractions and convergents](https://en.wikipedia.org/wiki/Continued_fraction#Infinite_continued_fractions_and_convergents)
+     */
+    fun convergent(n: Int): T {
+        if (0 > n) error("Convergents start at the 0th")
+        if (size < n) error("Not enough terms for convergent: $n")
+
+        val c0 = integerPart
+
+        if (0 == n) return c0
+
+        val term1 = terms[1]
+        val c1 = (term1 * c0 + 1) / term1
+
+        return if (1 == n) c1
+        else converge(terms, n, 2, c1, c0)
+    }
+}
+
+private tailrec fun <T : BigRationalBase<T>> converge(
+    terms: List<T>,
+    n: Int,
+    i: Int,
+    c_1: T,
+    c_2: T
+): T {
+    val termI = terms[i]
+    val ci = (termI * c_1.numerator + c_2.numerator) /
+            (termI * c_1.denominator + c_2.denominator)
+
+    return if (n == i) ci
+    else converge(terms, n, i + 1, ci, c_1)
 }
 
 interface ContinuedFractionCompanionBase<

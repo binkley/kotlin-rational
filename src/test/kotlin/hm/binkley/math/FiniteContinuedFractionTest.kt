@@ -7,13 +7,15 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+
+// The ever popular Euler's number, 2.71828 18284 59045...
+private val eulerApproximation =
+    (271828182845 over 100_000_000_000).toContinuedFraction()
 
 internal class FiniteContinuedFractionTest {
     @Test
     fun `should continue`() {
-        // The ever popular Euler's number, 2.71828 18284 59045...
-        val eulerApproximation =
-            (271828182845 over 100_000_000_000).toContinuedFraction()
         assertEquals(
             listOf(2 over 1),
             eulerApproximation.terms(0)
@@ -90,5 +92,17 @@ internal class FiniteContinuedFractionTest {
     fun `should check if simple`() {
         assertTrue((2 over 1).toContinuedFraction().isSimple())
         assertFalse((2 over 3).toContinuedFraction().isSimple())
+    }
+
+    @Test
+    fun `should converge`() {
+        assertEquals(2 over 1, eulerApproximation.convergent(0))
+        assertEquals(3 over 1, eulerApproximation.convergent(1))
+        assertEquals(8 over 3, eulerApproximation.convergent(2))
+        assertEquals(11 over 4, eulerApproximation.convergent(3))
+
+        assertThrows<IllegalStateException> {
+            eulerApproximation.convergent(-1)
+        }
     }
 }
