@@ -60,8 +60,8 @@ private tailrec fun <T : BigRationalBase<T>> converge(
     terms: List<T>,
     n: Int,
     i: Int,
-    c_1: T,
-    c_2: T
+    c_1: T, // "c-1", meaning previous
+    c_2: T // "c-2", meaning previous previous
 ): T {
     val termI = terms[i]
     val ci = (termI * c_1.numerator + c_2.numerator) /
