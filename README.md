@@ -4,7 +4,7 @@
 
 # Kotlin Rational
 
-[![build](https://github.com/binkley/kotlin-rational/workflows/Builds,%20verifies,%20and%20publishes/badge.svg)](https://github.com/binkley/kotlin-rational/actions?query=workflow%3A%22Full+build+and+verify%22)
+[![build](https://github.com/binkley/kotlin-rational/workflows/Full%20build%20and%20verify/badge.svg)](https://github.com/binkley/kotlin-rational/actions)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 
