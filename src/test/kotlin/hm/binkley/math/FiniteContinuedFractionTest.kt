@@ -14,7 +14,7 @@ import org.junit.jupiter.api.assertThrows
 
 // The ever popular Euler's number, 2.71828 18284 59045...
 private val eulerApproximation =
-    (271828182845 over 100_000_000_000).toContinuedFraction()
+    (271_828_182_845 over 100_000_000_000).toContinuedFraction()
 
 internal class FiniteContinuedFractionTest {
     @Test
