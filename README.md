@@ -16,7 +16,7 @@ which the JDK's `BigDecimal` has been.  It is a pleasure project, not a
 reviewed scientific library.
 
 There are two versions, `BigRational` and `FiniteBigRational`, providing
-pseudo-IEEE 754 and purely finite versions.
+pseudo-IEEE 754 and purely finite versions, respectively.
 
 This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading and extension methods, and writing clean, clear, concise Kotlin.
@@ -33,7 +33,8 @@ There are no run-time dependencies.
 
 ## Releases
 
-* 1.0.0 &mdash; Publishing for reuse by KUnits
+* 1.0.0 &mdash; Publishing for reuse by
+[KUnits](https://github.com/binkley/kunits)
 
 ## Platform
 
