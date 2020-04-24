@@ -32,12 +32,6 @@ jobs:
           -Dorg.slf4j.simpleLogger.defaultLogLevel=INFO
           verify
 
-      - name: Construct site
-        run: >
-          ./mvnw -C
-          -Dorg.slf4j.simpleLogger.defaultLogLevel=INFO
-          site
-
 #      - name: Deploy to Github package registry
 #        env:
 #          GITHUB_USERNAME: x-access-token
