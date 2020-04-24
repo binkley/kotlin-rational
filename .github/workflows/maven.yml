@@ -1,4 +1,4 @@
-name: Full build and verify
+name: build
 
 on: [push]
 
