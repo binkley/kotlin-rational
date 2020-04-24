@@ -3,6 +3,10 @@ package hm.binkley.math
 import java.math.BigDecimal
 import java.util.Objects.hash
 
+/**
+ * @todo Provide`sqrt` via continued fractions, ie,
+ *       https://en.wikipedia.org/wiki/Continued_fraction#Square_roots
+ */
 @Suppress("PropertyName")
 interface BigRationalCompanion<T : BigRationalBase<T>> {
     /** A constant holding value 0. It is equivalent `0 over 1`. */

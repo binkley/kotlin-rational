@@ -1,5 +1,11 @@
 package hm.binkley.math
 
+/**
+ * @todo Make this a full mathematical object, eg,
+ *       https://en.wikipedia.org/wiki/Continued_fraction#Comparison
+ * @todo Consider providing infinite continued fractions as generators, eg,
+ *       https://en.wikipedia.org/wiki/Continued_fraction#Other_continued_fraction_expansions
+ */
 abstract class ContinuedFractionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
