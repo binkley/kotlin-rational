@@ -1,5 +1,6 @@
 package hm.binkley.math.finite
 
+import hm.binkley.math.BInt
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
@@ -107,6 +108,18 @@ internal class FiniteContinuedFractionTest {
             eulerApproximation.convergent(
                 eulerApproximation.size - 1
             )
+        )
+
+        val c1 = eulerApproximation.convergent(1)
+        val c2 = eulerApproximation.convergent(2)
+        val c3 = eulerApproximation.convergent(3)
+        assertEquals(
+            BInt.ONE,
+            c2.denominator * c1.numerator - c1.denominator * c2.numerator
+        )
+        assertEquals(
+            -BInt.ONE,
+            c3.denominator * c2.numerator - c2.denominator * c3.numerator
         )
 
         assertThrows<IllegalStateException> {
