@@ -79,7 +79,7 @@ interface ContinuedFractionCompanionBase<
     fun construct(terms: List<T>): C
 
     /**
-     * Decomposes the given BigRational into a canonical continued
+     * Decomposes the given big rational into a canonical continued
      * fraction.
      */
     fun valueOf(r: T): C {
