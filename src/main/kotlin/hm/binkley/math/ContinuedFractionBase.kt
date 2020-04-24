@@ -4,8 +4,8 @@ abstract class ContinuedFractionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
         >(
-            private val terms: List<T>
-        ) : List<T> by terms {
+    private val terms: List<T>
+) : List<T> by terms {
     protected abstract fun construct(terms: List<T>): C
 
     /** The integer part of this continued fraction. */
@@ -39,6 +39,8 @@ abstract class ContinuedFractionBase<
      *
      * See
      * [Infinite continued fractions and convergents](https://en.wikipedia.org/wiki/Continued_fraction#Infinite_continued_fractions_and_convergents)
+     *
+     * @todo https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations
      */
     fun convergent(n: Int): T {
         if (0 > n) error("Convergents start from the 0th")
