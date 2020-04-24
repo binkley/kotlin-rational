@@ -60,8 +60,8 @@ abstract class ContinuedFractionBase<
 
 private tailrec fun <T : BigRationalBase<T>> converge(
     terms: List<T>,
-    n: Int,
-    i: Int,
+    n: Int, // limiting case
+    i: Int, // current case
     c_1: T, // "c-1", meaning previous
     c_2: T // "c-2", meaning previous previous
 ): T {
