@@ -101,6 +101,13 @@ internal class FiniteContinuedFractionTest {
         assertEquals(3 over 1, eulerApproximation.convergent(1))
         assertEquals(8 over 3, eulerApproximation.convergent(2))
         assertEquals(11 over 4, eulerApproximation.convergent(3))
+        assertEquals(19 over 7, eulerApproximation.convergent(4))
+        assertEquals(
+            eulerApproximation.toFiniteBigRational(),
+            eulerApproximation.convergent(
+                eulerApproximation.size - 1
+            )
+        )
 
         assertThrows<IllegalStateException> {
             eulerApproximation.convergent(-1)
