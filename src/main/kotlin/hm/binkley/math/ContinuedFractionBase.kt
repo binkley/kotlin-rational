@@ -5,13 +5,15 @@ package hm.binkley.math
  *       https://en.wikipedia.org/wiki/Continued_fraction#Comparison
  * @todo Consider providing infinite continued fractions as generators, eg,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Other_continued_fraction_expansions
+ * @todo Consider providing semiconvergents, eg,
+ *       https://en.wikipedia.org/wiki/Continued_fraction#Semiconvergents
  */
 abstract class ContinuedFractionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
         >(
-            private val terms: List<T>
-        ) : List<T> by terms {
+    private val terms: List<T>
+) : List<T> by terms {
     protected abstract fun construct(terms: List<T>): C
 
     /** The integer part of this continued fraction. */
