@@ -10,8 +10,8 @@ abstract class ContinuedFractionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
         >(
-    private val terms: List<T>
-) : List<T> by terms {
+            private val terms: List<T>
+        ) : List<T> by terms {
     protected abstract fun construct(terms: List<T>): C
 
     /** The integer part of this continued fraction. */
@@ -39,29 +39,31 @@ abstract class ContinuedFractionBase<
      * fraction.
      */
     fun terms(fractionalTerms: Int) = subList(0, fractionalTerms + 1)
+}
 
-    /**
-     * Returns the convergent.
-     *
-     * See
-     * [Infinite continued fractions and convergents](https://en.wikipedia.org/wiki/Continued_fraction#Infinite_continued_fractions_and_convergents)
-     *
-     * @todo https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations
-     */
-    fun convergent(n: Int): T {
-        if (0 > n) error("Convergents start from the 0th")
-        if (size <= n) error("Not enough terms for convergent: $n")
+/**
+ * Returns the convergent.
+ *
+ * See
+ * [Infinite continued fractions and convergents](https://en.wikipedia.org/wiki/Continued_fraction#Infinite_continued_fractions_and_convergents)
+ *
+ * @todo https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations
+ */
+fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.convergent(
+    n: Int
+): T {
+    if (0 > n) error("Convergents start from the 0th")
+    if (size <= n) error("Not enough terms for convergent: $n")
 
-        val c0 = integerPart
+    val c0 = integerPart
 
-        if (0 == n) return c0
+    if (0 == n) return c0
 
-        val term1 = terms[1]
-        val c1 = (term1 * c0 + 1) / term1
+    val term1 = this[1]
+    val c1 = (term1 * c0 + 1) / term1
 
-        return if (1 == n) c1
-        else converge(terms, n, 2, c1, c0)
-    }
+    return if (1 == n) c1
+    else converge(this, n, 2, c1, c0)
 }
 
 private tailrec fun <T : BigRationalBase<T>> converge(

@@ -1,6 +1,7 @@
 package hm.binkley.math.finite
 
 import hm.binkley.math.BInt
+import hm.binkley.math.convergent
 import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
 import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
 import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
