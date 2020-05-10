@@ -1,16 +1,16 @@
 package hm.binkley
 
-import hm.binkley.math.BigRational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.BigRational.Companion.NaN
-import hm.binkley.math.BigRational.Companion.ONE
-import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.BigRational.Companion.ZERO
 import hm.binkley.math.div
 import hm.binkley.math.downTo
-import hm.binkley.math.over
+import hm.binkley.math.nonfinite.BigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.nonfinite.BigRational.Companion.NaN
+import hm.binkley.math.nonfinite.BigRational.Companion.ONE
+import hm.binkley.math.nonfinite.BigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.nonfinite.BigRational.Companion.ZERO
+import hm.binkley.math.nonfinite.over
+import hm.binkley.math.nonfinite.toBigRational
 import hm.binkley.math.rangeTo
 import hm.binkley.math.step
-import hm.binkley.math.toBigRational
 import lombok.Generated
 import java.math.BigDecimal
 
@@ -51,8 +51,12 @@ fun main() {
         println("Expected error for progression containing $NaN: $e")
     }
 
-    println("$POSITIVE_INFINITY greater than $ZERO is ${POSITIVE_INFINITY > ZERO}")
-    println("$NEGATIVE_INFINITY less than $ZERO is ${NEGATIVE_INFINITY < ZERO}")
+    println(
+        "$POSITIVE_INFINITY greater than $ZERO is ${POSITIVE_INFINITY > ZERO}"
+    )
+    println(
+        "$NEGATIVE_INFINITY less than $ZERO is ${NEGATIVE_INFINITY < ZERO}"
+    )
 
     val toSort = listOf(
         POSITIVE_INFINITY,

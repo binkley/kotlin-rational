@@ -1,6 +1,11 @@
-package hm.binkley.math
+package hm.binkley.math.nonfinite
 
-import hm.binkley.math.BigRational.Companion.NaN
+import hm.binkley.math.BInt
+import hm.binkley.math.ContinuedFractionBase
+import hm.binkley.math.ContinuedFractionCompanionBase
+import hm.binkley.math.backAgain
+import hm.binkley.math.fractionateInPlace
+import hm.binkley.math.nonfinite.BigRational.Companion.NaN
 import java.math.BigInteger
 
 /**

@@ -1,10 +1,16 @@
-package hm.binkley.math
+package hm.binkley.math.nonfinite
 
-import hm.binkley.math.BigRational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.BigRational.Companion.NaN
-import hm.binkley.math.BigRational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.BigRational.Companion.ZERO
-import hm.binkley.math.BigRational.Companion.valueOf
+import hm.binkley.math.BDouble
+import hm.binkley.math.BInt
+import hm.binkley.math.BigRationalBase
+import hm.binkley.math.BigRationalCompanion
+import hm.binkley.math.div
+import hm.binkley.math.isZero
+import hm.binkley.math.nonfinite.BigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.nonfinite.BigRational.Companion.NaN
+import hm.binkley.math.nonfinite.BigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.nonfinite.BigRational.Companion.ZERO
+import hm.binkley.math.nonfinite.BigRational.Companion.valueOf
 import java.math.BigDecimal
 
 /**
