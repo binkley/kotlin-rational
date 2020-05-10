@@ -4,6 +4,7 @@ import hm.binkley.math.BInt
 import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.backAgain
+import hm.binkley.math.finite.FixedBigRational.Companion.ONE
 import java.math.BigInteger
 
 /**
@@ -25,7 +26,7 @@ class FiniteContinuedFraction private constructor(
 
     companion object :
         ContinuedFractionCompanionBase<FixedBigRational,
-                FiniteContinuedFraction>() {
+                FiniteContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FixedBigRational.valueOf(integerPart)
 

@@ -2,6 +2,7 @@ package hm.binkley.math.finite
 
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
+import hm.binkley.math.finite.FiniteContinuedFraction.Companion.phi
 import hm.binkley.math.finite.FixedBigRational.Companion.ONE
 import hm.binkley.math.finite.FixedBigRational.Companion.TWO
 import hm.binkley.math.finite.FixedBigRational.Companion.ZERO
@@ -129,5 +130,12 @@ internal class FiniteContinuedFractionTest {
         assertThrows<IllegalStateException> {
             (ONE.toContinuedFraction()).convergent(1)
         }
+    }
+
+    @Test
+    fun `should approximate the golden ratio`() {
+        val approximation = phi(7).toFiniteBigRational()
+
+        assertEquals(21 over 13, approximation)
     }
 }

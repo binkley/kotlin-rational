@@ -1,5 +1,7 @@
 package hm.binkley.math
 
+import java.util.Collections.nCopies
+
 /**
  * @todo Make this a full mathematical object, eg,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Comparison
@@ -84,7 +86,9 @@ private tailrec fun <T : BigRationalBase<T>> converge(
 abstract class ContinuedFractionCompanionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
-        > {
+        >(
+            private val ONE: T
+        ) {
     internal abstract fun construct(integerPart: BInt): T
     internal abstract fun construct(terms: List<T>): C
 
@@ -98,9 +102,7 @@ abstract class ContinuedFractionCompanionBase<
         return construct(terms)
     }
 
-    /**
-     * Creates a continued fraction from the given decomposed elements.
-     */
+    /** Creates a continued fraction from the given decomposed elements. */
     fun valueOf(
         integerPart: BInt,
         vararg fractionalParts: BInt
@@ -108,6 +110,16 @@ abstract class ContinuedFractionCompanionBase<
         val terms = mutableListOf(construct(integerPart))
         terms += fractionalParts.map { construct(it) }
         return construct(terms)
+    }
+
+    /**
+     * Creates a continued fraction for φ (the golden ration) of [n]
+     * parts.
+     * */
+    fun phi(n: Int): C {
+        if (1 > n) error("Not enough digits to approximate φ: $n")
+
+        return construct(nCopies(n, ONE))
     }
 }
 

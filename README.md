@@ -370,3 +370,4 @@ _vs_ [_Extended real number line_](https://en.wikipedia.org/wiki/Extended_real_n
 - [_An introduction to context-oriented programming in Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
 - [_Continued Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/FiniteContinuedFractions.pdf)
 - [_Generalized continued fracion_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
+- [_Golden ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)

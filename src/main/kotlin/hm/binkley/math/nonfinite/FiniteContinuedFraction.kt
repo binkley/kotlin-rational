@@ -6,6 +6,7 @@ import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.backAgain
 import hm.binkley.math.fractionateInPlace
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ONE
 import java.math.BigInteger
 
 /**
@@ -30,7 +31,7 @@ class FiniteContinuedFraction private constructor(
 
     companion object :
         ContinuedFractionCompanionBase<FloatingBigRational,
-                FiniteContinuedFraction>() {
+                FiniteContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FloatingBigRational.valueOf(integerPart)
 
