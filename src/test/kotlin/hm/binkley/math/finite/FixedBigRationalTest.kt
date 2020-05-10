@@ -586,7 +586,7 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should increment`() {
-            var a = 1L.toFiniteBigRational()
+            var a = 1L.toBigRational()
             assertEquals(
                 2 over 1,
                 ++a
@@ -666,14 +666,14 @@ internal class FixedBigRationalTest {
     inner class ConversionTests {
         @Test
         fun `should convert BigDecimal in infix constructor`() {
-            assertEquals(ZERO, BDouble.ZERO.toFiniteBigRational())
+            assertEquals(ZERO, BDouble.ZERO.toBigRational())
             assertEquals(
                 30 over 1,
-                BDouble.valueOf(30L).toFiniteBigRational()
+                BDouble.valueOf(30L).toBigRational()
             )
-            assertEquals(3 over 1, BDouble.valueOf(3).toFiniteBigRational())
-            assertEquals(3 over 10, BDouble("0.3").toFiniteBigRational())
-            assertEquals(77 over 10, BDouble("7.70").toFiniteBigRational())
+            assertEquals(3 over 1, BDouble.valueOf(3).toBigRational())
+            assertEquals(3 over 10, BDouble("0.3").toBigRational())
+            assertEquals(77 over 10, BDouble("7.70").toBigRational())
             assertEquals(ONE, BDouble.ONE over BDouble.ONE)
             assertEquals(ONE, BInt.ONE over BDouble.ONE)
             assertEquals(ONE, 1L over BDouble.ONE)
@@ -687,9 +687,9 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should convert BigInteger in infix constructor`() {
-            assertEquals(ZERO, BInt.ZERO.toFiniteBigRational())
-            assertEquals(30 over 1, BInt.valueOf(30L).toFiniteBigRational())
-            assertEquals(3 over 1, BInt.valueOf(3).toFiniteBigRational())
+            assertEquals(ZERO, BInt.ZERO.toBigRational())
+            assertEquals(30 over 1, BInt.valueOf(30L).toBigRational())
+            assertEquals(3 over 1, BInt.valueOf(3).toBigRational())
             assertEquals(ONE, BInt.ONE over BInt.ONE)
             assertEquals(ONE, BDouble.ONE over BInt.ONE)
             assertEquals(ONE, 1L over BInt.ONE)
@@ -770,7 +770,7 @@ internal class FixedBigRationalTest {
             assertEquals(
                 rationals,
                 doubles.map {
-                    it.toFiniteBigRational()
+                    it.toBigRational()
                 })
             assertEquals(
                 doubles,
@@ -821,7 +821,7 @@ internal class FixedBigRationalTest {
             assertEquals(
                 rationals,
                 floats.map {
-                    it.toFiniteBigRational()
+                    it.toBigRational()
                 })
             assertEquals(
                 floats,
@@ -1155,13 +1155,13 @@ internal class FixedBigRationalTest {
                 listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1),
                 cfA
             )
-            assertEquals((3245 over 1000), cfA.toFiniteBigRational())
+            assertEquals((3245 over 1000), cfA.toBigRational())
             val negCfA = (-3245 over 1000).toContinuedFraction()
             assertEquals(
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
                 negCfA
             )
-            assertEquals((-3245 over 1000), negCfA.toFiniteBigRational())
+            assertEquals((-3245 over 1000), negCfA.toBigRational())
             assertEquals(
                 listOf(ZERO),
                 ZERO.toContinuedFraction()

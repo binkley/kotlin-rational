@@ -35,10 +35,5 @@ class FiniteContinuedFraction private constructor(
     }
 }
 
-/**
- * Returns the FiniteBigRational for the continued fraction.
- *
- * Note that the roundtrip of FiniteBigRational → ContinuedFraction →
- * FiniteBigRational is lossy for infinities, producing `NaN`.
- */
-fun FiniteContinuedFraction.toFiniteBigRational() = backAgain()
+/** Returns the FiniteBigRational for the continued fraction. */
+fun FiniteContinuedFraction.toBigRational() = backAgain()

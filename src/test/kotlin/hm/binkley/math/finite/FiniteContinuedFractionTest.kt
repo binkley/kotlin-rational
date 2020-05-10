@@ -89,7 +89,7 @@ internal class FiniteContinuedFractionTest {
                 4.toBigInteger(),
                 12.toBigInteger(),
                 4.toBigInteger()
-            ).toFiniteBigRational()
+            ).toBigRational()
         )
     }
 
@@ -107,7 +107,7 @@ internal class FiniteContinuedFractionTest {
         assertEquals(11 over 4, eulerApproximation.convergent(3))
         assertEquals(19 over 7, eulerApproximation.convergent(4))
         assertEquals(
-            eulerApproximation.toFiniteBigRational(),
+            eulerApproximation.toBigRational(),
             eulerApproximation.convergent(
                 eulerApproximation.size - 1
             )
@@ -136,7 +136,7 @@ internal class FiniteContinuedFractionTest {
     @Test
     fun `should approximate the golden ratio`() {
         val decimalApproximation = 1_618_033 over 1_000_000
-        val approximation = phi(10).toFiniteBigRational()
+        val approximation = phi(10).toBigRational()
 
         assertEquals(89 over 55, approximation)
         assertEquals(

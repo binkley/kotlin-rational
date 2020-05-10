@@ -135,7 +135,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     /**
      * Returns the value of this number as a [Double], which may involve
      * rounding.  This produces an _exact_ conversion, that is,
-     * `123.456.toFiniteBigRational().toDouble == 123.456`.
+     * `123.456.toBigRational().toDouble == 123.456`.
      *
      * @see [BigDecimal.toDouble] with similar behavior
      */

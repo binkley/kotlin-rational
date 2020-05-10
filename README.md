@@ -222,8 +222,8 @@ considering infinities.
 
 ### Conversions and operators
 
-This code provides conversions (`toBigRational`, `toFiniteBigRational`, and
-their ilk) and operator overloads for these `Number` types:
+This code provides conversions (`toBigRational` and ilk) and operator
+overloads for these `Number` types:
 
 - `BigDecimal`
 - `Double`
@@ -277,7 +277,7 @@ infinite
 `isPAdic(p)` (See
 [_p_-adic number](https://en.wikipedia.org/wiki/P-adic_number))
 - `gcm(other)`, `lcd(other)`, `mediant(other)`
-- `toFiniteContinuedFraction()`
+- `toContinuedFraction()`
 - `pow(exponent)`
 - `divideAndRemainder(other)`
 - `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
