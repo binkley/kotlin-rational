@@ -11,9 +11,7 @@ package hm.binkley.math
 abstract class ContinuedFractionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
-        >(
-            private val terms: List<T>
-        ) : List<T> by terms {
+        >(private val terms: List<T>) : List<T> by terms {
     protected abstract fun construct(terms: List<T>): C
 
     /** The integer part of this continued fraction. */
