@@ -232,7 +232,7 @@ overloads for these `Number` types:
 - `Long` (with truncation)
 - `Int` (with truncation)
 
-In addition, there is conversion to and from `FiniteContinuedFraction`.
+In addition, there is conversion to and from `FiniteSimpleContinuedFraction`.
 
 Adding support for `Short` and `Byte` is straight-forward, but I did not
 consider it worthwhile without more outside input.  As discussed, support for
@@ -356,7 +356,7 @@ each other.
 ### Continued fractions
 
 This code chooses a separate class for representation of rationals as
-continued fractions, `FiniteContinuedFraction`.
+continued fractions, `FiniteSimpleContinuedFraction`.
 
 ## Further reading
 

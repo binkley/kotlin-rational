@@ -596,7 +596,7 @@ fun Int.toBigRational() = valueOf(this)
  * Non-finite BigRationals produce `[NaN;]`.
  */
 fun FloatingBigRational.toContinuedFraction() =
-    FiniteContinuedFraction.valueOf(this)
+    FiniteSimpleContinuedFraction.valueOf(this)
 
 /**
  * Checks that this rational is a finite fraction.  Infinities and "not a
