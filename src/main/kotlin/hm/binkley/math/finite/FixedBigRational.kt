@@ -5,8 +5,8 @@ import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.div
-import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
-import hm.binkley.math.finite.FiniteBigRational.Companion.valueOf
+import hm.binkley.math.finite.FixedBigRational.Companion.ZERO
+import hm.binkley.math.finite.FixedBigRational.Companion.valueOf
 import hm.binkley.math.isZero
 
 /**
@@ -25,19 +25,19 @@ import hm.binkley.math.isZero
  * @todo Consider `Short` and `Byte` overloads
  * @todo Assign properties at construction; avoid circular ctors
  */
-class FiniteBigRational private constructor(
+class FixedBigRational private constructor(
     numerator: BInt,
     denominator: BInt
-) : BigRationalBase<FiniteBigRational>(
+) : BigRationalBase<FixedBigRational>(
     numerator,
     denominator,
-    FiniteBigRational
+    FixedBigRational
 ) {
-    companion object : BigRationalCompanion<FiniteBigRational> {
-        override val ZERO = FiniteBigRational(BInt.ZERO, BInt.ONE)
-        override val ONE = FiniteBigRational(BInt.ONE, BInt.ONE)
-        override val TWO = FiniteBigRational(BInt.TWO, BInt.ONE)
-        override val TEN = FiniteBigRational(BInt.TEN, BInt.ONE)
+    companion object : BigRationalCompanion<FixedBigRational> {
+        override val ZERO = FixedBigRational(BInt.ZERO, BInt.ONE)
+        override val ONE = FixedBigRational(BInt.ONE, BInt.ONE)
+        override val TWO = FixedBigRational(BInt.TWO, BInt.ONE)
+        override val TEN = FixedBigRational(BInt.TEN, BInt.ONE)
 
         /**
          * Returns a `FiniteBigRational` whose value is equal to that of the
@@ -55,24 +55,26 @@ class FiniteBigRational private constructor(
         override fun valueOf(
             numerator: BInt,
             denominator: BInt
-        ): FiniteBigRational {
+        ): FixedBigRational {
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")
 
             return construct(numerator, denominator) { n, d ->
-                FiniteBigRational(n, d)
+                FixedBigRational(n, d)
             }
         }
 
         override fun valueOf(floatingPoint: Double) = when {
-            !floatingPoint.isFinite() -> throw ArithmeticException("non-finite")
+            !floatingPoint.isFinite() -> throw ArithmeticException(
+                "non-finite"
+            )
             else -> super.valueOf(floatingPoint)
         }
 
         override fun iteratorCheck(
-            first: FiniteBigRational,
-            last: FiniteBigRational,
-            step: FiniteBigRational
+            first: FixedBigRational,
+            last: FixedBigRational,
+            step: FixedBigRational
         ) {
             if (step == ZERO) error("Step must be non-zero.")
         }
@@ -419,5 +421,5 @@ fun Long.toFiniteBigRational() = valueOf(this)
 fun Int.toFiniteBigRational() = valueOf(this)
 
 /** Returns the finite continued fraction of this `FiniteBigRational`. */
-fun FiniteBigRational.toContinuedFraction() =
+fun FixedBigRational.toContinuedFraction() =
     FiniteContinuedFraction.valueOf(this)

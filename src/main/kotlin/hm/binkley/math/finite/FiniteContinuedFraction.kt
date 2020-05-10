@@ -7,28 +7,28 @@ import hm.binkley.math.backAgain
 import java.math.BigInteger
 
 /**
- * `FiniteContinuedFraction` represents a [FiniteBigRational] as a finite
+ * `FiniteContinuedFraction` represents a [FixedBigRational] as a finite
  * continued fraction sequence with the integer part at the natural index of
  * 0. Subsequent fraction parts use their natural index, starting at 1.
  *
- * Elements are [FiniteBigRational] (rather than [BigInteger]) to express
- * continued fractions of non-finite [FiniteBigRational]s.
+ * Elements are [FixedBigRational] (rather than [BigInteger]) to express
+ * continued fractions of non-finite [FixedBigRational]s.
  *
  * This class does not support infinite continued fractions; all represented
- * values are convertible to [FiniteBigRational].
+ * values are convertible to [FixedBigRational].
  */
 class FiniteContinuedFraction private constructor(
-    terms: List<FiniteBigRational>
-) : ContinuedFractionBase<FiniteBigRational, FiniteContinuedFraction>(terms) {
-    override fun construct(terms: List<FiniteBigRational>) =
+    terms: List<FixedBigRational>
+) : ContinuedFractionBase<FixedBigRational, FiniteContinuedFraction>(terms) {
+    override fun construct(terms: List<FixedBigRational>) =
         FiniteContinuedFraction(terms)
 
     companion object :
-        ContinuedFractionCompanionBase<FiniteBigRational, FiniteContinuedFraction> {
+        ContinuedFractionCompanionBase<FixedBigRational, FiniteContinuedFraction> {
         override fun construct(integerPart: BInt) =
-            FiniteBigRational.valueOf(integerPart)
+            FixedBigRational.valueOf(integerPart)
 
-        override fun construct(terms: List<FiniteBigRational>) =
+        override fun construct(terms: List<FixedBigRational>) =
             FiniteContinuedFraction(terms)
     }
 }

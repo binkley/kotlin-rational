@@ -9,21 +9,21 @@
 [![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 [![made with kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)](https://kotlinlang.org/)
 
-An immutable, infinite-precision `BigRational` and `FiniteBigRational` (ratio,
-fraction) class for Kotlin.
+An immutable, infinite-precision `FloatingBigRational` and `FixedBigRational`
+(ratio, fraction) class for Kotlin.
 
 *DISCLAIMER* This code has not been vetted by a mathematician in the way in
 which the JDK's `BigDecimal` has been.  It is a pleasure project, not a
 reviewed scientific library.
 
-There are two versions, `BigRational` and `FiniteBigRational`, providing
-pseudo-IEEE 754 and purely finite versions, respectively.
+There are two versions, `FloatingBigRational` and `FixedBigRational`,
+providing pseudo-IEEE 754 and purely finite versions, respectively.
 
 This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading and extension methods, and writing clean, clear, concise Kotlin.
-It also explores the impact of `NaN` (on the `BigRational` version , which is
-extensive), rather than raising an error on division by zero (as the
-`FiniteBigRational` version does).
+It also explores the impact of `NaN` (on the `FloatingBigRational` version ,
+which is extensive), rather than raising an error on division by zero (as the
+`FixedBigRational` version does).
 
 A secondary goal is to model the Kotlin standard library, and Java's
 `BigDecimal` and `BigInteger` types, as well as `Number`.
@@ -71,7 +71,8 @@ run by Batect.
 
 ### Two choices
 
-This code provides `BigRational` and `FiniteBigRational`.  They differ by:
+This code provides `FloatingBigRational` and `FixedBigRational`.  They differ
+by:
 
 <dl>
 <dt><code>BigRational</code></dt>
@@ -88,23 +89,24 @@ This code provides `BigRational` and `FiniteBigRational`.  They differ by:
 These were great help:
 
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational),
-especially treating `BigRational` as a `kotlin.Number`, and methods such as
-`isFinite()` and `isInfinite()`
+especially treating `FloatingBigRational` as a `kotlin.Number`, and methods
+such as `isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
 infix `over` constructor, and various overloads
 - [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
 mathematical properties of ℚ, the field of the rationals
 
-The code for `BigRational` extends ℚ, the field of rational numbers, with
-[division by zero](https://en.wikipedia.org/wiki/Division_by_zero), "not a
-number", -∞, and +∞, following the lead of
+The code for `FloatingBigRational` extends ℚ, the field of rational numbers,
+with
+[division by zero](https://en.wikipedia.org/wiki/Division_by_zero),
+"not a number", -∞, and +∞, following the lead of
 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), and using the
 _affinely extended real line_ as a model. However, this code does not
 consider `+0` or `-0`, treating all zeros as `0`, and distinguishes +∞ from
 -∞ (as opposed to the projectively extended real line).  In these ways,
-`BigRational` does not represent a proper _Field_.
+`FloatingBigRational` does not represent a proper _Field_.
 
-The code for `FiniteBigRational`, however, _should_ simply be ℚ, and raises
+The code for `FixedBigRational`, however, _should_ simply be ℚ, and raises
 `ArithmeticException` when encountering impossible circumstances.
 
 ### Prefer readability
@@ -118,24 +120,27 @@ This code always keeps rationals in proper form:
 
 1. The numerator and denominator are coprime (in "lowest form")
 2. The denominator is non-negative
-3. For `BigRational`, the denominator is `0` for three special cases: `NaN`
-("0 / 0"), `POSITIVE_INFINITY` ("1 / 0") and `NEGATIVE_INFINITY` ("-1 / 0").
+3. For `FloatingBigRational`, the denominator is `0` for three special cases:
+`NaN` ("0 / 0"), `POSITIVE_INFINITY` ("1 / 0") and `NEGATIVE_INFINITY`
+("-1 / 0").
+
 Thus, for these cases, care should be taken in using their denominators
 
 The denominator is always non-negative; it is zero for the special values
 `NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as an implementation
-detail for `BigRational` (there is no proper representation in ℚ for these
-cases).
+detail for `FloatingBigRational` (there is no proper representation in ℚ for
+these cases).
 
-One may conclude that `FiniteBigRational` is a _Field_ under addition and
-multiplication, and `BigRational` is not.
+One may conclude that `FixedBigRational` is a _Field_ under addition and
+multiplication, and `FloatingBigRational` is not.
 
 ### Representation of not a number and infinities
 
-This section applies only to `BigRational`, and not to `FiniteBigRational`.
-See [Division by 0, infinities](#division-by-0-infinities) for discussion.
+This section applies only to `FloatingBigRational`, and not to
+`FixedBigRational`.  See
+[Division by 0, infinities](#division-by-0-infinities) for discussion.
 
-`BigRational` represents certain special cases via implied division by zero:
+`FloatingBigRational` represents certain special cases via implied division by zero:
 
 * `+∞` is `1 over 0`
 * `NaN` is `0 over 0`
@@ -151,8 +156,8 @@ Hence, `NaN.denominator`, `POSITIVE_INFINITY.denominator`, and
 `NEGATIVE_INFINITY.denominator` all return zero.
 
 Division by an infinity is 0, as is the reciprocal of an infinity.
-`BigRational` does not have a concept of infinitesimals ("ϵ or δ").  (See
-[_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for
+`FloatingBigRational` does not have a concept of infinitesimals ("ϵ or δ").
+(See [_Infinitesimal_](https://en.wikipedia.org/wiki/Infinitesimal) for
 discussion.)
 
 ### Single concept of zero
@@ -160,22 +165,23 @@ discussion.)
 In this code there is only `ZERO` (0).  There are no positive or
 negative zeros to represent approaching zero from different directions.
 
-### `BigRational` and `FiniteBigRational` are `Number`s
+### `FloatingBigRational` and `FixedBigRational` are `Number`s
 
-In this code, `BigRational` and `FiniteBigRational` are a `kotlin.Number`, in
-part to inherit Kotlin handling of numeric types.  One consequence: This
-code raises an error for conversion to and from `Character`.  This
-conversion seemed perverse, _eg_, `3/5` converts to what character?
+In this code, `FloatingBigRational` and `FixedBigRational` are a
+`kotlin.Number`, in part to inherit Kotlin handling of numeric types.  One
+consequence: This code raises an error for conversion to and from
+`Character`.  This conversion seemed perverse, _eg_, `3/5` converts to what
+character?
 
-This code supports conversion among `Double` and `Float`, and `BigRational`
-and `FiniteBigRational` for all finite values, and non-finite values for
-`BigRational`.  The conversion is _exact_: it constructs a power-of-2
-rational value following IEEE 754; so reconverting returns the original
-floating point value, and for `BigRational` converts non-finite values to
-their corresponding values (for `FiniteBigRational` this raises
-`ArithmeticException`).
+This code supports conversion among `Double` and `Float`, and
+`FloatingBigRational` and `FixedBigRational` for all finite values, and
+non-finite values for `FloatingBigRational`.  The conversion is _exact_: it
+constructs a power-of-2 rational value following IEEE 754; so reconverting
+returns the original floating point value, and for `FloatingBigRational`
+converts non-finite values to their corresponding values (for
+`FixedBigRational` this raises `ArithmeticException`).
 
-|Floating point|`BigRational`|`FiniteBigRational`|
+|Floating point|`FloatingBigRational`|`FixedBigRational`|
 |---|---|---|
 |`0.0`|`ZERO`|`ZERO`|
 |`NaN`|`NaN`|Raises exception|
@@ -191,22 +197,23 @@ When narrowing types, conversion may lose magnitude, precision, and/or sign
 There are two ways to handle division by 0:
 
 - Produce a `NaN`, what floating point numbers do (_eg_, `1.0 / 0`)
-(`BigRational`)
+(`FloatingBigRational`)
 - Raise an error, what fixed point numbers do (_eg_, `1 / 0`)
-(`FiniteBigRational`)
+(`FixedBigRational`)
 
-For `BigRational`, as with floating point, `NaN != NaN`, and finite values
-equal themselves.  As with mathematics, infinities are not equal to
+For `FloatingBigRational`, as with floating point, `NaN != NaN`, and finite
+values equal themselves.  As with mathematics, infinities are not equal to
 themselves, so `POSITIVE_INFINITY != POSITIVE_INFINTY` and
-`NEGATIVE_INFINITY != NEGATIVE_INFINITY`.  (`BigRational` does not provide the
-needed sense of equivalence, nor does it cope with infinitesimals.)
+`NEGATIVE_INFINITY != NEGATIVE_INFINITY`.  (`FloatingBigRational` does not
+provide the needed sense of equivalence, nor does it cope with
+infinitesimals.)
 
-`BigRational` represents infinities as division by 0 (positive infinity is
-reduced to `1 / 0`, negative infinity to `-1 / 0`).  The field of rationals
-(ℚ) is complex ("difficult", in the colloquial meaning) when considering
-infinities.
+`FloatingBigRational` represents infinities as division by 0 (positive
+infinity reduces to `1 / 0`, negative infinity to `-1 / 0`).  The field of
+rationals (ℚ) is complex ("difficult", in the colloquial meaning) when
+considering infinities.
 
-|Infix constructor|`BigRational`|`FiniteBigRational`|
+|Infix constructor|`FloatingBigRational`|`FixedBigRational`|
 |---|---|---|
 |`0 over 1`|`ZERO`|`ZERO`|
 |`0 over 0`|`NaN`|Raises exception|
@@ -235,12 +242,12 @@ consider it worthwhile without more outside input.  As discussed, support for
 ### Sorting
 
 All values sort in the natural mathematical sense, except that for
-`BigRational`, `NaN` sorts to last, following the convention of floating
-point.
+`FloatingBigRational`, `NaN` sorts to last, following the convention of
+floating point.
 
-For `BigRational`, all `NaN` are "quiet"; none are "signaling", including
-sorting.  This follows the Java convention for floating point, and is a
-complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
+For `FloatingBigRational`, all `NaN` are "quiet"; none are "signaling",
+including sorting.  This follows the Java convention for floating point, and
+is a complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
 
 ## API
 
@@ -288,7 +295,7 @@ exact with no remainder)
 ### Types
 
 This code attempts to ease programmer typing through overloading.  Where
-sensible, if a `BigRational` and `FiniteBigRational` are provided as
+sensible, if a `FloatingBigRational` and `FixedBigRational` are provided as
 argument or extension method types, then so are `BigDecimal`, `Double`,
 `Float`, `BigInteger`, `Long`, and `Int`.
 
@@ -316,10 +323,10 @@ constants, and relevant code checks for those constants.
 
 See:
 
-- `Nan`, `isNaN()` (`BigRational`)
-- `POSITIVE_INFINITY`, `isPositiveInfinity()` (`BigRational`)
-- `NEGATIVE_INFINITY`, `isNegativeInfinity()` (`BigRational`)
-- `ZERO`, `ONE`, `TWO`, `TEN` (`BigRational` and `FiniteBigRational`)
+- `Nan`, `isNaN()` (`FloatingBigRational`)
+- `POSITIVE_INFINITY`, `isPositiveInfinity()` (`FloatingBigRational`)
+- `NEGATIVE_INFINITY`, `isNegativeInfinity()` (`FloatingBigRational`)
+- `ZERO`, `ONE`, `TWO`, `TEN` (`FloatingBigRational` and `FixedBigRational`)
 
 ### Factory constructor
 

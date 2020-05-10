@@ -3,11 +3,11 @@ package hm.binkley.math.nonfinite
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
 import hm.binkley.math.isSimple
-import hm.binkley.math.nonfinite.BigRational.Companion.NaN
-import hm.binkley.math.nonfinite.BigRational.Companion.ONE
-import hm.binkley.math.nonfinite.BigRational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.nonfinite.BigRational.Companion.TWO
-import hm.binkley.math.nonfinite.BigRational.Companion.ZERO
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ONE
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.TWO
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertSame

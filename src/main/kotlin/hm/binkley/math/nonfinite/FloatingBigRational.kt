@@ -5,12 +5,13 @@ import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.div
+import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.isZero
-import hm.binkley.math.nonfinite.BigRational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.nonfinite.BigRational.Companion.NaN
-import hm.binkley.math.nonfinite.BigRational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.nonfinite.BigRational.Companion.ZERO
-import hm.binkley.math.nonfinite.BigRational.Companion.valueOf
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.nonfinite.FloatingBigRational.Companion.valueOf
 import java.math.BigDecimal
 
 /**
@@ -32,10 +33,12 @@ import java.math.BigDecimal
  * @todo Assign properties at construction; avoid circular ctors
  */
 @Suppress("EqualsOrHashCode")
-class BigRational private constructor(
+class FloatingBigRational private constructor(
     numerator: BInt,
     denominator: BInt
-) : BigRationalBase<BigRational>(numerator, denominator, BigRational) {
+) : BigRationalBase<FloatingBigRational>(
+    numerator, denominator, FloatingBigRational
+) {
     /**
      * @see [Double.toLong]
      * @see [BigDecimal.toLong]
@@ -80,7 +83,7 @@ class BigRational private constructor(
      * - +∞
      * - NaN
      */
-    override fun compareTo(other: BigRational) = when {
+    override fun compareTo(other: FloatingBigRational) = when {
         this === other -> 0 // Sort stability for constants
         isNegativeInfinity() -> -1
         isNaN() -> 1 // NaN sorts after +Inf at the end
@@ -94,7 +97,7 @@ class BigRational private constructor(
      * The signum of this value: -1 for negative, 0 for zero, or 1 for
      * positive.  `sign` of [NaN] is [NaN].
      */
-    override val sign: BigRational
+    override val sign: FloatingBigRational
         get() = when {
             isNaN() -> NaN
             else -> super.sign
@@ -106,7 +109,7 @@ class BigRational private constructor(
      *
      * @see [divideAndRemainder]
      */
-    override operator fun rem(divisor: BigRational) = when {
+    override operator fun rem(divisor: FloatingBigRational) = when {
         isNaN() || divisor.isNaN() -> NaN
         else -> super.rem(divisor)
     }
@@ -121,7 +124,7 @@ class BigRational private constructor(
      * this function returns `(a+c)/(b+d)` (order of `this` and [that] does
      * not matter).
      */
-    override fun mediant(that: BigRational) = when {
+    override fun mediant(that: FloatingBigRational) = when {
         isNaN() || that.isNaN() -> NaN
         (isPositiveInfinity() && that.isNegativeInfinity())
                 || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
@@ -174,29 +177,30 @@ class BigRational private constructor(
         else -> super.toString()
     }
 
-    companion object : BigRationalCompanion<BigRational> {
+    companion object : BigRationalCompanion<FloatingBigRational> {
         /**
          * A constant holding "not a number" (NaN) value of type
-         * [BigRational]. It is equivalent `0 over 0`.
+         * [FloatingBigRational]. It is equivalent `0 over 0`.
          */
-        val NaN = BigRational(BInt.ZERO, BInt.ZERO)
+        val NaN = FloatingBigRational(BInt.ZERO, BInt.ZERO)
 
-        override val ZERO = BigRational(BInt.ZERO, BInt.ONE)
-        override val ONE = BigRational(BInt.ONE, BInt.ONE)
-        override val TWO = BigRational(BInt.TWO, BInt.ONE)
-        override val TEN = BigRational(BInt.TEN, BInt.ONE)
+        override val ZERO = FloatingBigRational(BInt.ZERO, BInt.ONE)
+        override val ONE = FloatingBigRational(BInt.ONE, BInt.ONE)
+        override val TWO = FloatingBigRational(BInt.TWO, BInt.ONE)
+        override val TEN = FloatingBigRational(BInt.TEN, BInt.ONE)
 
         /**
-         * A constant holding positive infinity value of type [BigRational].
+         * A constant holding positive infinity value of type [FloatingBigRational].
          * It is equivalent `1 over 0`.
          */
-        val POSITIVE_INFINITY = BigRational(BInt.ONE, BInt.ZERO)
+        val POSITIVE_INFINITY = FloatingBigRational(BInt.ONE, BInt.ZERO)
 
         /**
-         * A constant holding negative infinity value of type [BigRational].
+         * A constant holding negative infinity value of type [FloatingBigRational].
          * It is equivalent `-1 over 0`.
          */
-        val NEGATIVE_INFINITY = BigRational(BInt.ONE.negate(), BInt.ZERO)
+        val NEGATIVE_INFINITY =
+            FloatingBigRational(BInt.ONE.negate(), BInt.ZERO)
 
         /**
          * Returns a `BigRational` whose value is equal to that of the
@@ -216,7 +220,7 @@ class BigRational private constructor(
         override fun valueOf(
             numerator: BInt,
             denominator: BInt
-        ): BigRational {
+        ): FloatingBigRational {
             if (denominator.isZero()) return when {
                 numerator.isZero() -> NaN
                 numerator.signum() == 1 -> POSITIVE_INFINITY
@@ -224,7 +228,7 @@ class BigRational private constructor(
             }
 
             return construct(numerator, denominator) { n, d ->
-                BigRational(n, d)
+                FloatingBigRational(n, d)
             }
         }
 
@@ -235,9 +239,9 @@ class BigRational private constructor(
         }
 
         override fun iteratorCheck(
-            first: BigRational,
-            last: BigRational,
-            step: BigRational
+            first: FloatingBigRational,
+            last: FloatingBigRational,
+            step: FloatingBigRational
         ) {
             if (!step.isFinite()) error("Non-finite step.")
             if (!first.isFinite() || !last.isFinite())
@@ -591,7 +595,8 @@ fun Int.toBigRational() = valueOf(this)
  *
  * Non-finite BigRationals produce `[NaN;]`.
  */
-fun BigRational.toContinuedFraction() = FiniteContinuedFraction.valueOf(this)
+fun FloatingBigRational.toContinuedFraction() =
+    FiniteContinuedFraction.valueOf(this)
 
 /**
  * Checks that this rational is a finite fraction.  Infinities and "not a
@@ -599,31 +604,32 @@ fun BigRational.toContinuedFraction() = FiniteContinuedFraction.valueOf(this)
  *
  * @todo Consider separate types, which leads to sealed types
  */
-fun BigRational.isFinite() = !isNaN() && !isInfinite()
+fun FloatingBigRational.isFinite() = !isNaN() && !isInfinite()
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a
  * number" is not infinite.
  */
-fun BigRational.isInfinite() = isPositiveInfinity() || isNegativeInfinity()
+fun FloatingBigRational.isInfinite() =
+    isPositiveInfinity() || isNegativeInfinity()
 
 /**
  * Checks that this rational is "not a number".
  *
  * NB -- `NaN != NaN`
  */
-fun BigRational.isNaN() = this === NaN
+fun FloatingBigRational.isNaN() = this === NaN
 
 /**
  * Checks that this rational is positive infinity.
  *
  * NB -- `POSITIVE_INFINITY != POSITIVE_INFINITY`
  */
-fun BigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
+fun FloatingBigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
 
 /**
  * Checks that this rational is negative infinity.
  *
  * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
  */
-fun BigRational.isNegativeInfinity() = this === NEGATIVE_INFINITY
+fun FloatingBigRational.isNegativeInfinity() = this === NEGATIVE_INFINITY

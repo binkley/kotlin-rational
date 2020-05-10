@@ -2,9 +2,9 @@ package hm.binkley.math.finite
 
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
-import hm.binkley.math.finite.FiniteBigRational.Companion.ONE
-import hm.binkley.math.finite.FiniteBigRational.Companion.TWO
-import hm.binkley.math.finite.FiniteBigRational.Companion.ZERO
+import hm.binkley.math.finite.FixedBigRational.Companion.ONE
+import hm.binkley.math.finite.FixedBigRational.Companion.TWO
+import hm.binkley.math.finite.FixedBigRational.Companion.ZERO
 import hm.binkley.math.isSimple
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
