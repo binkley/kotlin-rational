@@ -114,8 +114,10 @@ abstract class ContinuedFractionCompanionBase<
 
     /**
      * Creates a continued fraction for φ (the golden ration) of [n]
-     * parts.
-     * */
+     * parts.  Note two key properties:
+     * - Convergents are ratios of Fibonacci numbers
+     * - The approximation is rather slow
+     */
     fun phi(n: Int): C {
         if (1 > n) error("Not enough digits to approximate φ: $n")
 

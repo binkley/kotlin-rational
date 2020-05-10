@@ -3,6 +3,7 @@ package hm.binkley.math.nonfinite
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
 import hm.binkley.math.isSimple
+import hm.binkley.math.minus
 import hm.binkley.math.nonfinite.FiniteContinuedFraction.Companion.phi
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ONE
@@ -139,8 +140,13 @@ internal class FiniteContinuedFractionTest {
 
     @Test
     fun `should approximate the golden ratio`() {
-        val approximation = phi(7).toBigRational()
+        val decimalApproximation = 1_618_033 over 1_000_000
+        val approximation = phi(10).toBigRational()
 
-        assertEquals(21 over 13, approximation)
+        assertEquals(89 over 55, approximation)
+        assertEquals(
+            -1637 over 11000000,
+            decimalApproximation - approximation
+        )
     }
 }

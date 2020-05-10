@@ -7,6 +7,7 @@ import hm.binkley.math.finite.FixedBigRational.Companion.ONE
 import hm.binkley.math.finite.FixedBigRational.Companion.TWO
 import hm.binkley.math.finite.FixedBigRational.Companion.ZERO
 import hm.binkley.math.isSimple
+import hm.binkley.math.minus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -134,8 +135,13 @@ internal class FiniteContinuedFractionTest {
 
     @Test
     fun `should approximate the golden ratio`() {
-        val approximation = phi(7).toFiniteBigRational()
+        val decimalApproximation = 1_618_033 over 1_000_000
+        val approximation = phi(10).toFiniteBigRational()
 
-        assertEquals(21 over 13, approximation)
+        assertEquals(89 over 55, approximation)
+        assertEquals(
+            -1637 over 11000000,
+            decimalApproximation - approximation
+        )
     }
 }
