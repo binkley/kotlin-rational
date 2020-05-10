@@ -81,18 +81,18 @@ private tailrec fun <T : BigRationalBase<T>> converge(
     else converge(terms, n, i + 1, ci, c_1)
 }
 
-interface ContinuedFractionCompanionBase<
+abstract class ContinuedFractionCompanionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
         > {
-    fun construct(integerPart: BInt): T
-    fun construct(terms: List<T>): C
+    internal abstract fun construct(integerPart: BInt): T
+    internal abstract fun construct(terms: List<T>): C
 
     /**
      * Decomposes the given big rational into a canonical continued
      * fraction.
      */
-    fun valueOf(r: T): C {
+    open fun valueOf(r: T): C {
         val terms = mutableListOf<T>()
         fractionateInPlace(r, terms)
         return construct(terms)

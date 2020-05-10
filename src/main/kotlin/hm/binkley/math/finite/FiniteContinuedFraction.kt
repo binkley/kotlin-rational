@@ -24,7 +24,8 @@ class FiniteContinuedFraction private constructor(
         FiniteContinuedFraction(terms)
 
     companion object :
-        ContinuedFractionCompanionBase<FixedBigRational, FiniteContinuedFraction> {
+        ContinuedFractionCompanionBase<FixedBigRational,
+                FiniteContinuedFraction>() {
         override fun construct(integerPart: BInt) =
             FixedBigRational.valueOf(integerPart)
 
