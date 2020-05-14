@@ -34,7 +34,7 @@
     <properties>
         <!-- @formatter:off -->
         <dependency-check-maven.version>5.3.2</dependency-check-maven.version>
-        <detekt.version>1.8.0</detekt.version>
+        <detekt.version>1.9.0</detekt.version>
         <dokka.version>0.10.1</dokka.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
@@ -48,7 +48,7 @@
         <lombok.version>1.18.12</lombok.version>
         <main.class>hm.binkley.MainKt</main.class>
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
-        <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
+        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
