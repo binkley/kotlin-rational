@@ -11,7 +11,7 @@
 
     <name>kotlin-rational</name>
     <description>
-        An immutable, infinite-precision "BigRational" (ratio, fraction) class
+        Immutable, infinite-precision "BigRational" (ratio, fraction) classes
         for Kotlin, akin to `BigDecimal` or `BigInteger`
     </description>
     <url>https://github.com/binkley/kotlin-rational</url>
