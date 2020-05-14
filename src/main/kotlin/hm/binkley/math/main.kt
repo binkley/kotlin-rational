@@ -1,7 +1,5 @@
-package hm.binkley
+package hm.binkley.math
 
-import hm.binkley.math.div
-import hm.binkley.math.downTo
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ONE
@@ -9,8 +7,6 @@ import hm.binkley.math.nonfinite.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.nonfinite.over
 import hm.binkley.math.nonfinite.toBigRational
-import hm.binkley.math.rangeTo
-import hm.binkley.math.step
 import lombok.Generated
 import java.math.BigDecimal
 
