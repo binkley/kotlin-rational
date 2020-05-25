@@ -4,7 +4,7 @@ import hm.binkley.math.BInt
 import hm.binkley.math.convergent
 import hm.binkley.math.isSimple
 import hm.binkley.math.minus
-import hm.binkley.math.nonfinite.FiniteSimpleContinuedFraction.Companion.phi
+import hm.binkley.math.nonfinite.ContinuedFraction.Companion.phi
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ONE
 import hm.binkley.math.nonfinite.FloatingBigRational.Companion.POSITIVE_INFINITY
@@ -21,7 +21,7 @@ import org.junit.jupiter.api.assertThrows
 private val eulerApproximation =
     (271_828_182_845 over 100_000_000_000).toContinuedFraction()
 
-internal class FiniteSimpleContinuedFractionTest {
+internal class ContinuedFractionTest {
     @Test
     fun `should continue`() {
         assertEquals(
@@ -87,7 +87,7 @@ internal class FiniteSimpleContinuedFractionTest {
     fun `should convert from continued fraction`() {
         assertEquals(
             (3245 over 1000),
-            FiniteSimpleContinuedFraction.valueOf(
+            ContinuedFraction.valueOf(
                 3.toBigInteger(),
                 4.toBigInteger(),
                 12.toBigInteger(),

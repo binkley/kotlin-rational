@@ -87,8 +87,8 @@ abstract class ContinuedFractionCompanionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
         >(
-    private val ONE: T
-) {
+            private val ONE: T
+        ) {
     internal abstract fun construct(integerPart: BInt): T
     internal abstract fun construct(terms: List<T>): C
 

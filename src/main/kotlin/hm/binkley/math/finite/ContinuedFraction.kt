@@ -9,10 +9,10 @@ import hm.binkley.math.nonfinite.FloatingBigRational
 import java.math.BigInteger
 
 /**
- * `FiniteSimpleContinuedFraction` represents a [FloatingBigRational] as a
- * finite continued fraction sequence with the integer part at the natural
- * index of 0.  Subsequent fraction parts use their natural index, starting
- * at 1.  All numerators are 1.
+ * `ContinuedFraction` represents a [FloatingBigRational] as a finite
+ * continued fraction sequence with the integer part at the natural index
+ * of 0.  Subsequent fraction parts use their natural index, starting at 1.
+ * All numerators are 1.
  *
  * Elements are [FixedBigRational] (rather than [BigInteger]) to express
  * continued fractions of non-finite [FixedBigRational]s.
@@ -20,24 +20,24 @@ import java.math.BigInteger
  * This class does not support infinite continued fractions; all represented
  * values are convertible to [FixedBigRational].
  */
-class FiniteSimpleContinuedFraction private constructor(
+class ContinuedFraction private constructor(
     terms: List<FixedBigRational>
-) : ContinuedFractionBase<FixedBigRational, FiniteSimpleContinuedFraction>(
+) : ContinuedFractionBase<FixedBigRational, ContinuedFraction>(
     terms
 ) {
     override fun construct(terms: List<FixedBigRational>) =
-        FiniteSimpleContinuedFraction(terms)
+        ContinuedFraction(terms)
 
     companion object :
         ContinuedFractionCompanionBase<FixedBigRational,
-                FiniteSimpleContinuedFraction>(ONE) {
+                ContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FixedBigRational.valueOf(integerPart)
 
         override fun construct(terms: List<FixedBigRational>) =
-            FiniteSimpleContinuedFraction(terms)
+            ContinuedFraction(terms)
     }
 }
 
 /** Returns the FiniteBigRational for the continued fraction. */
-fun FiniteSimpleContinuedFraction.toBigRational() = backAgain()
+fun ContinuedFraction.toBigRational() = backAgain()
