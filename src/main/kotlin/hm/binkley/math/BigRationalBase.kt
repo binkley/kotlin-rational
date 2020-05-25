@@ -180,7 +180,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * Returns the Farey value between this FiniteBigRational and [that], or
      * the same value when equal.
      *
-     * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
+     * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d`, then
      * this function returns `(a+c)/(b+d)` (order of `this` and [that] does
      * not matter).
      */
