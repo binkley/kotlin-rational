@@ -61,14 +61,13 @@ open class BigRationalProgression<T : BigRationalBase<T>>(
         else
             IncrementingBigRationalIterator(start, endInclusive, step)
 
-    override fun equals(other: Any?) = when {
-        this === other -> true
-        other !is BigRationalProgression<*> -> false
-        else -> javaClass == other.javaClass &&
-                start == other.start &&
-                endInclusive == other.endInclusive &&
-                step == other.step
-    }
+    override fun equals(other: Any?) = this === other ||
+            // TODO: Kotlin smart casting needs this, but is redundant
+            other is BigRationalProgression<*> &&
+            javaClass == other.javaClass &&
+            start == other.start &&
+            endInclusive == other.endInclusive &&
+            step == other.step
 
     override fun hashCode() = hash(javaClass, start, endInclusive, step)
 

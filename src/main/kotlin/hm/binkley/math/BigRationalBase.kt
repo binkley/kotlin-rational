@@ -215,6 +215,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     open fun isPAdic(p: Long) = denominator.isPAdic(p)
 
     override fun equals(other: Any?) = this === other ||
+            // TODO: Kotlin smart casting needs this, but is redundant
             other is BigRationalBase<*> &&
             javaClass == other.javaClass &&
             numerator == other.numerator &&
