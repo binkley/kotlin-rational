@@ -87,8 +87,8 @@ abstract class ContinuedFractionCompanionBase<
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
         >(
-            private val ONE: T
-        ) {
+    private val ONE: T
+) {
     internal abstract fun construct(integerPart: BInt): T
     internal abstract fun construct(terms: List<T>): C
 
@@ -125,10 +125,6 @@ abstract class ContinuedFractionCompanionBase<
     }
 }
 
-/**
- * @todo A nicer way to have a `twofold` that processes two elements at a
- *       time, rather than `fold`'s one at a time.
- */
 internal fun <
         T : BigRationalBase<T>,
         C : ContinuedFractionBase<T, C>
