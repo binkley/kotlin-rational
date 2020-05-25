@@ -20,9 +20,15 @@ internal fun BInt.isDyadic() = (isOne() || (this % TWO).isZero())
 internal fun BInt.isPAdic(p: Long) =
     (isOne() || (this % BInt.valueOf(p)).isZero())
 
+/**
+ * See https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+ */
 internal fun exponent(d: Double) =
     ((d.toBits() shr 52).toInt() and 0x7ff) - 1023
 
+/**
+ * See https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+ */
 internal fun mantissa(d: Double) = d.toBits() and 0xfffffffffffffL
 
 internal fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
