@@ -233,7 +233,9 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
 
 /** Returns the absolute value. */
 val <T : BigRationalBase<T>> T.absoluteValue: T
-    get() = companion.valueOf(numerator.abs(), denominator)
+    get() =
+        if (numerator >= BInt.ZERO) this
+        else companion.valueOf(numerator.abs(), denominator)
 
 /** Returns the reciprocal. */
 val <T : BigRationalBase<T>> T.reciprocal: T
