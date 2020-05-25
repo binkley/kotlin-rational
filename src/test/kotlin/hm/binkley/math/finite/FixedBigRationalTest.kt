@@ -22,6 +22,7 @@ import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.minus
+import hm.binkley.math.nonfinite.FloatingBigRational
 import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.rangeTo
@@ -161,6 +162,24 @@ internal class FixedBigRationalTest {
     @Test
     fun `should hash separately`() {
         assertFalse((1 over 2).hashCode() == (1 over 3).hashCode())
+    }
+
+    @Test
+    fun `should not be a floating big rational`() {
+        assertFalse(
+            (1 over 1).hashCode() == FloatingBigRational.valueOf(
+                BInt.ONE,
+                BInt.ONE
+            ).hashCode()
+        )
+        assertFalse(
+            ONE..TWO == FloatingBigRational.ONE..FloatingBigRational.TWO
+        )
+        assertFalse(
+            (ONE..TWO).hashCode() ==
+                    (FloatingBigRational.ONE..FloatingBigRational.TWO)
+                        .hashCode()
+        )
     }
 
     @Test

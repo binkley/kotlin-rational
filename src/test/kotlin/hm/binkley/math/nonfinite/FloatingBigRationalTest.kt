@@ -12,6 +12,7 @@ import hm.binkley.math.dec
 import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.downTo
+import hm.binkley.math.finite.FixedBigRational
 import hm.binkley.math.floor
 import hm.binkley.math.gcd
 import hm.binkley.math.inc
@@ -215,6 +216,23 @@ internal class FloatingBigRationalTest {
     @Test
     fun `should hash separately`() {
         assertFalse((1 over 2).hashCode() == (1 over 3).hashCode())
+    }
+
+    @Test
+    fun `should not be a floating big rational`() {
+        assertFalse(
+            (1 over 1).hashCode() == FixedBigRational.valueOf(
+                BInt.ONE,
+                BInt.ONE
+            ).hashCode()
+        )
+        assertFalse(
+            ONE..TWO == FixedBigRational.ONE..FixedBigRational.TWO
+        )
+        assertFalse(
+            (ONE..TWO).hashCode() ==
+                    (FixedBigRational.ONE..FixedBigRational.TWO).hashCode()
+        )
     }
 
     @Test

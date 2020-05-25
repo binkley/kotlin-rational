@@ -64,12 +64,13 @@ open class BigRationalProgression<T : BigRationalBase<T>>(
     override fun equals(other: Any?) = when {
         this === other -> true
         other !is BigRationalProgression<*> -> false
-        else -> start == other.start &&
+        else -> javaClass == other.javaClass &&
+                start == other.start &&
                 endInclusive == other.endInclusive &&
                 step == other.step
     }
 
-    override fun hashCode() = hash(start, endInclusive, step)
+    override fun hashCode() = hash(javaClass, start, endInclusive, step)
 
     override fun toString() =
         if (step < start.companion.ZERO) "$start downTo $endInclusive step $step"
@@ -147,10 +148,14 @@ infix fun <T : BigRationalBase<T>> Int.downTo(endInclusive: T) =
 infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: T) =
     BigRationalProgression(start, endInclusive, step)
 
-infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: BInt) =
+infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(
+    step: BInt
+) =
     BigRationalProgression(start, endInclusive, start.companion.valueOf(step))
 
-infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: Long) =
+infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(
+    step: Long
+) =
     BigRationalProgression(start, endInclusive, start.companion.valueOf(step))
 
 infix fun <T : BigRationalBase<T>> BigRationalProgression<T>.step(step: Int) =

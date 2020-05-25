@@ -216,10 +216,11 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
 
     override fun equals(other: Any?) = this === other ||
             other is BigRationalBase<*> &&
+            javaClass == other.javaClass &&
             numerator == other.numerator &&
             denominator == other.denominator
 
-    override fun hashCode() = hash(numerator, denominator)
+    override fun hashCode() = hash(javaClass, numerator, denominator)
 
     /**
      * Returns a string representation of the object,
