@@ -360,6 +360,16 @@ continued fractions, `ContinuedFraction`, one per type of rational.  This
 becomes more complex for `FloatingBigRational` when dealing with `NaN` and
 the infinities.
 
+The representation is for _finite simple continued fractions_, that is:
+
+1. The numerator is always 1
+2. There are a finite number of terms
+
+Restriction 1 would need to be loosened to accommodate using continued
+fractions for computing square roots of rationals.  A function signature
+might look like `BigRational.sqrt(n: Int): ContinuedFraction` to meet
+restriction 2.
+
 ## Further reading
 
 - [_Wheel of fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
@@ -373,3 +383,4 @@ _vs_ [_Extended real number line_](https://en.wikipedia.org/wiki/Extended_real_n
 - [_Continued Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/FiniteContinuedFractions.pdf)
 - [_Generalized continued fracion_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
 - [_Golden ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)
+- [_Continued fraction - Square roots_](https://en.wikipedia.org/wiki/Continued_fraction#Square_roots)
