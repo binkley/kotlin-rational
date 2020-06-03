@@ -1,4 +1,4 @@
-package hm.binkley.math.nonfinite
+package hm.binkley.math.floating
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
@@ -7,11 +7,11 @@ import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.isZero
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ZERO
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.valueOf
+import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
+import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.floating.FloatingBigRational.Companion.valueOf
 import java.math.BigDecimal
 
 /**
@@ -596,7 +596,7 @@ fun Int.toBigRational() = valueOf(this)
  * Non-finite BigRationals produce `[NaN;]`.
  */
 fun FloatingBigRational.toContinuedFraction() =
-    ContinuedFraction.valueOf(this)
+    FloatingContinuedFraction.valueOf(this)
 
 /**
  * Checks that this rational is a finite fraction.  Infinities and "not a

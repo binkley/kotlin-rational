@@ -422,4 +422,4 @@ fun Int.toBigRational() = valueOf(this)
 
 /** Returns the finite continued fraction of this `FiniteBigRational`. */
 fun FixedBigRational.toContinuedFraction() =
-    ContinuedFraction.valueOf(this)
+    FiniteContinuedFraction.valueOf(this)

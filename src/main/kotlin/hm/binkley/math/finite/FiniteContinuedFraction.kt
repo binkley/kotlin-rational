@@ -5,7 +5,7 @@ import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.backAgain
 import hm.binkley.math.finite.FixedBigRational.Companion.ONE
-import hm.binkley.math.nonfinite.FloatingBigRational
+import hm.binkley.math.floating.FloatingBigRational
 import java.math.BigInteger
 
 /**
@@ -20,24 +20,24 @@ import java.math.BigInteger
  * This class does not support infinite continued fractions; all represented
  * values are convertible to [FixedBigRational].
  */
-class ContinuedFraction private constructor(
+class FiniteContinuedFraction private constructor(
     terms: List<FixedBigRational>
-) : ContinuedFractionBase<FixedBigRational, ContinuedFraction>(
+) : ContinuedFractionBase<FixedBigRational, FiniteContinuedFraction>(
     terms
 ) {
     override fun construct(terms: List<FixedBigRational>) =
-        ContinuedFraction(terms)
+        FiniteContinuedFraction(terms)
 
     companion object :
         ContinuedFractionCompanionBase<FixedBigRational,
-                ContinuedFraction>(ONE) {
+                FiniteContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FixedBigRational.valueOf(integerPart)
 
         override fun construct(terms: List<FixedBigRational>) =
-            ContinuedFraction(terms)
+            FiniteContinuedFraction(terms)
     }
 }
 
 /** Returns the FiniteBigRational for the continued fraction. */
-fun ContinuedFraction.toBigRational() = backAgain()
+fun FiniteContinuedFraction.toBigRational() = backAgain()

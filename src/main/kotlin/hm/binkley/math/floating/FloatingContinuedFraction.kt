@@ -1,12 +1,12 @@
-package hm.binkley.math.nonfinite
+package hm.binkley.math.floating
 
 import hm.binkley.math.BInt
 import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.backAgain
 import hm.binkley.math.fractionateInPlace
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ONE
+import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
+import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import java.math.BigInteger
 
 /**
@@ -22,32 +22,32 @@ import java.math.BigInteger
  * This class supports infinite continued fractions in a very limited sense;
  * none are calculated to their limit; all convert to [NaN].
  */
-class ContinuedFraction private constructor(
+class FloatingContinuedFraction private constructor(
     terms: List<FloatingBigRational>
-) : ContinuedFractionBase<FloatingBigRational, ContinuedFraction>(
+) : ContinuedFractionBase<FloatingBigRational, FloatingContinuedFraction>(
     terms
 ) {
     override fun construct(terms: List<FloatingBigRational>) =
-        ContinuedFraction(terms)
+        FloatingContinuedFraction(terms)
 
     companion object :
         ContinuedFractionCompanionBase<FloatingBigRational,
-                ContinuedFraction>(ONE) {
+                FloatingContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FloatingBigRational.valueOf(integerPart)
 
         override fun construct(terms: List<FloatingBigRational>) =
-            ContinuedFraction(terms)
+            FloatingContinuedFraction(terms)
 
         override fun valueOf(
             r: FloatingBigRational
-        ): ContinuedFraction {
+        ): FloatingContinuedFraction {
             val terms = mutableListOf<FloatingBigRational>()
             when {
                 !r.isFinite() -> terms += NaN
                 else -> fractionateInPlace(r, terms)
             }
-            return ContinuedFraction(terms)
+            return FloatingContinuedFraction(terms)
         }
     }
 }
@@ -57,7 +57,7 @@ class ContinuedFraction private constructor(
  * BigRationals produce a finite continued fraction; all non-finite
  * BigRationals produce a non-finite continued fraction.
  */
-fun ContinuedFraction.isFinite() = integerPart.isFinite()
+fun FloatingContinuedFraction.isFinite() = integerPart.isFinite()
 
 /**
  * Returns the BigRational for the continued fraction.
@@ -65,6 +65,6 @@ fun ContinuedFraction.isFinite() = integerPart.isFinite()
  * Note that the roundtrip of BigRational → ContinuedFraction →
  * BigRational is lossy for infinities, producing `NaN`.
  */
-fun ContinuedFraction.toBigRational() =
+fun FloatingContinuedFraction.toBigRational() =
     if (!isFinite()) NaN
     else backAgain()

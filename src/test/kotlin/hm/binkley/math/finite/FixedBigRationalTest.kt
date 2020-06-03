@@ -22,7 +22,7 @@ import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.minus
-import hm.binkley.math.nonfinite.FloatingBigRational
+import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.rangeTo

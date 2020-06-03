@@ -1,15 +1,18 @@
-package hm.binkley.math.finite
+package hm.binkley.math.floating
 
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
-import hm.binkley.math.finite.ContinuedFraction.Companion.phi
-import hm.binkley.math.finite.FixedBigRational.Companion.ONE
-import hm.binkley.math.finite.FixedBigRational.Companion.TWO
-import hm.binkley.math.finite.FixedBigRational.Companion.ZERO
 import hm.binkley.math.isSimple
 import hm.binkley.math.minus
+import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
+import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
+import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
+import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
+import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -18,7 +21,7 @@ import org.junit.jupiter.api.assertThrows
 private val eulerApproximation =
     (271_828_182_845 over 100_000_000_000).toContinuedFraction()
 
-internal class ContinuedFractionTest {
+internal class FloatingContinuedFractionTest {
     @Test
     fun `should continue`() {
         assertEquals(
@@ -84,12 +87,16 @@ internal class ContinuedFractionTest {
     fun `should convert from continued fraction`() {
         assertEquals(
             (3245 over 1000),
-            ContinuedFraction.valueOf(
+            FloatingContinuedFraction.valueOf(
                 3.toBigInteger(),
                 4.toBigInteger(),
                 12.toBigInteger(),
                 4.toBigInteger()
             ).toBigRational()
+        )
+
+        assertSame(
+            NaN, POSITIVE_INFINITY.toContinuedFraction().toBigRational()
         )
     }
 
@@ -108,9 +115,7 @@ internal class ContinuedFractionTest {
         assertEquals(19 over 7, eulerApproximation.convergent(4))
         assertEquals(
             eulerApproximation.toBigRational(),
-            eulerApproximation.convergent(
-                eulerApproximation.size - 1
-            )
+            eulerApproximation.convergent(eulerApproximation.size - 1)
         )
 
         val c1 = eulerApproximation.convergent(1)

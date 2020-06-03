@@ -1,12 +1,12 @@
 package hm.binkley.math
 
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NEGATIVE_INFINITY
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.NaN
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ONE
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.POSITIVE_INFINITY
-import hm.binkley.math.nonfinite.FloatingBigRational.Companion.ZERO
-import hm.binkley.math.nonfinite.over
-import hm.binkley.math.nonfinite.toBigRational
+import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
+import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
+import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.floating.over
+import hm.binkley.math.floating.toBigRational
 import lombok.Generated
 import java.math.BigDecimal
 
