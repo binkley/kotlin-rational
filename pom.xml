@@ -126,6 +126,7 @@
                 <configuration>
                     <args>
                         <arg>-progressive</arg>
+                        <arg>-Xinline-classes</arg>
                     </args>
                 </configuration>
                 <executions>
