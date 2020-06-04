@@ -7,14 +7,40 @@ import hm.binkley.math.plus
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
 
-val I = ONE.i
-
 inline class FixedImaginary(val value: FixedBigRational) :
     Comparable<FixedImaginary> {
     override fun compareTo(other: FixedImaginary) =
         value.compareTo(other.value)
 
+    operator fun unaryPlus() = this
+    operator fun unaryMinus() = (-value).toImaginary()
+
+    operator fun plus(addend: FixedImaginary) =
+        (value + addend.value).toImaginary()
+
+    operator fun minus(subtrahend: FixedImaginary) =
+        (value - subtrahend.value).toImaginary()
+
+    operator fun times(multiplicand: FixedImaginary) =
+        -(value * multiplicand.value)
+
+    operator fun times(multiplicand: FixedBigRational) =
+        (value * multiplicand).toImaginary()
+
+    operator fun times(multiplicand: BInt) =
+        (value * multiplicand).toImaginary()
+
+    operator fun times(multiplicand: Long) =
+        (value * multiplicand).toImaginary()
+
+    operator fun times(multiplicand: Int) =
+        (value * multiplicand).toImaginary()
+
     override fun toString() = "${value}i"
+
+    companion object {
+        val I = ONE.i
+    }
 }
 
 fun FixedBigRational.toImaginary() = FixedImaginary(this)
@@ -25,30 +51,6 @@ fun Long.toImaginary() = toBigRational().toImaginary()
 val Long.i get() = toImaginary()
 fun Int.toImaginary() = toBigRational().toImaginary()
 val Int.i get() = toImaginary()
-
-operator fun FixedImaginary.unaryPlus() = this
-operator fun FixedImaginary.unaryMinus() = (-value).toImaginary()
-
-operator fun FixedImaginary.plus(addend: FixedImaginary) =
-    (value + addend.value).toImaginary()
-
-operator fun FixedImaginary.minus(subtrahend: FixedImaginary) =
-    (value - subtrahend.value).toImaginary()
-
-operator fun FixedImaginary.times(multiplicand: FixedImaginary) =
-    -(value * multiplicand.value)
-
-operator fun FixedImaginary.times(multiplicand: FixedBigRational) =
-    (this.value * multiplicand).toImaginary()
-
-operator fun FixedImaginary.times(multiplicand: BInt) =
-    (this.value * multiplicand).toImaginary()
-
-operator fun FixedImaginary.times(multiplicand: Long) =
-    (this.value * multiplicand).toImaginary()
-
-operator fun FixedImaginary.times(multiplicand: Int) =
-    (this.value * multiplicand).toImaginary()
 
 operator fun FixedBigRational.times(multiplicand: FixedImaginary) =
     multiplicand * this
