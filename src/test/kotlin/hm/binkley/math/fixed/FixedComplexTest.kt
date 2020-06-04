@@ -3,7 +3,6 @@ package hm.binkley.math.fixed
 import hm.binkley.math.BInt
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
-import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedImaginary.Companion.I
 import hm.binkley.math.unaryMinus
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -62,16 +61,16 @@ internal class FixedComplexTest {
 
     @Test
     fun `should subtract`() {
-        assertEquals(-ONE + I, I - ONE)
+        assertEquals(NEG_ONE_PLUS_I, I - ONE)
         assertEquals(ONE_MINUS_I, BInt.ONE - I)
         assertEquals(NEG_ONE_PLUS_I, I - BInt.ONE)
         assertEquals(ONE_MINUS_I, 1L - I)
         assertEquals(NEG_ONE_PLUS_I, I - 1L)
         assertEquals(ONE_MINUS_I, 1 - I)
         assertEquals(NEG_ONE_PLUS_I, I - 1)
-        assertEquals(ZERO + 0.i, ONE_PLUS_I - ONE_PLUS_I)
-        assertEquals(ZERO + I, ONE_PLUS_I - ONE)
-        assertEquals(ONE_MINUS_I, TWO - ONE_PLUS_I)
+        assertEquals(0 + 0.i, ONE_PLUS_I - ONE_PLUS_I)
+        assertEquals(0 + I, ONE_PLUS_I - ONE)
+        assertEquals(0 + I, ONE - ONE_MINUS_I)
         assertEquals(0 + I, ONE_PLUS_I - BInt.ONE)
         assertEquals(0 + I, BInt.ONE - ONE_MINUS_I)
         assertEquals(0 + I, ONE_PLUS_I - 1L)
