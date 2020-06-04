@@ -9,8 +9,13 @@ data class FixedComplex(
     val real: FixedBigRational,
     val imag: FixedImaginary
 ) {
+    operator fun unaryPlus() = this
+    operator fun unaryMinus() = -real + -imag
+
     operator fun plus(addend: FixedComplex) =
         (real + addend.real) + (imag + addend.imag)
+
+    operator fun minus(subtrahend: FixedComplex) = this + -subtrahend
 
     override fun toString() =
         if (ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
@@ -53,3 +58,27 @@ operator fun BInt.plus(addend: FixedComplex) = addend + this
 operator fun Long.plus(addend: FixedComplex) = addend + this
 operator fun Int.plus(addend: FixedComplex) = addend + this
 operator fun FixedImaginary.plus(addend: FixedComplex) = addend + this
+
+operator fun FixedComplex.minus(subtrahend: FixedBigRational) =
+    this + -subtrahend
+
+operator fun FixedComplex.minus(subtrahend: BInt) = this + -subtrahend
+operator fun FixedComplex.minus(subtrahend: Long) = this + -subtrahend
+operator fun FixedComplex.minus(subtrahend: Int) = this + -subtrahend
+operator fun FixedComplex.minus(subtrahend: FixedImaginary) =
+    this + -subtrahend
+
+operator fun FixedBigRational.minus(subtrahend: FixedComplex) =
+    -subtrahend + this
+
+operator fun BInt.minus(subtrahend: FixedComplex) =
+    -subtrahend + this
+
+operator fun Long.minus(subtrahend: FixedComplex) =
+    -subtrahend + this
+
+operator fun Int.minus(subtrahend: FixedComplex) =
+    -subtrahend + this
+
+operator fun FixedImaginary.minus(subtrahend: FixedComplex) =
+    -subtrahend + this

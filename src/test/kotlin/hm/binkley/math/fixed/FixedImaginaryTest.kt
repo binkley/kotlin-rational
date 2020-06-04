@@ -11,6 +11,11 @@ import org.junit.jupiter.api.Test
 
 internal class FixedImaginaryTest {
     @Test
+    fun `should have value`() {
+        assertEquals(ONE, I.value)
+    }
+
+    @Test
     fun `should display`() {
         assertEquals("1i", (+I).toString())
         assertEquals("-1i", (-I).toString())
@@ -22,6 +27,16 @@ internal class FixedImaginaryTest {
         assertEquals("-1i", ((-1L).i).toString())
         assertEquals("1i", (1.i).toString())
         assertEquals("-1i", ((-1).i).toString())
+    }
+
+    @Test
+    fun `should posite`() {
+        assertEquals(1.i, +I)
+    }
+
+    @Test
+    fun `should negate`() {
+        assertEquals((-1).i, -I)
     }
 
     @Test
