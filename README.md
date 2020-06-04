@@ -78,7 +78,7 @@ by:
 <dt><code>BigRational</code></dt>
 <dd>An <em>approximation</em> of IEEE 754 behaviors, with <code>NaN</code>,
 <code>POSITIVE_INFINITY</code>, and <code>NEGATIVE_INFINITY</code></dd>
-<dt><code>FiniteBigRational</code></dt>
+<dt><code>FixedBigRational</code></dt>
 <dd>A more mathematically correct representation, but raises
 <code>ArithmeticException</code> for operations requiring IEEE 754 behaviors
 </dd>
@@ -232,7 +232,8 @@ overloads for these `Number` types:
 - `Long` (with truncation)
 - `Int` (with truncation)
 
-In addition, there is conversion to and from `ContinuedFraction`.
+In addition, there is conversion to and from `FixedContinuedFraction` and
+`FloatingContinuedFraction`, respectively.
 
 Adding support for `Short` and `Byte` is straight-forward, but I did not
 consider it worthwhile without more outside input.  As discussed, support for
@@ -356,9 +357,9 @@ each other.
 ### Continued fractions
 
 This code uses a separate class for representation of rationals as
-continued fractions, `ContinuedFraction`, one per type of rational.  This
-becomes more complex for `FloatingBigRational` when dealing with `NaN` and
-the infinities.
+continued fractions, `FixedContinuedFraction` and `FloatingContinuedFraction`.
+This becomes more complex for `FloatingBigRational` when dealing with `NaN`
+and the infinities.
 
 The representation is for _finite simple continued fractions_, that is:
 
@@ -367,8 +368,8 @@ The representation is for _finite simple continued fractions_, that is:
 
 Restriction 1 would need to be loosened to accommodate using continued
 fractions for computing square roots of rationals.  A function signature
-might look like `BigRational.sqrt(n: Int): ContinuedFraction` to meet
-restriction 2.
+might look like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to
+meet restriction 2.
 
 ## Further reading
 
