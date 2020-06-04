@@ -2,6 +2,7 @@ package hm.binkley.math.finite
 
 import hm.binkley.math.BInt
 import hm.binkley.math.finite.FixedBigRational.Companion.ONE
+import hm.binkley.math.finite.FixedBigRational.Companion.TWO
 import hm.binkley.math.finite.FixedImaginary.Companion.I
 import hm.binkley.math.unaryMinus
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -31,6 +32,17 @@ internal class FixedComplexTest {
         assertEquals(ONE + I, I + 1L)
         assertEquals(ONE + I, 1 + I)
         assertEquals(ONE + I, I + 1)
+        assertEquals(TWO + 2.i, (ONE + I) + (ONE + I))
+        assertEquals(TWO + I, (ONE + I) + ONE)
+        assertEquals(TWO + I, ONE + (ONE + I))
+        assertEquals(TWO + I, (ONE + I) + BInt.ONE)
+        assertEquals(TWO + I, BInt.ONE + (ONE + I))
+        assertEquals(TWO + I, (ONE + I) + 1L)
+        assertEquals(TWO + I, 1L + (ONE + I))
+        assertEquals(TWO + I, (ONE + I) + 1)
+        assertEquals(TWO + I, 1 + (ONE + I))
+        assertEquals(ONE + 2.i, (ONE + I) + I)
+        assertEquals(ONE + 2.i, I + (ONE + I))
     }
 
     @Test
