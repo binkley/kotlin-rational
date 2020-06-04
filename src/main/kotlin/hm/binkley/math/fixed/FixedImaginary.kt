@@ -1,7 +1,7 @@
-package hm.binkley.math.finite
+package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
-import hm.binkley.math.finite.FixedBigRational.Companion.ONE
+import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.minus
 import hm.binkley.math.plus
 import hm.binkley.math.times

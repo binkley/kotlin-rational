@@ -1,10 +1,10 @@
-package hm.binkley.math.finite
+package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
 import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.backAgain
-import hm.binkley.math.finite.FixedBigRational.Companion.ONE
+import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational
 import java.math.BigInteger
 

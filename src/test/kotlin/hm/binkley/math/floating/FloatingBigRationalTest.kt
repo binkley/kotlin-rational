@@ -12,7 +12,7 @@ import hm.binkley.math.dec
 import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.downTo
-import hm.binkley.math.finite.FixedBigRational
+import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.floor
 import hm.binkley.math.gcd
 import hm.binkley.math.inc

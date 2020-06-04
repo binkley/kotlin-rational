@@ -1,6 +1,6 @@
 @file:Suppress("NonAsciiCharacters")
 
-package hm.binkley.math.finite
+package hm.binkley.math.fixed
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
@@ -11,10 +11,10 @@ import hm.binkley.math.dec
 import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.downTo
-import hm.binkley.math.finite.FixedBigRational.Companion.ONE
-import hm.binkley.math.finite.FixedBigRational.Companion.TEN
-import hm.binkley.math.finite.FixedBigRational.Companion.TWO
-import hm.binkley.math.finite.FixedBigRational.Companion.ZERO
+import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
+import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
+import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
+import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.floor
 import hm.binkley.math.gcd
 import hm.binkley.math.inc

@@ -1,12 +1,12 @@
-package hm.binkley.math.finite
+package hm.binkley.math.fixed
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.div
-import hm.binkley.math.finite.FixedBigRational.Companion.ZERO
-import hm.binkley.math.finite.FixedBigRational.Companion.valueOf
+import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
+import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.isZero
 
 /**
