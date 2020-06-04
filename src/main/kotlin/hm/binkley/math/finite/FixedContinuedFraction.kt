@@ -20,24 +20,24 @@ import java.math.BigInteger
  * This class does not support infinite continued fractions; all represented
  * values are convertible to [FixedBigRational].
  */
-class FiniteContinuedFraction private constructor(
+class FixedContinuedFraction private constructor(
     terms: List<FixedBigRational>
-) : ContinuedFractionBase<FixedBigRational, FiniteContinuedFraction>(
+) : ContinuedFractionBase<FixedBigRational, FixedContinuedFraction>(
     terms
 ) {
     override fun construct(terms: List<FixedBigRational>) =
-        FiniteContinuedFraction(terms)
+        FixedContinuedFraction(terms)
 
     companion object :
         ContinuedFractionCompanionBase<FixedBigRational,
-                FiniteContinuedFraction>(ONE) {
+                FixedContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FixedBigRational.valueOf(integerPart)
 
         override fun construct(terms: List<FixedBigRational>) =
-            FiniteContinuedFraction(terms)
+            FixedContinuedFraction(terms)
     }
 }
 
 /** Returns the FiniteBigRational for the continued fraction. */
-fun FiniteContinuedFraction.toBigRational() = backAgain()
+fun FixedContinuedFraction.toBigRational() = backAgain()
