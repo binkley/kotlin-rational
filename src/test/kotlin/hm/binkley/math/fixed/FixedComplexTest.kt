@@ -46,17 +46,17 @@ internal class FixedComplexTest {
         assertEquals(ONE_PLUS_I, I + 1L)
         assertEquals(ONE_PLUS_I, 1 + I)
         assertEquals(ONE_PLUS_I, I + 1)
-        assertEquals(TWO + 2.i, ONE_PLUS_I + ONE_PLUS_I)
-        assertEquals(TWO + I, ONE_PLUS_I + ONE)
-        assertEquals(TWO + I, ONE + ONE_PLUS_I)
-        assertEquals(TWO + I, ONE_PLUS_I + BInt.ONE)
-        assertEquals(TWO + I, BInt.ONE + ONE_PLUS_I)
-        assertEquals(TWO + I, ONE_PLUS_I + 1L)
-        assertEquals(TWO + I, 1L + ONE_PLUS_I)
-        assertEquals(TWO + I, ONE_PLUS_I + 1)
-        assertEquals(TWO + I, 1 + ONE_PLUS_I)
-        assertEquals(ONE + 2.i, ONE_PLUS_I + I)
-        assertEquals(ONE + 2.i, I + ONE_PLUS_I)
+        assertEquals(2 + 2.i, ONE_PLUS_I + ONE_PLUS_I)
+        assertEquals(2 + 1.i, ONE_PLUS_I + ONE)
+        assertEquals(2 + 1.i, ONE + ONE_PLUS_I)
+        assertEquals(2 + 1.i, ONE_PLUS_I + BInt.ONE)
+        assertEquals(2 + 1.i, BInt.ONE + ONE_PLUS_I)
+        assertEquals(2 + 1.i, ONE_PLUS_I + 1L)
+        assertEquals(2 + 1.i, 1L + ONE_PLUS_I)
+        assertEquals(2 + 1.i, ONE_PLUS_I + 1)
+        assertEquals(2 + 1.i, 1 + ONE_PLUS_I)
+        assertEquals(1 + 2.i, ONE_PLUS_I + I)
+        assertEquals(1 + 2.i, I + ONE_PLUS_I)
     }
 
     @Test
@@ -79,5 +79,20 @@ internal class FixedComplexTest {
         assertEquals(0 + I, 1 - ONE_MINUS_I)
         assertEquals(1 + 0.i, ONE_PLUS_I - I)
         assertEquals(-1 + 0.i, I - ONE_PLUS_I)
+    }
+
+    @Test
+    fun `should multiply`() {
+        assertEquals(0 + 2.i, ONE_PLUS_I * ONE_PLUS_I)
+        assertEquals(2 + 2.i, TWO * ONE_PLUS_I)
+        assertEquals(2 + 2.i, ONE_PLUS_I * TWO)
+        assertEquals(2 + 2.i, BInt.TWO * ONE_PLUS_I)
+        assertEquals(2 + 2.i, ONE_PLUS_I * BInt.TWO)
+        assertEquals(2 + 2.i, 2L * ONE_PLUS_I)
+        assertEquals(2 + 2.i, ONE_PLUS_I * 2L)
+        assertEquals(2 + 2.i, 2 * ONE_PLUS_I)
+        assertEquals(2 + 2.i, ONE_PLUS_I * 2)
+        assertEquals(-1 + 1.i, ONE_PLUS_I * I)
+        assertEquals(-1 + 1.i, I * ONE_PLUS_I)
     }
 }

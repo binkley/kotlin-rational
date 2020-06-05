@@ -3,6 +3,7 @@ package hm.binkley.math.fixed
 import hm.binkley.math.BInt
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.plus
+import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
 
 data class FixedComplex(
@@ -16,6 +17,10 @@ data class FixedComplex(
         (real + addend.real) + (imag + addend.imag)
 
     operator fun minus(subtrahend: FixedComplex) = this + -subtrahend
+
+    operator fun times(multiplicand: FixedComplex) =
+        (real * multiplicand.real + imag * multiplicand.imag) +
+                (real * multiplicand.imag + imag * multiplicand.real)
 
     override fun toString() =
         if (ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
@@ -69,16 +74,40 @@ operator fun FixedComplex.minus(subtrahend: FixedImaginary) =
     this + -subtrahend
 
 operator fun FixedBigRational.minus(subtrahend: FixedComplex) =
-    -subtrahend + this
+    this + -subtrahend
 
 operator fun BInt.minus(subtrahend: FixedComplex) =
-    -subtrahend + this
+    this + -subtrahend
 
 operator fun Long.minus(subtrahend: FixedComplex) =
-    -subtrahend + this
+    this + -subtrahend
 
 operator fun Int.minus(subtrahend: FixedComplex) =
-    -subtrahend + this
+    this + -subtrahend
 
 operator fun FixedImaginary.minus(subtrahend: FixedComplex) =
-    -subtrahend + this
+    this + -subtrahend
+
+operator fun FixedComplex.times(multiplicand: FixedBigRational) =
+    this * (multiplicand + ZERO.i)
+
+operator fun FixedComplex.times(multiplicand: BInt) =
+    this * (multiplicand + ZERO.i)
+
+operator fun FixedComplex.times(multiplicand: Long) =
+    this * (multiplicand + ZERO.i)
+
+operator fun FixedComplex.times(multiplicand: Int) =
+    this * (multiplicand + ZERO.i)
+
+operator fun FixedComplex.times(multiplicand: FixedImaginary) =
+    this * (ZERO + multiplicand)
+
+operator fun FixedBigRational.times(multiplicand: FixedComplex) =
+    multiplicand * this
+
+operator fun BInt.times(multiplicand: FixedComplex) = multiplicand * this
+operator fun Long.times(multiplicand: FixedComplex) = multiplicand * this
+operator fun Int.times(multiplicand: FixedComplex) = multiplicand * this
+operator fun FixedImaginary.times(multiplicand: FixedComplex) =
+    multiplicand * this
