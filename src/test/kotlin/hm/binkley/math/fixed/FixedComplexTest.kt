@@ -38,6 +38,11 @@ internal class FixedComplexTest {
     }
 
     @Test
+    fun `should absolve`() {
+        assertEquals(5 over 1, (3 + 4.i).absoluteValue)
+    }
+
+    @Test
     fun `should reciprocate`() {
         assertEquals((1 over 4) - (1 over 4).i, (2 + 2.i).reciprocal)
     }
