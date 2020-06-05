@@ -1,6 +1,7 @@
 package hm.binkley.math
 
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.util.Objects.hash
 
 /**
@@ -140,6 +141,11 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * @see [BigDecimal.toDouble] with similar behavior
      */
     override fun toDouble() = numerator.toDouble() / denominator.toDouble()
+
+    /**
+     * Returns this as a [BigInteger], which may involve rounding.
+     */
+    fun toBigInteger() = numerator / denominator
 
     /**
      * Compares this object with the specified object for order. Returns

@@ -130,6 +130,26 @@ operator fun FixedImaginary.div(divisor: FixedComplex) = divisor / this
 
 // Functions
 
+fun FixedComplex.toBigRational() =
+    if (ZERO == imag.value) real
+    else throw ArithmeticException("Not real: $this")
+
+fun FixedComplex.toBigInteger() =
+    if (ZERO == imag.value) real.toBigInteger()
+    else throw ArithmeticException("Not real: $this")
+
+fun FixedComplex.toLong() =
+    if (ZERO == imag.value) real.toLong()
+    else throw ArithmeticException("Not real: $this")
+
+fun FixedComplex.toInt() =
+    if (ZERO == imag.value) real.toInt()
+    else throw ArithmeticException("Not real: $this")
+
+fun FixedComplex.toImaginary() =
+    if (ZERO == real) imag
+    else throw ArithmeticException("Not imaginary: $this")
+
 fun FixedComplex.pow(n: Int): FixedComplex {
     // TODO: Improve on brute force
     when (n) {

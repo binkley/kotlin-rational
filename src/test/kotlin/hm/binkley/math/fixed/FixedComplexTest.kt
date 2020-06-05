@@ -133,6 +133,16 @@ internal class FixedComplexTest {
     }
 
     @Test
+    fun `should convert`() {
+        val one = 1 + 0.i
+        assertEquals(ONE, one.toBigRational())
+        assertEquals(BInt.ONE, one.toBigInteger())
+        assertEquals(1L, one.toLong())
+        assertEquals(1, one.toInt())
+        assertEquals(1.i, (0 + 1.i).toImaginary())
+    }
+
+    @Test
     fun `should raise`() {
         val half = 1 over 2
         assertEquals(1 + 0.i, ONE_PLUS_I.pow(0))
