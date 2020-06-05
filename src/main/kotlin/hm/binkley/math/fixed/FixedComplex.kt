@@ -8,6 +8,7 @@ import hm.binkley.math.pow
 import hm.binkley.math.sqrt
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
+import kotlin.math.absoluteValue
 
 data class FixedComplex(
     val real: FixedBigRational,
@@ -126,3 +127,21 @@ operator fun BInt.div(divisor: FixedComplex) = divisor / this
 operator fun Long.div(divisor: FixedComplex) = divisor / this
 operator fun Int.div(divisor: FixedComplex) = divisor / this
 operator fun FixedImaginary.div(divisor: FixedComplex) = divisor / this
+
+// Functions
+
+fun FixedComplex.pow(n: Int): FixedComplex {
+    // TODO: Improve on brute force
+    when (n) {
+        0 -> return 1 + 0.i
+        1 -> return this
+        -1 -> return reciprocal
+    }
+    var z = this
+    var i = n.absoluteValue
+    while (1 < i) {
+        z *= this
+        --i
+    }
+    return if (0 > n) z.reciprocal else z
+}

@@ -131,4 +131,14 @@ internal class FixedComplexTest {
         assertEquals(half - half.i, ONE_PLUS_I / 2.i)
         assertEquals(half - half.i, 2.i / ONE_PLUS_I)
     }
+
+    @Test
+    fun `should raise`() {
+        val half = 1 over 2
+        assertEquals(1 + 0.i, ONE_PLUS_I.pow(0))
+        assertEquals(ONE_PLUS_I, ONE_PLUS_I.pow(1))
+        assertEquals(half - half.i, ONE_PLUS_I.pow(-1))
+        assertEquals(0 + 2.i, ONE_PLUS_I.pow(2))
+        assertEquals(0 - half.i, ONE_PLUS_I.pow(-2))
+    }
 }
