@@ -1,8 +1,10 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
+import hm.binkley.math.div
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.plus
+import hm.binkley.math.pow
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
 
@@ -49,6 +51,13 @@ operator fun FixedImaginary.minus(real: Long) = -real + this
 operator fun FixedImaginary.minus(real: Int) = -real + this
 
 val FixedComplex.conjugate get() = real + -imag
+val FixedComplex.det get() = real.pow(2) + imag.value.pow(2)
+
+val FixedComplex.reciprocal: FixedComplex
+    get() {
+        val det = det
+        return real / det - (imag.value / det).i
+    }
 
 operator fun FixedComplex.plus(addend: FixedBigRational) =
     this + (addend + ZERO.i)

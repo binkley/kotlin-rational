@@ -33,6 +33,16 @@ internal class FixedComplexTest {
     }
 
     @Test
+    fun `should determinate`() {
+        assertEquals(8 over 1, (2 + 2.i).det)
+    }
+
+    @Test
+    fun `should reciprocate`() {
+        assertEquals((1 over 4) - (1 over 4).i, (2 + 2.i).reciprocal)
+    }
+
+    @Test
     fun `should posite`() {
         assertEquals(ONE_PLUS_I, +ONE_PLUS_I)
     }
