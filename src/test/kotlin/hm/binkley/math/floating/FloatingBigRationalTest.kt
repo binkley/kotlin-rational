@@ -33,6 +33,7 @@ import hm.binkley.math.rangeTo
 import hm.binkley.math.reciprocal
 import hm.binkley.math.rem
 import hm.binkley.math.round
+import hm.binkley.math.sqrt
 import hm.binkley.math.step
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
@@ -1413,6 +1414,16 @@ internal class FloatingBigRationalTest {
                 25 over 9,
                 (3 over 5).pow(-2)
             )
+        }
+
+        @Test
+        fun `should root`() {
+            assertEquals(
+                3 over 5,
+                (9 over 25).sqrt()
+            )
+            assertThrows<ArithmeticException> { (8 over 25).sqrt() }
+            assertThrows<ArithmeticException> { (9 over 26).sqrt() }
         }
 
         @Test

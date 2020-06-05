@@ -750,6 +750,21 @@ fun <T : BigRationalBase<T>> T.pow(exponent: Int): T = when {
     else -> reciprocal.pow(-exponent)
 }
 
+/**
+ * Returns the rational square root.
+ *
+ * @throws ArithmeticException if the square root is non-rational
+ */
+fun <T : BigRationalBase<T>> T.sqrt(): T {
+    val n = numerator.sqrt()
+    if (numerator != n * n)
+        throw ArithmeticException("No rational square root: $this")
+    val d = denominator.sqrt()
+    if (denominator != d * d)
+        throw ArithmeticException("No rational square root: $this")
+    return companion.valueOf(n, d)
+}
+
 /** Rounds to the nearest whole number _less than or equal_ to this. */
 fun <T : BigRationalBase<T>> T.floor() = when {
     roundsToSelf() -> this

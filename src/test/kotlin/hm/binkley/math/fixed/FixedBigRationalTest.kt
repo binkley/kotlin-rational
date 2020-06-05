@@ -15,6 +15,7 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
+import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floor
 import hm.binkley.math.gcd
 import hm.binkley.math.inc
@@ -22,13 +23,13 @@ import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.minus
-import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.rangeTo
 import hm.binkley.math.reciprocal
 import hm.binkley.math.rem
 import hm.binkley.math.round
+import hm.binkley.math.sqrt
 import hm.binkley.math.step
 import hm.binkley.math.times
 import hm.binkley.math.unaryMinus
@@ -1100,6 +1101,16 @@ internal class FixedBigRationalTest {
                 25 over 9,
                 (3 over 5).pow(-2)
             )
+        }
+
+        @Test
+        fun `should root`() {
+            assertEquals(
+                3 over 5,
+                (9 over 25).sqrt()
+            )
+            assertThrows<ArithmeticException> { (8 over 25).sqrt() }
+            assertThrows<ArithmeticException> { (9 over 26).sqrt() }
         }
 
         @Test
