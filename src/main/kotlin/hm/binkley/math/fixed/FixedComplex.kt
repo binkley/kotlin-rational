@@ -48,6 +48,8 @@ operator fun FixedImaginary.minus(real: BInt) = -real + this
 operator fun FixedImaginary.minus(real: Long) = -real + this
 operator fun FixedImaginary.minus(real: Int) = -real + this
 
+val FixedComplex.conjugate get() = real + -imag
+
 operator fun FixedComplex.plus(addend: FixedBigRational) =
     this + (addend + ZERO.i)
 

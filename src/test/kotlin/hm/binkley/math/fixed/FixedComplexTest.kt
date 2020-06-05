@@ -28,6 +28,11 @@ internal class FixedComplexTest {
     }
 
     @Test
+    fun `should conjugate`() {
+        assertEquals(ONE_MINUS_I, ONE_PLUS_I.conjugate)
+    }
+
+    @Test
     fun `should posite`() {
         assertEquals(ONE_PLUS_I, +ONE_PLUS_I)
     }
