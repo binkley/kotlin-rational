@@ -107,7 +107,23 @@ internal class FixedComplexTest {
         assertEquals(2 + 2.i, ONE_PLUS_I * 2L)
         assertEquals(2 + 2.i, 2 * ONE_PLUS_I)
         assertEquals(2 + 2.i, ONE_PLUS_I * 2)
-        assertEquals(-1 + 1.i, ONE_PLUS_I * I)
-        assertEquals(-1 + 1.i, I * ONE_PLUS_I)
+        assertEquals(-2 + 2.i, ONE_PLUS_I * 2.i)
+        assertEquals(-2 + 2.i, 2.i * ONE_PLUS_I)
+    }
+
+    @Test
+    fun `should divide`() {
+        val half = 1 over 2
+        assertEquals(1 + 0.i, ONE_PLUS_I / ONE_PLUS_I)
+        assertEquals(half + half.i, TWO / ONE_PLUS_I)
+        assertEquals(half + half.i, ONE_PLUS_I / TWO)
+        assertEquals(half + half.i, BInt.TWO / ONE_PLUS_I)
+        assertEquals(half + half.i, ONE_PLUS_I / BInt.TWO)
+        assertEquals(half + half.i, 2L / ONE_PLUS_I)
+        assertEquals(half + half.i, ONE_PLUS_I / 2L)
+        assertEquals(half + half.i, 2 / ONE_PLUS_I)
+        assertEquals(half + half.i, ONE_PLUS_I / 2)
+        assertEquals(half - half.i, ONE_PLUS_I / 2.i)
+        assertEquals(half - half.i, 2.i / ONE_PLUS_I)
     }
 }

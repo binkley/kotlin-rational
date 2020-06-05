@@ -24,6 +24,8 @@ data class FixedComplex(
         (real * multiplicand.real + imag * multiplicand.imag) +
                 (real * multiplicand.imag + imag * multiplicand.real)
 
+    operator fun div(divisor: FixedComplex) = this * divisor.reciprocal
+
     override fun toString() =
         if (ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
 }
@@ -122,3 +124,18 @@ operator fun Long.times(multiplicand: FixedComplex) = multiplicand * this
 operator fun Int.times(multiplicand: FixedComplex) = multiplicand * this
 operator fun FixedImaginary.times(multiplicand: FixedComplex) =
     multiplicand * this
+
+operator fun FixedComplex.div(divisor: FixedBigRational) =
+    this / (divisor + ZERO.i)
+
+operator fun FixedComplex.div(divisor: BInt) = this / (divisor + ZERO.i)
+operator fun FixedComplex.div(divisor: Long) = this / (divisor + ZERO.i)
+operator fun FixedComplex.div(divisor: Int) = this / (divisor + ZERO.i)
+operator fun FixedComplex.div(divisor: FixedImaginary) =
+    this / (ZERO + divisor)
+
+operator fun FixedBigRational.div(divisor: FixedComplex) = divisor / this
+operator fun BInt.div(divisor: FixedComplex) = divisor / this
+operator fun Long.div(divisor: FixedComplex) = divisor / this
+operator fun Int.div(divisor: FixedComplex) = divisor / this
+operator fun FixedImaginary.div(divisor: FixedComplex) = divisor / this
