@@ -13,13 +13,6 @@ import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.downTo
 import hm.binkley.math.fixed.FixedBigRational
-import hm.binkley.math.floor
-import hm.binkley.math.gcd
-import hm.binkley.math.inc
-import hm.binkley.math.isDenominatorEven
-import hm.binkley.math.isZero
-import hm.binkley.math.lcm
-import hm.binkley.math.minus
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
@@ -27,6 +20,13 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.floor
+import hm.binkley.math.gcd
+import hm.binkley.math.inc
+import hm.binkley.math.isDenominatorEven
+import hm.binkley.math.isZero
+import hm.binkley.math.lcm
+import hm.binkley.math.minus
 import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.rangeTo
@@ -43,6 +43,7 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -791,6 +792,39 @@ internal class FloatingBigRationalTest {
 
     @Nested
     inner class SpecialCasesTests {
+        @Disabled("Double.MIN_VALUE is round tripping as 0.0")
+        @Test
+        fun `should round trip as double precision`() {
+            assertEquals(
+                Double.NaN,
+                Double.NaN.toBigRational().toDouble()
+            )
+            assertEquals(
+                Double.MAX_VALUE,
+                Double.MAX_VALUE.toBigRational().toDouble()
+            )
+            assertEquals(
+                Double.MIN_VALUE,
+                Double.MIN_VALUE.toBigRational().toDouble()
+            )
+        }
+
+        @Test
+        fun `should round trip as single precision`() {
+            assertEquals(
+                Float.NaN,
+                Float.NaN.toBigRational().toFloat()
+            )
+            assertEquals(
+                Float.MAX_VALUE,
+                Float.MAX_VALUE.toBigRational().toFloat()
+            )
+            assertEquals(
+                Float.MIN_VALUE,
+                Float.MIN_VALUE.toBigRational().toFloat()
+            )
+        }
+
         @Test
         fun `should be infinity`() {
             assertTrue((2 over 0).isPositiveInfinity())
