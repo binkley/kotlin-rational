@@ -2,12 +2,11 @@ package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
-import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
+import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
-import hm.binkley.math.minus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

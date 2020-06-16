@@ -2,14 +2,13 @@ package hm.binkley.math.floating
 
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
-import hm.binkley.math.isSimple
-import hm.binkley.math.minus
-import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
+import hm.binkley.math.isSimple
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertSame

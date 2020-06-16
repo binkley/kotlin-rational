@@ -1,17 +1,19 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
-import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
+import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.fixed.FixedImaginary.Companion.I
-import hm.binkley.math.unaryMinus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
-private val ONE_PLUS_I = ONE + I
-private val ONE_MINUS_I = ONE - I
-private val NEG_ONE_PLUS_I = -ONE + I
-private val NEG_ONE_MINUS_I = -ONE - I
+private typealias BRat = FixedBigRational
+
+private val ONE_PLUS_I = BRat.ONE + I
+private val ONE_MINUS_I = BRat.ONE - I
+private val NEG_ONE_PLUS_I = -BRat.ONE + I
+private val NEG_ONE_MINUS_I = -BRat.ONE - I
 
 internal class FixedComplexTest {
     @Test
@@ -59,7 +61,7 @@ internal class FixedComplexTest {
 
     @Test
     fun `should add`() {
-        assertEquals(ONE_PLUS_I, I + ONE)
+        assertEquals(ONE_PLUS_I, I + BRat.ONE)
         assertEquals(ONE_PLUS_I, BInt.ONE + I)
         assertEquals(ONE_PLUS_I, I + BInt.ONE)
         assertEquals(ONE_PLUS_I, 1L + I)
@@ -67,8 +69,8 @@ internal class FixedComplexTest {
         assertEquals(ONE_PLUS_I, 1 + I)
         assertEquals(ONE_PLUS_I, I + 1)
         assertEquals(2 + 2.i, ONE_PLUS_I + ONE_PLUS_I)
-        assertEquals(2 + 1.i, ONE_PLUS_I + ONE)
-        assertEquals(2 + 1.i, ONE + ONE_PLUS_I)
+        assertEquals(2 + 1.i, ONE_PLUS_I + BRat.ONE)
+        assertEquals(2 + 1.i, BRat.ONE + ONE_PLUS_I)
         assertEquals(2 + 1.i, ONE_PLUS_I + BInt.ONE)
         assertEquals(2 + 1.i, BInt.ONE + ONE_PLUS_I)
         assertEquals(2 + 1.i, ONE_PLUS_I + 1L)
@@ -81,7 +83,7 @@ internal class FixedComplexTest {
 
     @Test
     fun `should subtract`() {
-        assertEquals(NEG_ONE_PLUS_I, I - ONE)
+        assertEquals(NEG_ONE_PLUS_I, I - BRat.ONE)
         assertEquals(ONE_MINUS_I, BInt.ONE - I)
         assertEquals(NEG_ONE_PLUS_I, I - BInt.ONE)
         assertEquals(ONE_MINUS_I, 1L - I)
@@ -89,8 +91,8 @@ internal class FixedComplexTest {
         assertEquals(ONE_MINUS_I, 1 - I)
         assertEquals(NEG_ONE_PLUS_I, I - 1)
         assertEquals(0 + 0.i, ONE_PLUS_I - ONE_PLUS_I)
-        assertEquals(0 + I, ONE_PLUS_I - ONE)
-        assertEquals(0 + I, ONE - ONE_MINUS_I)
+        assertEquals(0 + I, ONE_PLUS_I - BRat.ONE)
+        assertEquals(0 + I, BRat.ONE - ONE_MINUS_I)
         assertEquals(0 + I, ONE_PLUS_I - BInt.ONE)
         assertEquals(0 + I, BInt.ONE - ONE_MINUS_I)
         assertEquals(0 + I, ONE_PLUS_I - 1L)
@@ -134,12 +136,18 @@ internal class FixedComplexTest {
 
     @Test
     fun `should convert`() {
-        val one = 1 + 0.i
-        assertEquals(ONE, one.toBigRational())
+        val one = ONE + 0.i
+        assertEquals(BRat.ONE, one.toBigRational())
         assertEquals(BInt.ONE, one.toBigInteger())
         assertEquals(1L, one.toLong())
         assertEquals(1, one.toInt())
         assertEquals(1.i, (0 + 1.i).toImaginary())
+        // Sad paths
+        assertThrows<ArithmeticException> { ONE_PLUS_I.toBigRational() }
+        assertThrows<ArithmeticException> { ONE_PLUS_I.toBigInteger() }
+        assertThrows<ArithmeticException> { ONE_PLUS_I.toLong() }
+        assertThrows<ArithmeticException> { ONE_PLUS_I.toInt() }
+        assertThrows<ArithmeticException> { ONE_PLUS_I.toImaginary() }
     }
 
     @Test

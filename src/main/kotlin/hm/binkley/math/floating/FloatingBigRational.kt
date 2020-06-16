@@ -4,14 +4,13 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
-import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
-import hm.binkley.math.isZero
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingBigRational.Companion.valueOf
+import hm.binkley.math.isZero
 import java.math.BigDecimal
 
 /**

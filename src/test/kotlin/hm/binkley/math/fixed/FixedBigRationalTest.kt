@@ -4,10 +4,8 @@ package hm.binkley.math.fixed
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
-import hm.binkley.math.absoluteValue
 import hm.binkley.math.ceil
 import hm.binkley.math.compareTo
-import hm.binkley.math.dec
 import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.downTo
@@ -18,7 +16,6 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floor
 import hm.binkley.math.gcd
-import hm.binkley.math.inc
 import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
@@ -26,14 +23,11 @@ import hm.binkley.math.minus
 import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.rangeTo
-import hm.binkley.math.reciprocal
 import hm.binkley.math.rem
 import hm.binkley.math.round
 import hm.binkley.math.sqrt
 import hm.binkley.math.step
 import hm.binkley.math.times
-import hm.binkley.math.unaryMinus
-import hm.binkley.math.unaryPlus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals

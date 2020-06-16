@@ -1,20 +1,26 @@
 package hm.binkley.math
 
+import hm.binkley.math.algebra.Field
+import hm.binkley.math.algebra.FieldCompanion
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Objects.hash
 
 /**
+ * An abuse of Fields: `FixedBigRational` is a field, but
+ * `FloatingBigRational` is not because of `NaN` and the infinities.
+ *
  * @todo Provide`sqrt` via continued fractions, ie,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Square_roots
  */
 @Suppress("PropertyName")
-interface BigRationalCompanion<T : BigRationalBase<T>> {
+interface BigRationalCompanion<T : BigRationalBase<T>> :
+    FieldCompanion<T> {
     /** A constant holding value 0. It is equivalent `0 over 1`. */
-    val ZERO: T
+    override val ZERO: T
 
     /** A constant holding value 1. It is equivalent `1 over 1`. */
-    val ONE: T
+    override val ONE: T
 
     /** A constant holding value 2. It is equivalent `2 over 1`. */
     val TWO: T
@@ -107,8 +113,25 @@ interface BigRationalCompanion<T : BigRationalBase<T>> {
 abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     val numerator: BInt,
     val denominator: BInt,
-    internal val companion: BigRationalCompanion<T>
-) : Number(), Comparable<T> {
+    override val companion: BigRationalCompanion<T>
+) : Number(), Comparable<T>, Field<T> {
+    /** Returns the absolute value. */
+    @Suppress("UNCHECKED_CAST")
+    val absoluteValue: T
+        get() =
+            if (numerator >= BInt.ZERO) this as T
+            else companion.valueOf(numerator.abs(), denominator)
+
+    /** Returns the reciprocal. */
+    val reciprocal: T get() = companion.valueOf(denominator, numerator)
+
+    /**
+     * The signum of this value: -1 for negative, 0 for zero, or 1 for
+     * positive.
+     */
+    open val sign: T
+        get() = companion.valueOf(numerator.signum())
+
     /**
      * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
      * Java does not have a conversion to [Character] for [java.lang.Number].
@@ -166,12 +189,35 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         }
     }
 
-    /**
-     * The signum of this value: -1 for negative, 0 for zero, or 1 for
-     * positive.
-     */
-    open val sign: T
-        get() = companion.valueOf(numerator.signum())
+    /** Returns the arithmetic inverse of this value. */
+    override operator fun unaryMinus(): T =
+        companion.valueOf(numerator.negate(), denominator)
+
+    /** Increments this value by 1. */
+    operator fun inc(): T =
+        companion.valueOf(numerator + denominator, denominator)
+
+    /** Decrements this value by 1. */
+    operator fun dec(): T =
+        companion.valueOf(numerator - denominator, denominator)
+
+    /** Adds the other value to this value. */
+    override operator fun plus(addend: T): T =
+        if (denominator == addend.denominator)
+            companion.valueOf(numerator + addend.numerator, denominator)
+        else companion.valueOf(
+            numerator * addend.denominator + addend.numerator * denominator,
+            denominator * addend.denominator
+        )
+
+    /** Multiplies this value by the other value. */
+    override operator fun times(multiplicand: T): T =
+        companion.valueOf(
+            numerator * multiplicand.numerator,
+            denominator * multiplicand.denominator
+        )
+
+    override fun unaryDiv(): T = reciprocal
 
     /**
      * Finds the remainder of this value by [divisor]: always 0 (division is
@@ -238,16 +284,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
 }
-
-/** Returns the absolute value. */
-val <T : BigRationalBase<T>> T.absoluteValue: T
-    get() =
-        if (numerator >= BInt.ZERO) this
-        else companion.valueOf(numerator.abs(), denominator)
-
-/** Returns the reciprocal. */
-val <T : BigRationalBase<T>> T.reciprocal: T
-    get() = companion.valueOf(denominator, numerator)
 
 /**
  * Compares this value to the other.
@@ -345,30 +381,6 @@ operator fun <T : BigRationalBase<T>> T.compareTo(other: Int) =
 operator fun <T : BigRationalBase<T>> Int.compareTo(other: T) =
     other.companion.valueOf(this).compareTo(other)
 
-/** Returns this value. */
-operator fun <T : BigRationalBase<T>> T.unaryPlus() = this
-
-/** Returns the arithmetic inverse of this value. */
-operator fun <T : BigRationalBase<T>> T.unaryMinus(): T =
-    companion.valueOf(numerator.negate(), denominator)
-
-/** Increments this value by 1. */
-operator fun <T : BigRationalBase<T>> T.inc() =
-    companion.valueOf(numerator + denominator, denominator)
-
-/** Decrements this value by 1. */
-operator fun <T : BigRationalBase<T>> T.dec() =
-    companion.valueOf(numerator - denominator, denominator)
-
-/** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> T.plus(addend: T) =
-    if (denominator == addend.denominator)
-        companion.valueOf(numerator + addend.numerator, denominator)
-    else companion.valueOf(
-        numerator * addend.denominator + addend.numerator * denominator,
-        denominator * addend.denominator
-    )
-
 /** Adds the other value to this value. */
 operator fun <T : BigRationalBase<T>> T.plus(addend: BDouble) =
     this + companion.valueOf(addend)
@@ -416,10 +428,6 @@ operator fun <T : BigRationalBase<T>> Long.plus(addend: T) =
 /** Adds the other value to this value. */
 operator fun <T : BigRationalBase<T>> Int.plus(addend: T) =
     addend.companion.valueOf(this) + addend
-
-/** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> T.minus(subtrahend: T) =
-    this + -subtrahend
 
 /** Subtracts the other value from this value. */
 operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BDouble) =
@@ -470,13 +478,6 @@ operator fun <T : BigRationalBase<T>> Int.minus(subtrahend: T) =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplicand: T): T =
-    companion.valueOf(
-        numerator * multiplicand.numerator,
-        denominator * multiplicand.denominator
-    )
-
-/** Multiplies this value by the other value. */
 operator fun <T : BigRationalBase<T>> T.times(multiplicand: BDouble) =
     this * companion.valueOf(multiplicand)
 
@@ -523,14 +524,6 @@ operator fun <T : BigRationalBase<T>> Long.times(multiplicand: T) =
 /** Multiplies this value by the other value. */
 operator fun <T : BigRationalBase<T>> Int.times(multiplicand: T) =
     multiplicand.companion.valueOf(this) * multiplicand
-
-/**
- * Divides this value by the other value exactly.
- *
- * @see [divideAndRemainder]
- */
-operator fun <T : BigRationalBase<T>> T.div(divisor: T) =
-    this * divisor.reciprocal
 
 /**
  * Divides this value by the other value exactly.

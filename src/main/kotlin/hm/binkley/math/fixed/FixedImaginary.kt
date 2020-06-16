@@ -2,11 +2,10 @@ package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
-import hm.binkley.math.minus
-import hm.binkley.math.plus
 import hm.binkley.math.times
-import hm.binkley.math.unaryMinus
+import lombok.Generated
 
+@Generated // Lie to JaCoCo -- inline class confuses it
 inline class FixedImaginary(val value: FixedBigRational) :
     Comparable<FixedImaginary> {
     override fun compareTo(other: FixedImaginary) =
