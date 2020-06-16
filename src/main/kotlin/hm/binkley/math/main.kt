@@ -1,5 +1,6 @@
 package hm.binkley.math
 
+import hm.binkley.math.algebra.Mod3Int
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
@@ -12,6 +13,7 @@ import java.math.BigDecimal
 
 @Generated // Lie to JaCoCo
 fun main() {
+    println("== FLOATING BIG RATIONALS")
     println("ZERO is $ZERO")
     println("NaN is $NaN")
     println("POSITIVE_INFINITY is $POSITIVE_INFINITY")
@@ -91,6 +93,14 @@ fun main() {
     println(BigDecimal.ZERO.toBigRational())
     println(BigDecimal.ONE.toBigRational())
     println(BigDecimal.ONE.movePointLeft(1).toBigRational())
+
+    println()
+    println("== MOD3 INT")
+    println("-1 (constructor) -> ${Mod3Int.of(-1)}")
+    println("-1 (inverse) -> ${-Mod3Int.ONE}")
+    println("3-4 -> ${Mod3Int.of(3) - Mod3Int.of(4)}")
+    println("3+4 -> ${Mod3Int.of(3) + Mod3Int.of(4)}")
+    println("3*4 -> ${Mod3Int.of(3) * Mod3Int.of(4)}")
 }
 
 @Generated // Lie to JaCoCo
