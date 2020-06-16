@@ -59,9 +59,8 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
         floatingPoint == 1.0 -> ONE
         floatingPoint == 2.0 -> TWO
         // Not 10.0 -- decimal rounding to floating point is tricksy
-        floatingPoint < 0 -> -TWO.pow(exponent(floatingPoint)) * factor(
-            floatingPoint
-        )
+        floatingPoint < 0 ->
+            -TWO.pow(exponent(floatingPoint)) * factor(floatingPoint)
         else -> TWO.pow(exponent(floatingPoint)) * factor(floatingPoint)
     }
 
@@ -162,6 +161,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * `123.456.toBigRational().toDouble == 123.456`.
      *
      * @see [BigDecimal.toDouble] with similar behavior
+     * @see [BigRationalCompanion.valueOf(Double)]
      *
      * @todo This does the *wrong thing* for small-valued doubles (eg,
      *       `Double.MIN_VALUE`)
