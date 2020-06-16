@@ -37,7 +37,6 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -786,7 +785,6 @@ internal class FloatingBigRationalTest {
 
     @Nested
     inner class SpecialCasesTests {
-        @Disabled("Double.MIN_VALUE is round tripping as 0.0")
         @Test
         fun `should round trip as double precision`() {
             assertEquals(
@@ -797,9 +795,14 @@ internal class FloatingBigRationalTest {
                 Double.MAX_VALUE,
                 Double.MAX_VALUE.toBigRational().toDouble()
             )
-            assertEquals(
+        }
+
+        @Test
+        fun `should BE BUGGY for DOUBLE_MIN`() {
+            assertNotEquals(
                 Double.MIN_VALUE,
-                Double.MIN_VALUE.toBigRational().toDouble()
+                Double.MIN_VALUE.toBigRational().toDouble(),
+                "IF FAILING, THE BUG IS FIXED"
             )
         }
 
