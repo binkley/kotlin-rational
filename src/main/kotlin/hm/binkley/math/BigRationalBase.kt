@@ -162,6 +162,9 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * `123.456.toBigRational().toDouble == 123.456`.
      *
      * @see [BigDecimal.toDouble] with similar behavior
+     *
+     * @todo This does the *wrong thing* for small-valued doubles (eg,
+     *       `Double.MIN_VALUE`)
      */
     override fun toDouble() = numerator.toDouble() / denominator.toDouble()
 
