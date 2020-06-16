@@ -788,6 +788,18 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should round trip as double precision`() {
             assertEquals(
+                0.0,
+                0.0.toBigRational().toDouble()
+            )
+            assertEquals(
+                1.0,
+                1.0.toBigRational().toDouble()
+            )
+            assertEquals(
+                0.1,
+                0.1.toBigRational().toDouble()
+            )
+            assertEquals(
                 Double.NaN,
                 Double.NaN.toBigRational().toDouble()
             )
@@ -819,6 +831,18 @@ internal class FloatingBigRationalTest {
             assertEquals(
                 Float.MIN_VALUE,
                 Float.MIN_VALUE.toBigRational().toFloat()
+            )
+            assertEquals(
+                0.0f,
+                0.0f.toBigRational().toFloat()
+            )
+            assertEquals(
+                1.0f,
+                1.0f.toBigRational().toFloat()
+            )
+            assertEquals(
+                0.1f,
+                0.1f.toBigRational().toFloat()
             )
         }
 
