@@ -769,17 +769,17 @@ internal class FixedBigRationalTest {
                 -2 over 1,
                 -1 over 1,
                 -1 over 2,
-                -5404319552844595 over 18014398509481984,
-                -3602879701896397 over 36028797018963968,
+                -3 over 10,
+                -1 over 10,
                 ZERO,
-                3602879701896397 over 36028797018963968,
-                5404319552844595 over 18014398509481984,
+                1 over 10,
+                3 over 10,
                 1 over 2,
                 ONE,
                 2 over 1,
                 3 over 1,
                 4 over 1,
-                8687443681197687 over 70368744177664
+                15432 over 125
             )
             assertEquals(
                 rationals,
@@ -820,17 +820,17 @@ internal class FixedBigRationalTest {
                 -2 over 1,
                 -1 over 1,
                 -1 over 2,
-                -5033165 over 16777216,
-                -13421773 over 134217728,
+                -3 over 10,
+                -1 over 10,
                 ZERO,
-                13421773 over 134217728,
-                5033165 over 16777216,
+                1 over 10,
+                3 over 10,
                 1 over 2,
                 ONE,
                 2 over 1,
                 3 over 1,
                 4 over 1,
-                16181625 over 131072
+                15432 over 125
             )
             assertEquals(
                 rationals,

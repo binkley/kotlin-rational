@@ -233,9 +233,15 @@ class FloatingBigRational private constructor(
 
         override fun valueOf(floatingPoint: Double) = when {
             floatingPoint.isNaN() -> NaN
-            floatingPoint.isInfinite() ->
-                if (floatingPoint < 0.0) NEGATIVE_INFINITY
-                else POSITIVE_INFINITY
+            floatingPoint == Double.POSITIVE_INFINITY -> POSITIVE_INFINITY
+            floatingPoint == Double.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
+            else -> super.valueOf(floatingPoint)
+        }
+
+        override fun valueOf(floatingPoint: Float) = when {
+            floatingPoint.isNaN() -> NaN
+            floatingPoint == Float.POSITIVE_INFINITY -> POSITIVE_INFINITY
+            floatingPoint == Float.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
             else -> super.valueOf(floatingPoint)
         }
 

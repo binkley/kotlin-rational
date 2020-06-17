@@ -54,24 +54,18 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      * Since the conversion to a rational is _exact_, converting the resulting
      * rational back to a [Double] produces the original value.
      */
-    fun valueOf(floatingPoint: Double) = when {
-        floatingPoint == 0.0 -> ZERO
-        floatingPoint == 1.0 -> ONE
-        floatingPoint == 2.0 -> TWO
-        // Not 10.0 -- decimal rounding to floating point is tricksy
-        floatingPoint < 0 ->
-            -TWO.pow(exponent(floatingPoint)) * factor(floatingPoint)
-        else -> TWO.pow(exponent(floatingPoint)) * factor(floatingPoint)
+    fun valueOf(floatingPoint: Double): T {
+        val ratio = floatingPoint.toBigDecimal().toRatio()
+        return valueOf(ratio.first, ratio.second)
     }
 
-    private fun factor(other: Double): T {
-        val denominator = 1L shl 52
-        val numerator = mantissa(other) + denominator
-
-        return valueOf(numerator.toBigInteger(), denominator.toBigInteger())
+    fun valueOf(floatingPoint: Float): T = try {
+        val ratio = floatingPoint.toBigDecimal().toRatio()
+        valueOf(ratio.first, ratio.second)
+    } catch (e: NumberFormatException) {
+        throw ArithmeticException("$floatingPoint: ${e.message}")
     }
 
-    fun valueOf(floatingPoint: Float) = valueOf(floatingPoint.toDouble())
     fun valueOf(wholeNumber: BInt) = valueOf(wholeNumber, BInt.ONE)
     fun valueOf(wholeNumber: Long) = valueOf(wholeNumber.toBigInteger())
     fun valueOf(wholeNumber: Int) = valueOf(wholeNumber.toBigInteger())
