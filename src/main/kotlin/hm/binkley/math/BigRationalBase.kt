@@ -166,7 +166,8 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * @todo This does the *wrong thing* for small-valued doubles (eg,
      *       `Double.MIN_VALUE`)
      */
-    override fun toDouble() = numerator.toDouble() / denominator.toDouble()
+    override fun toDouble() =
+        numerator.toBigDecimal().divide(denominator.toBigDecimal()).toDouble()
 
     /**
      * Returns this as a [BigInteger], which may involve rounding.
