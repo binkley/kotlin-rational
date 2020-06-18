@@ -33,6 +33,10 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
     /**
      * Since the conversion to a rational is _exact_, converting the resulting
      * rational back to a [BigDecimal] produces the original value.
+     *
+     * Note, however, such a round trip will _not_ preserve trailing zeroes,
+     * just as converting BigDecimal -> Double -> BigDecimal does not preserve
+     * them.
      */
     fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
         BDouble.ZERO -> ZERO
