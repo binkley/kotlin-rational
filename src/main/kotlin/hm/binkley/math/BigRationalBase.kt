@@ -39,9 +39,8 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
         BDouble.ONE -> ONE
         BDouble.TEN -> TEN
         else -> {
-            val bd = floatingPoint.stripTrailingZeros()
-            val scale = bd.scale()
-            val unscaledValue = bd.unscaledValue()
+            val scale = floatingPoint.scale()
+            val unscaledValue = floatingPoint.unscaledValue()
             when {
                 0 == scale -> valueOf(unscaledValue)
                 0 > scale -> valueOf(unscaledValue * BInt.TEN.pow(-scale))
