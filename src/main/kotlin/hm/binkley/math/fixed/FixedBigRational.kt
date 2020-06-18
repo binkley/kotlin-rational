@@ -21,7 +21,6 @@ import hm.binkley.math.isZero
  *
  * Ranges increment by 1 unless otherwise specified.
  *
- * @todo Consider `Short` and `Byte` overloads
  * @todo Assign properties at construction; avoid circular ctors
  */
 class FixedBigRational private constructor(

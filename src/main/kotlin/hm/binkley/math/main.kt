@@ -68,6 +68,7 @@ fun main() {
     )
     println("$toSort sorted is ${toSort.sorted()}")
 
+    println("DOUBLE CONVERSIONS")
     for (d in listOf(
         -4.0,
         -3.0,
@@ -83,16 +84,37 @@ fun main() {
         3.0,
         4.0,
         123.456,
-        Double.NaN,
         Double.MAX_VALUE,
-        Double.MIN_VALUE // TODO: Conversion back yields 0.0 :(
+        Double.MIN_VALUE,
+        Double.POSITIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.NaN
     ))
         dump(d)
 
-    println(BigDecimal("77.770").toBigRational())
-    println(BigDecimal.ZERO.toBigRational())
-    println(BigDecimal.ONE.toBigRational())
-    println(BigDecimal.ONE.movePointLeft(1).toBigRational())
+    println("FLOAT CONVERSIONS")
+    for (d in listOf(
+        -4.0f,
+        -3.0f,
+        -2.0f,
+        -0.5f,
+        -0.3f,
+        -0.1f,
+        0.0f,
+        0.1f,
+        0.3f,
+        0.5f,
+        2.0f,
+        3.0f,
+        4.0f,
+        123.456f,
+        Float.MAX_VALUE,
+        Float.MIN_VALUE,
+        Float.POSITIVE_INFINITY,
+        Float.NEGATIVE_INFINITY,
+        Float.NaN
+    ))
+        dump(d)
 
     println()
     println("== MOD3 INT")
@@ -107,5 +129,12 @@ fun main() {
 fun dump(d: Double) {
     val rat = d.toBigRational()
 
-    println("$d is $rat is ${rat.toDouble()}")
+    println("$d -> $rat -> ${rat.toDouble()}")
+}
+
+@Generated // Lie to JaCoCo
+fun dump(f: Float) {
+    val rat = f.toBigRational()
+
+    println("$f -> $rat -> ${rat.toFloat()}")
 }

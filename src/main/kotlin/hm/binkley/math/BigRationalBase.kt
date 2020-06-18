@@ -11,7 +11,8 @@ import java.util.Objects.hash
  * `FloatingBigRational` is not because of `NaN` and the infinities.
  *
  * @todo Provide`sqrt` via continued fractions, ie,
- *       https://en.wikipedia.org/wiki/Continued_fraction#Square_roots
+ *       https://en.wikipedia.org/wiki/Continued_fraction#Square_roots and
+ *       [BigInteger.sqrtAndRemainder]
  */
 @Suppress("PropertyName")
 interface BigRationalCompanion<T : BigRationalBase<T>> :
@@ -267,7 +268,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     open fun isPAdic(p: Long) = denominator.isPAdic(p)
 
     override fun equals(other: Any?) = this === other ||
-            // TODO: Kotlin smart casting needs this, but is redundant
             other is BigRationalBase<*> &&
             javaClass == other.javaClass &&
             numerator == other.numerator &&

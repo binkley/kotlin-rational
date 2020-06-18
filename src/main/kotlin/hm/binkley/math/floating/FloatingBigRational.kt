@@ -28,7 +28,6 @@ import java.math.BigDecimal
  *
  * Ranges increment by 1 unless otherwise specified.
  *
- * @todo Consider `Short` and `Byte` overloads
  * @todo Assign properties at construction; avoid circular ctors
  */
 @Suppress("EqualsOrHashCode")
@@ -608,8 +607,6 @@ fun FloatingBigRational.toContinuedFraction() =
 /**
  * Checks that this rational is a finite fraction.  Infinities and "not a
  * number" are not finite.
- *
- * @todo Consider separate types, which leads to sealed types
  */
 fun FloatingBigRational.isFinite() = !isNaN() && !isInfinite()
 

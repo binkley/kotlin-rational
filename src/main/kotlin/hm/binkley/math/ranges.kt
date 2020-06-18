@@ -62,7 +62,6 @@ open class BigRationalProgression<T : BigRationalBase<T>>(
             IncrementingBigRationalIterator(start, endInclusive, step)
 
     override fun equals(other: Any?) = this === other ||
-            // TODO: Kotlin smart casting needs this, but is redundant
             other is BigRationalProgression<*> &&
             javaClass == other.javaClass &&
             start == other.start &&
