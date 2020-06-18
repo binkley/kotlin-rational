@@ -59,6 +59,12 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
         return valueOf(ratio.first, ratio.second)
     }
 
+    /**
+     * Since the conversion to a rational is _exact_, converting the resulting
+     * rational back to a [Float] produces the original value.
+     *
+     * @todo Why does `Float` need try/catch, but `Double` does not?
+     */
     fun valueOf(floatingPoint: Float): T = try {
         val ratio = floatingPoint.toBigDecimal().toRatio()
         valueOf(ratio.first, ratio.second)
@@ -156,9 +162,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      *
      * @see [BigDecimal.toDouble] with similar behavior
      * @see [BigRationalCompanion.valueOf(Double)]
-     *
-     * @todo This does the *wrong thing* for small-valued doubles (eg,
-     *       `Double.MIN_VALUE`)
      */
     override fun toDouble() =
         numerator.toBigDecimal().divide(denominator.toBigDecimal()).toDouble()
