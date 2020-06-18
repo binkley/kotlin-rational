@@ -157,7 +157,7 @@ class FloatingBigRational private constructor(
      * @see Any.equals
      */
     override fun equals(other: Any?) = when {
-        !isFinite() -> false
+        isNaN() -> false
         else -> super.equals(other)
     }
 

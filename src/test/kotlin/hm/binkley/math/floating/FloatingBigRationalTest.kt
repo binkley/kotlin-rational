@@ -202,15 +202,11 @@ internal class FloatingBigRationalTest {
     }
 
     @Test
-    fun `should not be itself`() {
-        assertFalse(NaN == NaN)
-        assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
-        assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
-    }
-
-    @Test
     fun `should hash separately`() {
-        assertFalse((1 over 2).hashCode() == (1 over 3).hashCode())
+        assertNotEquals((1 over 2).hashCode(), (1 over 3).hashCode())
+        assertNotEquals(
+            POSITIVE_INFINITY.hashCode(), NEGATIVE_INFINITY.hashCode()
+        )
     }
 
     @Test
@@ -607,6 +603,8 @@ internal class FloatingBigRationalTest {
                 ONE,
                 ONE * 1
             )
+            assertTrue((ONE * POSITIVE_INFINITY).isPositiveInfinity())
+            assertTrue((ONE * NEGATIVE_INFINITY).isNegativeInfinity())
             assertTrue((ZERO * POSITIVE_INFINITY).isNaN())
             assertTrue((POSITIVE_INFINITY * ZERO).isNaN())
             assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
@@ -917,6 +915,13 @@ internal class FloatingBigRationalTest {
                 (POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity()
             )
             assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
+        }
+
+        @Test
+        fun `should understand equalities of non-finite values`() {
+            assertEquals(POSITIVE_INFINITY, POSITIVE_INFINITY)
+            assertEquals(NEGATIVE_INFINITY, NEGATIVE_INFINITY)
+            assertNotEquals(NaN, NaN)
         }
     }
 
@@ -1376,16 +1381,10 @@ internal class FloatingBigRationalTest {
         }
 
         @Test
-        fun `should not order non-finite values`() {
+        fun `should not order NaN values`() {
             assertFalse(NaN == NaN)
             assertFalse(NaN > NaN)
             assertFalse(NaN < NaN)
-            assertFalse(POSITIVE_INFINITY == POSITIVE_INFINITY)
-            assertFalse(POSITIVE_INFINITY > POSITIVE_INFINITY)
-            assertFalse(POSITIVE_INFINITY < POSITIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY == NEGATIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY > NEGATIVE_INFINITY)
-            assertFalse(NEGATIVE_INFINITY < NEGATIVE_INFINITY)
         }
 
         @Test
