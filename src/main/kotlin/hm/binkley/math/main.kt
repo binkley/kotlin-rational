@@ -9,7 +9,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.over
 import hm.binkley.math.floating.toBigRational
 import lombok.Generated
-import java.math.BigDecimal
 
 @Generated // Lie to JaCoCo
 fun main() {

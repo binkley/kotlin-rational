@@ -170,8 +170,8 @@ class FloatingBigRational private constructor(
      */
     override fun toString() = when {
         isNaN() -> "NaN"
-        isPositiveInfinity() -> "+∞"
-        isNegativeInfinity() -> "-∞"
+        isPositiveInfinity() -> "Infinity"
+        isNegativeInfinity() -> "-Infinity"
         else -> super.toString()
     }
 

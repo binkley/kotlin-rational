@@ -59,7 +59,7 @@ internal class FloatingBigRationalTest {
         }
 
         @Test
-        fun `should construct +∞`() {
+        fun `should construct Infinity`() {
             assertSame(
                 POSITIVE_INFINITY,
                 Long.MAX_VALUE over 0L
@@ -67,7 +67,7 @@ internal class FloatingBigRationalTest {
         }
 
         @Test
-        fun `should construct -∞`() {
+        fun `should construct -Infinity`() {
             assertSame(
                 NEGATIVE_INFINITY,
                 Long.MIN_VALUE over BInt.ZERO
@@ -237,11 +237,11 @@ internal class FloatingBigRationalTest {
             NaN.toString()
         )
         assertEquals(
-            "+∞",
+            "Infinity",
             POSITIVE_INFINITY.toString()
         )
         assertEquals(
-            "-∞",
+            "-Infinity",
             NEGATIVE_INFINITY.toString()
         )
         assertEquals(
