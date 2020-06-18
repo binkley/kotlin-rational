@@ -54,10 +54,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      * Since the conversion to a rational is _exact_, converting the resulting
      * rational back to a [Double] produces the original value.
      */
-    fun valueOf(floatingPoint: Double): T {
-        val ratio = floatingPoint.toBigDecimal().toRatio()
-        return valueOf(ratio.first, ratio.second)
-    }
+    fun valueOf(floatingPoint: Double) = valueOf(floatingPoint.toBigDecimal())
 
     /**
      * Since the conversion to a rational is _exact_, converting the resulting
@@ -66,8 +63,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      * @todo Why does `Float` need try/catch, but `Double` does not?
      */
     fun valueOf(floatingPoint: Float): T = try {
-        val ratio = floatingPoint.toBigDecimal().toRatio()
-        valueOf(ratio.first, ratio.second)
+        valueOf(floatingPoint.toBigDecimal())
     } catch (e: NumberFormatException) {
         throw ArithmeticException("$floatingPoint: ${e.message}")
     }

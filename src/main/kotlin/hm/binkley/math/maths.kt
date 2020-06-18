@@ -23,21 +23,3 @@ internal fun BInt.isPAdic(p: Long) =
 internal fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 
 internal fun BInt.isEven() = ZERO == this % TWO
-
-internal fun BigDecimal.toRatio(): Pair<BigInteger, BigInteger> {
-    val scale = scale()
-
-    val numerator: BigInteger
-    val denominator: BigInteger
-    if (scale < 0) {
-        numerator = unscaledValue() * TEN.pow(-scale)
-        denominator = ONE
-    } else {
-        numerator = unscaledValue()
-        denominator = TEN.pow(scale)
-    }
-
-    val gcd = numerator.gcd(denominator)
-
-    return numerator / gcd to denominator / gcd
-}
