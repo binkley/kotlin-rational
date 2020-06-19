@@ -1347,7 +1347,7 @@ internal class FloatingBigRationalTest {
     @Nested
     inner class FunctionTests {
         @Test
-        fun `should sort`() {
+        fun `should sort like double`() {
             val sorted = listOf(
                 POSITIVE_INFINITY,
                 NaN,
@@ -1358,14 +1358,18 @@ internal class FloatingBigRationalTest {
                 ZERO,
                 NEGATIVE_INFINITY
             ).sorted()
-            assertTrue(sorted[0].isNegativeInfinity())
-            assertTrue(sorted[1].isNegativeInfinity())
-            assertEquals(ZERO, sorted[2])
-            assertEquals(ZERO, sorted[3])
-            assertTrue(sorted[4].isPositiveInfinity())
-            assertTrue(sorted[5].isPositiveInfinity())
-            assertTrue(sorted[6].isNaN())
-            assertTrue(sorted[7].isNaN())
+            val doubleSorted = listOf(
+                Double.POSITIVE_INFINITY,
+                Double.NaN,
+                0.0,
+                Double.POSITIVE_INFINITY,
+                Double.NaN,
+                Double.NEGATIVE_INFINITY,
+                0.0,
+                Double.NEGATIVE_INFINITY
+            ).sorted()
+
+            assertEquals(doubleSorted, sorted.map { it.toDouble() })
         }
 
         @Test
