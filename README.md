@@ -245,7 +245,7 @@ consider it worthwhile without more outside input.  As discussed, support for
 All values sort in the natural mathematical sense, except that for
 `FloatingBigRational`, `NaN` sorts to the position where `Double.NaN` would
 sort, regardless of other values.  There is no sense of natural order for
-`NaN`, which sorts the same as `Double`.
+`NaN`, so this code chooses to sort `NaN` the same as does `Double`.
 
 For `FloatingBigRational`, all `NaN` are "quiet"; none are "signaling",
 including sorting.  This follows the Java convention for floating point, and
