@@ -229,8 +229,20 @@ internal class FloatingBigRationalTest {
     @Test
     fun `should pretty print`() {
         assertEquals(
-            "NaN",
-            NaN.toString()
+            "0",
+            ZERO.toString()
+        )
+        assertEquals(
+            "2",
+            (2 over 1).toString()
+        )
+        assertEquals(
+            "1⁄2",
+            (1 over 2).toString()
+        )
+        assertEquals(
+            "-1⁄2",
+            (1 over -2).toString()
         )
         assertEquals(
             "Infinity",
@@ -241,16 +253,8 @@ internal class FloatingBigRationalTest {
             NEGATIVE_INFINITY.toString()
         )
         assertEquals(
-            "0",
-            ZERO.toString()
-        )
-        assertEquals(
-            "1⁄2",
-            (1 over 2).toString()
-        )
-        assertEquals(
-            "-1⁄2",
-            (1 over -2).toString()
+            "NaN",
+            NaN.toString()
         )
     }
 
