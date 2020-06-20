@@ -729,9 +729,9 @@ operator fun <T : BigRationalBase<T>> Int.rem(other: T) =
  *
  * @see [div]
  */
-fun <T : BigRationalBase<T>> T.divideAndRemainder(that: T): Pair<T, T> {
-    val quotient = (this / that).round()
-    val remainder = this - that * quotient
+fun <T : BigRationalBase<T>> T.divideAndRemainder(other: T): Pair<T, T> {
+    val quotient = (this / other).round()
+    val remainder = this - other * quotient
 
     return quotient to remainder
 }
