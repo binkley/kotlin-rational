@@ -730,7 +730,7 @@ operator fun <T : BigRationalBase<T>> Int.rem(other: T) =
  * @see [div]
  */
 fun <T : BigRationalBase<T>> T.divideAndRemainder(other: T): Pair<T, T> {
-    val quotient = (this / other).round()
+    val quotient = (this / other).truncate()
     val remainder = this - other * quotient
 
     return quotient to remainder
@@ -767,22 +767,22 @@ fun <T : BigRationalBase<T>> T.sqrt(): T {
 /** Rounds to the nearest whole number _less than or equal_ to this. */
 fun <T : BigRationalBase<T>> T.floor() = when {
     roundsToSelf() -> this
-    companion.ZERO <= this -> round()
-    else -> round() - companion.ONE
+    companion.ZERO <= this -> truncate()
+    else -> truncate() - companion.ONE
 }
 
 /** Rounds to the nearest whole number _greater than or equal_ to this. */
 fun <T : BigRationalBase<T>> T.ceil() = when {
     roundsToSelf() -> this
-    companion.ZERO <= this -> round() + companion.ONE
-    else -> round()
+    companion.ZERO <= this -> truncate() + companion.ONE
+    else -> truncate()
 }
 
 /**
  * Rounds to the nearest whole number _closer to 0_ than this BigRational,
  * or when this is a whole number, returns this.
  */
-fun <T : BigRationalBase<T>> T.round() = when {
+fun <T : BigRationalBase<T>> T.truncate() = when {
     roundsToSelf() -> this
     else -> companion.valueOf(numerator / denominator)
 }

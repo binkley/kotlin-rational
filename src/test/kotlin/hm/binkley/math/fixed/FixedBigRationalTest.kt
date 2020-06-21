@@ -24,7 +24,7 @@ import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.rangeTo
 import hm.binkley.math.rem
-import hm.binkley.math.round
+import hm.binkley.math.truncate
 import hm.binkley.math.sqrt
 import hm.binkley.math.step
 import hm.binkley.math.times
@@ -668,11 +668,11 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should round towards 0`() {
-            assertEquals(ZERO, ZERO.round())
-            assertEquals(ONE, (ONE).round())
-            assertEquals(-ONE, (-ONE).round())
-            assertEquals(ZERO, (1 over 2).round())
-            assertEquals(ZERO, (-1 over 2).round())
+            assertEquals(ZERO, ZERO.truncate())
+            assertEquals(ONE, (ONE).truncate())
+            assertEquals(-ONE, (-ONE).truncate())
+            assertEquals(ZERO, (1 over 2).truncate())
+            assertEquals(ZERO, (-1 over 2).truncate())
         }
     }
 
