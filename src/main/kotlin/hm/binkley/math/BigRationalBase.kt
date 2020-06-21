@@ -212,10 +212,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         )
 
     /** Multiplies this value by the other value. */
-    override operator fun times(multiplicand: T): T =
+    override operator fun times(multiplier: T): T =
         companion.valueOf(
-            numerator * multiplicand.numerator,
-            denominator * multiplicand.denominator
+            numerator * multiplier.numerator,
+            denominator * multiplier.denominator
         )
 
     override fun unaryDiv(): T = reciprocal
@@ -478,52 +478,52 @@ operator fun <T : BigRationalBase<T>> Int.minus(subtrahend: T) =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplicand: BDouble) =
-    this * companion.valueOf(multiplicand)
+operator fun <T : BigRationalBase<T>> T.times(multiplier: BDouble) =
+    this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplicand: Double) =
-    this * companion.valueOf(multiplicand)
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Double) =
+    this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplicand: Float) =
-    this * companion.valueOf(multiplicand)
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Float) =
+    this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplicand: BInt) =
-    this * companion.valueOf(multiplicand)
+operator fun <T : BigRationalBase<T>> T.times(multiplier: BInt) =
+    this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplicand: Long) =
-    this * companion.valueOf(multiplicand)
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Long) =
+    this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplicand: Int) =
-    this * companion.valueOf(multiplicand)
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Int) =
+    this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> BDouble.times(multiplicand: T) =
-    multiplicand.companion.valueOf(this) * multiplicand
+operator fun <T : BigRationalBase<T>> BDouble.times(multiplier: T) =
+    multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Double.times(multiplicand: T) =
-    multiplicand.companion.valueOf(this) * multiplicand
+operator fun <T : BigRationalBase<T>> Double.times(multiplier: T) =
+    multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Float.times(multiplicand: T) =
-    multiplicand.companion.valueOf(this) * multiplicand
+operator fun <T : BigRationalBase<T>> Float.times(multiplier: T) =
+    multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> BInt.times(multiplicand: T) =
-    multiplicand.companion.valueOf(this) * multiplicand
+operator fun <T : BigRationalBase<T>> BInt.times(multiplier: T) =
+    multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Long.times(multiplicand: T) =
-    multiplicand.companion.valueOf(this) * multiplicand
+operator fun <T : BigRationalBase<T>> Long.times(multiplier: T) =
+    multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Int.times(multiplicand: T) =
-    multiplicand.companion.valueOf(this) * multiplicand
+operator fun <T : BigRationalBase<T>> Int.times(multiplier: T) =
+    multiplier.companion.valueOf(this) * multiplier
 
 /**
  * Divides this value by the other value exactly.

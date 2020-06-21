@@ -41,24 +41,24 @@ data class FixedComplex(
     operator fun minus(subtrahend: Int) = this + -subtrahend
     operator fun minus(subtrahend: FixedImaginary) = this + -subtrahend
 
-    override operator fun times(multiplicand: FixedComplex) =
-        (real * multiplicand.real + imag * multiplicand.imag) +
-                (real * multiplicand.imag + imag * multiplicand.real)
+    override operator fun times(multiplier: FixedComplex) =
+        (real * multiplier.real + imag * multiplier.imag) +
+                (real * multiplier.imag + imag * multiplier.real)
 
-    operator fun times(multiplicand: BRat) =
-        this * (multiplicand + BRat.ZERO.i)
+    operator fun times(multiplier: BRat) =
+        this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplicand: BInt) =
-        this * (multiplicand + BRat.ZERO.i)
+    operator fun times(multiplier: BInt) =
+        this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplicand: Long) =
-        this * (multiplicand + BRat.ZERO.i)
+    operator fun times(multiplier: Long) =
+        this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplicand: Int) =
-        this * (multiplicand + BRat.ZERO.i)
+    operator fun times(multiplier: Int) =
+        this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplicand: FixedImaginary) =
-        this * (ZERO + multiplicand)
+    operator fun times(multiplier: FixedImaginary) =
+        this * (ZERO + multiplier)
 
     operator fun div(divisor: FixedComplex) = this * divisor.reciprocal
     operator fun div(divisor: BRat) = this / (divisor + BRat.ZERO.i)
@@ -119,14 +119,14 @@ operator fun Int.minus(subtrahend: FixedComplex) = this + -subtrahend
 operator fun FixedImaginary.minus(subtrahend: FixedComplex) =
     this + -subtrahend
 
-operator fun BRat.times(multiplicand: FixedComplex) =
-    multiplicand * this
+operator fun BRat.times(multiplier: FixedComplex) =
+    multiplier * this
 
-operator fun BInt.times(multiplicand: FixedComplex) = multiplicand * this
-operator fun Long.times(multiplicand: FixedComplex) = multiplicand * this
-operator fun Int.times(multiplicand: FixedComplex) = multiplicand * this
-operator fun FixedImaginary.times(multiplicand: FixedComplex) =
-    multiplicand * this
+operator fun BInt.times(multiplier: FixedComplex) = multiplier * this
+operator fun Long.times(multiplier: FixedComplex) = multiplier * this
+operator fun Int.times(multiplier: FixedComplex) = multiplier * this
+operator fun FixedImaginary.times(multiplier: FixedComplex) =
+    multiplier * this
 
 operator fun BRat.div(divisor: FixedComplex) = divisor / this
 operator fun BInt.div(divisor: FixedComplex) = divisor / this

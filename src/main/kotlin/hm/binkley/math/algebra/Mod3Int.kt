@@ -7,7 +7,7 @@ class Mod3Int private constructor(val value: Int) : Ring<Mod3Int> {
 
     override fun unaryMinus() = of(-value)
     override fun plus(addend: Mod3Int) = of(value + addend.value)
-    override fun times(multiplicand: Mod3Int) = of(value * multiplicand.value)
+    override fun times(multiplier: Mod3Int) = of(value * multiplier.value)
 
     override fun equals(other: Any?) = this === other
     override fun hashCode() = value.hashCode()

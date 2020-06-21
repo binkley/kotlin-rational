@@ -20,20 +20,20 @@ inline class FixedImaginary(val value: FixedBigRational) :
     operator fun minus(subtrahend: FixedImaginary) =
         (value - subtrahend.value).toImaginary()
 
-    operator fun times(multiplicand: FixedImaginary) =
-        -(value * multiplicand.value)
+    operator fun times(multiplier: FixedImaginary) =
+        -(value * multiplier.value)
 
-    operator fun times(multiplicand: FixedBigRational) =
-        (value * multiplicand).toImaginary()
+    operator fun times(multiplier: FixedBigRational) =
+        (value * multiplier).toImaginary()
 
-    operator fun times(multiplicand: BInt) =
-        (value * multiplicand).toImaginary()
+    operator fun times(multiplier: BInt) =
+        (value * multiplier).toImaginary()
 
-    operator fun times(multiplicand: Long) =
-        (value * multiplicand).toImaginary()
+    operator fun times(multiplier: Long) =
+        (value * multiplier).toImaginary()
 
-    operator fun times(multiplicand: Int) =
-        (value * multiplicand).toImaginary()
+    operator fun times(multiplier: Int) =
+        (value * multiplier).toImaginary()
 
     override fun toString() = "${value}i"
 
@@ -51,9 +51,9 @@ val Long.i get() = toImaginary()
 fun Int.toImaginary() = toBigRational().toImaginary()
 val Int.i get() = toImaginary()
 
-operator fun FixedBigRational.times(multiplicand: FixedImaginary) =
-    multiplicand * this
+operator fun FixedBigRational.times(multiplier: FixedImaginary) =
+    multiplier * this
 
-operator fun BInt.times(multiplicand: FixedImaginary) = multiplicand * this
-operator fun Long.times(multiplicand: FixedImaginary) = multiplicand * this
-operator fun Int.times(multiplicand: FixedImaginary) = multiplicand * this
+operator fun BInt.times(multiplier: FixedImaginary) = multiplier * this
+operator fun Long.times(multiplier: FixedImaginary) = multiplier * this
+operator fun Int.times(multiplier: FixedImaginary) = multiplier * this

@@ -7,5 +7,5 @@ interface RingCompanion<T : Ring<T>> : GroupCompanion<T> {
 interface Ring<T : Ring<T>> : Group<T> {
     override val companion: RingCompanion<T>
 
-    operator fun times(multiplicand: T): T
+    operator fun times(multiplier: T): T
 }
