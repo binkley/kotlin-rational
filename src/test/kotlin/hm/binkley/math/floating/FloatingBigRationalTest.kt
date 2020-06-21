@@ -962,7 +962,7 @@ internal class FloatingBigRationalTest {
     }
 
     @Test
-    fun `should not even denominators`() {
+    fun `should note even denominators`() {
         assertTrue((1 over 2).isDenominatorEven())
         assertFalse((1 over 3).isDenominatorEven())
     }
