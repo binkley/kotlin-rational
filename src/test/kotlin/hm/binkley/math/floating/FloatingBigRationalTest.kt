@@ -1,4 +1,4 @@
-@file:Suppress("NonAsciiCharacters")
+@file:Suppress("NonAsciiCharacters", "RedundantInnerClassModifier")
 
 package hm.binkley.math.floating
 
@@ -28,10 +28,10 @@ import hm.binkley.math.plus
 import hm.binkley.math.pow
 import hm.binkley.math.rangeTo
 import hm.binkley.math.rem
-import hm.binkley.math.truncate
 import hm.binkley.math.sqrt
 import hm.binkley.math.step
 import hm.binkley.math.times
+import hm.binkley.math.truncate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
