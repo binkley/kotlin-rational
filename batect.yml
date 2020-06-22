@@ -4,9 +4,10 @@ containers:
     volumes:
       - local: .
         container: /code
-      - type: cache
-        name: maven-cache
+        options: cached
+      - local: .maven-cache
         container: /home/container-user/.m2
+        options: cached
     working_directory: /code
     run_as_current_user:
       enabled: true
