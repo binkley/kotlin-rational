@@ -30,7 +30,7 @@ class FixedContinuedFraction private constructor(
 
     companion object :
         ContinuedFractionCompanionBase<FixedBigRational,
-                FixedContinuedFraction>(ONE) {
+            FixedContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FixedBigRational.valueOf(integerPart)
 

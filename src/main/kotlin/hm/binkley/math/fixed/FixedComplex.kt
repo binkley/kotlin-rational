@@ -43,7 +43,7 @@ data class FixedComplex(
 
     override operator fun times(multiplier: FixedComplex) =
         (real * multiplier.real + imag * multiplier.imag) +
-                (real * multiplier.imag + imag * multiplier.real)
+            (real * multiplier.imag + imag * multiplier.real)
 
     operator fun times(multiplier: BRat) =
         this * (multiplier + BRat.ZERO.i)

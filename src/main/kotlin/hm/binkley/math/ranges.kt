@@ -62,11 +62,11 @@ open class BigRationalProgression<T : BigRationalBase<T>>(
             IncrementingBigRationalIterator(start, endInclusive, step)
 
     override fun equals(other: Any?) = this === other ||
-            other is BigRationalProgression<*> &&
-            javaClass == other.javaClass &&
-            start == other.start &&
-            endInclusive == other.endInclusive &&
-            step == other.step
+        other is BigRationalProgression<*> &&
+        javaClass == other.javaClass &&
+        start == other.start &&
+        endInclusive == other.endInclusive &&
+        step == other.step
 
     override fun hashCode() = hash(javaClass, start, endInclusive, step)
 

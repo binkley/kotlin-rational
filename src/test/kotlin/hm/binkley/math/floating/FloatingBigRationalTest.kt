@@ -222,7 +222,7 @@ internal class FloatingBigRationalTest {
         )
         assertFalse(
             (ONE..TWO).hashCode() ==
-                    (FixedBigRational.ONE..FixedBigRational.TWO).hashCode()
+                (FixedBigRational.ONE..FixedBigRational.TWO).hashCode()
         )
     }
 
@@ -1119,7 +1119,8 @@ internal class FloatingBigRationalTest {
                 rationals,
                 doubles.map {
                     it.toBigRational()
-                })
+                }
+            )
             assertEquals(
                 doubles,
                 rationals.map {
@@ -1177,7 +1178,8 @@ internal class FloatingBigRationalTest {
                 rationals,
                 floats.map {
                     it.toBigRational()
-                })
+                }
+            )
             assertEquals(
                 floats,
                 rationals.map {

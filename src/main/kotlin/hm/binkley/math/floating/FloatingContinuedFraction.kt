@@ -32,7 +32,7 @@ class FloatingContinuedFraction private constructor(
 
     companion object :
         ContinuedFractionCompanionBase<FloatingBigRational,
-                FloatingContinuedFraction>(ONE) {
+            FloatingContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             FloatingBigRational.valueOf(integerPart)
 
