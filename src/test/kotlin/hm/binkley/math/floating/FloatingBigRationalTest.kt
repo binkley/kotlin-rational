@@ -4,6 +4,7 @@ package hm.binkley.math.floating
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
+import hm.binkley.math.`**` // ktlint-disable no-wildcard-imports
 import hm.binkley.math.backAgain
 import hm.binkley.math.ceil
 import hm.binkley.math.compareTo
@@ -25,7 +26,6 @@ import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.minus
 import hm.binkley.math.plus
-import hm.binkley.math.pow
 import hm.binkley.math.rangeTo
 import hm.binkley.math.rem
 import hm.binkley.math.sqrt
@@ -1461,15 +1461,15 @@ internal class FloatingBigRationalTest {
         fun `should raise`() {
             assertEquals(
                 9 over 25,
-                (3 over 5).pow(2)
+                (3 over 5) `**` 2
             )
             assertEquals(
                 ONE,
-                (3 over 5).pow(0)
+                (3 over 5) `**` 0
             )
             assertEquals(
                 25 over 9,
-                (3 over 5).pow(-2)
+                (3 over 5) `**` -2
             )
         }
 

@@ -749,6 +749,10 @@ fun <T : BigRationalBase<T>> T.pow(exponent: Int): T = when {
     else -> reciprocal.pow(-exponent)
 }
 
+/** Provides a pseudo-operator for exponentiation. */
+@Suppress("FunctionName")
+infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int) = pow(exponent)
+
 /**
  * Returns the rational square root.
  *
