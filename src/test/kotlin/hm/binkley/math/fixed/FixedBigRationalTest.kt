@@ -236,7 +236,7 @@ internal class FixedBigRationalTest {
         )
         assertEquals(
             ONE,
-            twoThirds * twoThirds.reciprocal
+            twoThirds * twoThirds.unaryDiv()
         )
 
         // Distributive
@@ -306,7 +306,7 @@ internal class FixedBigRationalTest {
         @Test
         fun `should invert multiplicatively`() {
             val rightsideUp = 2 over 3
-            val upsideDown = rightsideUp.reciprocal
+            val upsideDown = rightsideUp.unaryDiv()
 
             assertEquals(
                 rightsideUp.denominator,
@@ -1041,13 +1041,13 @@ internal class FixedBigRationalTest {
         }
 
         @Test
-        fun `should reciprocate`() {
+        fun `should multiplicatively invert`() {
             assertEquals(
                 -3 over 5,
-                (-5 over 3).reciprocal
+                (-5 over 3).unaryDiv()
             )
             assertThrows<ArithmeticException> {
-                ZERO.reciprocal
+                ZERO.unaryDiv()
             }
         }
 

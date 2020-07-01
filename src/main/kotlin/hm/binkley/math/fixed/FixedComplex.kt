@@ -26,6 +26,8 @@ data class FixedComplex(
 
     override operator fun unaryMinus() = -real + -imag
 
+    fun unaryDiv() = reciprocal
+
     override operator fun plus(addend: FixedComplex) =
         (real + addend.real) + (imag + addend.imag)
 
@@ -60,7 +62,7 @@ data class FixedComplex(
     operator fun times(multiplier: FixedImaginary) =
         this * (ZERO + multiplier)
 
-    operator fun div(divisor: FixedComplex) = this * divisor.reciprocal
+    operator fun div(divisor: FixedComplex) = this * divisor.unaryDiv()
     operator fun div(divisor: BRat) = this / (divisor + BRat.ZERO.i)
     operator fun div(divisor: BInt) = this / (divisor + BRat.ZERO.i)
     operator fun div(divisor: Long) = this / (divisor + BRat.ZERO.i)
@@ -161,7 +163,7 @@ fun FixedComplex.pow(n: Int): FixedComplex {
     when (n) {
         0 -> return 1 + 0.i
         1 -> return this
-        -1 -> return reciprocal
+        -1 -> return unaryDiv()
     }
     var z = this
     var i = n.absoluteValue
@@ -169,5 +171,5 @@ fun FixedComplex.pow(n: Int): FixedComplex {
         z *= this
         --i
     }
-    return if (0 > n) z.reciprocal else z
+    return if (0 > n) z.unaryDiv() else z
 }

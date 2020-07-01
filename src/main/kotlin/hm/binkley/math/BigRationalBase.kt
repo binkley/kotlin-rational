@@ -121,7 +121,11 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
             if (numerator >= BInt.ZERO) this as T
             else companion.valueOf(numerator.abs(), denominator)
 
-    /** Returns the reciprocal. */
+    /**
+     * Returns the reciprocal.
+     *
+     * @see unaryDiv
+     */
     val reciprocal: T get() = companion.valueOf(denominator, numerator)
 
     /**
@@ -218,6 +222,11 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
             denominator * multiplier.denominator
         )
 
+    /**
+     * Simulates a non-existent "unary div" operator.
+     *
+     * @see reciprocal
+     */
     override fun unaryDiv(): T = reciprocal
 
     /**
@@ -746,7 +755,7 @@ fun <T : BigRationalBase<T>> T.pow(exponent: Int): T = when {
             numerator.pow(exponent),
             denominator.pow(exponent)
         )
-    else -> reciprocal.pow(-exponent)
+    else -> unaryDiv().pow(-exponent)
 }
 
 /** Provides a pseudo-operator for exponentiation. */

@@ -278,6 +278,7 @@ infinite
 [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational)),
 `isPAdic(p)` (See
 [_p_-adic number](https://en.wikipedia.org/wiki/P-adic_number))
+- `unaryDiv()` is a synonym for `reciprocal` as a pseudo-operator
 - `gcm(other)`, `lcd(other)`, `mediant(other)`
 - `toContinuedFraction()`
 - `pow(exponent)`

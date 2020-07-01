@@ -301,7 +301,7 @@ internal class FloatingBigRationalTest {
         )
         assertEquals(
             ONE,
-            twoThirds * twoThirds.reciprocal
+            twoThirds * twoThirds.unaryDiv()
         )
 
         // Distributive
@@ -409,7 +409,7 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should invert multiplicatively`() {
             val rightsideUp = 2 over 3
-            val upsideDown = rightsideUp.reciprocal
+            val upsideDown = rightsideUp.unaryDiv()
 
             assertEquals(
                 rightsideUp.denominator,
@@ -1401,18 +1401,18 @@ internal class FloatingBigRationalTest {
         fun `should reciprocate`() {
             assertEquals(
                 -3 over 5,
-                (-5 over 3).reciprocal
+                (-5 over 3).unaryDiv()
             )
-            assertTrue(ZERO.reciprocal.isPositiveInfinity())
+            assertTrue(ZERO.unaryDiv().isPositiveInfinity())
             assertEquals(
                 ZERO,
-                POSITIVE_INFINITY.reciprocal
+                POSITIVE_INFINITY.unaryDiv()
             )
             assertEquals(
                 ZERO,
-                NEGATIVE_INFINITY.reciprocal
+                NEGATIVE_INFINITY.unaryDiv()
             )
-            assertTrue(NaN.reciprocal.isNaN())
+            assertTrue(NaN.unaryDiv().isNaN())
         }
 
         @Test
