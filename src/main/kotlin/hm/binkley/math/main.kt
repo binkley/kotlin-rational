@@ -121,11 +121,11 @@ fun main() {
 
     println()
     println("== MOD3 INT")
-    println("-1 (constructor) -> ${Mod3Int.of(-1)}")
+    println("-1 (constructor) -> ${Mod3Int.valueOf(-1)}")
     println("-1 (inverse) -> ${-Mod3Int.ONE}")
-    println("3-4 -> ${Mod3Int.of(3) - Mod3Int.of(4)}")
-    println("3+4 -> ${Mod3Int.of(3) + Mod3Int.of(4)}")
-    println("3*4 -> ${Mod3Int.of(3) * Mod3Int.of(4)}")
+    println("3-4 -> ${Mod3Int.valueOf(3) - Mod3Int.valueOf(4)}")
+    println("3+4 -> ${Mod3Int.valueOf(3) + Mod3Int.valueOf(4)}")
+    println("3*4 -> ${Mod3Int.valueOf(3) * Mod3Int.valueOf(4)}")
 }
 
 @Generated // Lie to JaCoCo

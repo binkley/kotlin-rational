@@ -11,44 +11,44 @@ import org.junit.jupiter.api.Test
 internal class Mod3IntTest {
     @Test
     fun `should have additive zero`() {
-        assertSame(ZERO, ZERO.companion.of(0))
-        assertEquals(0, Mod3Int.of(0).value)
+        assertSame(ZERO, ZERO.companion.valueOf(0))
+        assertEquals(0, Mod3Int.valueOf(0).value)
     }
 
     @Test
     fun `should have multiplicative one`() {
-        assertSame(ONE, ONE.companion.of(1))
-        assertEquals(1, Mod3Int.of(1).value)
+        assertSame(ONE, ONE.companion.valueOf(1))
+        assertEquals(1, Mod3Int.valueOf(1).value)
     }
 
     @Test
     fun `should handle negative values`() {
-        assertEquals(TWO, Mod3Int.of(-1))
+        assertEquals(TWO, Mod3Int.valueOf(-1))
     }
 
     @Test
     fun `should posite`() {
-        assertEquals(ONE, +Mod3Int.of(1))
+        assertEquals(ONE, +Mod3Int.valueOf(1))
     }
 
     @Test
     fun `should negate`() {
-        assertEquals(TWO, -Mod3Int.of(1))
+        assertEquals(TWO, -Mod3Int.valueOf(1))
     }
 
     @Test
     fun `should add`() {
-        assertEquals(ONE, Mod3Int.of(4) + Mod3Int.of(3))
+        assertEquals(ONE, Mod3Int.valueOf(4) + Mod3Int.valueOf(3))
     }
 
     @Test
     fun `should subtract`() {
-        assertEquals(ONE, Mod3Int.of(4) - Mod3Int.of(3))
+        assertEquals(ONE, Mod3Int.valueOf(4) - Mod3Int.valueOf(3))
     }
 
     @Test
     fun `should multiply`() {
-        assertEquals(ZERO, Mod3Int.of(4) * Mod3Int.of(3))
+        assertEquals(ZERO, Mod3Int.valueOf(4) * Mod3Int.valueOf(3))
     }
 
     @Test

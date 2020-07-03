@@ -5,16 +5,16 @@ import kotlin.math.absoluteValue
 class Mod3Int private constructor(val value: Int) : Ring<Mod3Int> {
     override val companion = Companion
 
-    override fun unaryMinus() = of(-value)
-    override fun plus(addend: Mod3Int) = of(value + addend.value)
-    override fun times(multiplier: Mod3Int) = of(value * multiplier.value)
+    override fun unaryMinus() = valueOf(-value)
+    override fun plus(addend: Mod3Int) = valueOf(value + addend.value)
+    override fun times(multiplier: Mod3Int) = valueOf(value * multiplier.value)
 
     override fun equals(other: Any?) = this === other
     override fun hashCode() = value.hashCode()
     override fun toString() = value.toString()
 
     companion object : RingCompanion<Mod3Int> {
-        fun of(value: Int): Mod3Int {
+        fun valueOf(value: Int): Mod3Int {
             val n =
                 if (0 > value) value.absoluteValue % 3 + 1
                 else value % 3
