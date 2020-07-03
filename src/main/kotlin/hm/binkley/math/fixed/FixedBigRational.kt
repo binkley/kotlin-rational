@@ -8,6 +8,8 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.isZero
 
+internal typealias BRat = FixedBigRational
+
 /**
  * Immutable arbitrary-precision rationals (finite fractions).
  * `FiniteBigRational` provides analogues to all of Kotlin's [Long] operators

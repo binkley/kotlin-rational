@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-private typealias BRat = FixedBigRational
-
 private val ONE_PLUS_I = BRat.ONE + I
 private val ONE_MINUS_I = BRat.ONE - I
 private val NEG_ONE_PLUS_I = -BRat.ONE + I

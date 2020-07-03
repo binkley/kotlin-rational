@@ -7,8 +7,6 @@ import hm.binkley.math.pow
 import hm.binkley.math.sqrt
 import kotlin.math.absoluteValue
 
-private typealias BRat = FixedBigRational
-
 data class FixedComplex(
     val real: BRat,
     val imag: FixedImaginary

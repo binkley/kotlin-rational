@@ -14,27 +14,27 @@ import java.math.BigInteger
  * of 0.  Subsequent fraction parts use their natural index, starting at 1.
  * All numerators are 1.
  *
- * Elements are [FixedBigRational] (rather than [BigInteger]) to express
- * continued fractions of non-finite [FixedBigRational]s.
+ * Elements are [BRat] (rather than [BigInteger]) to express
+ * continued fractions of non-finite [BRat]s.
  *
  * This class does not support infinite continued fractions; all represented
- * values are convertible to [FixedBigRational].
+ * values are convertible to [BRat].
  */
 class FixedContinuedFraction private constructor(
-    terms: List<FixedBigRational>
-) : ContinuedFractionBase<FixedBigRational, FixedContinuedFraction>(
+    terms: List<BRat>
+) : ContinuedFractionBase<BRat, FixedContinuedFraction>(
     terms
 ) {
-    override fun construct(terms: List<FixedBigRational>) =
+    override fun construct(terms: List<BRat>) =
         FixedContinuedFraction(terms)
 
     companion object :
-        ContinuedFractionCompanionBase<FixedBigRational,
+        ContinuedFractionCompanionBase<BRat,
             FixedContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
-            FixedBigRational.valueOf(integerPart)
+            BRat.valueOf(integerPart)
 
-        override fun construct(terms: List<FixedBigRational>) =
+        override fun construct(terms: List<BRat>) =
             FixedContinuedFraction(terms)
     }
 }
