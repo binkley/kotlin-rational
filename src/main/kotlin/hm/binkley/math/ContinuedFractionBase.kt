@@ -17,21 +17,27 @@ abstract class ContinuedFractionBase<
     protected abstract fun construct(terms: List<T>): C
 
     /** The integer part of this continued fraction. */
-    val integerPart = first()
+    val integerPart: T get() = first()
 
     /** The fractional parts of this continued fraction. */
-    val fractionalParts = subList(1, lastIndex + 1)
+    val fractionalParts: List<T> get() = subList(1, lastIndex + 1)
 
     /**
      * The multiplicative inverse of this continued fraction.
      *
      * @see unaryDiv
      */
-    val reciprocal: C
-        get() = if (integerPart.isZero())
-            construct(fractionalParts)
-        else
-            construct(listOf(integerPart.companion.ZERO) + terms)
+    val reciprocal: C get() = unaryDiv()
+
+    /**
+     * Simulates a non-existent "unary div" operator.
+     *
+     * @see reciprocal
+     */
+    fun unaryDiv() = if (integerPart.isZero())
+        construct(fractionalParts)
+    else
+        construct(listOf(integerPart.companion.ZERO) + terms)
 
     /** Returns the canonical representation of this continued fraction. */
     override fun toString() = when (size) {
@@ -136,14 +142,6 @@ internal fun <
     .fold(last()) { previous, a_ni ->
         previous.unaryDiv() + a_ni
     }
-
-/**
- * Simulates a non-existent "unary div" operator.
- *
- * @see reciprocal
- */
-fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.unaryDiv() =
-    reciprocal
 
 /**
  * Checks if this continued fraction is _simple_ (has only 1 in all

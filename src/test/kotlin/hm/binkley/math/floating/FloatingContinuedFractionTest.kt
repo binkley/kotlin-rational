@@ -9,7 +9,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
-import hm.binkley.math.unaryDiv
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertSame
@@ -67,7 +66,7 @@ internal class FloatingContinuedFractionTest {
         )
         assertEquals(
             listOf(2 over 1),
-            (1 over 2).toContinuedFraction().unaryDiv()
+            (1 over 2).toContinuedFraction().reciprocal
         )
     }
 

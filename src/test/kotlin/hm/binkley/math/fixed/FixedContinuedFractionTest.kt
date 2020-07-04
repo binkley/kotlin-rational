@@ -7,7 +7,6 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
-import hm.binkley.math.unaryDiv
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -64,7 +63,7 @@ internal class FixedContinuedFractionTest {
         )
         assertEquals(
             listOf(2 over 1),
-            (1 over 2).toContinuedFraction().unaryDiv()
+            (1 over 2).toContinuedFraction().reciprocal
         )
     }
 
