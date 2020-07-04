@@ -33,6 +33,8 @@ class FixedBigRational private constructor(
     denominator,
     FixedBigRational
 ) {
+    override fun isFinite() = true
+
     companion object : BigRationalCompanion<FixedBigRational> {
         override val ZERO = FixedBigRational(BInt.ZERO, BInt.ONE)
         override val ONE = FixedBigRational(BInt.ONE, BInt.ONE)

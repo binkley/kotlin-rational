@@ -130,7 +130,7 @@ fun main() {
     println()
     println("== CANTOR")
 
-    Cantor.take(10).forEach {
+    floatingCantorSpiral().take(10).forEach {
         println(it)
     }
 }

@@ -618,6 +618,11 @@ internal class FixedBigRationalTest {
     }
 
     @Test
+    fun `should be finite`() {
+        assertTrue(ZERO.isFinite())
+    }
+
+    @Test
     fun `should note integer rationals`() {
         assertFalse((1 over 2).isInteger())
         assertTrue((2 over 1).isInteger())

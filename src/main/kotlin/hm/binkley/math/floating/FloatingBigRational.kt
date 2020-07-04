@@ -129,6 +129,8 @@ class FloatingBigRational private constructor(
         else -> super.mediant(that)
     }
 
+    override fun isFinite() = !isNaN() && !isInfinite()
+
     override fun roundsToSelf() = super.roundsToSelf() || !isFinite()
 
     /**
@@ -603,12 +605,6 @@ fun Int.toBigRational() = valueOf(this)
  */
 fun FloatingBigRational.toContinuedFraction() =
     FloatingContinuedFraction.valueOf(this)
-
-/**
- * Checks that this rational is a finite fraction.  Infinities and "not a
- * number" are not finite.
- */
-fun FloatingBigRational.isFinite() = !isNaN() && !isInfinite()
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a
