@@ -145,8 +145,8 @@ fun main() {
 private object Cantor : Sequence<FloatingBigRational> {
     enum class Direction { N, S, E, W }
 
-    override fun iterator() = @Generated object :
-        Iterator<FloatingBigRational> {
+    override fun iterator() = @Generated object
+        : Iterator<FloatingBigRational> {
         private val seen = mutableSetOf<FloatingBigRational>()
         private var p = BInt.ZERO
         private var q = BInt.ZERO
