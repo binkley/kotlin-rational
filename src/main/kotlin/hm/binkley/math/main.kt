@@ -141,6 +141,7 @@ fun main() {
     }
 }
 
+/** See https://youtu.be/3xyYs_eQTUc */
 @Generated // Lie to JaCoCo
 private object Cantor : Sequence<FloatingBigRational> {
     enum class Direction { N, S, E, W }
