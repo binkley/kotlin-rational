@@ -4,7 +4,7 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
-import hm.binkley.math.Cantor
+import hm.binkley.math.CantorSpiral
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.isZero
@@ -426,4 +426,4 @@ fun FixedBigRational.toContinuedFraction() =
     FixedContinuedFraction.valueOf(this)
 
 fun FixedBigRational.Companion.cantorSpiral():
-    Sequence<FixedBigRational> = Cantor(FixedBigRational)
+    Sequence<FixedBigRational> = CantorSpiral(FixedBigRational)

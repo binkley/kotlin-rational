@@ -1634,7 +1634,7 @@ internal class FloatingBigRationalTest {
     }
 
     @Nested
-    inner class Cantor {
+    inner class CantorSpiral {
         @Test
         fun `should find Cantor spiral`() {
             assertEquals(

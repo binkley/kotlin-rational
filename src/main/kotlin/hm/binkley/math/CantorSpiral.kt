@@ -1,12 +1,12 @@
 package hm.binkley.math
 
-import hm.binkley.math.Cantor.Direction.E
-import hm.binkley.math.Cantor.Direction.N
-import hm.binkley.math.Cantor.Direction.S
-import hm.binkley.math.Cantor.Direction.W
+import hm.binkley.math.CantorSpiral.Direction.E
+import hm.binkley.math.CantorSpiral.Direction.N
+import hm.binkley.math.CantorSpiral.Direction.S
+import hm.binkley.math.CantorSpiral.Direction.W
 
 /** See https://youtu.be/3xyYs_eQTUc */
-internal class Cantor<T : BigRationalBase<T>>(
+internal class CantorSpiral<T : BigRationalBase<T>>(
     private val companion: BigRationalCompanion<T>
 ) : Sequence<T> {
     enum class Direction { N, S, E, W }
