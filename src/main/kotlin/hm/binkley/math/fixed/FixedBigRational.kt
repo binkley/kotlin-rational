@@ -425,5 +425,6 @@ fun Int.toBigRational() = valueOf(this)
 fun FixedBigRational.toContinuedFraction() =
     FixedContinuedFraction.valueOf(this)
 
+/** Generates the Cantor spiral for walking the rationals. */
 fun FixedBigRational.Companion.cantorSpiral():
     Sequence<FixedBigRational> = CantorSpiral(FixedBigRational)

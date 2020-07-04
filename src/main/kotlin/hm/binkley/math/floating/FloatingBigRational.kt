@@ -639,5 +639,6 @@ fun FloatingBigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
  */
 fun FloatingBigRational.isNegativeInfinity() = this === NEGATIVE_INFINITY
 
+/** Generates the Cantor spiral for walking the rationals. */
 fun FloatingBigRational.Companion.cantorSpiral():
     Sequence<FloatingBigRational> = CantorSpiral(FloatingBigRational)
