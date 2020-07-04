@@ -1632,4 +1632,26 @@ internal class FloatingBigRationalTest {
             assertTrue(cfNegInf.integerPart.isNaN())
         }
     }
+
+    @Nested
+    inner class Cantor {
+        @Test
+        fun `should find Cantor spiral`() {
+            assertEquals(
+                listOf(
+                    ZERO,
+                    ONE,
+                    -ONE,
+                    -1 over 2,
+                    1 over 2,
+                    TWO,
+                    -TWO,
+                    -2 over 3,
+                    -1 over 3,
+                    1 over 3
+                ),
+                FloatingBigRational.cantorSpiral().take(10).toList()
+            )
+        }
+    }
 }

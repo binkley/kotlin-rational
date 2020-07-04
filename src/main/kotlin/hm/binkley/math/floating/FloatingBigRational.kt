@@ -4,6 +4,7 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
+import hm.binkley.math.Cantor
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
@@ -128,8 +129,6 @@ class FloatingBigRational private constructor(
             || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
         else -> super.mediant(that)
     }
-
-    override fun isFinite() = !isNaN() && !isInfinite()
 
     override fun roundsToSelf() = super.roundsToSelf() || !isFinite()
 
@@ -614,6 +613,12 @@ fun FloatingBigRational.isInfinite() =
     isPositiveInfinity() || isNegativeInfinity()
 
 /**
+ * Checks that this rational is finite.  "Not a number" and infinities are
+ * not finite.
+ */
+fun FloatingBigRational.isFinite() = !isNaN() && !isInfinite()
+
+/**
  * Checks that this rational is "not a number".
  *
  * NB -- `NaN != NaN`
@@ -633,3 +638,6 @@ fun FloatingBigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
  * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
  */
 fun FloatingBigRational.isNegativeInfinity() = this === NEGATIVE_INFINITY
+
+fun FloatingBigRational.Companion.cantorSpiral():
+    Sequence<FloatingBigRational> = Cantor(FloatingBigRational)

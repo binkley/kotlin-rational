@@ -4,27 +4,14 @@ import hm.binkley.math.Cantor.Direction.E
 import hm.binkley.math.Cantor.Direction.N
 import hm.binkley.math.Cantor.Direction.S
 import hm.binkley.math.Cantor.Direction.W
-import hm.binkley.math.fixed.FixedBigRational
-import hm.binkley.math.floating.FloatingBigRational
-import lombok.Generated
-
-@Generated // Lie to JaCoCo
-fun fixedCantorSpiral(): Sequence<FixedBigRational> =
-    Cantor(FixedBigRational)
-
-@Generated // Lie to JaCoCo
-fun floatingCantorSpiral(): Sequence<FloatingBigRational> =
-    Cantor(FloatingBigRational)
 
 /** See https://youtu.be/3xyYs_eQTUc */
-@Generated // Lie to JaCoCo
-private class Cantor<T : BigRationalBase<T>>(
+internal class Cantor<T : BigRationalBase<T>>(
     private val companion: BigRationalCompanion<T>
 ) : Sequence<T> {
     enum class Direction { N, S, E, W }
 
-    override fun iterator() = @Generated object :
-        Iterator<T> {
+    override fun iterator() = object : Iterator<T> {
         private val seen = mutableSetOf<T>()
         private var p = BInt.ZERO
         private var q = BInt.ZERO
@@ -33,12 +20,15 @@ private class Cantor<T : BigRationalBase<T>>(
         override fun hasNext() = true
 
         override fun next(): T {
-            var rat = walk()
-            while (!rat.isFinite() || !seen.add(rat)) rat = walk()
-            return rat
+            do {
+                val ratio = walk()
+                if (BInt.ZERO == ratio.second) continue
+                val rat = companion.valueOf(ratio.first, ratio.second)
+                if (seen.add(rat)) return rat
+            } while (true)
         }
 
-        private fun walk(): T {
+        private fun walk(): Pair<BInt, BInt> {
             when (dir) {
                 N -> {
                     ++q
@@ -57,7 +47,7 @@ private class Cantor<T : BigRationalBase<T>>(
                     if (p == q) dir = N
                 }
             }
-            return companion.valueOf(p, q)
+            return p to q
         }
     }
 }

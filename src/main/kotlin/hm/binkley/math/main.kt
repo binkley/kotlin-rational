@@ -1,11 +1,13 @@
 package hm.binkley.math
 
 import hm.binkley.math.algebra.Mod3Int
+import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.floating.cantorSpiral
 import hm.binkley.math.floating.over
 import hm.binkley.math.floating.toBigRational
 import lombok.Generated
@@ -130,7 +132,7 @@ fun main() {
     println()
     println("== CANTOR")
 
-    floatingCantorSpiral().take(10).forEach {
+    FloatingBigRational.cantorSpiral().take(10).forEach {
         println(it)
     }
 }

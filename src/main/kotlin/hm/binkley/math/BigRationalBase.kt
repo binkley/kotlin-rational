@@ -251,9 +251,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         denominator + that.denominator
     )
 
-    /** Checks that this rational finite (not `NaN` or infinities). */
-    abstract fun isFinite(): Boolean
-
     /** Checks that this rational is an integer. */
     fun isInteger() = BInt.ONE == denominator
 

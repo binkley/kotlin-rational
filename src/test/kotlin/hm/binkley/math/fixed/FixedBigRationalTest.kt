@@ -618,11 +618,6 @@ internal class FixedBigRationalTest {
     }
 
     @Test
-    fun `should be finite`() {
-        assertTrue(ZERO.isFinite())
-    }
-
-    @Test
     fun `should note integer rationals`() {
         assertFalse((1 over 2).isInteger())
         assertTrue((2 over 1).isInteger())
@@ -1204,6 +1199,28 @@ internal class FixedBigRationalTest {
             assertEquals(
                 listOf(ZERO, 3 over 1),
                 (1 over 3).toContinuedFraction()
+            )
+        }
+    }
+
+    @Nested
+    inner class Cantor {
+        @Test
+        fun `should find Cantor spiral`() {
+            assertEquals(
+                listOf(
+                    ZERO,
+                    ONE,
+                    -ONE,
+                    -1 over 2,
+                    1 over 2,
+                    TWO,
+                    -TWO,
+                    -2 over 3,
+                    -1 over 3,
+                    1 over 3
+                ),
+                FixedBigRational.cantorSpiral().take(10).toList()
             )
         }
     }
