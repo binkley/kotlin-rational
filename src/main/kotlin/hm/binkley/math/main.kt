@@ -1,11 +1,17 @@
 package hm.binkley.math
 
+import hm.binkley.math.Cantor.Direction.E
+import hm.binkley.math.Cantor.Direction.N
+import hm.binkley.math.Cantor.Direction.S
+import hm.binkley.math.Cantor.Direction.W
 import hm.binkley.math.algebra.Mod3Int
+import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.floating.isFinite
 import hm.binkley.math.floating.over
 import hm.binkley.math.floating.toBigRational
 import lombok.Generated
@@ -126,6 +132,56 @@ fun main() {
     println("3-4 -> ${Mod3Int.valueOf(3) - Mod3Int.valueOf(4)}")
     println("3+4 -> ${Mod3Int.valueOf(3) + Mod3Int.valueOf(4)}")
     println("3*4 -> ${Mod3Int.valueOf(3) * Mod3Int.valueOf(4)}")
+
+    println()
+    println("== CANTOR")
+
+    Cantor.take(10).forEach {
+        println(it)
+    }
+}
+
+@Generated // Lie to JaCoCo
+private object Cantor : Sequence<FloatingBigRational> {
+    enum class Direction { N, S, E, W }
+
+    override fun iterator() = @Generated object :
+        Iterator<FloatingBigRational> {
+        private val seen = mutableSetOf<FloatingBigRational>()
+        private var p = BInt.ZERO
+        private var q = BInt.ZERO
+        private var dir = N
+
+        override fun hasNext() = true
+
+        override fun next(): FloatingBigRational {
+            var rat = walk()
+            while (!rat.isFinite() || !seen.add(rat)) rat = walk()
+            return rat
+        }
+
+        private fun walk(): FloatingBigRational {
+            when (dir) {
+                N -> {
+                    ++q
+                    if (q == p.abs() + BInt.ONE) dir = E
+                }
+                E -> {
+                    ++p
+                    if (p == q) dir = S
+                }
+                S -> {
+                    --q
+                    if (q.abs() == p) dir = W
+                }
+                W -> {
+                    --p
+                    if (p == q) dir = N
+                }
+            }
+            return p over q
+        }
+    }
 }
 
 @Generated // Lie to JaCoCo
