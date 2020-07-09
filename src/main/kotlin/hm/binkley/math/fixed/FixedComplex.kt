@@ -164,7 +164,7 @@ fun FixedComplex.pow(n: Int): FixedComplex {
         -1 -> return unaryDiv()
     }
 
-    val z = pow0(n.absoluteValue, ONE, this)
+    val z = pow0(n.absoluteValue - 1, this, this)
 
     return if (0 > n) z.unaryDiv() else z
 }
