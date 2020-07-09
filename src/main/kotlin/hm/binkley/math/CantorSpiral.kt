@@ -24,7 +24,7 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
                 val ratio = walk()
                 // Explicitly check for zero denominators so usable by fixed
                 // big rational, which would raise an exception
-                if (BInt.ZERO == ratio.second) continue
+                if (ratio.second.isZero()) continue
                 val rat = companion.valueOf(ratio.first, ratio.second)
                 if (seen.add(rat)) return rat
             } while (true)
