@@ -45,6 +45,7 @@ internal class FixedComplexTest {
     @Test
     fun `should reciprocate`() {
         assertEquals((1 over 4) - (1 over 4).i, (2 + 2.i).unaryDiv())
+        assertEquals((1 over 4) - (1 over 4).i, (2 + 2.i).reciprocal)
     }
 
     @Test

@@ -16,15 +16,14 @@ data class FixedComplex(
     val conjugate get() = real + -imag
     val det get() = real.pow(2) + imag.value.pow(2)
     val absoluteValue get() = det.sqrt()
-    val reciprocal: FixedComplex
-        get() {
-            val det = det
-            return real / det - (imag.value / det).i
-        }
+    val reciprocal: FixedComplex get() = unaryDiv()
 
     override operator fun unaryMinus() = -real + -imag
 
-    fun unaryDiv() = reciprocal
+    fun unaryDiv(): FixedComplex {
+        val det = det
+        return real / det - (imag.value / det).i
+    }
 
     override operator fun plus(addend: FixedComplex) =
         (real + addend.real) + (imag + addend.imag)
