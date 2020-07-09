@@ -4,6 +4,7 @@ import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Ring
 import hm.binkley.math.algebra.RingCompanion
 import hm.binkley.math.fixed.FixedComplex.Companion.ONE
+import hm.binkley.math.isZero
 import hm.binkley.math.pow
 import hm.binkley.math.sqrt
 import kotlin.math.absoluteValue
@@ -137,23 +138,23 @@ operator fun FixedImaginary.div(divisor: FixedComplex) = divisor / this
 // Functions
 
 fun FixedComplex.toBigRational() =
-    if (BRat.ZERO == imag.value) real
+    if (imag.isZero()) real
     else throw ArithmeticException("Not real: $this")
 
 fun FixedComplex.toBigInteger() =
-    if (BRat.ZERO == imag.value) real.toBigInteger()
+    if (imag.isZero()) real.toBigInteger()
     else throw ArithmeticException("Not real: $this")
 
 fun FixedComplex.toLong() =
-    if (BRat.ZERO == imag.value) real.toLong()
+    if (imag.isZero()) real.toLong()
     else throw ArithmeticException("Not real: $this")
 
 fun FixedComplex.toInt() =
-    if (BRat.ZERO == imag.value) real.toInt()
+    if (imag.isZero()) real.toInt()
     else throw ArithmeticException("Not real: $this")
 
 fun FixedComplex.toImaginary() =
-    if (BRat.ZERO == real) imag
+    if (real.isZero()) imag
     else throw ArithmeticException("Not imaginary: $this")
 
 fun FixedComplex.pow(n: Int): FixedComplex {

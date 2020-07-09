@@ -2,6 +2,7 @@ package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
+import hm.binkley.math.isZero
 import hm.binkley.math.times
 import lombok.Generated
 
@@ -57,3 +58,5 @@ operator fun BRat.times(multiplier: FixedImaginary) =
 operator fun BInt.times(multiplier: FixedImaginary) = multiplier * this
 operator fun Long.times(multiplier: FixedImaginary) = multiplier * this
 operator fun Int.times(multiplier: FixedImaginary) = multiplier * this
+
+fun FixedImaginary.isZero() = value.isZero()
