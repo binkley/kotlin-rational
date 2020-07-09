@@ -3,6 +3,7 @@ package hm.binkley.math.fixed
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Ring
 import hm.binkley.math.algebra.RingCompanion
+import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.pow
 import hm.binkley.math.sqrt
 import kotlin.math.absoluteValue
@@ -158,7 +159,7 @@ fun FixedComplex.toImaginary() =
 fun FixedComplex.pow(n: Int): FixedComplex {
     // TODO: Improve on brute force
     when (n) {
-        0 -> return 1 + 0.i
+        0 -> return ONE
         1 -> return this
         -1 -> return unaryDiv()
     }
