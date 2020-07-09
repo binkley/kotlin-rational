@@ -163,11 +163,16 @@ fun FixedComplex.pow(n: Int): FixedComplex {
         1 -> return this
         -1 -> return unaryDiv()
     }
-    var z = this
-    var i = n.absoluteValue
-    while (1 < i) {
-        z *= this
-        --i
-    }
+
+    val z = pow0(n.absoluteValue, ONE, this)
+
     return if (0 > n) z.unaryDiv() else z
 }
+
+private tailrec fun pow0(
+    i: Int,
+    acc: FixedComplex,
+    z: FixedComplex
+): FixedComplex =
+    if (0 == i) acc
+    else pow0(i - 1, acc * z, z)
