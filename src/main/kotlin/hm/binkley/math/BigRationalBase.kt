@@ -239,6 +239,18 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     open operator fun rem(divisor: T) = companion.ZERO
 
     /**
+     * Returns a the value `(this^exponent)`. Note that [exponent] is an
+     * integer rather than a big rational.
+     */
+    open fun pow(exponent: Int): T = when {
+        0 > exponent -> unaryDiv().pow(-exponent)
+        else -> companion.valueOf(
+            numerator.pow(exponent),
+            denominator.pow(exponent)
+        )
+    }
+
+    /**
      * Returns the Farey value between this FiniteBigRational and [that], or
      * the same value when equal.
      *
@@ -743,19 +755,6 @@ fun <T : BigRationalBase<T>> T.divideAndRemainder(other: T): Pair<T, T> {
     val remainder = this - other * quotient
 
     return quotient to remainder
-}
-
-/**
- * Returns a the value `(this^exponent)`. Note that [exponent] is an integer
- * rather than a big rational.
- */
-fun <T : BigRationalBase<T>> T.pow(exponent: Int): T = when {
-    0 <= exponent ->
-        companion.valueOf(
-            numerator.pow(exponent),
-            denominator.pow(exponent)
-        )
-    else -> unaryDiv().pow(-exponent)
 }
 
 /** Provides a pseudo-operator for exponentiation. */

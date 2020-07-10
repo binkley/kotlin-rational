@@ -113,6 +113,12 @@ class FloatingBigRational private constructor(
         else -> super.rem(divisor)
     }
 
+    override fun pow(exponent: Int): FloatingBigRational = when {
+        isNaN() -> NaN
+        isInfinite() && 0 == exponent -> NaN
+        else -> super.pow(exponent)
+    }
+
     /**
      * Returns the Farey value between this FiniteBigRational and [that], the
      * same value when equal.  If either value is [NaN], returns [NaN]. [ZERO]

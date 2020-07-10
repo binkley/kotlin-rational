@@ -5,7 +5,6 @@ import hm.binkley.math.algebra.Ring
 import hm.binkley.math.algebra.RingCompanion
 import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.isZero
-import hm.binkley.math.pow
 import hm.binkley.math.sqrt
 import kotlin.math.absoluteValue
 

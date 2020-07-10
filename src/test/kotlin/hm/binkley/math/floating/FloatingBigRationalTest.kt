@@ -1474,6 +1474,20 @@ internal class FloatingBigRationalTest {
                 25 over 9,
                 (3 over 5) `**` -2
             )
+            assertEquals(POSITIVE_INFINITY, POSITIVE_INFINITY `**` 2)
+            assertEquals(ZERO, POSITIVE_INFINITY `**` -1)
+            assertEquals(NEGATIVE_INFINITY, NEGATIVE_INFINITY `**` 3)
+            assertEquals(POSITIVE_INFINITY, NEGATIVE_INFINITY `**` 2)
+            assertEquals(ZERO, NEGATIVE_INFINITY `**` -1)
+            assertTrue((NaN `**` 2).isNaN(), "NaN has no powers")
+            assertTrue(
+                (POSITIVE_INFINITY `**` 0).isNaN(),
+                "Indeterminate form for +∞"
+            )
+            assertTrue(
+                (NEGATIVE_INFINITY `**` 0).isNaN(),
+                "Indeterminate form for -∞"
+            )
         }
 
         @Test
