@@ -79,6 +79,10 @@ class FixedBigRational private constructor(
         ) {
             if (step == ZERO) error("Step must be non-zero.")
         }
+
+        /** Generates the Cantor spiral for walking the rationals. */
+        fun cantorSpiral(): Sequence<FixedBigRational> =
+            CantorSpiral(FixedBigRational)
     }
 }
 
@@ -424,7 +428,3 @@ fun Int.toBigRational() = valueOf(this)
 /** Returns the finite continued fraction of this `FiniteBigRational`. */
 fun FixedBigRational.toContinuedFraction() =
     FixedContinuedFraction.valueOf(this)
-
-/** Generates the Cantor spiral for walking the rationals. */
-fun FixedBigRational.Companion.cantorSpiral():
-    Sequence<FixedBigRational> = CantorSpiral(FixedBigRational)

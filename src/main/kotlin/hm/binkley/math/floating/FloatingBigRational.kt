@@ -255,6 +255,10 @@ class FloatingBigRational private constructor(
                 error("Non-finite bounds.")
             if (step == ZERO) error("Step must be non-zero.")
         }
+
+        /** Generates the Cantor spiral for walking the rationals. */
+        fun cantorSpiral(): Sequence<FloatingBigRational> =
+            CantorSpiral(FloatingBigRational)
     }
 }
 
@@ -638,7 +642,3 @@ fun FloatingBigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
  * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
  */
 fun FloatingBigRational.isNegativeInfinity() = this === NEGATIVE_INFINITY
-
-/** Generates the Cantor spiral for walking the rationals. */
-fun FloatingBigRational.Companion.cantorSpiral():
-    Sequence<FloatingBigRational> = CantorSpiral(FloatingBigRational)

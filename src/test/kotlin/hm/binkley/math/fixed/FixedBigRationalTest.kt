@@ -14,6 +14,7 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
+import hm.binkley.math.fixed.FixedBigRational.Companion.cantorSpiral
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floor
 import hm.binkley.math.gcd
@@ -1220,7 +1221,7 @@ internal class FixedBigRationalTest {
                     -1 over 3,
                     1 over 3
                 ),
-                FixedBigRational.cantorSpiral().take(10).toList()
+                cantorSpiral().take(10).toList()
             )
         }
     }
