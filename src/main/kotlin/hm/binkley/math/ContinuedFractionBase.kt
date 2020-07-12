@@ -126,11 +126,9 @@ abstract class ContinuedFractionCompanionBase<
      * - Convergents are ratios of Fibonacci numbers
      * - The approximation is rather slow
      */
-    fun phi(n: Int): C {
-        if (1 > n) error("Not enough digits to approximate φ: $n")
-
-        return construct(nCopies(n, ONE))
-    }
+    fun phi(n: Int): C =
+        if (0 < n) construct(nCopies(n, ONE))
+        else error("Not enough digits to approximate φ: $n")
 }
 
 internal fun <

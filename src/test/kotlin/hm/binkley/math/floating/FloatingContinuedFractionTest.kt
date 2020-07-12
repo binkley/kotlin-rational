@@ -5,6 +5,7 @@ import hm.binkley.math.convergent
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
+import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
@@ -21,6 +22,18 @@ private val eulerApproximation =
     (271_828_182_845 over 100_000_000_000).toContinuedFraction()
 
 internal class FloatingContinuedFractionTest {
+    @Test
+    fun `should be a list`() {
+        val c = (145 over 7).toContinuedFraction()
+
+        assertTrue(c.contains(TWO))
+        assertFalse(c.contains(TEN))
+        assertEquals(2, c.indexOf(TWO))
+        assertEquals(-1, c.indexOf(TEN))
+        assertEquals(3, c.lastIndexOf(TWO))
+        assertEquals(-1, c.lastIndexOf(TEN))
+    }
+
     @Test
     fun `should continue`() {
         assertEquals(
@@ -147,5 +160,8 @@ internal class FloatingContinuedFractionTest {
             -1637 over 11000000,
             decimalApproximation - approximation
         )
+
+        assertThrows<IllegalStateException> { phi(0) }
+        assertThrows<IllegalStateException> { phi(-1) }
     }
 }

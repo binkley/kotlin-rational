@@ -142,5 +142,8 @@ internal class FixedContinuedFractionTest {
             -1637 over 11000000,
             decimalApproximation - approximation
         )
+
+        assertThrows<IllegalStateException> { phi(0) }
+        assertThrows<IllegalStateException> { phi(-1) }
     }
 }
