@@ -233,6 +233,10 @@
                         <excludedMethod>longValue</excludedMethod>
                         <excludedMethod>shortValue</excludedMethod>
                     </excludedMethods>
+                    <jvmArgs>
+                        <jvmArg>-noverify</jvmArg>
+                        <jvmArg>-XX:TieredStopAtLevel=1</jvmArg>
+                    </jvmArgs>
                     <!-- TODO: How to make mutation testing happy? -->
                     <mutationThreshold>87</mutationThreshold>
                 </configuration>
