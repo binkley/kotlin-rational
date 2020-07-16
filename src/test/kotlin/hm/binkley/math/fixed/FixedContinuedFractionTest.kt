@@ -3,6 +3,7 @@ package hm.binkley.math.fixed
 import hm.binkley.math.BInt
 import hm.binkley.math.convergent
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
+import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
@@ -18,6 +19,18 @@ private val eulerApproximation =
     (271_828_182_845 over 100_000_000_000).toContinuedFraction()
 
 internal class FixedContinuedFractionTest {
+    @Test
+    fun `should be a list`() {
+        val c = (145 over 7).toContinuedFraction()
+
+        assertTrue(c.contains(TWO))
+        assertFalse(c.contains(TEN))
+        assertEquals(2, c.indexOf(TWO))
+        assertEquals(-1, c.indexOf(TEN))
+        assertEquals(3, c.lastIndexOf(TWO))
+        assertEquals(-1, c.lastIndexOf(TEN))
+    }
+
     @Test
     fun `should continue`() {
         assertEquals(
