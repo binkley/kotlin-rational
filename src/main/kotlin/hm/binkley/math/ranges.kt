@@ -57,7 +57,7 @@ private class BigRationalProgression<T : BigRationalBase<T>>(
     private val step: T
 ) : BigRationalRange<T> {
     override fun iterator() =
-        if (step < start.companion.ZERO)
+        if (start.companion.ZERO > step)
             DecrementingBigRationalIterator(start, endInclusive, step)
         else
             IncrementingBigRationalIterator(start, endInclusive, step)
