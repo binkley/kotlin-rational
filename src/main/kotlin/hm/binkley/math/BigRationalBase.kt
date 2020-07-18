@@ -789,8 +789,7 @@ fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
 } catch (_: ArithmeticException) {
     companion.valueOf(
-        kotlin.math.sqrt(numerator.toDouble()) /
-            kotlin.math.sqrt(denominator.toDouble())
+        kotlin.math.sqrt(numerator.toDouble() / denominator.toDouble())
     )
 }
 

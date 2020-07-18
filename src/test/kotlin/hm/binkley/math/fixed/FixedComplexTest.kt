@@ -7,6 +7,7 @@ import hm.binkley.math.fixed.FixedImaginary.Companion.I
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.math.BigDecimal
 
 private val ONE_PLUS_I = BRat.ONE + I
 private val ONE_MINUS_I = BRat.ONE - I
@@ -40,6 +41,19 @@ internal class FixedComplexTest {
     @Test
     fun `should absolve`() {
         assertEquals(5 over 1, (3 + 4.i).absoluteValue)
+    }
+
+    @Test
+    fun `should absolve approximately`() {
+        assertEquals(
+            BigDecimal("410137648387709") over BigDecimal("15625000000000"),
+            (8 + 25.i).modulusApproximated()
+        )
+
+        val jvmValue = BigDecimal("410137648387709")
+            .divideAndRemainder(BigDecimal("15625000000000"))
+        assertEquals(BigDecimal.valueOf(26), jvmValue[0])
+        assertEquals(BigDecimal("3887648387709"), jvmValue[1])
     }
 
     @Test

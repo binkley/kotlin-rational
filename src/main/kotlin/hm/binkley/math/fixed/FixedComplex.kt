@@ -6,6 +6,7 @@ import hm.binkley.math.algebra.RingCompanion
 import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.isZero
 import hm.binkley.math.sqrt
+import hm.binkley.math.sqrtApproximated
 import kotlin.math.absoluteValue
 
 data class FixedComplex(
@@ -156,12 +157,14 @@ fun FixedComplex.toImaginary() =
     if (real.isZero()) imag
     else throw ArithmeticException("Not imaginary: $this")
 
+fun FixedComplex.modulusApproximated() = det.sqrtApproximated()
+
 fun FixedComplex.pow(n: Int): FixedComplex {
     // TODO: Improve on brute force
     when (n) {
-        0 -> return ONE
+        0 -> return ONE // TODO: What is 0^0?
         1 -> return this
-        -1 -> return unaryDiv()
+        -1 -> return unaryDiv() // TODO: What is 0^-1?
     }
 
     val z = pow0(n.absoluteValue - 1, this, this)
