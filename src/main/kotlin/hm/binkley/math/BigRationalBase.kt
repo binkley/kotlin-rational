@@ -762,18 +762,36 @@ fun <T : BigRationalBase<T>> T.divideAndRemainder(other: T): Pair<T, T> {
 infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int) = pow(exponent)
 
 /**
- * Returns the rational square root.
+ * Returns an _exact_ square root (non-complex).  The caller should take
+ * [BigRationalBase.sign] into consideration
  *
- * @throws ArithmeticException if the square root is non-rational
+ * @throws ArithmeticException if there is no exact square root
  */
 fun <T : BigRationalBase<T>> T.sqrt(): T {
-    val n = numerator.sqrt()
-    if (numerator != n * n)
+    val p = numerator.sqrt()
+    if (numerator != p * p)
         throw ArithmeticException("No rational square root: $this")
-    val d = denominator.sqrt()
-    if (denominator != d * d)
+    val q = denominator.sqrt()
+    if (denominator != q * q)
         throw ArithmeticException("No rational square root: $this")
-    return companion.valueOf(n, d)
+    return companion.valueOf(p, q)
+}
+
+/**
+ * Returns the nearest _positive_ (non-complex) rational square root _based
+ * on IEEE 754_ floating point values.  The caller should take
+ * [BigRationalBase.sign] into consideration.
+ *
+ * @todo What produces the most correct rounding?  Double division?
+ *       Construction of BigRational from Doubles?
+ */
+fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
+    sqrt()
+} catch (_: ArithmeticException) {
+    companion.valueOf(
+        kotlin.math.sqrt(numerator.toDouble()) /
+            kotlin.math.sqrt(denominator.toDouble())
+    )
 }
 
 /** Rounds to the nearest whole number _less than or equal_ to this. */

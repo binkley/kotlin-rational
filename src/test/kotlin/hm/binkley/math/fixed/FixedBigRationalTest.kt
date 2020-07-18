@@ -25,6 +25,7 @@ import hm.binkley.math.plus
 import hm.binkley.math.rangeTo
 import hm.binkley.math.rem
 import hm.binkley.math.sqrt
+import hm.binkley.math.sqrtApproximated
 import hm.binkley.math.times
 import hm.binkley.math.truncate
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -968,11 +969,19 @@ internal class FixedBigRationalTest {
         }
 
         @Test
-        fun `should root`() {
+        fun `should square root`() {
+            assertEquals(3 over 5, (9 over 25).sqrt())
+            assertEquals(3 over 5, (9 over 25).sqrtApproximated())
+
             assertEquals(
-                3 over 5,
-                (9 over 25).sqrt()
+                282_842_712_474_619 over 500_000_000_000_000,
+                (8 over 25).sqrtApproximated()
             )
+            assertEquals(
+                5_883_484_054_145_521 over 10_000_000_000_000_000,
+                (9 over 26).sqrtApproximated()
+            )
+
             assertThrows<ArithmeticException> { (8 over 25).sqrt() }
             assertThrows<ArithmeticException> { (9 over 26).sqrt() }
         }
