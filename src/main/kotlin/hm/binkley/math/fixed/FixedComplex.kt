@@ -173,9 +173,9 @@ fun FixedComplex.pow(n: Int): FixedComplex {
 }
 
 private tailrec fun pow0(
-    i: Int,
-    acc: FixedComplex,
-    z: FixedComplex
+    exponent: Int,
+    power: FixedComplex,
+    base: FixedComplex
 ): FixedComplex =
-    if (0 == i) acc
-    else pow0(i - 1, acc * z, z)
+    if (0 == exponent) power
+    else pow0(exponent - 1, power * base, base)
