@@ -16,7 +16,7 @@ data class FixedComplex(
     override val companion = Companion
 
     val conjugate get() = real + -imag
-    val det get() = real * real + imag.value * imag.value
+    val det get() = real * real - imag * imag
     val absoluteValue get() = det.sqrt()
     val reciprocal: FixedComplex get() = unaryDiv()
 
