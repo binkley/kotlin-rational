@@ -3,6 +3,7 @@ package hm.binkley.math.fixed
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Ring
 import hm.binkley.math.algebra.RingCompanion
+import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.isZero
 import hm.binkley.math.sqrt
@@ -44,7 +45,7 @@ data class FixedComplex(
 
     override operator fun times(multiplier: FixedComplex) =
         (real * multiplier.real + imag * multiplier.imag) +
-            (real * multiplier.imag + imag * multiplier.real)
+                (real * multiplier.imag + imag * multiplier.real)
 
     operator fun times(multiplier: BRat) =
         this * (multiplier + BRat.ZERO.i)
@@ -158,6 +159,14 @@ fun FixedComplex.toImaginary() =
     else throw ArithmeticException("Not imaginary: $this")
 
 fun FixedComplex.modulusApproximated() = det.sqrtApproximated()
+
+fun FixedComplex.sqrtApproximated(): FixedComplex {
+    val gamma =
+        ((real + modulusApproximated()) / TWO).sqrtApproximated()
+    val delta = imag.value.sign *
+            ((-real + modulusApproximated()) / TWO).sqrtApproximated()
+    return gamma + delta.i
+}
 
 fun FixedComplex.pow(n: Int): FixedComplex {
     // TODO: Improve on brute force

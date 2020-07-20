@@ -172,4 +172,10 @@ internal class FixedComplexTest {
         assertEquals(0 + 2.i, ONE_PLUS_I.pow(2))
         assertEquals(0 - half.i, ONE_PLUS_I.pow(-2))
     }
+
+    @Test
+    fun `should square root approximately`() {
+        val root = 1 + 2.i
+        assertEquals(root, (root * root).sqrtApproximated())
+    }
 }
