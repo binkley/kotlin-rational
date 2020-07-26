@@ -40,9 +40,9 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      * them.
      */
     fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
-        BDouble.ZERO -> ZERO
-        BDouble.ONE -> ONE
-        BDouble.TEN -> TEN
+        0.0.big -> ZERO
+        1.0.big -> ONE
+        10.0.big -> TEN
         else -> {
             val scale = floatingPoint.scale()
             val unscaledValue = floatingPoint.unscaledValue()

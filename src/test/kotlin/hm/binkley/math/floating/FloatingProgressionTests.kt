@@ -1,6 +1,5 @@
 package hm.binkley.math.floating
 
-import hm.binkley.math.BDouble
 import hm.binkley.math.big
 import hm.binkley.math.downTo
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
@@ -64,11 +63,11 @@ class FloatingProgressionTests {
         val three = 3 over 1
         assertEquals(
             listOf(ONE, three),
-            (BDouble.ONE..three step 2).toList()
+            (1.0.big..three step 2).toList()
         )
         assertEquals(
             listOf(ONE, three),
-            (ONE..BDouble.valueOf(3) step 2).toList()
+            (ONE..3.0.big step 2).toList()
         )
         assertEquals(
             listOf(ONE, three),

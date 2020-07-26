@@ -2,7 +2,6 @@
 
 package hm.binkley.math.fixed
 
-import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.`**` // ktlint-disable no-wildcard-imports
 import hm.binkley.math.big
@@ -326,11 +325,11 @@ internal class FixedBigRationalTest {
             )
             assertEquals(
                 2 over 1,
-                BDouble.ONE + ONE
+                1.0.big + ONE
             )
             assertEquals(
                 11 over 1,
-                ONE + BDouble.TEN
+                ONE + 10.0.big
             )
             assertEquals(
                 2 over 1,
@@ -382,11 +381,11 @@ internal class FixedBigRationalTest {
             )
             assertEquals(
                 ZERO,
-                BDouble.ONE - ONE
+                1.0.big - ONE
             )
             assertEquals(
                 ZERO,
-                ONE - BDouble.ONE
+                ONE - 1.0.big
             )
             assertEquals(
                 ZERO,
@@ -438,11 +437,11 @@ internal class FixedBigRationalTest {
             )
             assertEquals(
                 ONE,
-                BDouble.ONE * ONE
+                1.0.big * ONE
             )
             assertEquals(
                 ONE,
-                ONE * BDouble.ONE
+                ONE * 1.0.big
             )
             assertEquals(
                 ONE,
@@ -494,11 +493,11 @@ internal class FixedBigRationalTest {
             )
             assertEquals(
                 ONE,
-                BDouble.ONE / ONE
+                1.0.big / ONE
             )
             assertEquals(
                 ONE,
-                ONE / BDouble.ONE
+                ONE / 1.0.big
             )
             assertEquals(
                 ONE,
@@ -550,11 +549,11 @@ internal class FixedBigRationalTest {
             )
             assertEquals(
                 ZERO,
-                BDouble.ONE % ONE
+                1.0.big % ONE
             )
             assertEquals(
                 ZERO,
-                ONE % BDouble.ONE
+                ONE % 1.0.big
             )
             assertEquals(
                 ZERO,
@@ -680,23 +679,23 @@ internal class FixedBigRationalTest {
     inner class ConversionTests {
         @Test
         fun `should convert BigDecimal in infix constructor`() {
-            assertEquals(ZERO, BDouble.ZERO.toBigRational())
+            assertEquals(ZERO, 0.0.big.toBigRational())
             assertEquals(
                 30 over 1,
-                BDouble.valueOf(30L).toBigRational()
+                30.0.big.toBigRational()
             )
-            assertEquals(3 over 1, BDouble.valueOf(3).toBigRational())
-            assertEquals(3 over 10, BDouble("0.3").toBigRational())
-            assertEquals(77 over 10, BDouble("7.70").toBigRational())
-            assertEquals(ONE, BDouble.ONE over BDouble.ONE)
-            assertEquals(ONE, 1.big over BDouble.ONE)
-            assertEquals(ONE, 1L over BDouble.ONE)
-            assertEquals(ONE, 1 over BDouble.ONE)
-            assertEquals(ONE, 1.0 over BDouble.ONE)
-            assertEquals(ONE, 1.0f over BDouble.ONE)
+            assertEquals(3 over 1, 3.0.big.toBigRational())
+            assertEquals(3 over 10, "0.3".big.toBigRational())
+            assertEquals(77 over 10, "7.70".big.toBigRational())
+            assertEquals(ONE, 1.0.big over 1.0.big)
+            assertEquals(ONE, 1.big over 1.0.big)
+            assertEquals(ONE, 1L over 1.0.big)
+            assertEquals(ONE, 1 over 1.0.big)
+            assertEquals(ONE, 1.0 over 1.0.big)
+            assertEquals(ONE, 1.0f over 1.0.big)
 
-            assertEquals(ONE, BDouble.ONE over 1L)
-            assertEquals(ONE, BDouble.ONE over 1)
+            assertEquals(ONE, 1.0.big over 1L)
+            assertEquals(ONE, 1.0.big over 1)
         }
 
         @Test
@@ -705,7 +704,7 @@ internal class FixedBigRationalTest {
             assertEquals(30 over 1, BInt.valueOf(30L).toBigRational())
             assertEquals(3 over 1, 3.big.toBigRational())
             assertEquals(ONE, 1.big over 1.big)
-            assertEquals(ONE, BDouble.ONE over 1.big)
+            assertEquals(ONE, 1.0.big over 1.big)
             assertEquals(ONE, 1L over 1.big)
             assertEquals(ONE, 1 over 1.big)
             assertEquals(ONE, 1.0 over 1.big)
@@ -717,7 +716,7 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should convert double in infix constructor`() {
-            assertEquals(ONE, BDouble.ONE over 1.0)
+            assertEquals(ONE, 1.0.big over 1.0)
             assertEquals(ONE, 1.big over 1.0)
             assertEquals(ONE, 1L over 1.0)
             assertEquals(ONE, 1 over 1.0)
@@ -731,7 +730,7 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should convert float in infix constructor`() {
-            assertEquals(ONE, BDouble.ONE over 1.0f)
+            assertEquals(ONE, 1.0.big over 1.0f)
             assertEquals(ONE, 1.big over 1.0f)
             assertEquals(ONE, 1L over 1.0f)
             assertEquals(ONE, 1 over 1.0f)
@@ -878,8 +877,8 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should compare other number types`() {
-            assertTrue(BDouble.ONE > ZERO)
-            assertTrue(ONE > BDouble.ZERO)
+            assertTrue(1.0.big > ZERO)
+            assertTrue(ONE > 0.0.big)
             assertTrue(1.0 > ZERO)
             assertTrue(ZERO < 1.0)
             assertThrows<ArithmeticException> {

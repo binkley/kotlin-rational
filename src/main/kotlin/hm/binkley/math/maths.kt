@@ -31,3 +31,15 @@ internal val Int.big: BInt
         10 -> BInt.TEN
         else -> BInt.valueOf(toLong())
     }
+
+/** A sad property.  [BigDecimal.valueOf] does not check for constants. */
+internal val Double.big: BDouble
+    get() = when (this) {
+        0.0 -> BDouble.ZERO
+        1.0 -> BDouble.ONE
+        10.0 -> BDouble.TEN
+        else -> BDouble.valueOf(this)
+    }
+
+/** A sad property.  [BigDecimal.valueOf] does not check for constants. */
+internal val String.big: BDouble get() = BDouble(this)

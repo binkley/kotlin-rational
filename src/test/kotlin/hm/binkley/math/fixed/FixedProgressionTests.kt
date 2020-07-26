@@ -1,6 +1,5 @@
 package hm.binkley.math.fixed
 
-import hm.binkley.math.BDouble
 import hm.binkley.math.big
 import hm.binkley.math.downTo
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
@@ -63,10 +62,10 @@ class FixedProgressionTests {
             ((1 over 1)..(5 over 2)).toList()
         )
         val three = 3 over 1
-        assertEquals(listOf(ONE, three), (BDouble.ONE..three step 2).toList())
+        assertEquals(listOf(ONE, three), (1.0.big..three step 2).toList())
         assertEquals(
             listOf(ONE, three),
-            (ONE..BDouble.valueOf(3) step 2).toList()
+            (ONE..3.0.big step 2).toList()
         )
         assertEquals(
             listOf(ONE, three),
