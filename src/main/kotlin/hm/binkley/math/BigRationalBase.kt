@@ -72,7 +72,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
         throw ArithmeticException("$floatingPoint: ${e.message}")
     }
 
-    fun valueOf(wholeNumber: BInt) = valueOf(wholeNumber, BInt.ONE)
+    fun valueOf(wholeNumber: BInt) = valueOf(wholeNumber, 1.big)
     fun valueOf(wholeNumber: Long) = valueOf(wholeNumber.toBigInteger())
     fun valueOf(wholeNumber: Int) = valueOf(wholeNumber.toBigInteger())
 
@@ -264,7 +264,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     )
 
     /** Checks that this rational is an integer. */
-    fun isInteger() = BInt.ONE == denominator
+    fun isInteger() = 1.big == denominator
 
     internal open fun roundsToSelf() = isInteger()
 

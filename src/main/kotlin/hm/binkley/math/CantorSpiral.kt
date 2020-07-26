@@ -34,7 +34,7 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
             when (dir) {
                 N -> {
                     ++q
-                    if (q == p.abs() + BInt.ONE) dir = E
+                    if (q == p.abs() + 1.big) dir = E
                 }
                 E -> {
                     ++p

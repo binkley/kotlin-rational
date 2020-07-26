@@ -1,7 +1,7 @@
 package hm.binkley.math.floating
 
 import hm.binkley.math.BDouble
-import hm.binkley.math.BInt
+import hm.binkley.math.big
 import hm.binkley.math.downTo
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
@@ -88,11 +88,11 @@ class FloatingProgressionTests {
         )
         assertEquals(
             listOf(ONE, three),
-            (BInt.ONE..three step 2).toList()
+            (1.big..three step 2).toList()
         )
         assertEquals(
             listOf(ONE, three),
-            (ONE..BInt.valueOf(3) step 2).toList()
+            (ONE..3.big step 2).toList()
         )
         assertEquals(
             listOf(ONE, three),
@@ -112,7 +112,7 @@ class FloatingProgressionTests {
         )
         assertEquals(
             listOf((2 over 1), ONE),
-            ((2 over 1) downTo (1 over 2) step -BInt.ONE).toList()
+            ((2 over 1) downTo (1 over 2) step -(1.big)).toList()
         )
     }
 
@@ -134,7 +134,7 @@ class FloatingProgressionTests {
             for (r in ZERO..ONE step -1) noop()
         }
         assertThrows<IllegalStateException> {
-            for (r in BInt.ONE downTo ZERO step 1); noop()
+            for (r in 1.big downTo ZERO step 1); noop()
         }
         assertThrows<IllegalStateException> {
             for (r in 0L downTo ONE step ZERO); noop()

@@ -5,6 +5,7 @@ import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.CantorSpiral
+import hm.binkley.math.big
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
@@ -187,25 +188,25 @@ class FloatingBigRational private constructor(
          * A constant holding "not a number" (NaN) value of type
          * [FloatingBigRational]. It is equivalent `0 over 0`.
          */
-        val NaN = FloatingBigRational(BInt.ZERO, BInt.ZERO)
+        val NaN = FloatingBigRational(0.big, 0.big)
 
-        override val ZERO = FloatingBigRational(BInt.ZERO, BInt.ONE)
-        override val ONE = FloatingBigRational(BInt.ONE, BInt.ONE)
-        override val TWO = FloatingBigRational(BInt.TWO, BInt.ONE)
-        override val TEN = FloatingBigRational(BInt.TEN, BInt.ONE)
+        override val ZERO = FloatingBigRational(0.big, 1.big)
+        override val ONE = FloatingBigRational(1.big, 1.big)
+        override val TWO = FloatingBigRational(2.big, 1.big)
+        override val TEN = FloatingBigRational(10.big, 1.big)
 
         /**
          * A constant holding positive infinity value of type [FloatingBigRational].
          * It is equivalent `1 over 0`.
          */
-        val POSITIVE_INFINITY = FloatingBigRational(BInt.ONE, BInt.ZERO)
+        val POSITIVE_INFINITY = FloatingBigRational(1.big, 0.big)
 
         /**
          * A constant holding negative infinity value of type [FloatingBigRational].
          * It is equivalent `-1 over 0`.
          */
         val NEGATIVE_INFINITY =
-            FloatingBigRational(BInt.ONE.negate(), BInt.ZERO)
+            FloatingBigRational(1.big.negate(), 0.big)
 
         /**
          * Returns a `BigRational` whose value is equal to that of the

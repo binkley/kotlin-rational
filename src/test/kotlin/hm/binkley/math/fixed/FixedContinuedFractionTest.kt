@@ -1,6 +1,6 @@
 package hm.binkley.math.fixed
 
-import hm.binkley.math.BInt
+import hm.binkley.math.big
 import hm.binkley.math.convergent
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
@@ -129,11 +129,11 @@ internal class FixedContinuedFractionTest {
         val c2 = eulerApproximation.convergent(2)
         val c3 = eulerApproximation.convergent(3)
         assertEquals(
-            BInt.ONE,
+            1.big,
             c2.denominator * c1.numerator - c1.denominator * c2.numerator
         )
         assertEquals(
-            -BInt.ONE,
+            -(1.big),
             c3.denominator * c2.numerator - c2.denominator * c3.numerator
         )
 

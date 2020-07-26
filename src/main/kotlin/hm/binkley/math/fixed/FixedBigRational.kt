@@ -5,6 +5,7 @@ import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.CantorSpiral
+import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.isZero
@@ -35,10 +36,10 @@ class FixedBigRational private constructor(
     FixedBigRational
 ) {
     companion object : BigRationalCompanion<FixedBigRational> {
-        override val ZERO = FixedBigRational(BInt.ZERO, BInt.ONE)
-        override val ONE = FixedBigRational(BInt.ONE, BInt.ONE)
-        override val TWO = FixedBigRational(BInt.TWO, BInt.ONE)
-        override val TEN = FixedBigRational(BInt.TEN, BInt.ONE)
+        override val ZERO = FixedBigRational(0.big, 1.big)
+        override val ONE = FixedBigRational(1.big, 1.big)
+        override val TWO = FixedBigRational(2.big, 1.big)
+        override val TEN = FixedBigRational(10.big, 1.big)
 
         /**
          * Returns a `FiniteBigRational` whose value is equal to that of the

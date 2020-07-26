@@ -6,6 +6,7 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.`**` // ktlint-disable no-wildcard-imports
 import hm.binkley.math.backAgain
+import hm.binkley.math.big
 import hm.binkley.math.ceil
 import hm.binkley.math.compareTo
 import hm.binkley.math.div
@@ -70,7 +71,7 @@ internal class FloatingBigRationalTest {
         fun `should construct -Infinity`() {
             assertSame(
                 NEGATIVE_INFINITY,
-                Long.MIN_VALUE over BInt.ZERO
+                Long.MIN_VALUE over 0.big
             )
         }
 
@@ -86,7 +87,7 @@ internal class FloatingBigRationalTest {
         fun `should construct 1`() {
             assertSame(
                 ONE,
-                BInt.ONE over 1
+                1.big over 1
             )
             assertSame(
                 ONE,
@@ -98,7 +99,7 @@ internal class FloatingBigRationalTest {
         fun `should construct 2`() {
             assertSame(
                 TWO,
-                BInt.TWO over 1
+                2.big over 1
             )
             assertSame(
                 TWO,
@@ -110,7 +111,7 @@ internal class FloatingBigRationalTest {
         fun `should construct 10`() {
             assertSame(
                 TEN,
-                BInt.TEN over 1
+                10.big over 1
             )
             assertSame(
                 TEN,
@@ -156,18 +157,18 @@ internal class FloatingBigRationalTest {
         fun `should reduce fractions`() {
             assertEquals(
                 2 over 1,
-                BInt.valueOf(4) over BInt.TWO
+                4.big over 2.big
             )
         }
 
         @Test
         fun `should simplify fractions`() {
             assertEquals(
-                1 over BInt.TWO,
-                BInt.valueOf(4) over 8L
+                1 over 2.big,
+                4.big over 8L
             )
             assertEquals(
-                BInt.valueOf(2),
+                2.big,
                 (4L over 8).denominator
             )
         }
@@ -213,8 +214,8 @@ internal class FloatingBigRationalTest {
     fun `should not be a floating big rational`() {
         assertFalse(
             (1 over 1).hashCode() == FixedBigRational.valueOf(
-                BInt.ONE,
-                BInt.ONE
+                1.big,
+                1.big
             ).hashCode()
         )
         assertFalse(
@@ -453,11 +454,11 @@ internal class FloatingBigRationalTest {
             )
             assertEquals(
                 2 over 1,
-                BInt.ONE + ONE
+                1.big + ONE
             )
             assertEquals(
                 2 over 1,
-                ONE + BInt.ONE
+                ONE + 1.big
             )
             assertEquals(
                 2 over 1,
@@ -519,11 +520,11 @@ internal class FloatingBigRationalTest {
             )
             assertEquals(
                 ZERO,
-                BInt.ONE - ONE
+                1.big - ONE
             )
             assertEquals(
                 ZERO,
-                ONE - BInt.ONE
+                ONE - 1.big
             )
             assertEquals(
                 ZERO,
@@ -585,11 +586,11 @@ internal class FloatingBigRationalTest {
             )
             assertEquals(
                 ONE,
-                BInt.ONE * ONE
+                1.big * ONE
             )
             assertEquals(
                 ONE,
-                ONE * BInt.ONE
+                ONE * 1.big
             )
             assertEquals(
                 ONE,
@@ -664,11 +665,11 @@ internal class FloatingBigRationalTest {
             )
             assertEquals(
                 ONE,
-                BInt.ONE / ONE
+                1.big / ONE
             )
             assertEquals(
                 ONE,
-                ONE / BInt.ONE
+                ONE / 1.big
             )
             assertEquals(
                 ONE,
@@ -730,11 +731,11 @@ internal class FloatingBigRationalTest {
             )
             assertEquals(
                 ZERO,
-                BInt.ONE % ONE
+                1.big % ONE
             )
             assertEquals(
                 ZERO,
-                ONE % BInt.ONE
+                ONE % 1.big
             )
             assertEquals(
                 ZERO,
@@ -1016,7 +1017,7 @@ internal class FloatingBigRationalTest {
             assertEquals(3 over 10, BDouble("0.3").toBigRational())
             assertEquals(77 over 10, BDouble("7.70").toBigRational())
             assertEquals(ONE, BDouble.ONE over BDouble.ONE)
-            assertEquals(ONE, BInt.ONE over BDouble.ONE)
+            assertEquals(ONE, 1.big over BDouble.ONE)
             assertEquals(ONE, 1L over BDouble.ONE)
             assertEquals(ONE, 1 over BDouble.ONE)
             assertEquals(ONE, 1.0 over BDouble.ONE)
@@ -1028,30 +1029,30 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should convert BigInteger in infix constructor`() {
-            assertEquals(ZERO, BInt.ZERO.toBigRational())
+            assertEquals(ZERO, 0.big.toBigRational())
             assertEquals(30 over 1, BInt.valueOf(30L).toBigRational())
-            assertEquals(3 over 1, BInt.valueOf(3).toBigRational())
-            assertEquals(ONE, BInt.ONE over BInt.ONE)
-            assertEquals(ONE, BDouble.ONE over BInt.ONE)
-            assertEquals(ONE, 1L over BInt.ONE)
-            assertEquals(ONE, 1 over BInt.ONE)
-            assertEquals(ONE, 1.0 over BInt.ONE)
-            assertEquals(ONE, 1.0f over BInt.ONE)
+            assertEquals(3 over 1, 3.big.toBigRational())
+            assertEquals(ONE, 1.big over 1.big)
+            assertEquals(ONE, BDouble.ONE over 1.big)
+            assertEquals(ONE, 1L over 1.big)
+            assertEquals(ONE, 1 over 1.big)
+            assertEquals(ONE, 1.0 over 1.big)
+            assertEquals(ONE, 1.0f over 1.big)
 
-            assertEquals(ONE, BInt.ONE over 1L)
-            assertEquals(ONE, BInt.ONE over 1)
+            assertEquals(ONE, 1.big over 1L)
+            assertEquals(ONE, 1.big over 1)
         }
 
         @Test
         fun `should convert double in infix constructor`() {
             assertEquals(ONE, BDouble.ONE over 1.0)
-            assertEquals(ONE, BInt.ONE over 1.0)
+            assertEquals(ONE, 1.big over 1.0)
             assertEquals(ONE, 1L over 1.0)
             assertEquals(ONE, 1 over 1.0)
             assertEquals(ONE, 1.0 over 1.0)
             assertEquals(ONE, 1.0f over 1.0)
 
-            assertEquals(ONE, 1.0 over BInt.ONE)
+            assertEquals(ONE, 1.0 over 1.big)
             assertEquals(ONE, 1.0 over 1L)
             assertEquals(ONE, 1.0 over 1)
         }
@@ -1059,13 +1060,13 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should convert float in infix constructor`() {
             assertEquals(ONE, BDouble.ONE over 1.0f)
-            assertEquals(ONE, BInt.ONE over 1.0f)
+            assertEquals(ONE, 1.big over 1.0f)
             assertEquals(ONE, 1L over 1.0f)
             assertEquals(ONE, 1 over 1.0f)
             assertEquals(ONE, 1.0 over 1.0f)
             assertEquals(ONE, 1.0f over 1.0f)
 
-            assertEquals(ONE, 1.0f over BInt.ONE)
+            assertEquals(ONE, 1.0f over 1.big)
             assertEquals(ONE, 1.0f over 1L)
             assertEquals(ONE, 1.0f over 1)
         }
@@ -1243,8 +1244,8 @@ internal class FloatingBigRationalTest {
             assertTrue(ZERO > Double.NEGATIVE_INFINITY)
             assertTrue(Float.NaN > ZERO)
             assertTrue(NaN > Float.MAX_VALUE)
-            assertTrue(BInt.ZERO < ONE)
-            assertTrue(ZERO < BInt.ONE)
+            assertTrue(0.big < ONE)
+            assertTrue(ZERO < 1.big)
             assertTrue(0L < ONE)
             assertTrue(ZERO < 1L)
             assertTrue(0 < ONE)

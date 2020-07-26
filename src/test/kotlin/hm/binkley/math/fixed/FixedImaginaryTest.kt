@@ -1,6 +1,7 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
+import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedImaginary.Companion.I
@@ -20,8 +21,8 @@ internal class FixedImaginaryTest {
         assertEquals("-1i", (-I).toString())
         assertEquals("1i", (ONE.i).toString())
         assertEquals("-1i", ((-ONE).i).toString())
-        assertEquals("1i", (BInt.ONE.i).toString())
-        assertEquals("-1i", ((-BInt.ONE).i).toString())
+        assertEquals("1i", (1.big.i).toString())
+        assertEquals("-1i", (-(1.big).i).toString())
         assertEquals("1i", (1L.i).toString())
         assertEquals("-1i", ((-1L).i).toString())
         assertEquals("1i", (1.i).toString())

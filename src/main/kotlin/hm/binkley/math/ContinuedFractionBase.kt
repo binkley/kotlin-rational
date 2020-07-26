@@ -146,7 +146,7 @@ internal fun <
  * numerators).
  */
 fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple() =
-    fractionalParts.all { BInt.ONE === it.numerator }
+    fractionalParts.all { 1.big === it.numerator }
 
 internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
     r: T,

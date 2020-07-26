@@ -1,6 +1,6 @@
 package hm.binkley.math.floating
 
-import hm.binkley.math.BInt
+import hm.binkley.math.big
 import hm.binkley.math.convergent
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
@@ -134,11 +134,11 @@ internal class FloatingContinuedFractionTest {
         val c2 = eulerApproximation.convergent(2)
         val c3 = eulerApproximation.convergent(3)
         assertEquals(
-            BInt.ONE,
+            1.big,
             c2.denominator * c1.numerator - c1.denominator * c2.numerator
         )
         assertEquals(
-            -BInt.ONE,
+            -(1.big),
             c3.denominator * c2.numerator - c2.denominator * c3.numerator
         )
 
