@@ -28,6 +28,10 @@ which is extensive), rather than raising an error on division by zero (as the
 A secondary goal is to model the Kotlin standard library, and Java's
 `BigDecimal` and `BigInteger` types, as well as `Number`.
 
+## Build and try
+
+To build, use `./mvnw clean verify`.
+
 Try `./run.sh` for a demonstration.
 
 There are no run-time dependencies.
