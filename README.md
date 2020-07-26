@@ -23,7 +23,8 @@ This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading and extension methods, and writing clean, clear, concise Kotlin.
 It also explores the impact of `NaN` (on the `FloatingBigRational` version ,
 which is extensive), rather than raising an error on division by zero (as the
-`FixedBigRational` version does).
+`FixedBigRational` version does).  In general, this code
+prefers expressivity to performance.
 
 A secondary goal is to model the Kotlin standard library, and Java's
 `BigDecimal` and `BigInteger` types, as well as `Number`.
