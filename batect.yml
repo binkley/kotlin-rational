@@ -5,7 +5,7 @@ containers:
       - local: .
         container: /code
         options: cached
-      - local: .maven-cache
+      - local: ~/.m2
         container: /home/container-user/.m2
         options: cached
     working_directory: /code
