@@ -239,6 +239,7 @@
                     </jvmArgs>
                     <!-- TODO: How to make mutation testing happy? -->
                     <mutationThreshold>88</mutationThreshold>
+                    <timestampedReports>false</timestampedReports>
                 </configuration>
                 <executions>
                     <execution>
