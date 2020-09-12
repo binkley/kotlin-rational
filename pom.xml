@@ -239,6 +239,12 @@
                     </jvmArgs>
                     <!-- TODO: How to make mutation testing happy? -->
                     <mutationThreshold>88</mutationThreshold>
+                    <targetClasses>
+                        <param>hm.binkley*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>hm.binkley*</param>
+                    </targetTests>
                     <timestampedReports>false</timestampedReports>
                 </configuration>
                 <executions>
