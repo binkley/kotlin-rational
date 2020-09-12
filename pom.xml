@@ -219,6 +219,10 @@
                 <configuration>
                     <avoidCallsTo>
                         <avoidCallsTo>kotlin.jvm.internal</avoidCallsTo>
+                        <avoidCallsTo>java.util.logging</avoidCallsTo>
+                        <avoidCallsTo>org.apache.log4j</avoidCallsTo>
+                        <avoidCallsTo>org.slf4j</avoidCallsTo>
+                        <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
                     </avoidCallsTo>
                     <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
@@ -233,10 +237,6 @@
                         <excludedMethod>longValue</excludedMethod>
                         <excludedMethod>shortValue</excludedMethod>
                     </excludedMethods>
-                    <jvmArgs>
-                        <jvmArg>-noverify</jvmArg>
-                        <jvmArg>-XX:TieredStopAtLevel=1</jvmArg>
-                    </jvmArgs>
                     <!-- TODO: How to make mutation testing happy? -->
                     <mutationThreshold>88</mutationThreshold>
                     <targetClasses>
