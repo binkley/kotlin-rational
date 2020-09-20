@@ -313,6 +313,7 @@
                     </execution>
                 </executions>
             </plugin>
+<!-- TODO: How to get Dokka working?!
             <plugin>
                 <groupId>org.jetbrains.dokka</groupId>
                 <artifactId>dokka-maven-plugin</artifactId>
@@ -326,6 +327,7 @@
                     </execution>
                 </executions>
             </plugin>
+-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>${maven-source-plugin.version}</version>
