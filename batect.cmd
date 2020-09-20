@@ -6,7 +6,7 @@ rem For more information, visit https://github.com/batect/batect.
 
 setlocal EnableDelayedExpansion
 
-set "version=0.57.1"
+set "version=0.58.4"
 
 if "%BATECT_CACHE_DIR%" == "" (
     set "BATECT_CACHE_DIR=%USERPROFILE%\.batect\cache"
@@ -22,7 +22,7 @@ $ErrorActionPreference = 'Stop'^
 
 ^
 
-$Version='0.57.1'^
+$Version='0.58.4'^
 
 ^
 
@@ -48,7 +48,7 @@ $UrlEncodedVersion = [Uri]::EscapeDataString($Version)^
 
 $DownloadUrl = getValueOrDefault $env:BATECT_DOWNLOAD_URL "$DownloadUrlRoot/$UrlEncodedVersion/bin/batect-$UrlEncodedVersion.jar"^
 
-$ExpectedChecksum = getValueOrDefault $env:BATECT_DOWNLOAD_CHECKSUM '1e6a8cac2ddcfb2aaa5409cc93149931bcdabfa18d0d9c87be91fb1eab7f80d0'^
+$ExpectedChecksum = getValueOrDefault $env:BATECT_DOWNLOAD_CHECKSUM 'ce1b71f792f61f7228abed6dddc15736622fc0a3a8ed8be06440578a6ac8b43d'^
 
 ^
 
@@ -58,6 +58,8 @@ $VersionCacheDir = "$RootCacheDir\$Version"^
 
 $JarPath = "$VersionCacheDir\batect-$Version.jar"^
 
+$DidDownload = 'false'^
+
 ^
 
 function main() {^
@@ -65,6 +67,8 @@ function main() {^
     if (-not (haveVersionCachedLocally)) {^
 
         download^
+
+        $DidDownload = 'true'^
 
     }^
 
@@ -189,6 +193,8 @@ function runApplication() {^
     $env:HOSTNAME = $env:COMPUTERNAME^
 
     $env:BATECT_WRAPPER_CACHE_DIR = $RootCacheDir^
+
+    $env:BATECT_WRAPPER_DID_DOWNLOAD = $DidDownload^
 
 ^
 
@@ -396,6 +402,10 @@ rem If we modify the script while it is still running (eg. because we're updatin
 rem because it continues execution from the next byte (which was previously the end of the line).
 rem By explicitly exiting on the same line as starting the application, we avoid these issues as cmd.exe has already read the entire
 rem line before we start the application and therefore will always exit.
+
+rem Why do we set PSModulePath?
+rem See issue #627
+set "PSModulePath="
 powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -File "%ps1Path%" %* && exit /b 0 || exit /b !ERRORLEVEL!
 
 rem What's this for?
