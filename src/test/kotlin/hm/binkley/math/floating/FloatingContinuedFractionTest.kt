@@ -108,7 +108,8 @@ internal class FloatingContinuedFractionTest {
         )
 
         assertSame(
-            NaN, POSITIVE_INFINITY.toContinuedFraction().toBigRational()
+            NaN,
+            POSITIVE_INFINITY.toContinuedFraction().toBigRational()
         )
     }
 

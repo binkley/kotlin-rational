@@ -37,7 +37,9 @@ class FloatingBigRational private constructor(
     numerator: BInt,
     denominator: BInt
 ) : BigRationalBase<FloatingBigRational>(
-    numerator, denominator, FloatingBigRational
+    numerator,
+    denominator,
+    FloatingBigRational
 ) {
     /**
      * @see [Double.toLong]

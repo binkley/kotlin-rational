@@ -205,7 +205,8 @@ internal class FloatingBigRationalTest {
     fun `should hash separately`() {
         assertNotEquals((1 over 2).hashCode(), (1 over 3).hashCode())
         assertNotEquals(
-            POSITIVE_INFINITY.hashCode(), NEGATIVE_INFINITY.hashCode()
+            POSITIVE_INFINITY.hashCode(),
+            NEGATIVE_INFINITY.hashCode()
         )
     }
 

@@ -34,22 +34,22 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>5.3.2</dependency-check-maven.version>
+        <dependency-check-maven.version>6.0.1</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.11.0</detekt-maven-plugin.version>
         <dokka.version>1.4.10</dokka.version>
-        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
-        <junit.version>5.7.0-RC1</junit.version>
+        <junit.version>5.7.0</junit.version>
         <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.4.10</kotlin.version>
-        <ktlint-maven-plugin.version>1.5.2</ktlint-maven-plugin.version>
+        <ktlint-maven-plugin.version>1.6.1</ktlint-maven-plugin.version>
         <lombok.version>1.18.12</lombok.version>
         <main.class>hm.binkley.math.MainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-project-info-reports-plugin.version>3.1.0</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
