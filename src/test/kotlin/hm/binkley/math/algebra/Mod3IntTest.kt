@@ -3,76 +3,78 @@ package hm.binkley.math.algebra
 import hm.binkley.math.algebra.Mod3Int.Companion.ONE
 import hm.binkley.math.algebra.Mod3Int.Companion.TWO
 import hm.binkley.math.algebra.Mod3Int.Companion.ZERO
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotEquals
-import org.junit.jupiter.api.Assertions.assertSame
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.jupiter.api.Test
 
 internal class Mod3IntTest {
     @Test
     fun `should have additive zero`() {
-        assertSame(ZERO, ZERO.companion.valueOf(0))
-        assertEquals(0, Mod3Int.valueOf(0).value)
+        ZERO.companion.valueOf(0).shouldBeSameInstanceAs(ZERO)
+        Mod3Int.valueOf(0).value.shouldBe(0)
     }
 
     @Test
     fun `should have multiplicative one`() {
-        assertSame(ONE, ONE.companion.valueOf(1))
-        assertEquals(1, Mod3Int.valueOf(1).value)
+        ONE.companion.valueOf(1).shouldBeSameInstanceAs(ONE)
+        Mod3Int.valueOf(1).value.shouldBe(1)
     }
 
     @Test
     fun `should handle negative values`() {
-        assertEquals(TWO, Mod3Int.valueOf(-1))
+        Mod3Int.valueOf(-1).shouldBe(TWO)
     }
 
     @Test
     fun `should posite`() {
-        assertEquals(ONE, +Mod3Int.valueOf(1))
+        (+Mod3Int.valueOf(1)).shouldBe(ONE)
     }
 
     @Test
     fun `should negate`() {
-        assertEquals(TWO, -Mod3Int.valueOf(1))
+        (-Mod3Int.valueOf(1)).shouldBe(TWO)
     }
 
     @Test
     fun `should add`() {
-        assertEquals(ONE, Mod3Int.valueOf(4) + Mod3Int.valueOf(3))
+        (Mod3Int.valueOf(4) + Mod3Int.valueOf(3)).shouldBe(ONE)
     }
 
     @Test
     fun `should subtract`() {
-        assertEquals(ONE, Mod3Int.valueOf(4) - Mod3Int.valueOf(3))
+        (Mod3Int.valueOf(4) - Mod3Int.valueOf(3)).shouldBe(ONE)
     }
 
     @Test
     fun `should multiply`() {
-        assertEquals(ZERO, Mod3Int.valueOf(4) * Mod3Int.valueOf(3))
+        (Mod3Int.valueOf(4) * Mod3Int.valueOf(3)).shouldBe(ZERO)
     }
 
     @Test
     fun `should equal`() {
-        assertEquals(ZERO, ZERO)
-        assertNotEquals(ZERO, ONE)
-        assertNotEquals(ZERO, TWO)
-        assertEquals(ONE, ONE)
-        assertNotEquals(ONE, TWO)
-        assertEquals(TWO, TWO)
+        ZERO.shouldBe(ZERO)
+        ONE.shouldNotBe(ZERO)
+        TWO.shouldNotBe(ZERO)
+        ONE.shouldBe(ONE)
+        TWO.shouldNotBe(ONE)
+        TWO.shouldBe(TWO)
     }
 
     @Test
     fun `should hash`() {
-        assertEquals(ZERO.hashCode(), ZERO.hashCode())
-        assertNotEquals(ZERO.hashCode(), ONE.hashCode())
-        assertNotEquals(ZERO.hashCode(), TWO.hashCode())
-        assertEquals(ONE.hashCode(), ONE.hashCode())
-        assertNotEquals(ONE.hashCode(), TWO.hashCode())
-        assertEquals(TWO.hashCode(), TWO.hashCode())
+        ZERO.hashCode().shouldBe(ZERO.hashCode())
+        ONE.hashCode().shouldNotBe(ZERO.hashCode())
+        TWO.hashCode().shouldNotBe(ZERO.hashCode())
+        ONE.hashCode().shouldBe(ONE.hashCode())
+        TWO.hashCode().shouldNotBe(ONE.hashCode())
+        TWO.hashCode().shouldBe(TWO.hashCode())
     }
 
     @Test
     fun `should pretty print`() {
-        assertEquals("0", "$ZERO")
+        "$ZERO".shouldBe("0")
+        "$ONE".shouldBe("1")
+        "$TWO".shouldBe("2")
     }
 }
