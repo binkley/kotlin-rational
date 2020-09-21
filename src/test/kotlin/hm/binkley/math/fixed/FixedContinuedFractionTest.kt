@@ -8,11 +8,11 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 // The ever popular Euler's number, 2.71828 18284 59045...
 private val eulerApproximation =
@@ -23,21 +23,19 @@ internal class FixedContinuedFractionTest {
     fun `should be a list`() {
         val c = (145 over 7).toContinuedFraction()
 
-        assertTrue(c.contains(TWO))
-        assertFalse(c.contains(TEN))
-        assertEquals(2, c.indexOf(TWO))
-        assertEquals(-1, c.indexOf(TEN))
-        assertEquals(3, c.lastIndexOf(TWO))
-        assertEquals(-1, c.lastIndexOf(TEN))
+        // TODO: Why not just compare to an expected list?  JaCoCo
+        c.contains(TWO).shouldBeTrue()
+        c.contains(TEN).shouldBeFalse()
+        c.indexOf(TWO).shouldBe(2)
+        c.indexOf(TEN).shouldBe(-1)
+        c.lastIndexOf(TWO).shouldBe(3)
+        c.lastIndexOf(TEN).shouldBe(-1)
     }
 
     @Test
     fun `should continue`() {
-        assertEquals(
-            listOf(2 over 1),
-            eulerApproximation.terms(0)
-        )
-        assertEquals(
+        eulerApproximation.terms(0).shouldBe(listOf(2 over 1))
+        eulerApproximation.terms(14).shouldBe(
             listOf(
                 2 over 1,
                 ONE,
@@ -55,92 +53,74 @@ internal class FixedContinuedFractionTest {
                 ONE,
                 10 over 1
                 // truncated from here
-            ),
-            eulerApproximation.terms(14)
+            )
         )
     }
 
     @Test
     fun `should have integer part`() {
-        assertEquals(
-            TWO,
-            (2 over 1).toContinuedFraction().integerPart
-        )
+        (2 over 1).toContinuedFraction().integerPart.shouldBe(TWO)
     }
 
     @Test
     fun `should invert`() {
-        assertEquals(
+        (2 over 1).toContinuedFraction().unaryDiv().shouldBe(
             listOf(ZERO, 2 over 1),
-            (2 over 1).toContinuedFraction().unaryDiv()
         )
-        assertEquals(
+        (1 over 2).toContinuedFraction().reciprocal.shouldBe(
             listOf(2 over 1),
-            (1 over 2).toContinuedFraction().reciprocal
         )
     }
 
     @Test
     fun `should present continued fraction following convention`() {
-        assertEquals(
-            "[3;]",
-            (3 over 1).toContinuedFraction().toString()
-        )
-        assertEquals(
+        (3 over 1).toContinuedFraction().toString().shouldBe("[3;]")
+        (3245 over 1000).toContinuedFraction().toString().shouldBe(
             "[3; 4, 12, 4]",
-            (3245 over 1000).toContinuedFraction().toString()
         )
     }
 
     @Test
     fun `should convert from continued fraction`() {
-        assertEquals(
-            (3245 over 1000),
-            FixedContinuedFraction.valueOf(
-                3.toBigInteger(),
-                4.toBigInteger(),
-                12.toBigInteger(),
-                4.toBigInteger()
-            ).toBigRational()
-        )
+        FixedContinuedFraction.valueOf(
+            3.toBigInteger(),
+            4.toBigInteger(),
+            12.toBigInteger(),
+            4.toBigInteger()
+        ).toBigRational().shouldBe((3245 over 1000))
     }
 
     @Test
     fun `should check if simple`() {
-        assertTrue((2 over 1).toContinuedFraction().isSimple())
-        assertFalse((2 over 3).toContinuedFraction().isSimple())
+        (2 over 1).toContinuedFraction().isSimple().shouldBeTrue()
+        (2 over 3).toContinuedFraction().isSimple().shouldBeFalse()
     }
 
     @Test
     fun `should converge`() {
-        assertEquals(2 over 1, eulerApproximation.convergent(0))
-        assertEquals(3 over 1, eulerApproximation.convergent(1))
-        assertEquals(8 over 3, eulerApproximation.convergent(2))
-        assertEquals(11 over 4, eulerApproximation.convergent(3))
-        assertEquals(19 over 7, eulerApproximation.convergent(4))
-        assertEquals(
+        eulerApproximation.convergent(0).shouldBe(2 over 1)
+        eulerApproximation.convergent(1).shouldBe(3 over 1)
+        eulerApproximation.convergent(2).shouldBe(8 over 3)
+        eulerApproximation.convergent(3).shouldBe(11 over 4)
+        eulerApproximation.convergent(4).shouldBe(19 over 7)
+        eulerApproximation.convergent(eulerApproximation.size - 1).shouldBe(
             eulerApproximation.toBigRational(),
-            eulerApproximation.convergent(
-                eulerApproximation.size - 1
-            )
         )
 
         val c1 = eulerApproximation.convergent(1)
         val c2 = eulerApproximation.convergent(2)
         val c3 = eulerApproximation.convergent(3)
-        assertEquals(
+        (c2.denominator * c1.numerator - c1.denominator * c2.numerator).shouldBe(
             1.big,
-            c2.denominator * c1.numerator - c1.denominator * c2.numerator
         )
-        assertEquals(
+        (c3.denominator * c2.numerator - c2.denominator * c3.numerator).shouldBe(
             -(1.big),
-            c3.denominator * c2.numerator - c2.denominator * c3.numerator
         )
 
-        assertThrows<IllegalStateException> {
+        shouldThrow<IllegalStateException> {
             eulerApproximation.convergent(-1)
         }
-        assertThrows<IllegalStateException> {
+        shouldThrow<IllegalStateException> {
             (ONE.toContinuedFraction()).convergent(1)
         }
     }
@@ -150,13 +130,10 @@ internal class FixedContinuedFractionTest {
         val decimalApproximation = 1_618_033 over 1_000_000
         val approximation = phi(10).toBigRational()
 
-        assertEquals(89 over 55, approximation)
-        assertEquals(
-            -1637 over 11000000,
-            decimalApproximation - approximation
-        )
+        approximation.shouldBe(89 over 55)
+        (decimalApproximation - approximation).shouldBe(-1637 over 11000000)
 
-        assertThrows<IllegalStateException> { phi(0) }
-        assertThrows<IllegalStateException> { phi(-1) }
+        shouldThrow<IllegalStateException> { phi(0) }
+        shouldThrow<IllegalStateException> { phi(-1) }
     }
 }
