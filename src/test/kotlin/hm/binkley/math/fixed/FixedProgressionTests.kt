@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
+// TODO: What goes wrong here?
+private const val shouldNotBeWorks = false
+
 @Nested
 class FixedProgressionTests {
-    // TODO: What goes wrong here?
-    private val shouldNotBeWorks = false
-
     @Suppress("ReplaceCallWithBinaryOperator")
     @Test
     fun `should be itself`() {
