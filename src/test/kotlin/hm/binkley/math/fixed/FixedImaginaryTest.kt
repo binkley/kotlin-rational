@@ -16,7 +16,7 @@ internal class FixedImaginaryTest {
     }
 
     @Test
-    fun `should display`() {
+    fun `should pretty print`() {
         assertEquals("1i", (+I).toString())
         assertEquals("-1i", (-I).toString())
         assertEquals("1i", (ONE.i).toString())

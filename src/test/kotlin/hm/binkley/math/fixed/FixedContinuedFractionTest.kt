@@ -74,10 +74,8 @@ internal class FixedContinuedFractionTest {
 
     @Test
     fun `should present continued fraction following convention`() {
-        (3 over 1).toContinuedFraction().toString().shouldBe("[3;]")
-        (3245 over 1000).toContinuedFraction().toString().shouldBe(
-            "[3; 4, 12, 4]",
-        )
+        "${(3 over 1).toContinuedFraction()}".shouldBe("[3;]")
+        "${(3245 over 1000).toContinuedFraction()}".shouldBe("[3; 4, 12, 4]")
     }
 
     @Test

@@ -4,9 +4,9 @@ import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.fixed.FixedImaginary.Companion.I
-import org.junit.jupiter.api.Assertions.assertEquals
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.math.BigDecimal
 
 private val ONE_PLUS_I = BRat.ONE + I
@@ -18,164 +18,168 @@ internal class FixedComplexTest {
     @Test
     fun `should destructure`() {
         val (real, imag) = ONE_PLUS_I
-        assertEquals(ONE_PLUS_I.real, real)
-        assertEquals(ONE_PLUS_I.imag, imag)
+        real.shouldBe(ONE_PLUS_I.real)
+        imag.shouldBe(ONE_PLUS_I.imag)
     }
 
     @Test
-    fun `should display`() {
-        assertEquals("1+1i", ONE_PLUS_I.toString())
-        assertEquals("1-1i", ONE_MINUS_I.toString())
+    fun `should pretty print`() {
+        "$ONE_PLUS_I".shouldBe("1+1i")
+        "$ONE_MINUS_I".shouldBe("1-1i")
     }
 
     @Test
     fun `should conjugate`() {
-        assertEquals(ONE_MINUS_I, ONE_PLUS_I.conjugate)
+        ONE_PLUS_I.conjugate.shouldBe(ONE_MINUS_I)
     }
 
     @Test
     fun `should determinate`() {
-        assertEquals(8 over 1, (2 + 2.i).det)
+        (2 + 2.i).det.shouldBe(8 over 1)
     }
 
     @Test
     fun `should absolve`() {
-        assertEquals(5 over 1, (3 + 4.i).absoluteValue)
+        (3 + 4.i).absoluteValue.shouldBe(5 over 1)
     }
 
     @Test
     fun `should absolve approximately`() {
-        assertEquals(
+        (8 + 25.i).modulusApproximated().shouldBe(
             BigDecimal("410137648387709") over BigDecimal("15625000000000"),
-            (8 + 25.i).modulusApproximated()
         )
 
         val jvmValue = BigDecimal("410137648387709")
             .divideAndRemainder(BigDecimal("15625000000000"))
-        assertEquals(BigDecimal.valueOf(26), jvmValue[0])
-        assertEquals(BigDecimal("3887648387709"), jvmValue[1])
+        jvmValue.shouldBe(
+            listOf(
+                BigDecimal.valueOf(26),
+                BigDecimal("3887648387709")
+            )
+        )
     }
 
     @Test
     fun `should reciprocate`() {
-        assertEquals((1 over 4) - (1 over 4).i, (2 + 2.i).unaryDiv())
-        assertEquals((1 over 4) - (1 over 4).i, (2 + 2.i).reciprocal)
+        (2 + 2.i).unaryDiv().shouldBe((1 over 4) - (1 over 4).i)
+        (2 + 2.i).reciprocal.shouldBe((1 over 4) - (1 over 4).i)
     }
 
     @Test
     fun `should posite`() {
-        assertEquals(ONE_PLUS_I, +ONE_PLUS_I)
+        (+ONE_PLUS_I).shouldBe(ONE_PLUS_I)
     }
 
     @Test
     fun `should negate`() {
-        assertEquals(NEG_ONE_MINUS_I, -ONE_PLUS_I)
+        (-ONE_PLUS_I).shouldBe(NEG_ONE_MINUS_I)
     }
 
     @Test
     fun `should add`() {
-        assertEquals(ONE_PLUS_I, I + BRat.ONE)
-        assertEquals(ONE_PLUS_I, 1.big + I)
-        assertEquals(ONE_PLUS_I, I + 1.big)
-        assertEquals(ONE_PLUS_I, 1L + I)
-        assertEquals(ONE_PLUS_I, I + 1L)
-        assertEquals(ONE_PLUS_I, 1 + I)
-        assertEquals(ONE_PLUS_I, I + 1)
-        assertEquals(2 + 2.i, ONE_PLUS_I + ONE_PLUS_I)
-        assertEquals(2 + 1.i, ONE_PLUS_I + BRat.ONE)
-        assertEquals(2 + 1.i, BRat.ONE + ONE_PLUS_I)
-        assertEquals(2 + 1.i, ONE_PLUS_I + 1.big)
-        assertEquals(2 + 1.i, 1.big + ONE_PLUS_I)
-        assertEquals(2 + 1.i, ONE_PLUS_I + 1L)
-        assertEquals(2 + 1.i, 1L + ONE_PLUS_I)
-        assertEquals(2 + 1.i, ONE_PLUS_I + 1)
-        assertEquals(2 + 1.i, 1 + ONE_PLUS_I)
-        assertEquals(1 + 2.i, ONE_PLUS_I + I)
-        assertEquals(1 + 2.i, I + ONE_PLUS_I)
+        (I + BRat.ONE).shouldBe(ONE_PLUS_I)
+        (1.big + I).shouldBe(ONE_PLUS_I)
+        (I + 1.big).shouldBe(ONE_PLUS_I)
+        (1L + I).shouldBe(ONE_PLUS_I)
+        (I + 1L).shouldBe(ONE_PLUS_I)
+        (1 + I).shouldBe(ONE_PLUS_I)
+        (I + 1).shouldBe(ONE_PLUS_I)
+        (ONE_PLUS_I + ONE_PLUS_I).shouldBe(2 + 2.i)
+        (ONE_PLUS_I + BRat.ONE).shouldBe(2 + 1.i)
+        (BRat.ONE + ONE_PLUS_I).shouldBe(2 + 1.i)
+        (ONE_PLUS_I + 1.big).shouldBe(2 + 1.i)
+        (1.big + ONE_PLUS_I).shouldBe(2 + 1.i)
+        (ONE_PLUS_I + 1L).shouldBe(2 + 1.i)
+        (1L + ONE_PLUS_I).shouldBe(2 + 1.i)
+        (ONE_PLUS_I + 1).shouldBe(2 + 1.i)
+        (1 + ONE_PLUS_I).shouldBe(2 + 1.i)
+        (ONE_PLUS_I + I).shouldBe(1 + 2.i)
+        (I + ONE_PLUS_I).shouldBe(1 + 2.i)
     }
 
     @Test
     fun `should subtract`() {
-        assertEquals(NEG_ONE_PLUS_I, I - BRat.ONE)
-        assertEquals(ONE_MINUS_I, 1.big - I)
-        assertEquals(NEG_ONE_PLUS_I, I - 1.big)
-        assertEquals(ONE_MINUS_I, 1L - I)
-        assertEquals(NEG_ONE_PLUS_I, I - 1L)
-        assertEquals(ONE_MINUS_I, 1 - I)
-        assertEquals(NEG_ONE_PLUS_I, I - 1)
-        assertEquals(0 + 0.i, ONE_PLUS_I - ONE_PLUS_I)
-        assertEquals(0 + I, ONE_PLUS_I - BRat.ONE)
-        assertEquals(0 + I, BRat.ONE - ONE_MINUS_I)
-        assertEquals(0 + I, ONE_PLUS_I - 1.big)
-        assertEquals(0 + I, 1.big - ONE_MINUS_I)
-        assertEquals(0 + I, ONE_PLUS_I - 1L)
-        assertEquals(0 + I, 1L - ONE_MINUS_I)
-        assertEquals(0 + I, ONE_PLUS_I - 1)
-        assertEquals(0 + I, 1 - ONE_MINUS_I)
-        assertEquals(1 + 0.i, ONE_PLUS_I - I)
-        assertEquals(-1 + 0.i, I - ONE_PLUS_I)
+        (I - BRat.ONE).shouldBe(NEG_ONE_PLUS_I)
+        (1.big - I).shouldBe(ONE_MINUS_I)
+        (I - 1.big).shouldBe(NEG_ONE_PLUS_I)
+        (1L - I).shouldBe(ONE_MINUS_I)
+        (I - 1L).shouldBe(NEG_ONE_PLUS_I)
+        (1 - I).shouldBe(ONE_MINUS_I)
+        (I - 1).shouldBe(NEG_ONE_PLUS_I)
+        (ONE_PLUS_I - ONE_PLUS_I).shouldBe(0 + 0.i)
+        (ONE_PLUS_I - BRat.ONE).shouldBe(0 + I)
+        (BRat.ONE - ONE_MINUS_I).shouldBe(0 + I)
+        (ONE_PLUS_I - 1.big).shouldBe(0 + I)
+        (1.big - ONE_MINUS_I).shouldBe(0 + I)
+        (ONE_PLUS_I - 1L).shouldBe(0 + I)
+        (1L - ONE_MINUS_I).shouldBe(0 + I)
+        (ONE_PLUS_I - 1).shouldBe(0 + I)
+        (1 - ONE_MINUS_I).shouldBe(0 + I)
+        (ONE_PLUS_I - I).shouldBe(1 + 0.i)
+        (I - ONE_PLUS_I).shouldBe(-1 + 0.i)
     }
 
     @Test
     fun `should multiply`() {
-        assertEquals(0 + 2.i, ONE_PLUS_I * ONE_PLUS_I)
-        assertEquals(2 + 2.i, TWO * ONE_PLUS_I)
-        assertEquals(2 + 2.i, ONE_PLUS_I * TWO)
-        assertEquals(2 + 2.i, 2.big * ONE_PLUS_I)
-        assertEquals(2 + 2.i, ONE_PLUS_I * 2.big)
-        assertEquals(2 + 2.i, 2L * ONE_PLUS_I)
-        assertEquals(2 + 2.i, ONE_PLUS_I * 2L)
-        assertEquals(2 + 2.i, 2 * ONE_PLUS_I)
-        assertEquals(2 + 2.i, ONE_PLUS_I * 2)
-        assertEquals(-2 + 2.i, ONE_PLUS_I * 2.i)
-        assertEquals(-2 + 2.i, 2.i * ONE_PLUS_I)
+        (ONE_PLUS_I * ONE_PLUS_I).shouldBe(0 + 2.i)
+        (TWO * ONE_PLUS_I).shouldBe(2 + 2.i)
+        (ONE_PLUS_I * TWO).shouldBe(2 + 2.i)
+        (2.big * ONE_PLUS_I).shouldBe(2 + 2.i)
+        (ONE_PLUS_I * 2.big).shouldBe(2 + 2.i)
+        (2L * ONE_PLUS_I).shouldBe(2 + 2.i)
+        (ONE_PLUS_I * 2L).shouldBe(2 + 2.i)
+        (2 * ONE_PLUS_I).shouldBe(2 + 2.i)
+        (ONE_PLUS_I * 2).shouldBe(2 + 2.i)
+        (ONE_PLUS_I * 2.i).shouldBe(-2 + 2.i)
+        (2.i * ONE_PLUS_I).shouldBe(-2 + 2.i)
     }
 
     @Test
     fun `should divide`() {
         val half = 1 over 2
-        assertEquals(1 + 0.i, ONE_PLUS_I / ONE_PLUS_I)
-        assertEquals(half + half.i, TWO / ONE_PLUS_I)
-        assertEquals(half + half.i, ONE_PLUS_I / TWO)
-        assertEquals(half + half.i, 2.big / ONE_PLUS_I)
-        assertEquals(half + half.i, ONE_PLUS_I / 2.big)
-        assertEquals(half + half.i, 2L / ONE_PLUS_I)
-        assertEquals(half + half.i, ONE_PLUS_I / 2L)
-        assertEquals(half + half.i, 2 / ONE_PLUS_I)
-        assertEquals(half + half.i, ONE_PLUS_I / 2)
-        assertEquals(half - half.i, ONE_PLUS_I / 2.i)
-        assertEquals(half - half.i, 2.i / ONE_PLUS_I)
+        (ONE_PLUS_I / ONE_PLUS_I).shouldBe(1 + 0.i)
+        (TWO / ONE_PLUS_I).shouldBe(half + half.i)
+        (ONE_PLUS_I / TWO).shouldBe(half + half.i)
+        (2.big / ONE_PLUS_I).shouldBe(half + half.i)
+        (ONE_PLUS_I / 2.big).shouldBe(half + half.i)
+        (2L / ONE_PLUS_I).shouldBe(half + half.i)
+        (ONE_PLUS_I / 2L).shouldBe(half + half.i)
+        (2 / ONE_PLUS_I).shouldBe(half + half.i)
+        (ONE_PLUS_I / 2).shouldBe(half + half.i)
+        (ONE_PLUS_I / 2.i).shouldBe(half - half.i)
+        (2.i / ONE_PLUS_I).shouldBe(half - half.i)
     }
 
     @Test
     fun `should convert`() {
         val one = ONE + 0.i
-        assertEquals(BRat.ONE, one.toBigRational())
-        assertEquals(1.big, one.toBigInteger())
-        assertEquals(1L, one.toLong())
-        assertEquals(1, one.toInt())
-        assertEquals(1.i, (0 + 1.i).toImaginary())
+        one.toBigRational().shouldBe(BRat.ONE)
+        one.toBigInteger().shouldBe(1.big)
+        one.toLong().shouldBe(1L)
+        one.toInt().shouldBe(1)
+        (0 + 1.i).toImaginary().shouldBe(1.i)
         // Sad paths
-        assertThrows<ArithmeticException> { ONE_PLUS_I.toBigRational() }
-        assertThrows<ArithmeticException> { ONE_PLUS_I.toBigInteger() }
-        assertThrows<ArithmeticException> { ONE_PLUS_I.toLong() }
-        assertThrows<ArithmeticException> { ONE_PLUS_I.toInt() }
-        assertThrows<ArithmeticException> { ONE_PLUS_I.toImaginary() }
+        shouldThrow<ArithmeticException> { ONE_PLUS_I.toBigRational() }
+        shouldThrow<ArithmeticException> { ONE_PLUS_I.toBigInteger() }
+        shouldThrow<ArithmeticException> { ONE_PLUS_I.toLong() }
+        shouldThrow<ArithmeticException> { ONE_PLUS_I.toInt() }
+        shouldThrow<ArithmeticException> { ONE_PLUS_I.toImaginary() }
     }
 
     @Test
     fun `should raise`() {
         val half = 1 over 2
-        assertEquals(1 + 0.i, ONE_PLUS_I.pow(0))
-        assertEquals(ONE_PLUS_I, ONE_PLUS_I.pow(1))
-        assertEquals(half - half.i, ONE_PLUS_I.pow(-1))
-        assertEquals(0 + 2.i, ONE_PLUS_I.pow(2))
-        assertEquals(0 - half.i, ONE_PLUS_I.pow(-2))
+        ONE_PLUS_I.pow(0).shouldBe(1 + 0.i)
+        ONE_PLUS_I.pow(1).shouldBe(ONE_PLUS_I)
+        ONE_PLUS_I.pow(-1).shouldBe(half - half.i)
+        ONE_PLUS_I.pow(2).shouldBe(0 + 2.i)
+        ONE_PLUS_I.pow(-2).shouldBe(0 - half.i)
     }
 
     @Test
     fun `should square root approximately`() {
         val root = 1 + 2.i
-        assertEquals(root, (root * root).sqrtApproximated())
+
+        (root * root).sqrtApproximated().shouldBe(root)
     }
 }
