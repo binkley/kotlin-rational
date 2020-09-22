@@ -3,7 +3,7 @@
 package hm.binkley.math.floating
 
 import hm.binkley.math.BInt
-import hm.binkley.math.`**` // ktlint-disable no-wildcard-imports
+import hm.binkley.math.`**`
 import hm.binkley.math.backAgain
 import hm.binkley.math.big
 import hm.binkley.math.ceil
@@ -32,16 +32,20 @@ import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
 import hm.binkley.math.times
 import hm.binkley.math.truncate
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.jupiter.api.Assertions.assertNotEquals
-import org.junit.jupiter.api.Assertions.assertSame
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 private typealias BigRationalAssertion = (FloatingBigRational) -> Unit
+
+// TODO: What goes wrong here?
+private const val shouldNotBeWorks = false
 
 /**
  * NB -- the tests use a mixture of constructors while testing functionality.
@@ -51,212 +55,127 @@ internal class FloatingBigRationalTest {
     @Nested
     inner class ConstructionTests {
         @Test
-        fun `should construct NaN`() {
-            assertSame(
-                NaN,
-                0 over 0
-            )
+        fun `should use constant NaN`() {
+            (0 over 0).shouldBeSameInstanceAs(NaN)
         }
 
         @Test
-        fun `should construct Infinity`() {
-            assertSame(
+        fun `should use constant Infinity`() {
+            (Long.MAX_VALUE over 0L).shouldBeSameInstanceAs(
                 POSITIVE_INFINITY,
-                Long.MAX_VALUE over 0L
             )
         }
 
         @Test
-        fun `should construct -Infinity`() {
-            assertSame(
+        fun `should use constant -Infinity`() {
+            (Long.MIN_VALUE over 0.big).shouldBeSameInstanceAs(
                 NEGATIVE_INFINITY,
-                Long.MIN_VALUE over 0.big
             )
         }
 
         @Test
-        fun `should construct 0`() {
-            assertSame(
-                ZERO,
-                0L over Long.MIN_VALUE
-            )
+        fun `should use constant 0`() {
+            (0L over Long.MIN_VALUE).shouldBeSameInstanceAs(ZERO)
         }
 
         @Test
-        fun `should construct 1`() {
-            assertSame(
-                ONE,
-                1.big over 1
-            )
-            assertSame(
-                ONE,
-                -1 over -1
-            )
+        fun `should use constant 1`() {
+            (1.big over 1).shouldBeSameInstanceAs(ONE)
+            (-1 over -1).shouldBeSameInstanceAs(ONE)
         }
 
         @Test
-        fun `should construct 2`() {
-            assertSame(
-                TWO,
-                2.big over 1
-            )
-            assertSame(
-                TWO,
-                -2 over -1
-            )
+        fun `should use constant 2`() {
+            (2.big over 1).shouldBeSameInstanceAs(TWO)
+            (-2 over -1).shouldBeSameInstanceAs(TWO)
         }
 
         @Test
-        fun `should construct 10`() {
-            assertSame(
-                TEN,
-                10.big over 1
-            )
-            assertSame(
-                TEN,
-                -10 over -1
-            )
+        fun `should use constant 10`() {
+            (10.big over 1).shouldBeSameInstanceAs(TEN)
+            (-10 over -1).shouldBeSameInstanceAs(TEN)
         }
 
         @Test
         fun `should be a number`() {
-            assertEquals(1L.toByte(), (11 over 10).toByte())
-            assertEquals(1L.toShort(), (11 over 10).toShort())
-            assertEquals(1L.toInt(), (11 over 10).toInt())
-            assertEquals(1L, (11 over 10).toLong())
-            assertEquals(1.1.toFloat(), (11 over 10).toFloat())
-            assertEquals(1.1, (11 over 10).toDouble())
-            assertEquals(Double.NaN, NaN.toDouble())
-            assertEquals(
+            (11 over 10).toByte().shouldBe(1L.toByte())
+            (11 over 10).toShort().shouldBe(1L.toShort())
+            (11 over 10).toInt().shouldBe(1L.toInt())
+            (11 over 10).toLong().shouldBe(1L)
+            (11 over 10).toFloat().shouldBe(1.1.toFloat())
+            (11 over 10).toDouble().shouldBe(1.1)
+            NaN.toDouble().shouldBe(Double.NaN)
+            POSITIVE_INFINITY.toDouble().shouldBe(
                 Double.POSITIVE_INFINITY,
-                POSITIVE_INFINITY.toDouble()
             )
-            assertEquals(
+            NEGATIVE_INFINITY.toDouble().shouldBe(
                 Double.NEGATIVE_INFINITY,
-                NEGATIVE_INFINITY.toDouble()
             )
-            assertEquals(
-                Long.MAX_VALUE,
-                POSITIVE_INFINITY.toLong()
-            )
-            assertEquals(
-                Long.MIN_VALUE,
-                NEGATIVE_INFINITY.toLong()
-            )
+            POSITIVE_INFINITY.toLong().shouldBe(Long.MAX_VALUE)
+            NEGATIVE_INFINITY.toLong().shouldBe(Long.MIN_VALUE)
         }
 
         @Test
         fun `should not be a character`() {
-            assertThrows<IllegalStateException> {
+            shouldThrow<IllegalStateException> {
                 ONE.toChar()
             }
         }
 
         @Test
-        fun `should reduce fractions`() {
-            assertEquals(
-                2 over 1,
-                4.big over 2.big
-            )
-        }
-
-        @Test
         fun `should simplify fractions`() {
-            assertEquals(
-                1 over 2.big,
-                4.big over 8L
-            )
-            assertEquals(
-                2.big,
-                (4L over 8).denominator
-            )
+            (4.big over 2.big).shouldBe(2 over 1)
+            (4.big over 8L).shouldBe(1 over 2.big)
+            ((4L over 8).denominator).shouldBe(2.big)
         }
 
         @Test
         fun `should maintain positive denominator`() {
-            assertEquals(
-                -ONE,
-                +(4 over -4L)
-            )
-            assertEquals(
-                -ONE,
-                +(-4 over 4L)
-            )
-            assertEquals(
-                ONE,
-                (-4 over -4)
-            )
+            (+(4 over -4L)).shouldBe(-ONE)
+            (+(-4 over 4L)).shouldBe(-ONE)
+            ((-4 over -4)).shouldBe(ONE)
         }
     }
 
     @Suppress("ReplaceCallWithBinaryOperator")
     @Test
     fun `should be itself`() {
-        assertTrue(1 over 2 == 1 over 2)
-        assertTrue(1 over 2 == +(1 over 2))
-        assertTrue(1 over 2 == -(-(1 over 2)))
-        assertTrue(ZERO == ZERO)
-        assertTrue(ONE == ONE)
-        assertFalse(ZERO.equals(0))
-        assertFalse((2 over 3) == (2 over 5))
+        (1 over 2).shouldBe(1 over 2)
+        (+(1 over 2)).shouldBe(1 over 2)
+        (-(-(1 over 2))).shouldBe(1 over 2)
+        0.shouldNotBe(ZERO)
+        (2 over 5).shouldNotBe(2 over 3)
     }
 
     @Test
     fun `should hash separately`() {
-        assertNotEquals((1 over 2).hashCode(), (1 over 3).hashCode())
-        assertNotEquals(
-            POSITIVE_INFINITY.hashCode(),
-            NEGATIVE_INFINITY.hashCode()
-        )
+        (1 over 3).hashCode().shouldNotBe((1 over 2).hashCode())
+        NEGATIVE_INFINITY.hashCode().shouldNotBe(POSITIVE_INFINITY.hashCode())
     }
 
     @Test
     fun `should not be a floating big rational`() {
-        assertFalse(
-            (1 over 1).hashCode() == FixedBigRational.valueOf(
-                1.big,
-                1.big
-            ).hashCode()
+        FixedBigRational.valueOf(
+            1.big,
+            1.big
+        ).hashCode().shouldNotBe((1 over 1).hashCode())
+        (FixedBigRational.ONE..FixedBigRational.TWO).shouldNotBe(
+            ONE..TWO
         )
-        assertFalse(
-            ONE..TWO == FixedBigRational.ONE..FixedBigRational.TWO
-        )
-        assertFalse(
-            (ONE..TWO).hashCode() ==
-                (FixedBigRational.ONE..FixedBigRational.TWO).hashCode()
+        (FixedBigRational.ONE..FixedBigRational.TWO).hashCode().shouldNotBe(
+            (ONE..TWO).hashCode()
         )
     }
 
     @Test
     fun `should pretty print`() {
-        assertEquals(
-            "0",
-            ZERO.toString()
-        )
-        assertEquals(
-            "2",
-            (2 over 1).toString()
-        )
-        assertEquals(
-            "1⁄2",
-            (1 over 2).toString()
-        )
-        assertEquals(
-            "-1⁄2",
-            (1 over -2).toString()
-        )
-        assertEquals(
-            "Infinity",
-            POSITIVE_INFINITY.toString()
-        )
-        assertEquals(
-            "-Infinity",
-            NEGATIVE_INFINITY.toString()
-        )
-        assertEquals(
-            "NaN",
-            NaN.toString()
-        )
+        (ZERO.toString()).shouldBe("0")
+        ((2 over 1).toString()).shouldBe("2")
+        ((1 over 2).toString()).shouldBe("1⁄2")
+        ((1 over -2).toString()).shouldBe("-1⁄2")
+        (POSITIVE_INFINITY.toString()).shouldBe("Infinity")
+        (NEGATIVE_INFINITY.toString()).shouldBe("-Infinity")
+        (NaN.toString()).shouldBe("NaN")
     }
 
     @Test
@@ -266,80 +185,52 @@ internal class FloatingBigRationalTest {
         val fiveSevenths = 5 over 7
 
         // Associativity
-        assertEquals(
+        ((twoThirds + threeHalves) + fiveSevenths).shouldBe(
             twoThirds + (threeHalves + fiveSevenths),
-            (twoThirds + threeHalves) + fiveSevenths
         )
-        assertEquals(
+        ((twoThirds * threeHalves) * fiveSevenths).shouldBe(
             twoThirds * (threeHalves * fiveSevenths),
-            (twoThirds * threeHalves) * fiveSevenths
         )
 
         // Commutativity
-        assertEquals(
-            twoThirds + threeHalves,
-            threeHalves + twoThirds
-        )
-        assertEquals(
-            twoThirds * threeHalves,
-            threeHalves * twoThirds
-        )
+        (threeHalves + twoThirds).shouldBe(twoThirds + threeHalves)
+        (threeHalves * twoThirds).shouldBe(twoThirds * threeHalves)
 
         // Identities
-        assertEquals(
-            twoThirds,
-            twoThirds + ZERO
-        )
-        assertEquals(
-            twoThirds,
-            twoThirds * ONE
-        )
+        (twoThirds + ZERO).shouldBe(twoThirds)
+        (twoThirds * ONE).shouldBe(twoThirds)
 
         // Inverses
-        assertEquals(
-            ZERO,
-            twoThirds + -twoThirds
-        )
-        assertEquals(
-            ONE,
-            twoThirds * twoThirds.unaryDiv()
-        )
+        (twoThirds + -twoThirds).shouldBe(ZERO)
+        (twoThirds * twoThirds.unaryDiv()).shouldBe(ONE)
 
         // Distributive
-        assertEquals(
+        ((twoThirds + threeHalves) * fiveSevenths).shouldBe(
             twoThirds * fiveSevenths + threeHalves * fiveSevenths,
-            (twoThirds + threeHalves) * fiveSevenths
         )
 
-        assertEquals(
-            ZERO,
-            ONE + -ONE
-        )
+        (ONE + -ONE).shouldBe(ZERO)
     }
 
     @Test
     fun `should divide with remainder`() {
-        assertEquals(
+        (13 over 2).divideAndRemainder(3 over 1).shouldBe(
             (2 over 1) to (1 over 2),
-            (13 over 2).divideAndRemainder(3 over 1)
         )
-        assertEquals(
+        (-13 over 2).divideAndRemainder(-3 over 1).shouldBe(
             (2 over 1) to (-1 over 2),
-            (-13 over 2).divideAndRemainder(-3 over 1)
         )
-        assertEquals(
+        (-13 over 2).divideAndRemainder(3 over 1).shouldBe(
             (-2 over 1) to (-1 over 2),
-            (-13 over 2).divideAndRemainder(3 over 1)
         )
-        assertEquals(
+        (13 over 2).divideAndRemainder(-3 over 1).shouldBe(
             (-2 over 1) to (1 over 2),
-            (13 over 2).divideAndRemainder(-3 over 1)
         )
 
         fun nonFiniteCheck(
             dividend: FloatingBigRational,
             divisor: FloatingBigRational,
-            assertion: BigRationalAssertion
+            assertion: BigRationalAssertion,
         ) {
             val (quotient, remainder) = dividend.divideAndRemainder(divisor)
             assertion(quotient)
@@ -379,410 +270,213 @@ internal class FloatingBigRationalTest {
     inner class OperatorTests {
         @Test
         fun `should do nothing arithmetically`() {
-            val rightsideUp = 2 over 3
-            val noChange = +rightsideUp
+            val rightSideUp = 2 over 3
+            val noChange = +rightSideUp
 
-            assertEquals(
-                rightsideUp.numerator,
-                noChange.numerator
-            )
-            assertEquals(
-                rightsideUp.denominator,
-                noChange.denominator
-            )
+            noChange.numerator.shouldBe(rightSideUp.numerator)
+            noChange.denominator.shouldBe(rightSideUp.denominator)
         }
 
         @Test
         fun `should invert arithmetically`() {
-            val rightsideUp = 2 over 3
-            val upsideDown = -rightsideUp
+            val rightSideUp = 2 over 3
+            val upsideDown = -rightSideUp
 
-            assertEquals(
-                rightsideUp.numerator.negate(),
-                upsideDown.numerator
-            )
-            assertEquals(
-                rightsideUp.denominator,
-                upsideDown.denominator
-            )
+            upsideDown.numerator.shouldBe(rightSideUp.numerator.negate())
+            upsideDown.denominator.shouldBe(rightSideUp.denominator)
         }
 
         @Test
         fun `should invert multiplicatively`() {
-            val rightsideUp = 2 over 3
-            val upsideDown = rightsideUp.unaryDiv()
+            val rightSideUp = 2 over 3
+            val upsideDown = rightSideUp.unaryDiv()
 
-            assertEquals(
-                rightsideUp.denominator,
-                upsideDown.numerator
-            )
-            assertEquals(
-                rightsideUp.numerator,
-                upsideDown.denominator
-            )
+            upsideDown.numerator.shouldBe(rightSideUp.denominator)
+            upsideDown.denominator.shouldBe(rightSideUp.numerator)
         }
 
         @Test
         fun `should add`() {
-            assertEquals(
-                19 over 15,
-                (3 over 5) + (2 over 3)
-            )
-            assertEquals(
-                2 over 1,
-                1.0.big + ONE
-            )
-            assertEquals(
-                11 over 1,
-                ONE + 10.0.big
-            )
-            assertEquals(
-                2 over 1,
-                1.0 + ONE
-            )
-            assertEquals(
-                2 over 1,
-                ONE + 1.0
-            )
-            assertEquals(
-                2 over 1,
-                1.0f + ONE
-            )
-            assertEquals(
-                2 over 1,
-                ONE + 1.0f
-            )
-            assertEquals(
-                2 over 1,
-                1.big + ONE
-            )
-            assertEquals(
-                2 over 1,
-                ONE + 1.big
-            )
-            assertEquals(
-                2 over 1,
-                1L + ONE
-            )
-            assertEquals(
-                2 over 1,
-                ONE + 1L
-            )
-            assertEquals(
-                2 over 1,
-                1 + ONE
-            )
-            assertEquals(
-                2 over 1,
-                ONE + 1
-            )
-            assertTrue((ONE + POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue(
-                (POSITIVE_INFINITY + POSITIVE_INFINITY).isPositiveInfinity()
-            )
-            assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
-            assertTrue((ONE + NEGATIVE_INFINITY).isNegativeInfinity())
-            assertTrue(
-                (NEGATIVE_INFINITY + NEGATIVE_INFINITY).isNegativeInfinity()
-            )
-            assertTrue((NEGATIVE_INFINITY + POSITIVE_INFINITY).isNaN())
+            ((3 over 5) + (2 over 3)).shouldBe(19 over 15)
+            (1.0.big + ONE).shouldBe(2 over 1)
+            (ONE + 10.0.big).shouldBe(11 over 1)
+            (1.0 + ONE).shouldBe(2 over 1)
+            (ONE + 1.0).shouldBe(2 over 1)
+            (1.0f + ONE).shouldBe(2 over 1)
+            (ONE + 1.0f).shouldBe(2 over 1)
+            (1.big + ONE).shouldBe(2 over 1)
+            (ONE + 1.big).shouldBe(2 over 1)
+            (1L + ONE).shouldBe(2 over 1)
+            (ONE + 1L).shouldBe(2 over 1)
+            (1 + ONE).shouldBe(2 over 1)
+            (ONE + 1).shouldBe(2 over 1)
+            (ONE + POSITIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY + POSITIVE_INFINITY).isPositiveInfinity()
+                .shouldBeTrue()
+            (POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (ONE + NEGATIVE_INFINITY).isNegativeInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY + NEGATIVE_INFINITY).isNegativeInfinity()
+                .shouldBeTrue()
+            (NEGATIVE_INFINITY + POSITIVE_INFINITY).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should subtract`() {
-            assertEquals(
-                -1 over 15,
-                (3 over 5) - (2 over 3)
-            )
-            assertEquals(
-                ZERO,
-                1.0.big - ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE - 1.0.big
-            )
-            assertEquals(
-                ZERO,
-                1.0 - ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE - 1.0
-            )
-            assertEquals(
-                ZERO,
-                1.0f - ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE - 1.0f
-            )
-            assertEquals(
-                ZERO,
-                1.big - ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE - 1.big
-            )
-            assertEquals(
-                ZERO,
-                1L - ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE - 1L
-            )
-            assertEquals(
-                ZERO,
-                1 - ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE - 1
-            )
-            assertTrue((POSITIVE_INFINITY - ONE).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY - POSITIVE_INFINITY).isNaN())
-            assertTrue(
-                (POSITIVE_INFINITY - NEGATIVE_INFINITY).isPositiveInfinity()
-            )
-            assertTrue((NEGATIVE_INFINITY - ONE).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY - NEGATIVE_INFINITY).isNaN())
-            assertTrue(
-                (NEGATIVE_INFINITY - POSITIVE_INFINITY).isNegativeInfinity()
-            )
+            ((3 over 5) - (2 over 3)).shouldBe(-1 over 15)
+            (1.0.big - ONE).shouldBe(ZERO)
+            (ONE - 1.0.big).shouldBe(ZERO)
+            (1.0 - ONE).shouldBe(ZERO)
+            (ONE - 1.0).shouldBe(ZERO)
+            (1.0f - ONE).shouldBe(ZERO)
+            (ONE - 1.0f).shouldBe(ZERO)
+            (1.big - ONE).shouldBe(ZERO)
+            (ONE - 1.big).shouldBe(ZERO)
+            (1L - ONE).shouldBe(ZERO)
+            (ONE - 1L).shouldBe(ZERO)
+            (1 - ONE).shouldBe(ZERO)
+            (ONE - 1).shouldBe(ZERO)
+            (POSITIVE_INFINITY - ONE).isPositiveInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY - POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY - NEGATIVE_INFINITY).isPositiveInfinity()
+                .shouldBeTrue()
+            (NEGATIVE_INFINITY - ONE).isNegativeInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY - NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (NEGATIVE_INFINITY - POSITIVE_INFINITY).isNegativeInfinity()
+                .shouldBeTrue()
         }
 
         @Test
         fun `should multiply`() {
-            assertEquals(
-                2 over 5,
-                (3 over 5) * (2 over 3)
-            )
-            assertEquals(
-                ONE,
-                1.0.big * ONE
-            )
-            assertEquals(
-                ONE,
-                ONE * 1.0.big
-            )
-            assertEquals(
-                ONE,
-                1.0 * ONE
-            )
-            assertEquals(
-                ONE,
-                ONE * 1.0
-            )
-            assertEquals(
-                ONE,
-                1.0f * ONE
-            )
-            assertEquals(
-                ONE,
-                ONE * 1.0f
-            )
-            assertEquals(
-                ONE,
-                1.big * ONE
-            )
-            assertEquals(
-                ONE,
-                ONE * 1.big
-            )
-            assertEquals(
-                ONE,
-                1L * ONE
-            )
-            assertEquals(
-                ONE,
-                ONE * 1L
-            )
-            assertEquals(
-                ONE,
-                1 * ONE
-            )
-            assertEquals(
-                ONE,
-                ONE * 1
-            )
-            assertTrue((ONE * POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue((ONE * NEGATIVE_INFINITY).isNegativeInfinity())
-            assertTrue((ZERO * POSITIVE_INFINITY).isNaN())
-            assertTrue((POSITIVE_INFINITY * ZERO).isNaN())
-            assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
-            assertTrue((NEGATIVE_INFINITY * ZERO).isNaN())
-            assertTrue(
-                (POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity()
-            )
+            ((3 over 5) * (2 over 3)).shouldBe(2 over 5)
+            (1.0.big * ONE).shouldBe(ONE)
+            (ONE * 1.0.big).shouldBe(ONE)
+            (1.0 * ONE).shouldBe(ONE)
+            (ONE * 1.0).shouldBe(ONE)
+            (1.0f * ONE).shouldBe(ONE)
+            (ONE * 1.0f).shouldBe(ONE)
+            (1.big * ONE).shouldBe(ONE)
+            (ONE * 1.big).shouldBe(ONE)
+            (1L * ONE).shouldBe(ONE)
+            (ONE * 1L).shouldBe(ONE)
+            (1 * ONE).shouldBe(ONE)
+            (ONE * 1).shouldBe(ONE)
+            (ONE * POSITIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
+            (ONE * NEGATIVE_INFINITY).isNegativeInfinity().shouldBeTrue()
+            (ZERO * POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY * ZERO).isNaN().shouldBeTrue()
+            (ZERO * NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (NEGATIVE_INFINITY * ZERO).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity()
+                .shouldBeTrue()
         }
 
         @Test
         fun `should divide`() {
-            assertTrue((ONE / NaN).isNaN())
-            assertTrue((ZERO / ZERO).isNaN())
-            assertEquals(
-                ZERO,
-                ZERO / POSITIVE_INFINITY
-            )
-            assertTrue((ONE / ZERO).isPositiveInfinity())
-            assertTrue((POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN())
-            assertEquals(
-                ZERO,
-                ZERO / NEGATIVE_INFINITY
-            )
-            assertTrue((-ONE / ZERO).isNegativeInfinity())
-            assertTrue((NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
-            assertEquals(
-                9 over 10,
-                (3 over 5) / (2 over 3)
-            )
-            assertEquals(
-                ONE,
-                1.0.big / ONE
-            )
-            assertEquals(
-                ONE,
-                ONE / 1.0.big
-            )
-            assertEquals(
-                ONE,
-                1.0 / ONE
-            )
-            assertEquals(
-                ONE,
-                ONE / 1.0
-            )
-            assertEquals(
-                ONE,
-                1.0f / ONE
-            )
-            assertEquals(
-                ONE,
-                ONE / 1.0f
-            )
-            assertEquals(
-                ONE,
-                1.big / ONE
-            )
-            assertEquals(
-                ONE,
-                ONE / 1.big
-            )
-            assertEquals(
-                ONE,
-                1L / ONE
-            )
-            assertEquals(
-                ONE,
-                ONE / 1L
-            )
-            assertEquals(
-                ONE,
-                1 / ONE
-            )
-            assertEquals(
-                ONE,
-                ONE / 1
-            )
+            (ONE / NaN).isNaN().shouldBeTrue()
+            (ZERO / ZERO).isNaN().shouldBeTrue()
+            (ZERO / POSITIVE_INFINITY).shouldBe(ZERO)
+            (ONE / ZERO).isPositiveInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (ZERO / NEGATIVE_INFINITY).shouldBe(ZERO)
+            (-ONE / ZERO).isNegativeInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            ((3 over 5) / (2 over 3)).shouldBe(9 over 10)
+            (1.0.big / ONE).shouldBe(ONE)
+            (ONE / 1.0.big).shouldBe(ONE)
+            (1.0 / ONE).shouldBe(ONE)
+            (ONE / 1.0).shouldBe(ONE)
+            (1.0f / ONE).shouldBe(ONE)
+            (ONE / 1.0f).shouldBe(ONE)
+            (1.big / ONE).shouldBe(ONE)
+            (ONE / 1.big).shouldBe(ONE)
+            (1L / ONE).shouldBe(ONE)
+            (ONE / 1L).shouldBe(ONE)
+            (1 / ONE).shouldBe(ONE)
+            (ONE / 1).shouldBe(ONE)
         }
 
         @Test
         fun `should find remainder`() {
-            assertTrue((ONE % NaN).isNaN())
-            assertEquals(
-                ZERO,
-                ONE % POSITIVE_INFINITY
-            )
-            assertEquals(
-                ZERO,
-                ONE % NEGATIVE_INFINITY
-            )
+            (ONE % NaN).isNaN().shouldBeTrue()
+            (ONE % POSITIVE_INFINITY).shouldBe(ZERO)
+            (ONE % NEGATIVE_INFINITY).shouldBe(ZERO)
 
-            assertEquals(
-                ZERO,
-                (3 over 5) % (2 over 3)
-            )
-            assertEquals(
-                ZERO,
-                1.0.big % ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE % 1.0.big
-            )
-            assertEquals(
-                ZERO,
-                1.0 % ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE % 1.0
-            )
-            assertEquals(
-                ZERO,
-                1.0f % ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE % 1.0f
-            )
-            assertEquals(
-                ZERO,
-                1.big % ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE % 1.big
-            )
-            assertEquals(
-                ZERO,
-                1L % ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE % 1L
-            )
-            assertEquals(
-                ZERO,
-                1 % ONE
-            )
-            assertEquals(
-                ZERO,
-                ONE % 1
-            )
+            ((3 over 5) % (2 over 3)).shouldBe(ZERO)
+            (1.0.big % ONE).shouldBe(ZERO)
+            (ONE % 1.0.big).shouldBe(ZERO)
+            (1.0 % ONE).shouldBe(ZERO)
+            (ONE % 1.0).shouldBe(ZERO)
+            (1.0f % ONE).shouldBe(ZERO)
+            (ONE % 1.0f).shouldBe(ZERO)
+            (1.big % ONE).shouldBe(ZERO)
+            (ONE % 1.big).shouldBe(ZERO)
+            (1L % ONE).shouldBe(ZERO)
+            (ONE % 1L).shouldBe(ZERO)
+            (1 % ONE).shouldBe(ZERO)
+            (ONE % 1).shouldBe(ZERO)
         }
 
         @Test
         fun `should increment`() {
             var a = 1L.toBigRational()
-            assertEquals(
-                2 over 1,
-                ++a
-            )
+            (++a).shouldBe(2 over 1)
             var nonFinite = NaN
-            assertTrue((++nonFinite).isNaN())
+            (++nonFinite).isNaN().shouldBeTrue()
             nonFinite = POSITIVE_INFINITY
-            assertTrue((++nonFinite).isPositiveInfinity())
+            (++nonFinite).isPositiveInfinity().shouldBeTrue()
             nonFinite = NEGATIVE_INFINITY
-            assertTrue((++nonFinite).isNegativeInfinity())
+            (++nonFinite).isNegativeInfinity().shouldBeTrue()
         }
 
         @Test
         fun `should decrement`() {
             var a = ONE
-            assertEquals(
-                ZERO,
-                --a
-            )
+            (--a).shouldBe(ZERO)
             var nonFinite = NaN
-            assertTrue((--nonFinite).isNaN())
+            (--nonFinite).isNaN().shouldBeTrue()
             nonFinite = POSITIVE_INFINITY
-            assertTrue((--nonFinite).isPositiveInfinity())
+            (--nonFinite).isPositiveInfinity().shouldBeTrue()
             nonFinite = NEGATIVE_INFINITY
-            assertTrue((--nonFinite).isNegativeInfinity())
+            (--nonFinite).isNegativeInfinity().shouldBeTrue()
+        }
+    }
+
+    @Nested
+    inner class RoundingTests {
+        @Test
+        fun `should round down`() {
+            ZERO.floor().shouldBe(ZERO)
+            NaN.floor().isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.floor().isPositiveInfinity().shouldBeTrue()
+            NEGATIVE_INFINITY.floor().isNegativeInfinity().shouldBeTrue()
+            (ONE).floor().shouldBe(ONE)
+            (-ONE).floor().shouldBe(-ONE)
+            (1 over 2).floor().shouldBe(ZERO)
+            (-1 over 2).floor().shouldBe(-ONE)
+        }
+
+        @Test
+        fun `should round up`() {
+            ZERO.ceil().shouldBe(ZERO)
+            NaN.ceil().isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.ceil().isPositiveInfinity().shouldBeTrue()
+            NEGATIVE_INFINITY.ceil().isNegativeInfinity().shouldBeTrue()
+            (ONE).ceil().shouldBe(ONE)
+            (-ONE).ceil().shouldBe(-ONE)
+            (1 over 2).ceil().shouldBe(ONE)
+            (-1 over 2).ceil().shouldBe(ZERO)
+        }
+
+        @Test
+        fun `should round towards 0`() {
+            ZERO.truncate().shouldBe(ZERO)
+            NaN.truncate().isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.truncate().isPositiveInfinity().shouldBeTrue()
+            NEGATIVE_INFINITY.truncate().isNegativeInfinity().shouldBeTrue()
+            (ONE).truncate().shouldBe(ONE)
+            (-ONE).truncate().shouldBe(-ONE)
+            (1 over 2).truncate().shouldBe(ZERO)
+            (-1 over 2).truncate().shouldBe(ZERO)
         }
     }
 
@@ -790,285 +484,217 @@ internal class FloatingBigRationalTest {
     inner class SpecialCasesTests {
         @Test
         fun `should round trip as double precision`() {
-            assertEquals(
-                0.0,
-                0.0.toBigRational().toDouble()
-            )
-            assertEquals(
-                1.0,
-                1.0.toBigRational().toDouble()
-            )
-            assertEquals(
-                0.1,
-                0.1.toBigRational().toDouble()
-            )
-            assertEquals(
-                Double.NaN,
-                Double.NaN.toBigRational().toDouble()
-            )
-            assertEquals(
+            0.0.toBigRational().toDouble().shouldBe(0.0)
+            1.0.toBigRational().toDouble().shouldBe(1.0)
+            0.1.toBigRational().toDouble().shouldBe(0.1)
+            Double.NaN.toBigRational().toDouble().shouldBe(Double.NaN)
+            Double.MAX_VALUE.toBigRational().toDouble().shouldBe(
                 Double.MAX_VALUE,
-                Double.MAX_VALUE.toBigRational().toDouble()
             )
-            assertEquals(
+            Double.MIN_VALUE.toBigRational().toDouble().shouldBe(
                 Double.MIN_VALUE,
-                Double.MIN_VALUE.toBigRational().toDouble()
             )
         }
 
         @Test
         fun `should round trip as single precision`() {
-            assertEquals(
-                Float.NaN,
-                Float.NaN.toBigRational().toFloat()
-            )
-            assertEquals(
+            Float.NaN.toBigRational().toFloat().shouldBe(Float.NaN)
+            Float.MAX_VALUE.toBigRational().toFloat().shouldBe(
                 Float.MAX_VALUE,
-                Float.MAX_VALUE.toBigRational().toFloat()
             )
-            assertEquals(
+            Float.MIN_VALUE.toBigRational().toFloat().shouldBe(
                 Float.MIN_VALUE,
-                Float.MIN_VALUE.toBigRational().toFloat()
             )
-            assertEquals(
-                0.0f,
-                0.0f.toBigRational().toFloat()
-            )
-            assertEquals(
-                1.0f,
-                1.0f.toBigRational().toFloat()
-            )
-            assertEquals(
-                0.1f,
-                0.1f.toBigRational().toFloat()
-            )
+            0.0f.toBigRational().toFloat().shouldBe(0.0f)
+            1.0f.toBigRational().toFloat().shouldBe(1.0f)
+            0.1f.toBigRational().toFloat().shouldBe(0.1f)
         }
 
         @Test
         fun `should be infinity`() {
-            assertTrue((2 over 0).isPositiveInfinity())
-            assertTrue((-2 over 0).isNegativeInfinity())
+            (2 over 0).isPositiveInfinity().shouldBeTrue()
+            (-2 over 0).isNegativeInfinity().shouldBeTrue()
         }
 
         @Test
         fun `should check finitude`() {
-            assertTrue(ZERO.isFinite())
-            assertFalse(POSITIVE_INFINITY.isFinite())
-            assertFalse(NEGATIVE_INFINITY.isFinite())
-            assertFalse(NaN.isFinite())
+            ZERO.isFinite().shouldBeTrue()
+            POSITIVE_INFINITY.isFinite().shouldBeFalse()
+            NEGATIVE_INFINITY.isFinite().shouldBeFalse()
+            NaN.isFinite().shouldBeFalse()
         }
 
         @Test
         fun `should check infinitude`() {
-            assertFalse(ZERO.isInfinite())
-            assertTrue(POSITIVE_INFINITY.isInfinite())
-            assertTrue(NEGATIVE_INFINITY.isInfinite())
-            assertFalse(NaN.isInfinite())
+            ZERO.isInfinite().shouldBeFalse()
+            POSITIVE_INFINITY.isInfinite().shouldBeTrue()
+            NEGATIVE_INFINITY.isInfinite().shouldBeTrue()
+            NaN.isInfinite().shouldBeFalse()
         }
 
         @Test
         fun `should propagate NaN`() {
-            assertTrue((ZERO + NaN).isNaN())
-            assertTrue((NaN + NaN).isNaN())
-            assertTrue((NaN + ONE).isNaN())
-            assertTrue((NaN - ZERO).isNaN())
-            assertTrue((NaN - NaN).isNaN())
-            assertTrue((ZERO - NaN).isNaN())
-            assertTrue((ONE * NaN).isNaN())
-            assertTrue((NaN * NaN).isNaN())
-            assertTrue((NaN * ONE).isNaN())
-            assertTrue((NaN / ONE).isNaN())
-            assertTrue((NaN / NaN).isNaN())
-            assertTrue((ONE / NaN).isNaN())
+            (ZERO + NaN).isNaN().shouldBeTrue()
+            (NaN + NaN).isNaN().shouldBeTrue()
+            (NaN + ONE).isNaN().shouldBeTrue()
+            (NaN - ZERO).isNaN().shouldBeTrue()
+            (NaN - NaN).isNaN().shouldBeTrue()
+            (ZERO - NaN).isNaN().shouldBeTrue()
+            (ONE * NaN).isNaN().shouldBeTrue()
+            (NaN * NaN).isNaN().shouldBeTrue()
+            (NaN * ONE).isNaN().shouldBeTrue()
+            (NaN / ONE).isNaN().shouldBeTrue()
+            (NaN / NaN).isNaN().shouldBeTrue()
+            (ONE / NaN).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should propagate infinities`() {
-            assertTrue((-NEGATIVE_INFINITY).isPositiveInfinity())
-            assertTrue((ONE + POSITIVE_INFINITY).isPositiveInfinity())
-            assertTrue((NEGATIVE_INFINITY - ONE).isNegativeInfinity())
-            assertTrue((POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN())
-            assertTrue(
-                (POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity()
-            )
-            assertTrue(
-                (POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity()
-            )
-            assertTrue(
-                (NEGATIVE_INFINITY * NEGATIVE_INFINITY).isPositiveInfinity()
-            )
-            assertTrue((POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN())
-            assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
-            assertTrue((NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
+            (-NEGATIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
+            (ONE + POSITIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY - ONE).isNegativeInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY * POSITIVE_INFINITY).isPositiveInfinity()
+                .shouldBeTrue()
+            (POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity()
+                .shouldBeTrue()
+            (NEGATIVE_INFINITY * NEGATIVE_INFINITY).isPositiveInfinity()
+                .shouldBeTrue()
+            (POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should invert infinities incorrectly`() {
-            assertEquals(ZERO, ONE / POSITIVE_INFINITY)
-            assertEquals(ZERO, ONE / NEGATIVE_INFINITY)
+            (ONE / POSITIVE_INFINITY).shouldBe(ZERO)
+            (ONE / NEGATIVE_INFINITY).shouldBe(ZERO)
         }
 
         @Test
         fun `should cope with various infinities`() {
-            assertTrue((ZERO * POSITIVE_INFINITY).isNaN())
-            assertEquals(ZERO, ZERO / POSITIVE_INFINITY)
-            assertTrue((POSITIVE_INFINITY / ZERO).isPositiveInfinity())
-            assertTrue((ZERO * NEGATIVE_INFINITY).isNaN())
-            assertEquals(ZERO, ZERO / NEGATIVE_INFINITY)
-            assertTrue((NEGATIVE_INFINITY / ZERO).isNegativeInfinity())
-            assertTrue(
-                (POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity()
-            )
-            assertTrue((POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN())
+            (ZERO * POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (ZERO / POSITIVE_INFINITY).shouldBe(ZERO)
+            (POSITIVE_INFINITY / ZERO).isPositiveInfinity().shouldBeTrue()
+            (ZERO * NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (ZERO / NEGATIVE_INFINITY).shouldBe(ZERO)
+            (NEGATIVE_INFINITY / ZERO).isNegativeInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY * NEGATIVE_INFINITY).isNegativeInfinity()
+                .shouldBeTrue()
+            (POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should understand equalities of non-finite values`() {
-            assertEquals(POSITIVE_INFINITY, POSITIVE_INFINITY)
-            assertEquals(NEGATIVE_INFINITY, NEGATIVE_INFINITY)
-            assertNotEquals(NaN, NaN)
+            POSITIVE_INFINITY.shouldBe(POSITIVE_INFINITY)
+            NEGATIVE_INFINITY.shouldBe(NEGATIVE_INFINITY)
+            if (shouldNotBeWorks)
+                NaN.shouldNotBe(NaN)
+            else
+                assertNotEquals(NaN, NaN)
         }
     }
 
     @Test
     fun `should note integer rationals`() {
-        assertFalse((1 over 2).isInteger())
-        assertTrue((2 over 1).isInteger())
-        assertTrue(ZERO.isInteger())
-        assertFalse(POSITIVE_INFINITY.isInteger())
-        assertFalse(NEGATIVE_INFINITY.isInteger())
-        assertFalse(NaN.isInteger())
+        (1 over 2).isInteger().shouldBeFalse()
+        (2 over 1).isInteger().shouldBeTrue()
+        ZERO.isInteger().shouldBeTrue()
+        POSITIVE_INFINITY.isInteger().shouldBeFalse()
+        NEGATIVE_INFINITY.isInteger().shouldBeFalse()
+        NaN.isInteger().shouldBeFalse()
     }
 
     @Test
     fun `should note dyadic rationals`() {
-        assertTrue((1 over 2).isDyadic())
-        assertTrue((2 over 1).isDyadic())
-        assertTrue(ZERO.isDyadic())
-        assertFalse((2 over 3).isDyadic())
-        assertFalse(POSITIVE_INFINITY.isDyadic())
-        assertFalse(NEGATIVE_INFINITY.isDyadic())
-        assertFalse(NaN.isDyadic())
+        (1 over 2).isDyadic().shouldBeTrue()
+        (2 over 1).isDyadic().shouldBeTrue()
+        ZERO.isDyadic().shouldBeTrue()
+        (2 over 3).isDyadic().shouldBeFalse()
+        POSITIVE_INFINITY.isDyadic().shouldBeFalse()
+        NEGATIVE_INFINITY.isDyadic().shouldBeFalse()
+        NaN.isDyadic().shouldBeFalse()
     }
 
     @Test
     fun `should note p-adic rationals`() {
-        assertTrue((1 over 3).isPAdic(3))
-        assertTrue((2 over 1).isPAdic(3))
-        assertTrue(ZERO.isPAdic(3))
-        assertFalse((2 over 5).isPAdic(3))
-        assertFalse(POSITIVE_INFINITY.isPAdic(3))
-        assertFalse(NEGATIVE_INFINITY.isPAdic(3))
-        assertFalse(NaN.isPAdic(3))
+        (1 over 3).isPAdic(3).shouldBeTrue()
+        (2 over 1).isPAdic(3).shouldBeTrue()
+        ZERO.isPAdic(3).shouldBeTrue()
+        (2 over 5).isPAdic(3).shouldBeFalse()
+        POSITIVE_INFINITY.isPAdic(3).shouldBeFalse()
+        NEGATIVE_INFINITY.isPAdic(3).shouldBeFalse()
+        NaN.isPAdic(3).shouldBeFalse()
     }
 
     @Test
     fun `should note even denominators`() {
-        assertTrue((1 over 2).isDenominatorEven())
-        assertFalse((1 over 3).isDenominatorEven())
-    }
-
-    @Nested
-    inner class RoundingTests {
-        @Test
-        fun `should round down`() {
-            assertEquals(ZERO, ZERO.floor())
-            assertTrue(NaN.floor().isNaN())
-            assertTrue(POSITIVE_INFINITY.floor().isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.floor().isNegativeInfinity())
-            assertEquals(ONE, (ONE).floor())
-            assertEquals(-ONE, (-ONE).floor())
-            assertEquals(ZERO, (1 over 2).floor())
-            assertEquals(-ONE, (-1 over 2).floor())
-        }
-
-        @Test
-        fun `should round up`() {
-            assertEquals(ZERO, ZERO.ceil())
-            assertTrue(NaN.ceil().isNaN())
-            assertTrue(POSITIVE_INFINITY.ceil().isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.ceil().isNegativeInfinity())
-            assertEquals(ONE, (ONE).ceil())
-            assertEquals(-ONE, (-ONE).ceil())
-            assertEquals(ONE, (1 over 2).ceil())
-            assertEquals(ZERO, (-1 over 2).ceil())
-        }
-
-        @Test
-        fun `should round towards 0`() {
-            assertEquals(ZERO, ZERO.truncate())
-            assertTrue(NaN.truncate().isNaN())
-            assertTrue(POSITIVE_INFINITY.truncate().isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.truncate().isNegativeInfinity())
-            assertEquals(ONE, (ONE).truncate())
-            assertEquals(-ONE, (-ONE).truncate())
-            assertEquals(ZERO, (1 over 2).truncate())
-            assertEquals(ZERO, (-1 over 2).truncate())
-        }
+        (1 over 2).isDenominatorEven().shouldBeTrue()
+        (1 over 3).isDenominatorEven().shouldBeFalse()
     }
 
     @Nested
     inner class ConversionTests {
         @Test
         fun `should convert BigDecimal in infix constructor`() {
-            assertEquals(ZERO, 0.0.big.toBigRational())
-            assertEquals(30 over 1, 30.0.big.toBigRational())
-            assertEquals(3 over 1, 3.0.big.toBigRational())
-            assertEquals(3 over 10, "0.3".big.toBigRational())
-            assertEquals(77 over 10, "7.70".big.toBigRational())
-            assertEquals(ONE, 1.0.big over 1.0.big)
-            assertEquals(ONE, 1.big over 1.0.big)
-            assertEquals(ONE, 1L over 1.0.big)
-            assertEquals(ONE, 1 over 1.0.big)
-            assertEquals(ONE, 1.0 over 1.0.big)
-            assertEquals(ONE, 1.0f over 1.0.big)
+            0.0.big.toBigRational().shouldBe(ZERO)
+            30.0.big.toBigRational().shouldBe(30 over 1)
+            3.0.big.toBigRational().shouldBe(3 over 1)
+            "0.3".big.toBigRational().shouldBe(3 over 10)
+            "7.70".big.toBigRational().shouldBe(77 over 10)
+            (1.0.big over 1.0.big).shouldBe(ONE)
+            (1.big over 1.0.big).shouldBe(ONE)
+            (1L over 1.0.big).shouldBe(ONE)
+            (1 over 1.0.big).shouldBe(ONE)
+            (1.0 over 1.0.big).shouldBe(ONE)
+            (1.0f over 1.0.big).shouldBe(ONE)
 
-            assertEquals(ONE, 1.0.big over 1L)
-            assertEquals(ONE, 1.0.big over 1)
+            (1.0.big over 1L).shouldBe(ONE)
+            (1.0.big over 1).shouldBe(ONE)
         }
 
         @Test
         fun `should convert BigInteger in infix constructor`() {
-            assertEquals(ZERO, 0.big.toBigRational())
-            assertEquals(30 over 1, BInt.valueOf(30L).toBigRational())
-            assertEquals(3 over 1, 3.big.toBigRational())
-            assertEquals(ONE, 1.big over 1.big)
-            assertEquals(ONE, 1.0.big over 1.big)
-            assertEquals(ONE, 1L over 1.big)
-            assertEquals(ONE, 1 over 1.big)
-            assertEquals(ONE, 1.0 over 1.big)
-            assertEquals(ONE, 1.0f over 1.big)
+            0.big.toBigRational().shouldBe(ZERO)
+            BInt.valueOf(30L).toBigRational().shouldBe(30 over 1)
+            3.big.toBigRational().shouldBe(3 over 1)
+            (1.big over 1.big).shouldBe(ONE)
+            (1.0.big over 1.big).shouldBe(ONE)
+            (1L over 1.big).shouldBe(ONE)
+            (1 over 1.big).shouldBe(ONE)
+            (1.0 over 1.big).shouldBe(ONE)
+            (1.0f over 1.big).shouldBe(ONE)
 
-            assertEquals(ONE, 1.big over 1L)
-            assertEquals(ONE, 1.big over 1)
+            (1.big over 1L).shouldBe(ONE)
+            (1.big over 1).shouldBe(ONE)
         }
 
         @Test
         fun `should convert double in infix constructor`() {
-            assertEquals(ONE, 1.0.big over 1.0)
-            assertEquals(ONE, 1.big over 1.0)
-            assertEquals(ONE, 1L over 1.0)
-            assertEquals(ONE, 1 over 1.0)
-            assertEquals(ONE, 1.0 over 1.0)
-            assertEquals(ONE, 1.0f over 1.0)
+            (1.0.big over 1.0).shouldBe(ONE)
+            (1.big over 1.0).shouldBe(ONE)
+            (1L over 1.0).shouldBe(ONE)
+            (1 over 1.0).shouldBe(ONE)
+            (1.0 over 1.0).shouldBe(ONE)
+            (1.0f over 1.0).shouldBe(ONE)
 
-            assertEquals(ONE, 1.0 over 1.big)
-            assertEquals(ONE, 1.0 over 1L)
-            assertEquals(ONE, 1.0 over 1)
+            (1.0 over 1.big).shouldBe(ONE)
+            (1.0 over 1L).shouldBe(ONE)
+            (1.0 over 1).shouldBe(ONE)
         }
 
         @Test
         fun `should convert float in infix constructor`() {
-            assertEquals(ONE, 1.0.big over 1.0f)
-            assertEquals(ONE, 1.big over 1.0f)
-            assertEquals(ONE, 1L over 1.0f)
-            assertEquals(ONE, 1 over 1.0f)
-            assertEquals(ONE, 1.0 over 1.0f)
-            assertEquals(ONE, 1.0f over 1.0f)
+            (1.0.big over 1.0f).shouldBe(ONE)
+            (1.big over 1.0f).shouldBe(ONE)
+            (1L over 1.0f).shouldBe(ONE)
+            (1 over 1.0f).shouldBe(ONE)
+            (1.0 over 1.0f).shouldBe(ONE)
+            (1.0f over 1.0f).shouldBe(ONE)
 
-            assertEquals(ONE, 1.0f over 1.big)
-            assertEquals(ONE, 1.0f over 1L)
-            assertEquals(ONE, 1.0f over 1)
+            (1.0f over 1.big).shouldBe(ONE)
+            (1.0f over 1L).shouldBe(ONE)
+            (1.0f over 1).shouldBe(ONE)
         }
 
         @Test
@@ -1109,25 +735,17 @@ internal class FloatingBigRationalTest {
                 4 over 1,
                 15432 over 125
             )
-            assertTrue(Double.NaN.toBigRational().isNaN())
-            assertTrue(
-                Double.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
-            )
-            assertTrue(
-                Double.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
-            )
-            assertEquals(
-                rationals,
-                doubles.map {
-                    it.toBigRational()
-                }
-            )
-            assertEquals(
-                doubles,
-                rationals.map {
-                    it.toDouble()
-                }
-            )
+            Double.NaN.toBigRational().isNaN().shouldBeTrue()
+            Double.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
+                .shouldBeTrue()
+            Double.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
+                .shouldBeTrue()
+            doubles.map {
+                it.toBigRational()
+            }.shouldBe(rationals)
+            rationals.map {
+                it.toDouble()
+            }.shouldBe(doubles)
         }
 
         @Test
@@ -1168,43 +786,33 @@ internal class FloatingBigRationalTest {
                 4 over 1,
                 15432 over 125
             )
-            assertTrue(Float.NaN.toBigRational().isNaN())
-            assertTrue(
-                Float.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
-            )
-            assertTrue(
-                Float.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
-            )
-            assertEquals(
-                rationals,
-                floats.map {
-                    it.toBigRational()
-                }
-            )
-            assertEquals(
-                floats,
-                rationals.map {
-                    it.toFloat()
-                }
-            )
+            Float.NaN.toBigRational().isNaN().shouldBeTrue()
+            Float.NEGATIVE_INFINITY.toBigRational().isNegativeInfinity()
+                .shouldBeTrue()
+            Float.POSITIVE_INFINITY.toBigRational().isPositiveInfinity()
+                .shouldBeTrue()
+            floats.map {
+                it.toBigRational()
+            }.shouldBe(rationals)
+            rationals.map {
+                it.toFloat()
+            }.shouldBe(floats)
         }
 
         @Test
         fun `should wrap conversion to Long`() {
-            assertEquals(
+            ((Byte.MAX_VALUE + 1) over 1).toByte().shouldBe(
                 (-128).toByte(),
-                ((Byte.MAX_VALUE + 1) over 1).toByte()
             )
-            assertEquals(0b0, NaN.toByte())
+            NaN.toByte().shouldBe(0b0)
         }
 
         @Test
         fun `should wrap conversion to Byte`() {
-            assertEquals(
+            ((Byte.MAX_VALUE + 1) over 1).toByte().shouldBe(
                 (-128).toByte(),
-                ((Byte.MAX_VALUE + 1) over 1).toByte()
             )
-            assertEquals(0b0, NaN.toByte())
+            NaN.toByte().shouldBe(0b0)
         }
     }
 
@@ -1233,295 +841,169 @@ internal class FloatingBigRationalTest {
                 Double.NEGATIVE_INFINITY
             ).sorted()
 
-            assertEquals(doubleSorted, sorted.map { it.toDouble() })
+            (sorted.map { it.toDouble() }).shouldBe(doubleSorted)
         }
 
         @Test
         fun `should compare other number types`() {
-            assertTrue(1.0.big > ZERO)
-            assertTrue(ONE > 0.0.big)
-            assertTrue(Double.POSITIVE_INFINITY > ZERO)
-            assertTrue(ZERO > Double.NEGATIVE_INFINITY)
-            assertTrue(Float.NaN > ZERO)
-            assertTrue(NaN > Float.MAX_VALUE)
-            assertTrue(0.big < ONE)
-            assertTrue(ZERO < 1.big)
-            assertTrue(0L < ONE)
-            assertTrue(ZERO < 1L)
-            assertTrue(0 < ONE)
-            assertTrue(ZERO < 1)
+            (1.0.big > ZERO).shouldBeTrue()
+            (ONE > 0.0.big).shouldBeTrue()
+            (Double.POSITIVE_INFINITY > ZERO).shouldBeTrue()
+            (ZERO > Double.NEGATIVE_INFINITY).shouldBeTrue()
+            (Float.NaN > ZERO).shouldBeTrue()
+            (NaN > Float.MAX_VALUE).shouldBeTrue()
+            (0.big < ONE).shouldBeTrue()
+            (ZERO < 1.big).shouldBeTrue()
+            (0L < ONE).shouldBeTrue()
+            (ZERO < 1L).shouldBeTrue()
+            (0 < ONE).shouldBeTrue()
+            (ZERO < 1).shouldBeTrue()
         }
 
         @Test
         fun `should not order NaN values`() {
-            assertFalse(NaN == NaN)
-            assertFalse(NaN > NaN)
-            assertFalse(NaN < NaN)
+            (NaN == NaN).shouldBeFalse()
+            (NaN > NaN).shouldBeFalse()
+            (NaN < NaN).shouldBeFalse()
         }
 
         @Test
         fun `should reciprocate`() {
-            assertEquals(
-                -3 over 5,
-                (-5 over 3).unaryDiv()
-            )
-            assertTrue(ZERO.unaryDiv().isPositiveInfinity())
-            assertEquals(
-                ZERO,
-                POSITIVE_INFINITY.unaryDiv()
-            )
-            assertEquals(
-                ZERO,
-                NEGATIVE_INFINITY.unaryDiv()
-            )
-            assertTrue(NaN.unaryDiv().isNaN())
+            (-5 over 3).unaryDiv().shouldBe(-3 over 5)
+            ZERO.unaryDiv().isPositiveInfinity().shouldBeTrue()
+            POSITIVE_INFINITY.unaryDiv().shouldBe(ZERO)
+            NEGATIVE_INFINITY.unaryDiv().shouldBe(ZERO)
+            NaN.unaryDiv().isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should absolute`() {
-            assertEquals(
-                ZERO,
-                ZERO.absoluteValue
-            )
-            assertEquals(
-                3 over 5,
-                (3 over 5).absoluteValue
-            )
-            assertEquals(
-                3 over 5,
-                (-3 over 5).absoluteValue
-            )
-            assertTrue(NaN.absoluteValue.isNaN())
-            assertTrue(POSITIVE_INFINITY.absoluteValue.isPositiveInfinity())
-            assertTrue(NEGATIVE_INFINITY.absoluteValue.isPositiveInfinity())
+            (ZERO.absoluteValue).shouldBe(ZERO)
+            ((3 over 5).absoluteValue).shouldBe(3 over 5)
+            ((-3 over 5).absoluteValue).shouldBe(3 over 5)
+            NaN.absoluteValue.isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.absoluteValue.isPositiveInfinity()
+                .shouldBeTrue()
+            NEGATIVE_INFINITY.absoluteValue.isPositiveInfinity()
+                .shouldBeTrue()
         }
 
         @Test
         fun `should signum`() {
-            assertEquals(
-                ONE,
-                (3 over 5).sign
-            )
-            assertEquals(
-                ZERO,
-                (0 over 5).sign
-            )
-            assertEquals(
-                -ONE,
-                (-3 over 5).sign
-            )
-            assertEquals(
-                -ONE,
-                NEGATIVE_INFINITY.sign
-            )
-            assertEquals(
-                ONE,
-                POSITIVE_INFINITY.sign
-            )
-            assertTrue(NaN.sign.isNaN())
+            ((3 over 5).sign).shouldBe(ONE)
+            ((0 over 5).sign).shouldBe(ZERO)
+            ((-3 over 5).sign).shouldBe(-ONE)
+            (NEGATIVE_INFINITY.sign).shouldBe(-ONE)
+            (POSITIVE_INFINITY.sign).shouldBe(ONE)
+            NaN.sign.isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should raise`() {
-            assertEquals(
-                9 over 25,
-                (3 over 5) `**` 2
-            )
-            assertEquals(
-                ONE,
-                (3 over 5) `**` 0
-            )
-            assertEquals(
-                25 over 9,
-                (3 over 5) `**` -2
-            )
-            assertEquals(POSITIVE_INFINITY, POSITIVE_INFINITY `**` 2)
-            assertEquals(ZERO, POSITIVE_INFINITY `**` -1)
-            assertEquals(NEGATIVE_INFINITY, NEGATIVE_INFINITY `**` 3)
-            assertEquals(POSITIVE_INFINITY, NEGATIVE_INFINITY `**` 2)
-            assertEquals(ZERO, NEGATIVE_INFINITY `**` -1)
-            assertTrue((NaN `**` 2).isNaN(), "NaN has no powers")
-            assertTrue(
-                (POSITIVE_INFINITY `**` 0).isNaN(),
-                "Indeterminate form for +∞"
-            )
-            assertTrue(
-                (NEGATIVE_INFINITY `**` 0).isNaN(),
-                "Indeterminate form for -∞"
-            )
+            ((3 over 5) `**` 2).shouldBe(9 over 25)
+            ((3 over 5) `**` 0).shouldBe(ONE)
+            ((3 over 5) `**` -2).shouldBe(25 over 9)
+            (POSITIVE_INFINITY `**` 2).shouldBe(POSITIVE_INFINITY)
+            (POSITIVE_INFINITY `**` -1).shouldBe(ZERO)
+            (NEGATIVE_INFINITY `**` 3).shouldBe(NEGATIVE_INFINITY)
+            (NEGATIVE_INFINITY `**` 2).shouldBe(POSITIVE_INFINITY)
+            (NEGATIVE_INFINITY `**` -1).shouldBe(ZERO)
+            (NaN `**` 2).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY `**` 0).isNaN().shouldBeTrue()
+            (NEGATIVE_INFINITY `**` 0).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should square root`() {
-            assertEquals(3 over 5, (9 over 25).sqrt())
-            assertEquals(3 over 5, (9 over 25).sqrtApproximated())
-
-            assertEquals(
+            (9 over 25).sqrt().shouldBe(3 over 5)
+            (9 over 25).sqrtApproximated().shouldBe(3 over 5)
+            (8 over 25).sqrtApproximated().shouldBe(
                 282_842_712_474_619 over 500_000_000_000_000,
-                (8 over 25).sqrtApproximated()
             )
-            assertEquals(
+            (9 over 26).sqrtApproximated().shouldBe(
                 5_883_484_054_145_521 over 10_000_000_000_000_000,
-                (9 over 26).sqrtApproximated()
             )
 
-            assertThrows<ArithmeticException> { (8 over 25).sqrt() }
-            assertThrows<ArithmeticException> { (9 over 26).sqrt() }
+            shouldThrow<ArithmeticException> { (8 over 25).sqrt() }
+            shouldThrow<ArithmeticException> { (9 over 26).sqrt() }
 
-            assertTrue(NaN.sqrt().isNaN())
-            assertTrue(NaN.sqrtApproximated().isNaN())
-            assertEquals(POSITIVE_INFINITY, POSITIVE_INFINITY.sqrt())
-            assertEquals(
-                POSITIVE_INFINITY,
-                POSITIVE_INFINITY.sqrtApproximated()
-            )
+            NaN.sqrt().isNaN().shouldBeTrue()
+            NaN.sqrtApproximated().isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.sqrt().shouldBe(POSITIVE_INFINITY)
+            POSITIVE_INFINITY.sqrtApproximated().shouldBe(POSITIVE_INFINITY)
         }
 
         @Test
         fun `should find GCD (HCF)`() {
-            assertEquals(
-                2 over 63,
-                (2 over 9).gcd(6 over 21)
-            )
-            assertEquals(
-                2 over 63,
-                (-2 over 9).gcd(6 over 21)
-            )
-            assertEquals(
-                2 over 63,
-                (2 over 9).gcd(-6 over 21)
-            )
-            assertEquals(
-                2 over 63,
-                (-2 over 9).gcd(-6 over 21)
-            )
-            assertEquals(
-                (2 over 9),
-                ZERO.gcd(2 over 9)
-            )
-            assertEquals(
-                ZERO,
-                ZERO.gcd(ZERO)
-            )
+            (2 over 9).gcd(6 over 21).shouldBe(2 over 63)
+            (-2 over 9).gcd(6 over 21).shouldBe(2 over 63)
+            (2 over 9).gcd(-6 over 21).shouldBe(2 over 63)
+            (-2 over 9).gcd(-6 over 21).shouldBe(2 over 63)
+            ZERO.gcd(2 over 9).shouldBe((2 over 9))
+            ZERO.gcd(ZERO).shouldBe(ZERO)
         }
 
         @Test
         fun `should find LCM (LCD)`() {
-            assertEquals(
-                2 over 1,
-                (2 over 9).lcm(6 over 21)
-            )
-            assertEquals(
-                2 over 1,
-                (-2 over 9).lcm(6 over 21)
-            )
-            assertEquals(
-                2 over 1,
-                (2 over 9).lcm(-6 over 21)
-            )
-            assertEquals(
-                2 over 1,
-                (-2 over 9).lcm(-6 over 21)
-            )
-            assertEquals(
-                ZERO,
-                ZERO.lcm(6 over 21)
-            )
-            assertEquals(
-                ZERO,
-                ZERO.lcm(ZERO)
-            )
+            (2 over 9).lcm(6 over 21).shouldBe(2 over 1)
+            (-2 over 9).lcm(6 over 21).shouldBe(2 over 1)
+            (2 over 9).lcm(-6 over 21).shouldBe(2 over 1)
+            (-2 over 9).lcm(-6 over 21).shouldBe(2 over 1)
+            ZERO.lcm(6 over 21).shouldBe(ZERO)
+            ZERO.lcm(ZERO).shouldBe(ZERO)
         }
 
         @Test
         fun `should find between`() {
-            assertTrue(NaN.mediant(NaN).isNaN())
-            assertTrue(NaN.mediant(POSITIVE_INFINITY).isNaN())
-            assertTrue(
-                POSITIVE_INFINITY.mediant(POSITIVE_INFINITY)
-                    .isPositiveInfinity()
-            )
-            assertTrue(NaN.mediant(NEGATIVE_INFINITY).isNaN())
-            assertTrue(
-                NEGATIVE_INFINITY.mediant(NEGATIVE_INFINITY)
-                    .isNegativeInfinity()
-            )
-            assertTrue(NaN.mediant(ZERO).isNaN())
-            assertTrue(ZERO.mediant(NaN).isNaN())
-            assertTrue(POSITIVE_INFINITY.mediant(NaN).isNaN())
-            assertTrue(NEGATIVE_INFINITY.mediant(NaN).isNaN())
-            assertTrue(ZERO.mediant(ZERO).isZero())
-            assertEquals(
-                ZERO,
-                POSITIVE_INFINITY.mediant(NEGATIVE_INFINITY)
-            )
-            assertEquals(
-                ZERO,
-                NEGATIVE_INFINITY.mediant(POSITIVE_INFINITY)
-            )
-            assertEquals(
-                ONE,
-                POSITIVE_INFINITY.mediant(ZERO)
-            )
-            assertEquals(
-                ONE,
-                ZERO.mediant(POSITIVE_INFINITY)
-            )
-            assertEquals(
-                -ONE,
-                ZERO.mediant(NEGATIVE_INFINITY)
-            )
-            assertEquals(
-                -ONE,
-                NEGATIVE_INFINITY.mediant(ZERO)
-            )
-            assertEquals(
-                3 over 2,
-                ONE.mediant(TWO)
-            )
+            NaN.mediant(NaN).isNaN().shouldBeTrue()
+            NaN.mediant(POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            NaN.mediant(NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.mediant(POSITIVE_INFINITY).isPositiveInfinity()
+                .shouldBeTrue()
+            NEGATIVE_INFINITY.mediant(NEGATIVE_INFINITY).isNegativeInfinity()
+                .shouldBeTrue()
+            NaN.mediant(ZERO).isNaN().shouldBeTrue()
+            ZERO.mediant(NaN).isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.mediant(NaN).isNaN().shouldBeTrue()
+            NEGATIVE_INFINITY.mediant(NaN).isNaN().shouldBeTrue()
+            ZERO.mediant(ZERO).isZero().shouldBeTrue()
+            POSITIVE_INFINITY.mediant(NEGATIVE_INFINITY).shouldBe(ZERO)
+            NEGATIVE_INFINITY.mediant(POSITIVE_INFINITY).shouldBe(ZERO)
+            POSITIVE_INFINITY.mediant(ZERO).shouldBe(ONE)
+            ZERO.mediant(POSITIVE_INFINITY).shouldBe(ONE)
+            ZERO.mediant(NEGATIVE_INFINITY).shouldBe(-ONE)
+            NEGATIVE_INFINITY.mediant(ZERO).shouldBe(-ONE)
+            ONE.mediant(TWO).shouldBe(3 over 2)
         }
 
         @Test
         fun `should find continued fraction`() {
             val cfA = (3245 over 1000).toContinuedFraction()
-            assertEquals(
-                listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1),
-                cfA
-            )
-            assertTrue(cfA.isFinite())
-            assertEquals((3245 over 1000), cfA.backAgain())
+            cfA.shouldBe(listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1))
+            cfA.isFinite().shouldBeTrue()
+            cfA.backAgain().shouldBe((3245 over 1000))
             val negCfA = (-3245 over 1000).toContinuedFraction()
-            assertEquals(
-                listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1),
-                negCfA
+            negCfA.shouldBe(
+                listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1)
             )
-            assertTrue(negCfA.isFinite())
-            assertEquals((-3245 over 1000), negCfA.backAgain())
-            assertEquals(
-                listOf(ZERO),
-                ZERO.toContinuedFraction()
-            )
-            assertEquals(
-                listOf(ONE),
-                ONE.toContinuedFraction()
-            )
-            assertEquals(
-                listOf(ZERO, 3 over 1),
-                (1 over 3).toContinuedFraction()
-            )
+            negCfA.isFinite().shouldBeTrue()
+            negCfA.backAgain().shouldBe((-3245 over 1000))
+            ZERO.toContinuedFraction().shouldBe(listOf(ZERO))
+            ONE.toContinuedFraction().shouldBe(listOf(ONE))
+            (1 over 3).toContinuedFraction().shouldBe(listOf(ZERO, 3 over 1))
 
             val cfNaN = NaN.toContinuedFraction()
-            assertFalse(cfNaN.isFinite())
-            assertTrue(cfNaN.backAgain().isNaN())
-            assertTrue(cfNaN.integerPart.isNaN())
+            cfNaN.isFinite().shouldBeFalse()
+            cfNaN.backAgain().isNaN().shouldBeTrue()
+            cfNaN.integerPart.isNaN().shouldBeTrue()
             val cfPosInf = POSITIVE_INFINITY.toContinuedFraction()
-            assertFalse(cfPosInf.isFinite())
-            assertTrue(cfPosInf.backAgain().isNaN())
-            assertTrue(cfPosInf.integerPart.isNaN())
+            cfPosInf.isFinite().shouldBeFalse()
+            cfPosInf.backAgain().isNaN().shouldBeTrue()
+            cfPosInf.integerPart.isNaN().shouldBeTrue()
             val cfNegInf = NEGATIVE_INFINITY.toContinuedFraction()
-            assertFalse(cfNegInf.isFinite())
-            assertTrue(cfNegInf.backAgain().isNaN())
-            assertTrue(cfNegInf.integerPart.isNaN())
+            cfNegInf.isFinite().shouldBeFalse()
+            cfNegInf.backAgain().isNaN().shouldBeTrue()
+            cfNegInf.integerPart.isNaN().shouldBeTrue()
         }
     }
 
@@ -1529,7 +1011,7 @@ internal class FloatingBigRationalTest {
     inner class CantorSpiral {
         @Test
         fun `should find Cantor spiral`() {
-            assertEquals(
+            cantorSpiral().take(10).toList().shouldBe(
                 listOf(
                     ZERO,
                     ONE,
@@ -1541,8 +1023,7 @@ internal class FloatingBigRationalTest {
                     -2 over 3,
                     -1 over 3,
                     1 over 3
-                ),
-                cantorSpiral().take(10).toList()
+                )
             )
         }
     }

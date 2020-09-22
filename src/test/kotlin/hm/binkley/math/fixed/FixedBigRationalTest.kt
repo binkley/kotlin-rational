@@ -65,7 +65,7 @@ internal class FixedBigRationalTest {
         }
 
         @Test
-        fun `should construct 10`() {
+        fun `should use constant 10`() {
             (10.big over 1).shouldBeSameInstanceAs(TEN)
             ((-10).big over -1).shouldBeSameInstanceAs(TEN)
         }
@@ -106,11 +106,11 @@ internal class FixedBigRationalTest {
     @Suppress("ReplaceCallWithBinaryOperator")
     @Test
     fun `should be itself`() {
-        (1 over 2 == 1 over 2).shouldBeTrue()
-        (1 over 2 == +(1 over 2)).shouldBeTrue()
-        (1 over 2 == -(-(1 over 2))).shouldBeTrue()
-        ZERO.equals(0).shouldBeFalse()
-        ((2 over 3) == (2 over 5)).shouldBeFalse()
+        (1 over 2).shouldBe(1 over 2)
+        (+(1 over 2)).shouldBe(1 over 2)
+        (-(-(1 over 2))).shouldBe(1 over 2)
+        0.shouldNotBe(ZERO)
+        (2 over 5).shouldNotBe(2 over 3)
     }
 
     @Test
@@ -326,7 +326,7 @@ internal class FixedBigRationalTest {
     }
 
     @Test
-    fun `should not even denominators`() {
+    fun `should note even denominators`() {
         (1 over 2).isDenominatorEven().shouldBeTrue()
         (1 over 3).isDenominatorEven().shouldBeFalse()
     }
