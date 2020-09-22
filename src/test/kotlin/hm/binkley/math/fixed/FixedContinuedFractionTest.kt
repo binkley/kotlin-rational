@@ -3,7 +3,6 @@ package hm.binkley.math.fixed
 import hm.binkley.math.big
 import hm.binkley.math.convergent
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
-import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
@@ -23,13 +22,7 @@ internal class FixedContinuedFractionTest {
     fun `should be a list`() {
         val c = (145 over 7).toContinuedFraction()
 
-        // TODO: Why not just compare to an expected list?  JaCoCo
-        c.contains(TWO).shouldBeTrue()
-        c.contains(TEN).shouldBeFalse()
-        c.indexOf(TWO).shouldBe(2)
-        c.indexOf(TEN).shouldBe(-1)
-        c.lastIndexOf(TWO).shouldBe(3)
-        c.lastIndexOf(TEN).shouldBe(-1)
+        c.shouldBe(listOf(20 over 1, ONE, TWO, TWO))
     }
 
     @Test
