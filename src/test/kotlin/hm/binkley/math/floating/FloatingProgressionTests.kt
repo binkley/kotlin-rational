@@ -9,7 +9,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.rangeTo
 import hm.binkley.math.step
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -26,7 +25,6 @@ class FloatingProgressionTests {
         val zeroToOne = ZERO..ONE
         (zeroToOne).shouldBe(zeroToOne)
         (ZERO..ONE).shouldBe(zeroToOne)
-        zeroToOne.equals(ZERO).shouldBeFalse()
         (zeroToOne step ONE).shouldBe(zeroToOne)
         if (shouldNotBeWorks)
             (zeroToOne step TWO).shouldNotBe(zeroToOne step ONE)

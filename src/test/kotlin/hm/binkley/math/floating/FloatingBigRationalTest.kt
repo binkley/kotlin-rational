@@ -38,14 +38,10 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
-import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 private typealias BigRationalAssertion = (FloatingBigRational) -> Unit
-
-// TODO: What goes wrong here?
-private const val shouldNotBeWorks = false
 
 /**
  * NB -- the tests use a mixture of constructors while testing functionality.
@@ -588,10 +584,8 @@ internal class FloatingBigRationalTest {
         fun `should understand equalities of non-finite values`() {
             POSITIVE_INFINITY.shouldBe(POSITIVE_INFINITY)
             NEGATIVE_INFINITY.shouldBe(NEGATIVE_INFINITY)
-            if (shouldNotBeWorks)
-                NaN.shouldNotBe(NaN)
-            else
-                assertNotEquals(NaN, NaN)
+            // Cannot use shouldNotBe: It short-circuits for === objects
+            (NaN == NaN).shouldBeFalse()
         }
     }
 
