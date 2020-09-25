@@ -15,7 +15,7 @@ import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
 
-// TODO: What goes wrong here?
+// TODO: shouldNotBe is using === comparison before calling equals
 private const val shouldNotBeWorks = false
 
 class FloatingProgressionTests {
