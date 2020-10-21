@@ -63,12 +63,6 @@ create a demo program.  Use `./run.sh` or `./batect run` to run the demo.
 optimization is to avoid redownloading plugins and dependencies from within
 a Docker container.
 
-With Batect, link to your user Maven cache directory:
-
-```
-$ ln -s ~/.m2 .maven-cache
-```
-
 This shares Maven plugin and dependency downloads with the Docker container
 run by Batect.
 
