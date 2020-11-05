@@ -55,7 +55,7 @@ class FixedProgressionTests {
         (ZERO..TWO).contains(ONE).shouldBeTrue()
         ((1 over 1)..(5 over 2)).toList().shouldBe(listOf(ONE, (2 over 1)))
         val three = 3 over 1
-        (1.0.big..three step 2).toList().shouldBe(listOf(ONE))
+        (1.0.big..three step 2).toList().shouldBe(listOf(ONE, three))
         (ONE..3.0.big step 2).toList().shouldBe(listOf(ONE, three))
         (1.0..three step 2).toList().shouldBe(listOf(ONE, three))
         (ONE..3.0 step 2).toList().shouldBe(listOf(ONE, three))
