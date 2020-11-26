@@ -39,10 +39,10 @@
         <dokka.version>1.4.10.2</dokka.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
-        <java.version>11</java.version>
+        <jdk.version>11</jdk.version>
         <junit.version>5.7.0</junit.version>
         <kotest.version>4.3.1</kotest.version>
-        <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.4.20</kotlin.version>
         <ktlint-maven-plugin.version>1.7.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.16</lombok.version>
@@ -332,7 +332,7 @@
                 <artifactId>dokka-maven-plugin</artifactId>
                 <version>${dokka.version}</version>
                 <configuration>
-                    <jdkVersion>${java.version}</jdkVersion>
+                    <jdkVersion>${jdk.version}</jdkVersion>
                     <sourceLinks>
                         <link>
                             <lineSuffix>#L</lineSuffix>
