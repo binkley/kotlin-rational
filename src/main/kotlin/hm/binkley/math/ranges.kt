@@ -34,7 +34,7 @@ private class IncrementingBigRationalIterator<T : BigRationalBase<T>>(
 ) : BigRationalIterator<T>(first, last, step) {
     init {
         if (first > last)
-            error("Step must be advance range to avoid overflow.")
+            error("Step must advance range to avoid overflow.")
     }
 
     override fun hasNext() = current <= last
@@ -49,7 +49,7 @@ private class DecrementingBigRationalIterator<T : BigRationalBase<T>>(
 ) : BigRationalIterator<T>(first, last, step) {
     init {
         if (first < last)
-            error("Step must be advance range to avoid overflow.")
+            error("Step must advance range to avoid overflow.")
     }
 
     override fun hasNext() = current >= last
@@ -67,11 +67,11 @@ private class BigRationalProgression<T : BigRationalBase<T>>(
             IncrementingBigRationalIterator(start, endInclusive, step)
 
     override fun equals(other: Any?) = this === other ||
-        other is BigRationalProgression<*> &&
-        javaClass == other.javaClass &&
-        start == other.start &&
-        endInclusive == other.endInclusive &&
-        step == other.step
+            other is BigRationalProgression<*> &&
+            javaClass == other.javaClass &&
+            start == other.start &&
+            endInclusive == other.endInclusive &&
+            step == other.step
 
     override fun hashCode() = hash(javaClass, start, endInclusive, step)
 
