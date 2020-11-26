@@ -5,6 +5,8 @@
 # Kotlin Rational
 
 [![build](https://github.com/binkley/kotlin-rational/workflows/build/badge.svg)](https://github.com/binkley/kotlin-rational/actions)
+[![jitpack](https://img.shields.io/jitpack/v/github/binkley/kotlin-rational)](https://jitpack.io/#binkley/kotlin-rational)
+[![tag](https://img.shields.io/github/v/tag/binkley/kotlin-rational)](https://github.com/binkley/kotlin-rational/tags)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 [![made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)](https://kotlinlang.org/)
@@ -35,19 +37,135 @@ To build, use `./mvnw clean verify`.
 
 Try `./run.sh` for a demonstration.
 
-There are no run-time dependencies.
+There are no run-time dependencies beyond the Kotlin standard library.
+
+To build as CI would, use `./batect build`.
+
+Try `./batect run` for a demonstration as CI would (were it interested).
+
+This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
+
+---
+
+## TOC
+
+* [Releases](#releases)
+* [Use](#use)
+* [API](#api)
+* [Build](#build)
+* [Design choices](#design-choices)
+* [Implementation choices](#implementation-choices)
+* [Further reading](#further-reading)
+
+---
 
 ## Releases
 
-* [2.0.0-SNAPSHOT](https://github.com/binkley/kotlin-rational/tree/master)
-  &mdash; (2020-11-26) In progress / Rationalized type and package names
+* [2.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.0)
+  &mdash; (2020-11-26) Rationalized type and package names, refreshed site
 * [1.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-1.0.0)
   &mdash; (2020-04-02) Initial prototype released for reuse by
   [KUnits](https://github.com/binkley/kunits)
 
-## Platform
+---
 
-This code has been built and passes tests on JDK 11, 13, and 14.
+## Use
+
+### Gradle
+
+This snippet uses Kotlin syntax for the build script:
+
+```kotlin
+repositories {
+    maven {
+        url = uri("https://jitpack.io")
+    }
+}
+
+dependencies {
+    implementation("com.github.binkley:kotlin-rational:2.0.0")
+}
+```
+
+### Maven
+
+This snippet is an elided `pom.xml`:
+
+```xml
+
+<project>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.binkley</groupId>
+            <artifactId>kotlin-rational</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+</project>
+```
+
+---
+
+## API
+
+In general, when properties, methods, and operations do not have
+documentation, they behave similarly as their floating-point counterpart.
+
+### Constructors
+
+All constructors are _private_. Please use:
+
+- `over` infix operators, _eg_, `2 over 1`
+- `valueOf` companion methods, _eg_,
+  `BigRational.valueOf(BigInteger.TWO, BigInteger.ONE)`
+
+### Properties
+
+- `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
+  behave as expected
+
+### Methods
+
+- `isNaN()`, `isPositiveInfinity()`, `isNegativeInfinity()`
+- `isFinite()`, `isInfinite()`. Note than `NaN` is neither finite nor infinite
+- `isInteger()`, `isDyadic()` (See
+  [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational)),
+  `isPAdic(p)` (See
+  [_p_-adic number](https://en.wikipedia.org/wiki/P-adic_number))
+- `unaryDiv()` is a synonym for `reciprocal` as a pseudo-operator
+- `gcm(other)`, `lcd(other)`, `mediant(other)`
+- `toContinuedFraction()`
+- `pow(exponent)`
+- `divideAndRemainder(other)`
+- `floor()` rounds upwards; `ceil()` rounds downwards
+- `truncateAndFraction()` truncates and provides the truncation and remaining
+  fraction; `truncate()` rounds towards 0; `fraction()` provides the remaining
+  fraction
+
+### Operators
+
+- All numeric operators (binary and unary `plus` and `minus`, `times`, `div`,
+  and `rem`)
+- `rem` always returns `ZERO` or a non-finite value (rational division is
+  exact with no remainder)
+- Ranges and progressions
+- See also `divideAndRemainder`
+
+### Types
+
+This code attempts to ease programmer typing through overloading. Where
+sensible, if a `FloatingBigRational` and `FixedBigRational` are provided as
+argument or extension method types, then so are `BigDecimal`, `Double`,
+`Float`, `BigInteger`, `Long`, and `Int`.
+
+---
 
 ## Build
 
@@ -70,6 +188,8 @@ Docker container.
 
 This shares Maven plugin and dependency downloads with the Docker container
 run by Batect.
+
+---
 
 ## Design choices
 
@@ -101,8 +221,7 @@ These were great help:
   mathematical properties of ℚ, the field of the rationals
 
 The code for `FloatingBigRational` extends ℚ, the field of rational numbers,
-with
-[division by zero](https://en.wikipedia.org/wiki/Division_by_zero),
+with [division by zero](https://en.wikipedia.org/wiki/Division_by_zero),
 "not a number", -∞, and +∞, following the lead of
 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), and using the
 _affinely extended real line_ as a model. However, this code does not
@@ -182,11 +301,11 @@ This code supports conversion among `Double` and `Float`, and
 `FloatingBigRational` and `FixedBigRational` for all finite values, and
 non-finite values for `FloatingBigRational`. The conversion is _exact_: it
 constructs a power-of-2 rational value following IEEE 754; so reconverting
-returns the original floating point value, and for `FloatingBigRational`
+returns the original floating-point value, and for `FloatingBigRational`
 converts non-finite values to their corresponding values (for
 `FixedBigRational` this raises `ArithmeticException`).
 
-|Floating point|`FloatingBigRational`|`FixedBigRational`|
+|floating-point|`FloatingBigRational`|`FixedBigRational`|
 |---|---|---|
 |`0.0`|`ZERO`|`ZERO`|
 |`NaN`|`NaN`|Raises exception|
@@ -201,12 +320,12 @@ When narrowing types, conversion may lose magnitude, precision, and/or sign
 
 There are two ways to handle division by 0:
 
-- Produce a `NaN`, what floating point numbers do (_eg_, `1.0 / 0`)
+- Produce a `NaN`, what floating-point numbers do (_eg_, `1.0 / 0`)
   (`FloatingBigRational`)
 - Raise an error, what fixed point numbers do (_eg_, `1 / 0`)
   (`FixedBigRational`)
 
-For `FloatingBigRational`, as with floating point, `NaN != NaN`, and finite
+For `FloatingBigRational`, as with floating-point, `NaN != NaN`, and finite
 values equal themselves. As with mathematics, infinities are not equal to
 themselves, so `POSITIVE_INFINITY != POSITIVE_INFINTY` and
 `NEGATIVE_INFINITY != NEGATIVE_INFINITY`.  (`FloatingBigRational` does not
@@ -253,60 +372,10 @@ sort, regardless of other values. There is no sense of natural order for
 `NaN`, so this code chooses to sort `NaN` the same as does `Double`.
 
 For `FloatingBigRational`, all `NaN` are "quiet"; none are "signaling",
-including sorting. This follows the Java convention for floating point, and is
+including sorting. This follows the Java convention for floating-point, and is
 a complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
 
-## API
-
-In general, when properties, methods, and operations do not have
-documentation, they behave similarly as their floating point counterpart.
-
-### Constructors
-
-All constructors are _private_. Please use:
-
-- `over` infix operators, _eg_, `2 over 1`
-- `valueOf` companion methods, _eg_,
-  `BigRational.valueOf(BigInteger.TWO, BigInteger.ONE)`
-
-### Properties
-
-- `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
-  behave as expected
-
-### Methods
-
-- `isNaN()`, `isPositiveInfinity()`, `isNegativeInfinity()`
-- `isFinite()`, `isInfinite()`. Note than `NaN` is neither finite nor infinite
-- `isInteger()`, `isDyadic()` (See
-  [_Dyadic rational_](https://en.wikipedia.org/wiki/Dyadic_rational)),
-  `isPAdic(p)` (See
-  [_p_-adic number](https://en.wikipedia.org/wiki/P-adic_number))
-- `unaryDiv()` is a synonym for `reciprocal` as a pseudo-operator
-- `gcm(other)`, `lcd(other)`, `mediant(other)`
-- `toContinuedFraction()`
-- `pow(exponent)`
-- `divideAndRemainder(other)`
-- `floor()` rounds upwards; `ceil()` rounds downwards
-- `truncateAndFraction()` truncates and provides the truncation and remaining
-  fraction; `truncate()` rounds towards 0; `fraction()` provides the remaining
-  fraction
-
-### Operators
-
-- All numeric operators (binary and unary `plus` and `minus`, `times`, `div`,
-  and `rem`)
-- `rem` always returns `ZERO` or a non-finite value (rational division is
-  exact with no remainder)
-- Ranges and progressions
-- See also `divideAndRemainder`
-
-### Types
-
-This code attempts to ease programmer typing through overloading. Where
-sensible, if a `FloatingBigRational` and `FixedBigRational` are provided as
-argument or extension method types, then so are `BigDecimal`, `Double`,
-`Float`, `BigInteger`, `Long`, and `Int`.
+---
 
 ## Implementation choices
 
@@ -378,6 +447,8 @@ Restriction 1 would need to be loosened to accommodate using continued
 fractions for computing square roots of rationals. A function signature might
 look like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet
 restriction 2.
+
+---
 
 ## Further reading
 
