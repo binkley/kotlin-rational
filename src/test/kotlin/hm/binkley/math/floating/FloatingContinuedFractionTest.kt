@@ -29,7 +29,7 @@ internal class FloatingContinuedFractionTest {
     @Test
     fun `should continue`() {
         eulerApproximation.terms(0) shouldBe listOf(2 over 1)
-        eulerApproximation.terms(14) shouldBe (
+        eulerApproximation.terms(14) shouldBe
             listOf(
                 2 over 1,
                 ONE,
@@ -47,7 +47,6 @@ internal class FloatingContinuedFractionTest {
                 ONE,
                 10 over 1
 // truncated from here
-            )
             )
     }
 

@@ -681,7 +681,7 @@ internal class FixedBigRationalTest {
     inner class CantorSpiral {
         @Test
         fun `should find Cantor spiral`() {
-            cantorSpiral().take(10).toList() shouldBe (
+            cantorSpiral().take(10).toList() shouldBe
                 listOf(
                     ZERO,
                     ONE,
@@ -693,7 +693,6 @@ internal class FixedBigRationalTest {
                     -2 over 3,
                     -1 over 3,
                     1 over 3
-                )
                 )
         }
     }
