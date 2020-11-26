@@ -36,7 +36,7 @@
         <!-- @formatter:off -->
         <dependency-check-maven.version>6.0.3</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.11.0</detekt-maven-plugin.version>
-        <dokka.version>1.4.10</dokka.version>
+        <dokka.version>1.4.10.2</dokka.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
@@ -327,21 +327,31 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- TODO: How to get Dokka working?!
-                        <plugin>
-                            <groupId>org.jetbrains.dokka</groupId>
-                            <artifactId>dokka-maven-plugin</artifactId>
-                            <version>${dokka.version}</version>
-                            <executions>
-                                <execution>
-                                    <phase>pre-site</phase>
-                                    <goals>
-                                        <goal>dokka</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-            -->
+            <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>${dokka.version}</version>
+                <configuration>
+                    <jdkVersion>${java.version}</jdkVersion>
+                    <sourceLinks>
+                        <link>
+                            <lineSuffix>#L</lineSuffix>
+                            <path>${project.build.sourceDirectory}</path>
+                            <url>
+                                ${project.scm.url}/blob/master/src/main/kotlin
+                            </url>
+                        </link>
+                    </sourceLinks>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>dokka</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>${maven-source-plugin.version}</version>
