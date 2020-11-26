@@ -18,7 +18,7 @@ tasks:
     description: Build (and test) the program
     run:
       container: build-env
-      command: ./mvnw
+      command: ./mvnw --strict-checksums clean verify site
   run:
     description: Runs the demo program
     run:

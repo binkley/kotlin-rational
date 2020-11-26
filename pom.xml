@@ -146,8 +146,9 @@
                 <version>${kotlin.version}</version>
                 <configuration>
                     <args>
-                        <arg>-progressive</arg>
                         <arg>-Xinline-classes</arg>
+                        <!-- TODO: Enable -Werror when `**` warning is suppressible -->
+                        <!-- <arg>-Werror</arg>-->
                     </args>
                 </configuration>
                 <executions>
