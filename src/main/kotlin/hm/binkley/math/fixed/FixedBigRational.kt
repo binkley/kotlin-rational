@@ -29,7 +29,7 @@ internal typealias BRat = FixedBigRational
  */
 class FixedBigRational private constructor(
     numerator: BInt,
-    denominator: BInt
+    denominator: BInt,
 ) : BigRationalBase<FixedBigRational>(
     numerator,
     denominator,
@@ -56,7 +56,7 @@ class FixedBigRational private constructor(
          */
         override fun valueOf(
             numerator: BInt,
-            denominator: BInt
+            denominator: BInt,
         ): FixedBigRational {
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")
@@ -76,7 +76,7 @@ class FixedBigRational private constructor(
         override fun iteratorCheck(
             first: FixedBigRational,
             last: FixedBigRational,
-            step: FixedBigRational
+            step: FixedBigRational,
         ) {
             if (step == ZERO) error("Step must be non-zero.")
         }

@@ -12,7 +12,7 @@ import java.util.Collections.nCopies
  */
 abstract class ContinuedFractionBase<
     T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>
+    C : ContinuedFractionBase<T, C>,
     >(private val terms: List<T>) : List<T> by terms {
     protected abstract fun construct(terms: List<T>): C
 
@@ -62,7 +62,7 @@ abstract class ContinuedFractionBase<
  * @todo https://en.wikipedia.org/wiki/Continued_fraction#Best_rational_approximations
  */
 fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.convergent(
-    n: Int
+    n: Int,
 ): T {
     if (0 > n) error("Convergents start from the 0th")
     if (size <= n) error("Not enough terms for convergent: $n")
@@ -83,7 +83,7 @@ private tailrec fun <T : BigRationalBase<T>> converge(
     n: Int, // limiting case
     i: Int, // current case
     c_1: T, // "c-1", meaning previous
-    c_2: T // "c-2", meaning previous previous
+    c_2: T, // "c-2", meaning previous previous
 ): T {
     val termI = terms[i]
     val ci = (termI * c_1.numerator + c_2.numerator) /
@@ -95,7 +95,7 @@ private tailrec fun <T : BigRationalBase<T>> converge(
 
 abstract class ContinuedFractionCompanionBase<
     T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>
+    C : ContinuedFractionBase<T, C>,
     >(private val ONE: T) {
     internal abstract fun construct(integerPart: BInt): T
     internal abstract fun construct(terms: List<T>): C
@@ -113,7 +113,7 @@ abstract class ContinuedFractionCompanionBase<
     /** Creates a continued fraction from the given decomposed elements. */
     fun valueOf(
         integerPart: BInt,
-        vararg fractionalParts: BInt
+        vararg fractionalParts: BInt,
     ): C {
         val terms = mutableListOf(construct(integerPart))
         terms += fractionalParts.map { construct(it) }
@@ -133,10 +133,9 @@ abstract class ContinuedFractionCompanionBase<
 
 internal fun <
     T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>
+    C : ContinuedFractionBase<T, C>,
     > C.backAgain() = subList(0, size - 1)
     .asReversed()
-    .asSequence()
     .fold(last()) { previous, a_ni ->
         previous.unaryDiv() + a_ni
     }
@@ -150,7 +149,7 @@ fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple() =
 
 internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
     r: T,
-    sequence: MutableList<T>
+    sequence: MutableList<T>,
 ): List<T> {
     val (i, f) = r.toParts()
     sequence += i

@@ -23,7 +23,7 @@ import java.math.BigInteger
  * none are calculated to their limit; all convert to [NaN].
  */
 class FloatingContinuedFraction private constructor(
-    terms: List<FloatingBigRational>
+    terms: List<FloatingBigRational>,
 ) : ContinuedFractionBase<FloatingBigRational, FloatingContinuedFraction>(
     terms
 ) {
@@ -40,7 +40,7 @@ class FloatingContinuedFraction private constructor(
             FloatingContinuedFraction(terms)
 
         override fun valueOf(
-            r: FloatingBigRational
+            r: FloatingBigRational,
         ): FloatingContinuedFraction {
             val terms = mutableListOf<FloatingBigRational>()
             when {

@@ -7,7 +7,7 @@ import hm.binkley.math.CantorSpiral.Direction.W
 
 /** See https://youtu.be/3xyYs_eQTUc */
 internal class CantorSpiral<T : BigRationalBase<T>>(
-    private val companion: BigRationalCompanion<T>
+    private val companion: BigRationalCompanion<T>,
 ) : Sequence<T> {
     enum class Direction { N, S, E, W }
 

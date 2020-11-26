@@ -12,7 +12,7 @@ import kotlin.math.absoluteValue
 
 data class FixedComplex(
     val real: BRat,
-    val imag: FixedImaginary
+    val imag: FixedImaginary,
 ) : Ring<FixedComplex> {
     override val companion = Companion
 
@@ -184,7 +184,7 @@ fun FixedComplex.pow(n: Int): FixedComplex {
 private tailrec fun pow0(
     exponent: Int,
     power: FixedComplex,
-    base: FixedComplex
+    base: FixedComplex,
 ): FixedComplex =
     if (0 == exponent) power
     else pow0(exponent - 1, power * base, base)

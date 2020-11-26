@@ -21,7 +21,7 @@ import java.math.BigInteger
  * values are convertible to [BRat].
  */
 class FixedContinuedFraction private constructor(
-    terms: List<BRat>
+    terms: List<BRat>,
 ) : ContinuedFractionBase<BRat, FixedContinuedFraction>(
     terms
 ) {

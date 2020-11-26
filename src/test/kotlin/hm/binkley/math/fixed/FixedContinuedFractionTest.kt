@@ -8,8 +8,6 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
@@ -20,15 +18,14 @@ private val eulerApproximation =
 internal class FixedContinuedFractionTest {
     @Test
     fun `should be a list`() {
-        val c = (145 over 7).toContinuedFraction()
-
-        c.shouldBe(listOf(20 over 1, ONE, TWO, TWO))
+        (145 over 7).toContinuedFraction() shouldBe
+            listOf(20 over 1, ONE, TWO, TWO)
     }
 
     @Test
     fun `should continue`() {
-        eulerApproximation.terms(0).shouldBe(listOf(2 over 1))
-        eulerApproximation.terms(14).shouldBe(
+        eulerApproximation.terms(0) shouldBe listOf(2 over 1)
+        eulerApproximation.terms(14) shouldBe (
             listOf(
                 2 over 1,
                 ONE,
@@ -47,28 +44,26 @@ internal class FixedContinuedFractionTest {
                 10 over 1
                 // truncated from here
             )
-        )
+            )
     }
 
     @Test
     fun `should have integer part`() {
-        (2 over 1).toContinuedFraction().integerPart.shouldBe(TWO)
+        (2 over 1).toContinuedFraction().integerPart shouldBe TWO
     }
 
     @Test
     fun `should invert`() {
-        (2 over 1).toContinuedFraction().unaryDiv().shouldBe(
-            listOf(ZERO, 2 over 1),
-        )
-        (1 over 2).toContinuedFraction().reciprocal.shouldBe(
-            listOf(2 over 1),
-        )
+        (2 over 1).toContinuedFraction().unaryDiv() shouldBe
+            listOf(ZERO, 2 over 1)
+        (1 over 2).toContinuedFraction().reciprocal shouldBe
+            listOf(2 over 1)
     }
 
     @Test
     fun `should present continued fraction following convention`() {
-        "${(3 over 1).toContinuedFraction()}".shouldBe("[3;]")
-        "${(3245 over 1000).toContinuedFraction()}".shouldBe("[3; 4, 12, 4]")
+        "${(3 over 1).toContinuedFraction()}" shouldBe "[3;]"
+        "${(3245 over 1000).toContinuedFraction()}" shouldBe "[3; 4, 12, 4]"
     }
 
     @Test
@@ -78,35 +73,32 @@ internal class FixedContinuedFractionTest {
             4.toBigInteger(),
             12.toBigInteger(),
             4.toBigInteger()
-        ).toBigRational().shouldBe((3245 over 1000))
+        ).toBigRational() shouldBe (3245 over 1000)
     }
 
     @Test
     fun `should check if simple`() {
-        (2 over 1).toContinuedFraction().isSimple().shouldBeTrue()
-        (2 over 3).toContinuedFraction().isSimple().shouldBeFalse()
+        (2 over 1).toContinuedFraction().isSimple() shouldBe true
+        (2 over 3).toContinuedFraction().isSimple() shouldBe false
     }
 
     @Test
     fun `should converge`() {
-        eulerApproximation.convergent(0).shouldBe(2 over 1)
-        eulerApproximation.convergent(1).shouldBe(3 over 1)
-        eulerApproximation.convergent(2).shouldBe(8 over 3)
-        eulerApproximation.convergent(3).shouldBe(11 over 4)
-        eulerApproximation.convergent(4).shouldBe(19 over 7)
-        eulerApproximation.convergent(eulerApproximation.size - 1).shouldBe(
-            eulerApproximation.toBigRational(),
-        )
+        eulerApproximation.convergent(0) shouldBe (2 over 1)
+        eulerApproximation.convergent(1) shouldBe (3 over 1)
+        eulerApproximation.convergent(2) shouldBe (8 over 3)
+        eulerApproximation.convergent(3) shouldBe (11 over 4)
+        eulerApproximation.convergent(4) shouldBe (19 over 7)
+        eulerApproximation.convergent(eulerApproximation.size - 1) shouldBe
+            eulerApproximation.toBigRational()
 
         val c1 = eulerApproximation.convergent(1)
         val c2 = eulerApproximation.convergent(2)
         val c3 = eulerApproximation.convergent(3)
-        (c2.denominator * c1.numerator - c1.denominator * c2.numerator).shouldBe(
-            1.big,
-        )
-        (c3.denominator * c2.numerator - c2.denominator * c3.numerator).shouldBe(
-            -(1.big),
-        )
+        (c2.denominator * c1.numerator - c1.denominator * c2.numerator) shouldBe
+            1.big
+        (c3.denominator * c2.numerator - c2.denominator * c3.numerator) shouldBe
+            -(1.big)
 
         shouldThrow<IllegalStateException> {
             eulerApproximation.convergent(-1)
@@ -121,8 +113,8 @@ internal class FixedContinuedFractionTest {
         val decimalApproximation = 1_618_033 over 1_000_000
         val approximation = phi(10).toBigRational()
 
-        approximation.shouldBe(89 over 55)
-        (decimalApproximation - approximation).shouldBe(-1637 over 11000000)
+        approximation shouldBe (89 over 55)
+        (decimalApproximation - approximation) shouldBe (-1637 over 11000000)
 
         shouldThrow<IllegalStateException> { phi(0) }
         shouldThrow<IllegalStateException> { phi(-1) }

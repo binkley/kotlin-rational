@@ -11,70 +11,70 @@ import org.junit.jupiter.api.Test
 internal class Mod3IntTest {
     @Test
     fun `should have additive zero`() {
-        ZERO.companion.valueOf(0).shouldBeSameInstanceAs(ZERO)
-        Mod3Int.valueOf(0).value.shouldBe(0)
+        ZERO.companion.valueOf(0) shouldBeSameInstanceAs ZERO
+        Mod3Int.valueOf(0).value shouldBe 0
     }
 
     @Test
     fun `should have multiplicative one`() {
-        ONE.companion.valueOf(1).shouldBeSameInstanceAs(ONE)
-        Mod3Int.valueOf(1).value.shouldBe(1)
+        ONE.companion.valueOf(1) shouldBeSameInstanceAs ONE
+        Mod3Int.valueOf(1).value shouldBe 1
     }
 
     @Test
     fun `should handle negative values`() {
-        Mod3Int.valueOf(-1).shouldBe(TWO)
+        Mod3Int.valueOf(-1) shouldBe TWO
     }
 
     @Test
     fun `should posite`() {
-        (+Mod3Int.valueOf(1)).shouldBe(ONE)
+        +Mod3Int.valueOf(1) shouldBe ONE
     }
 
     @Test
     fun `should negate`() {
-        (-Mod3Int.valueOf(1)).shouldBe(TWO)
+        -Mod3Int.valueOf(1) shouldBe TWO
     }
 
     @Test
     fun `should add`() {
-        (Mod3Int.valueOf(4) + Mod3Int.valueOf(3)).shouldBe(ONE)
+        (Mod3Int.valueOf(4) + Mod3Int.valueOf(3)) shouldBe ONE
     }
 
     @Test
     fun `should subtract`() {
-        (Mod3Int.valueOf(4) - Mod3Int.valueOf(3)).shouldBe(ONE)
+        (Mod3Int.valueOf(4) - Mod3Int.valueOf(3)) shouldBe ONE
     }
 
     @Test
     fun `should multiply`() {
-        (Mod3Int.valueOf(4) * Mod3Int.valueOf(3)).shouldBe(ZERO)
+        (Mod3Int.valueOf(4) * Mod3Int.valueOf(3)) shouldBe ZERO
     }
 
     @Test
     fun `should equal`() {
-        ZERO.shouldBe(ZERO)
-        ONE.shouldNotBe(ZERO)
-        TWO.shouldNotBe(ZERO)
-        ONE.shouldBe(ONE)
-        TWO.shouldNotBe(ONE)
-        TWO.shouldBe(TWO)
+        ZERO shouldBe ZERO
+        ONE shouldNotBe ZERO
+        TWO shouldNotBe ZERO
+        ONE shouldBe ONE
+        TWO shouldNotBe ONE
+        TWO shouldBe TWO
     }
 
     @Test
     fun `should hash`() {
-        ZERO.hashCode().shouldBe(ZERO.hashCode())
-        ONE.hashCode().shouldNotBe(ZERO.hashCode())
-        TWO.hashCode().shouldNotBe(ZERO.hashCode())
-        ONE.hashCode().shouldBe(ONE.hashCode())
-        TWO.hashCode().shouldNotBe(ONE.hashCode())
-        TWO.hashCode().shouldBe(TWO.hashCode())
+        ZERO.hashCode() shouldBe ZERO.hashCode()
+        ONE.hashCode() shouldNotBe ZERO.hashCode()
+        TWO.hashCode() shouldNotBe ZERO.hashCode()
+        ONE.hashCode() shouldBe ONE.hashCode()
+        TWO.hashCode() shouldNotBe ONE.hashCode()
+        TWO.hashCode() shouldBe TWO.hashCode()
     }
 
     @Test
     fun `should pretty print`() {
-        "$ZERO".shouldBe("0")
-        "$ONE".shouldBe("1")
-        "$TWO".shouldBe("2")
+        "$ZERO" shouldBe "0"
+        "$ONE" shouldBe "1"
+        "$TWO" shouldBe "2"
     }
 }

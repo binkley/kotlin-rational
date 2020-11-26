@@ -35,7 +35,7 @@ import java.math.BigDecimal
 @Suppress("EqualsOrHashCode")
 class FloatingBigRational private constructor(
     numerator: BInt,
-    denominator: BInt
+    denominator: BInt,
 ) : BigRationalBase<FloatingBigRational>(
     numerator,
     denominator,
@@ -227,7 +227,7 @@ class FloatingBigRational private constructor(
          */
         override fun valueOf(
             numerator: BInt,
-            denominator: BInt
+            denominator: BInt,
         ): FloatingBigRational {
             if (denominator.isZero()) return when {
                 numerator.isZero() -> NaN
@@ -257,7 +257,7 @@ class FloatingBigRational private constructor(
         override fun iteratorCheck(
             first: FloatingBigRational,
             last: FloatingBigRational,
-            step: FloatingBigRational
+            step: FloatingBigRational,
         ) {
             if (!step.isFinite()) error("Non-finite step.")
             if (!first.isFinite() || !last.isFinite())

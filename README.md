@@ -39,7 +39,10 @@ There are no run-time dependencies.
 
 ## Releases
 
-* 1.0.0 &mdash; Publishing for reuse by
+* [2.0.0-SNAPSHOT](https://github.com/binkley/kotlin-rational/tree/master)
+  &mdash; (2020-11-26) In progress / Rationalized type and package names
+* [1.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-1.0.0)
+  &mdash; (2020-04-02) Initial prototype released for reuse by
   [KUnits](https://github.com/binkley/kunits)
 
 ## Platform
