@@ -16,6 +16,7 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.cantorSpiral
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floor
+import hm.binkley.math.fraction
 import hm.binkley.math.gcd
 import hm.binkley.math.isDenominatorEven
 import hm.binkley.math.isZero
@@ -28,6 +29,7 @@ import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
 import hm.binkley.math.times
 import hm.binkley.math.truncate
+import hm.binkley.math.truncateAndFraction
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -352,12 +354,27 @@ internal class FixedBigRationalTest {
         }
 
         @Test
+        fun `should truncate and fractionate`() {
+            listOf(ZERO, ONE, -ONE, 3 over 2, -3 over 2).forEach {
+                val (truncation, fraction) = it.truncateAndFraction()
+                (truncation + fraction).shouldBe(it)
+            }
+        }
+
+        @Test
         fun `should round towards 0`() {
             ZERO.truncate().shouldBe(ZERO)
             ONE.truncate().shouldBe(ONE)
             (-ONE).truncate().shouldBe(-ONE)
             (1 over 2).truncate().shouldBe(ZERO)
             (-1 over 2).truncate().shouldBe(ZERO)
+        }
+
+        @Test
+        fun `should fractionate`() {
+            ZERO.fraction().shouldBe(ZERO)
+            (3 over 2).fraction().shouldBe(1 over 2)
+            (-3 over 2).fraction().shouldBe(-1 over 2)
         }
     }
 

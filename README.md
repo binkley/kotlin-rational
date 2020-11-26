@@ -282,8 +282,10 @@ All constructors are _private_. Please use:
 - `toContinuedFraction()`
 - `pow(exponent)`
 - `divideAndRemainder(other)`
-- `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
-  towards 0
+- `floor()` rounds upwards; `ceil()` rounds downwards
+- `truncateAndFraction()` truncates and provides the truncation and remaining
+  fraction; `truncate()` rounds towards 0; `fraction()` provides the remaining
+  fraction
 
 ### Operators
 

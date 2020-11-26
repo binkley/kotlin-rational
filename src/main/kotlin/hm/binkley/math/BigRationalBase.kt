@@ -81,7 +81,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
     fun construct(
         numerator: BInt,
         denominator: BInt,
-        ctor: (BInt, BInt) -> T
+        ctor: (BInt, BInt) -> T,
     ): T {
         if (numerator.isZero()) return ZERO
 
@@ -112,7 +112,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
 abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     val numerator: BInt,
     val denominator: BInt,
-    override val companion: BigRationalCompanion<T>
+    override val companion: BigRationalCompanion<T>,
 ) : Number(), Comparable<T>, Field<T> {
     /** Returns the absolute value. */
     @Suppress("UNCHECKED_CAST")
@@ -808,13 +808,43 @@ fun <T : BigRationalBase<T>> T.ceil() = when {
 }
 
 /**
- * Rounds to the nearest whole number _closer to 0_ than this BigRational,
- * or when this is a whole number, returns this.
+ * Truncates to the nearest whole number _closer to 0_ than this BigRational,
+ * or when this is a whole number, truncates to this, returning the trunction
+ * and remaining fraction.
+ *
+ * Summing the truncation and fraction should produce the original number
+ * unless `NaN` is involved.
+ *
+ * For `FloatingBigRational`, `NaN`, and positive and negativive infinities
+ * produce `NaN` as the fraction.
  */
-fun <T : BigRationalBase<T>> T.truncate() = when {
-    roundsToSelf() -> this
-    else -> companion.valueOf(numerator / denominator)
+fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
+    val truncation = when {
+        roundsToSelf() -> this
+        else -> companion.valueOf(numerator / denominator)
+    }
+    val fraction = this - truncation
+
+    return truncation to fraction
 }
+
+/**
+ * Truncates to the nearest whole number _closer to 0_ than this BigRational,
+ * or when this is a whole number, returns this.
+ *
+ * @see truncateAndFraction
+ */
+fun <T : BigRationalBase<T>> T.truncate() = truncateAndFraction().first
+
+/**
+ * Provides the signed fractional remainder after [truncation][truncate].
+ *
+ * For `FloatingBigRational`, `NaN`, and positive and negativive infinities
+ * produce `NaN`.
+ *
+ * @see truncateAndFraction
+ */
+fun <T : BigRationalBase<T>> T.fraction() = truncateAndFraction().second
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and
