@@ -168,6 +168,8 @@ fun FixedComplex.sqrtApproximated(): FixedComplex {
     return gamma + delta.i
 }
 
+infix fun FixedComplex.`**`(n: Int) = pow(n)
+
 fun FixedComplex.pow(n: Int): FixedComplex {
     // TODO: Improve on brute force
     when (n) {

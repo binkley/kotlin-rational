@@ -613,8 +613,8 @@ internal class FixedBigRationalTest {
         @Test
         fun `should raise`() {
             ((3 over 5) `**` 2) shouldBe (9 over 25)
-            ((3 over 5) `**` 0) shouldBe ONE
-            ((3 over 5) `**` -2) shouldBe (25 over 9)
+            (3 over 5).pow(0) shouldBe ONE
+            (3 over 5).pow(-2) shouldBe (25 over 9)
         }
 
         @Test

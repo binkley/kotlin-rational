@@ -53,11 +53,13 @@ This code has been built and passes tests on JDK 11, 13, and 14.
 
 * [DependencyCheck](https://github.com/jeremylong/DependencyCheck) scans for
   dependency security issues
-* [detekt](https://github.com/arturbosch/detekt) runs static code analysis for
-  Kotlin
 * [JUnit](https://github.com/junit-team/junit5) runs tests
 * [JaCoCo](https://github.com/jacoco/jacoco) measures code coverage
+* [PITest](https://github.com/hcoles/pitest) measures mutation coverage
+* [detekt](https://github.com/arturbosch/detekt) runs static code analysis for
+  Kotlin
 * [ktlint](https://github.com/pinterest/ktlint) keeps code tidy
+* [Dokka](https://github.com/Kotlin/dokka) generates documentation
 
 Use `./mvnw` (Maven) or `./batect build` (Batect) to build, run tests, and
 create a demo program. Use `./run.sh` or `./batect run` to run the demo.

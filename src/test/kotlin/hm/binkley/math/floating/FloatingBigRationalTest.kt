@@ -891,16 +891,16 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should raise`() {
             ((3 over 5) `**` 2) shouldBe (9 over 25)
-            ((3 over 5) `**` 0) shouldBe ONE
-            ((3 over 5) `**` -2) shouldBe (25 over 9)
-            (POSITIVE_INFINITY `**` 2) shouldBe POSITIVE_INFINITY
-            (POSITIVE_INFINITY `**` -1) shouldBe ZERO
-            (NEGATIVE_INFINITY `**` 3) shouldBe NEGATIVE_INFINITY
-            (NEGATIVE_INFINITY `**` 2) shouldBe POSITIVE_INFINITY
-            (NEGATIVE_INFINITY `**` -1) shouldBe ZERO
-            (NaN `**` 2).isNaN() shouldBe true
-            (POSITIVE_INFINITY `**` 0).isNaN() shouldBe true
-            (NEGATIVE_INFINITY `**` 0).isNaN() shouldBe true
+            (3 over 5).pow(0) shouldBe ONE
+            (3 over 5).pow(-2) shouldBe (25 over 9)
+            POSITIVE_INFINITY.pow(2) shouldBe POSITIVE_INFINITY
+            POSITIVE_INFINITY.pow(-1) shouldBe ZERO
+            NEGATIVE_INFINITY.pow(3) shouldBe NEGATIVE_INFINITY
+            NEGATIVE_INFINITY.pow(2) shouldBe POSITIVE_INFINITY
+            NEGATIVE_INFINITY.pow(-1) shouldBe ZERO
+            NaN.pow(2).isNaN() shouldBe true
+            POSITIVE_INFINITY.pow(0).isNaN() shouldBe true
+            NEGATIVE_INFINITY.pow(0).isNaN() shouldBe true
         }
 
         @Test
