@@ -34,13 +34,13 @@ abstract class ContinuedFractionBase<
      *
      * @see reciprocal
      */
-    fun unaryDiv() = if (integerPart.isZero())
+    fun unaryDiv(): C = if (integerPart.isZero())
         construct(fractionalParts)
     else
         construct(listOf(integerPart.companion.ZERO) + terms)
 
     /** Returns the canonical representation of this continued fraction. */
-    override fun toString() = when (size) {
+    override fun toString(): String = when (size) {
         1 -> "[$integerPart;]"
         else -> terms.toString().replaceFirst(',', ';')
     }
@@ -50,7 +50,7 @@ abstract class ContinuedFractionBase<
      * example, `terms(0)` returns only the _integral part_ of this continued
      * fraction.
      */
-    fun terms(fractionalTerms: Int) = subList(0, fractionalTerms + 1)
+    fun terms(fractionalTerms: Int): List<T> = subList(0, fractionalTerms + 1)
 }
 
 /**
@@ -144,8 +144,8 @@ internal fun <
  * Checks if this continued fraction is _simple_ (has only 1 in all
  * numerators).
  */
-fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple() =
-    fractionalParts.all { 1.big === it.numerator }
+fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple(): Boolean =
+    fractionalParts.all { it.numerator.isOne() }
 
 internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
     r: T,

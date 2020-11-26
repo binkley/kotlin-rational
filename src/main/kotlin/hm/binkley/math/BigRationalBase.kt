@@ -58,7 +58,8 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      * Since the conversion to a rational is _exact_, converting the resulting
      * rational back to a [Double] produces the original value.
      */
-    fun valueOf(floatingPoint: Double) = valueOf(floatingPoint.toBigDecimal())
+    fun valueOf(floatingPoint: Double): T =
+        valueOf(floatingPoint.toBigDecimal())
 
     /**
      * Since the conversion to a rational is _exact_, converting the resulting
@@ -72,9 +73,9 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
         throw ArithmeticException("$floatingPoint: ${e.message}")
     }
 
-    fun valueOf(wholeNumber: BInt) = valueOf(wholeNumber, 1.big)
-    fun valueOf(wholeNumber: Long) = valueOf(wholeNumber.toBigInteger())
-    fun valueOf(wholeNumber: Int) = valueOf(wholeNumber.toBigInteger())
+    fun valueOf(wholeNumber: BInt): T = valueOf(wholeNumber, 1.big)
+    fun valueOf(wholeNumber: Long): T = valueOf(wholeNumber.toBigInteger())
+    fun valueOf(wholeNumber: Int): T = valueOf(wholeNumber.toBigInteger())
 
     fun iteratorCheck(first: T, last: T, step: T)
 
@@ -142,22 +143,22 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     override fun toChar(): Char = error("Characters are non-numeric")
 
     /** @see [Long.toByte] */
-    override fun toByte() = toLong().toByte()
+    override fun toByte(): Byte = toLong().toByte()
 
     /** @see [Long.toShort] */
-    override fun toShort() = toLong().toShort()
+    override fun toShort(): Short = toLong().toShort()
 
     /** @see [Long.toInt] */
-    override fun toInt() = toLong().toInt()
+    override fun toInt(): Int = toLong().toInt()
 
     /** @see [BigDecimal.toLong] */
-    override fun toLong() = (numerator / denominator).toLong()
+    override fun toLong(): Long = (numerator / denominator).toLong()
 
     /**
      * @see [Double.toFloat]
      * @see [toDouble]
      */
-    override fun toFloat() = toDouble().toFloat()
+    override fun toFloat(): Float = toDouble().toFloat()
 
     /**
      * Returns the value of this number as a [Double], which may involve
@@ -167,13 +168,13 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * @see [BigDecimal.toDouble] with similar behavior
      * @see [BigRationalCompanion.valueOf(Double)]
      */
-    override fun toDouble() =
+    override fun toDouble(): Double =
         numerator.toBigDecimal().divide(denominator.toBigDecimal()).toDouble()
 
     /**
      * Returns this as a [BigInteger], which may involve rounding.
      */
-    fun toBigInteger() = numerator / denominator
+    fun toBigInteger(): BigInteger = numerator / denominator
 
     /**
      * Compares this object with the specified object for order. Returns
@@ -185,7 +186,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * - 0
      * - 1
      */
-    override fun compareTo(other: T) = when {
+    override fun compareTo(other: T): Int = when {
         this === other -> 0 // Sort stability for constants
         else -> {
             val a = numerator * other.denominator
@@ -236,7 +237,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * @see [divideAndRemainder]
      */
     @Suppress("UNUSED_PARAMETER")
-    open operator fun rem(divisor: T) = companion.ZERO
+    open operator fun rem(divisor: T): T = companion.ZERO
 
     /**
      * Returns a the value `(this^exponent)`. Note that [exponent] is an
@@ -258,13 +259,13 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * this function returns `(a+c)/(b+d)` (order of `this` and [that] does
      * not matter).
      */
-    open fun mediant(that: T) = companion.valueOf(
+    open fun mediant(that: T): T = companion.valueOf(
         numerator + that.numerator,
         denominator + that.denominator
     )
 
     /** Checks that this rational is an integer. */
-    fun isInteger() = 1.big == denominator
+    fun isInteger(): Boolean = 1.big == denominator
 
     internal open fun roundsToSelf() = isInteger()
 
@@ -274,7 +275,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      *
      * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
      */
-    open fun isDyadic() = denominator.isDyadic()
+    open fun isDyadic(): Boolean = denominator.isDyadic()
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a power
@@ -286,21 +287,21 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
      * number</cite></a>
      */
-    open fun isPAdic(p: Long) = denominator.isPAdic(p)
+    open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
-    override fun equals(other: Any?) = this === other ||
+    override fun equals(other: Any?): Boolean = this === other ||
         other is BigRationalBase<*> &&
         javaClass == other.javaClass &&
         numerator == other.numerator &&
         denominator == other.denominator
 
-    override fun hashCode() = hash(javaClass, numerator, denominator)
+    override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
     /**
      * Returns a string representation of the object,
      * "[numerator]/[denominator]".
      */
-    override fun toString() = when {
+    override fun toString(): String = when {
         denominator.isOne() -> numerator.toString()
         else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
@@ -311,7 +312,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: BDouble) =
+operator fun <T : BigRationalBase<T>> T.compareTo(other: BDouble): Int =
     compareTo(companion.valueOf(other))
 
 /**
@@ -319,7 +320,7 @@ operator fun <T : BigRationalBase<T>> T.compareTo(other: BDouble) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> BDouble.compareTo(other: T) =
+operator fun <T : BigRationalBase<T>> BDouble.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /**
@@ -327,7 +328,7 @@ operator fun <T : BigRationalBase<T>> BDouble.compareTo(other: T) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Double) =
+operator fun <T : BigRationalBase<T>> T.compareTo(other: Double): Int =
     compareTo(companion.valueOf(other))
 
 /**
@@ -335,7 +336,7 @@ operator fun <T : BigRationalBase<T>> T.compareTo(other: Double) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> Double.compareTo(other: T) =
+operator fun <T : BigRationalBase<T>> Double.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /**
@@ -343,7 +344,7 @@ operator fun <T : BigRationalBase<T>> Double.compareTo(other: T) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Float) =
+operator fun <T : BigRationalBase<T>> T.compareTo(other: Float): Int =
     compareTo(companion.valueOf(other))
 
 /**
@@ -351,7 +352,7 @@ operator fun <T : BigRationalBase<T>> T.compareTo(other: Float) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> Float.compareTo(other: T) =
+operator fun <T : BigRationalBase<T>> Float.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /**
@@ -359,7 +360,7 @@ operator fun <T : BigRationalBase<T>> Float.compareTo(other: T) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: BInt) =
+operator fun <T : BigRationalBase<T>> T.compareTo(other: BInt): Int =
     compareTo(companion.valueOf(other))
 
 /**
@@ -367,7 +368,7 @@ operator fun <T : BigRationalBase<T>> T.compareTo(other: BInt) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> BInt.compareTo(other: T) =
+operator fun <T : BigRationalBase<T>> BInt.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /**
@@ -375,7 +376,7 @@ operator fun <T : BigRationalBase<T>> BInt.compareTo(other: T) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Long) =
+operator fun <T : BigRationalBase<T>> T.compareTo(other: Long): Int =
     compareTo(companion.valueOf(other))
 
 /**
@@ -383,7 +384,7 @@ operator fun <T : BigRationalBase<T>> T.compareTo(other: Long) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> Long.compareTo(other: T) =
+operator fun <T : BigRationalBase<T>> Long.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /**
@@ -391,7 +392,7 @@ operator fun <T : BigRationalBase<T>> Long.compareTo(other: T) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Int) =
+operator fun <T : BigRationalBase<T>> T.compareTo(other: Int): Int =
     compareTo(companion.valueOf(other))
 
 /**
@@ -399,151 +400,151 @@ operator fun <T : BigRationalBase<T>> T.compareTo(other: Int) =
  *
  * @see [BigRationalBase.compareTo]
  */
-operator fun <T : BigRationalBase<T>> Int.compareTo(other: T) =
+operator fun <T : BigRationalBase<T>> Int.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> T.plus(addend: BDouble) =
+operator fun <T : BigRationalBase<T>> T.plus(addend: BDouble): T =
     this + companion.valueOf(addend)
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> T.plus(addend: Double) =
+operator fun <T : BigRationalBase<T>> T.plus(addend: Double): T =
     this + companion.valueOf(addend)
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> T.plus(addend: Float) =
+operator fun <T : BigRationalBase<T>> T.plus(addend: Float): T =
     this + companion.valueOf(addend)
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> T.plus(addend: BInt) =
+operator fun <T : BigRationalBase<T>> T.plus(addend: BInt): T =
     this + companion.valueOf(addend)
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> T.plus(addend: Long) =
+operator fun <T : BigRationalBase<T>> T.plus(addend: Long): T =
     this + companion.valueOf(addend)
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> T.plus(addend: Int) =
+operator fun <T : BigRationalBase<T>> T.plus(addend: Int): T =
     this + companion.valueOf(addend)
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> BDouble.plus(addend: T) =
+operator fun <T : BigRationalBase<T>> BDouble.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> Double.plus(addend: T) =
+operator fun <T : BigRationalBase<T>> Double.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> Float.plus(addend: T) =
+operator fun <T : BigRationalBase<T>> Float.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> BInt.plus(addend: T) =
+operator fun <T : BigRationalBase<T>> BInt.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> Long.plus(addend: T) =
+operator fun <T : BigRationalBase<T>> Long.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds the other value to this value. */
-operator fun <T : BigRationalBase<T>> Int.plus(addend: T) =
+operator fun <T : BigRationalBase<T>> Int.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BDouble) =
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BDouble): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Double) =
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Double): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Float) =
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Float): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BInt) =
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BInt): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Long) =
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Long): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Int) =
+operator fun <T : BigRationalBase<T>> T.minus(subtrahend: Int): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> BDouble.minus(subtrahend: T) =
+operator fun <T : BigRationalBase<T>> BDouble.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> Double.minus(subtrahend: T) =
+operator fun <T : BigRationalBase<T>> Double.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> Float.minus(subtrahend: T) =
+operator fun <T : BigRationalBase<T>> Float.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> BInt.minus(subtrahend: T) =
+operator fun <T : BigRationalBase<T>> BInt.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> Long.minus(subtrahend: T) =
+operator fun <T : BigRationalBase<T>> Long.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts the other value from this value. */
-operator fun <T : BigRationalBase<T>> Int.minus(subtrahend: T) =
+operator fun <T : BigRationalBase<T>> Int.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplier: BDouble) =
+operator fun <T : BigRationalBase<T>> T.times(multiplier: BDouble): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplier: Double) =
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Double): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplier: Float) =
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Float): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplier: BInt) =
+operator fun <T : BigRationalBase<T>> T.times(multiplier: BInt): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplier: Long) =
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Long): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> T.times(multiplier: Int) =
+operator fun <T : BigRationalBase<T>> T.times(multiplier: Int): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> BDouble.times(multiplier: T) =
+operator fun <T : BigRationalBase<T>> BDouble.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Double.times(multiplier: T) =
+operator fun <T : BigRationalBase<T>> Double.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Float.times(multiplier: T) =
+operator fun <T : BigRationalBase<T>> Float.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> BInt.times(multiplier: T) =
+operator fun <T : BigRationalBase<T>> BInt.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Long.times(multiplier: T) =
+operator fun <T : BigRationalBase<T>> Long.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by the other value. */
-operator fun <T : BigRationalBase<T>> Int.times(multiplier: T) =
+operator fun <T : BigRationalBase<T>> Int.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /**
@@ -551,7 +552,7 @@ operator fun <T : BigRationalBase<T>> Int.times(multiplier: T) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.div(divisor: BDouble) =
+operator fun <T : BigRationalBase<T>> T.div(divisor: BDouble): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -559,7 +560,7 @@ operator fun <T : BigRationalBase<T>> T.div(divisor: BDouble) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.div(divisor: Double) =
+operator fun <T : BigRationalBase<T>> T.div(divisor: Double): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -567,7 +568,7 @@ operator fun <T : BigRationalBase<T>> T.div(divisor: Double) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.div(divisor: Float) =
+operator fun <T : BigRationalBase<T>> T.div(divisor: Float): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -575,7 +576,7 @@ operator fun <T : BigRationalBase<T>> T.div(divisor: Float) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.div(divisor: BInt) =
+operator fun <T : BigRationalBase<T>> T.div(divisor: BInt): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -583,7 +584,7 @@ operator fun <T : BigRationalBase<T>> T.div(divisor: BInt) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.div(divisor: Long) =
+operator fun <T : BigRationalBase<T>> T.div(divisor: Long): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -591,7 +592,7 @@ operator fun <T : BigRationalBase<T>> T.div(divisor: Long) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.div(divisor: Int) =
+operator fun <T : BigRationalBase<T>> T.div(divisor: Int): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -599,7 +600,7 @@ operator fun <T : BigRationalBase<T>> T.div(divisor: Int) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> BDouble.div(divisor: T) =
+operator fun <T : BigRationalBase<T>> BDouble.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -607,7 +608,7 @@ operator fun <T : BigRationalBase<T>> BDouble.div(divisor: T) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> Double.div(divisor: T) =
+operator fun <T : BigRationalBase<T>> Double.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -615,7 +616,7 @@ operator fun <T : BigRationalBase<T>> Double.div(divisor: T) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> Float.div(divisor: T) =
+operator fun <T : BigRationalBase<T>> Float.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -623,7 +624,7 @@ operator fun <T : BigRationalBase<T>> Float.div(divisor: T) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> BInt.div(divisor: T) =
+operator fun <T : BigRationalBase<T>> BInt.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -631,7 +632,7 @@ operator fun <T : BigRationalBase<T>> BInt.div(divisor: T) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> Long.div(divisor: T) =
+operator fun <T : BigRationalBase<T>> Long.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -639,7 +640,7 @@ operator fun <T : BigRationalBase<T>> Long.div(divisor: T) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> Int.div(divisor: T) =
+operator fun <T : BigRationalBase<T>> Int.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -647,7 +648,7 @@ operator fun <T : BigRationalBase<T>> Int.div(divisor: T) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.rem(divisor: BDouble) =
+operator fun <T : BigRationalBase<T>> T.rem(divisor: BDouble): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -655,7 +656,7 @@ operator fun <T : BigRationalBase<T>> T.rem(divisor: BDouble) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.rem(divisor: Double) =
+operator fun <T : BigRationalBase<T>> T.rem(divisor: Double): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -663,7 +664,7 @@ operator fun <T : BigRationalBase<T>> T.rem(divisor: Double) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.rem(divisor: Float) =
+operator fun <T : BigRationalBase<T>> T.rem(divisor: Float): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -671,7 +672,7 @@ operator fun <T : BigRationalBase<T>> T.rem(divisor: Float) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.rem(divisor: BInt) =
+operator fun <T : BigRationalBase<T>> T.rem(divisor: BInt): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -679,7 +680,7 @@ operator fun <T : BigRationalBase<T>> T.rem(divisor: BInt) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.rem(divisor: Long) =
+operator fun <T : BigRationalBase<T>> T.rem(divisor: Long): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -687,7 +688,7 @@ operator fun <T : BigRationalBase<T>> T.rem(divisor: Long) =
  *
  * @see [divideAndRemainder]
  */
-operator fun <T : BigRationalBase<T>> T.rem(divisor: Int) =
+operator fun <T : BigRationalBase<T>> T.rem(divisor: Int): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -696,7 +697,7 @@ operator fun <T : BigRationalBase<T>> T.rem(divisor: Int) =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-operator fun <T : BigRationalBase<T>> BDouble.rem(other: T) =
+operator fun <T : BigRationalBase<T>> BDouble.rem(other: T): T =
     other.companion.ZERO
 
 /**
@@ -705,7 +706,7 @@ operator fun <T : BigRationalBase<T>> BDouble.rem(other: T) =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-operator fun <T : BigRationalBase<T>> Double.rem(other: T) =
+operator fun <T : BigRationalBase<T>> Double.rem(other: T): T =
     other.companion.ZERO
 
 /**
@@ -714,7 +715,7 @@ operator fun <T : BigRationalBase<T>> Double.rem(other: T) =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-operator fun <T : BigRationalBase<T>> Float.rem(other: T) =
+operator fun <T : BigRationalBase<T>> Float.rem(other: T): T =
     other.companion.ZERO
 
 /**
@@ -723,7 +724,7 @@ operator fun <T : BigRationalBase<T>> Float.rem(other: T) =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-operator fun <T : BigRationalBase<T>> BInt.rem(other: T) =
+operator fun <T : BigRationalBase<T>> BInt.rem(other: T): T =
     other.companion.ZERO
 
 /**
@@ -732,7 +733,7 @@ operator fun <T : BigRationalBase<T>> BInt.rem(other: T) =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-operator fun <T : BigRationalBase<T>> Long.rem(other: T) =
+operator fun <T : BigRationalBase<T>> Long.rem(other: T): T =
     other.companion.ZERO
 
 /**
@@ -741,7 +742,7 @@ operator fun <T : BigRationalBase<T>> Long.rem(other: T) =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-operator fun <T : BigRationalBase<T>> Int.rem(other: T) =
+operator fun <T : BigRationalBase<T>> Int.rem(other: T): T =
     other.companion.ZERO
 
 /**
@@ -759,7 +760,7 @@ fun <T : BigRationalBase<T>> T.divideAndRemainder(other: T): Pair<T, T> {
 
 /** Provides a pseudo-operator for exponentiation. */
 @Suppress("FunctionName")
-infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int) = pow(exponent)
+infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int): T = pow(exponent)
 
 /**
  * Returns an _exact_ square root (non-complex).  The caller should take
@@ -794,14 +795,14 @@ fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
 }
 
 /** Rounds to the nearest whole number _less than or equal_ to this. */
-fun <T : BigRationalBase<T>> T.floor() = when {
+fun <T : BigRationalBase<T>> T.floor(): T = when {
     roundsToSelf() -> this
     companion.ZERO <= this -> truncate()
     else -> truncate() - companion.ONE
 }
 
 /** Rounds to the nearest whole number _greater than or equal_ to this. */
-fun <T : BigRationalBase<T>> T.ceil() = when {
+fun <T : BigRationalBase<T>> T.ceil(): T = when {
     roundsToSelf() -> this
     companion.ZERO <= this -> truncate() + companion.ONE
     else -> truncate()
@@ -834,7 +835,7 @@ fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
  *
  * @see truncateAndFraction
  */
-fun <T : BigRationalBase<T>> T.truncate() = truncateAndFraction().first
+fun <T : BigRationalBase<T>> T.truncate(): T = truncateAndFraction().first
 
 /**
  * Provides the signed fractional remainder after [truncation][truncate].
@@ -844,13 +845,13 @@ fun <T : BigRationalBase<T>> T.truncate() = truncateAndFraction().first
  *
  * @see truncateAndFraction
  */
-fun <T : BigRationalBase<T>> T.fraction() = truncateAndFraction().second
+fun <T : BigRationalBase<T>> T.fraction(): T = truncateAndFraction().second
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and
  * [that].  Returns 0 when `this` and [that] are both 0.
  */
-fun <T : BigRationalBase<T>> T.gcd(that: T) =
+fun <T : BigRationalBase<T>> T.gcd(that: T): T =
     if (isZero()) that else companion.valueOf(
         numerator.gcd(that.numerator),
         denominator.lcm(that.denominator)
@@ -860,18 +861,22 @@ fun <T : BigRationalBase<T>> T.gcd(that: T) =
  * Returns the lowest common multiple of the absolute values of `this` and
  * [that].  Returns 0 when `this` and [that] are both 0.
  */
-fun <T : BigRationalBase<T>> T.lcm(that: T) =
+fun <T : BigRationalBase<T>> T.lcm(that: T): T =
     if (isZero()) companion.ZERO else companion.valueOf(
         numerator.lcm(that.numerator),
         denominator.gcd(that.denominator)
     )
 
 /** Checks that this rational is 0. */
-fun <T : BigRationalBase<T>> T.isZero() = companion.ZERO === this
+fun <T : BigRationalBase<T>> T.isZero(): Boolean = companion.ZERO === this
+
+/** Checks that this rational is 1. */
+fun <T : BigRationalBase<T>> T.isOne(): Boolean = companion.ONE === this
 
 /**
  * Checks that this rational has an even denominator.  The odds of a random
  * rational number having an even denominator is exactly 1/3 (Salamin and
  * Gosper 1972).
  */
-fun <T : BigRationalBase<T>> T.isDenominatorEven() = denominator.isEven()
+fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
+    denominator.isEven()

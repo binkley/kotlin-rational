@@ -8,157 +8,199 @@ import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.isZero
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
+import java.math.BigInteger
 import kotlin.math.absoluteValue
 
 data class FixedComplex(
     val real: BRat,
     val imag: FixedImaginary,
 ) : Ring<FixedComplex> {
-    override val companion = Companion
+    override val companion: Companion = Companion
 
-    val conjugate get() = real + -imag
-    val det get() = real * real - imag * imag
-    val absoluteValue get() = det.sqrt()
+    val conjugate: FixedComplex get() = real + -imag
+    val det: FixedBigRational get() = real * real - imag * imag
+    val absoluteValue: FixedBigRational get() = det.sqrt()
     val reciprocal: FixedComplex get() = unaryDiv()
 
-    override operator fun unaryMinus() = -real + -imag
+    override operator fun unaryMinus(): FixedComplex = -real + -imag
 
     fun unaryDiv(): FixedComplex {
         val det = det
         return real / det - (imag.value / det).i
     }
 
-    override operator fun plus(addend: FixedComplex) =
+    override operator fun plus(addend: FixedComplex): FixedComplex =
         (real + addend.real) + (imag + addend.imag)
 
-    operator fun plus(addend: BRat) = this + (addend + BRat.ZERO.i)
-    operator fun plus(addend: BInt) = this + (addend + BRat.ZERO.i)
-    operator fun plus(addend: Long) = this + (addend + BRat.ZERO.i)
-    operator fun plus(addend: Int) = this + (addend + BRat.ZERO.i)
-    operator fun plus(addend: FixedImaginary) = this + (BRat.ZERO + addend)
+    operator fun plus(addend: BRat): FixedComplex =
+        this + (addend + BRat.ZERO.i)
 
-    operator fun minus(subtrahend: BRat) = this + -subtrahend
-    operator fun minus(subtrahend: BInt) = this + -subtrahend
-    operator fun minus(subtrahend: Long) = this + -subtrahend
-    operator fun minus(subtrahend: Int) = this + -subtrahend
-    operator fun minus(subtrahend: FixedImaginary) = this + -subtrahend
+    operator fun plus(addend: BInt): FixedComplex =
+        this + (addend + BRat.ZERO.i)
 
-    override operator fun times(multiplier: FixedComplex) =
+    operator fun plus(addend: Long): FixedComplex =
+        this + (addend + BRat.ZERO.i)
+
+    operator fun plus(addend: Int): FixedComplex =
+        this + (addend + BRat.ZERO.i)
+
+    operator fun plus(addend: FixedImaginary): FixedComplex =
+        this + (BRat.ZERO + addend)
+
+    operator fun minus(subtrahend: BRat): FixedComplex = this + -subtrahend
+    operator fun minus(subtrahend: BInt): FixedComplex = this + -subtrahend
+    operator fun minus(subtrahend: Long): FixedComplex = this + -subtrahend
+    operator fun minus(subtrahend: Int): FixedComplex = this + -subtrahend
+    operator fun minus(subtrahend: FixedImaginary): FixedComplex =
+        this + -subtrahend
+
+    override operator fun times(multiplier: FixedComplex): FixedComplex =
         (real * multiplier.real + imag * multiplier.imag) +
             (real * multiplier.imag + imag * multiplier.real)
 
-    operator fun times(multiplier: BRat) =
+    operator fun times(multiplier: BRat): FixedComplex =
         this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplier: BInt) =
+    operator fun times(multiplier: BInt): FixedComplex =
         this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplier: Long) =
+    operator fun times(multiplier: Long): FixedComplex =
         this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplier: Int) =
+    operator fun times(multiplier: Int): FixedComplex =
         this * (multiplier + BRat.ZERO.i)
 
-    operator fun times(multiplier: FixedImaginary) =
+    operator fun times(multiplier: FixedImaginary): FixedComplex =
         this * (ZERO + multiplier)
 
-    operator fun div(divisor: FixedComplex) = this * divisor.unaryDiv()
-    operator fun div(divisor: BRat) = this / (divisor + BRat.ZERO.i)
-    operator fun div(divisor: BInt) = this / (divisor + BRat.ZERO.i)
-    operator fun div(divisor: Long) = this / (divisor + BRat.ZERO.i)
-    operator fun div(divisor: Int) = this / (divisor + BRat.ZERO.i)
-    operator fun div(divisor: FixedImaginary) = this / (ZERO + divisor)
+    operator fun div(divisor: FixedComplex): FixedComplex =
+        this * divisor.unaryDiv()
 
-    override fun toString() =
+    operator fun div(divisor: BRat): FixedComplex =
+        this / (divisor + BRat.ZERO.i)
+
+    operator fun div(divisor: BInt): FixedComplex =
+        this / (divisor + BRat.ZERO.i)
+
+    operator fun div(divisor: Long): FixedComplex =
+        this / (divisor + BRat.ZERO.i)
+
+    operator fun div(divisor: Int): FixedComplex =
+        this / (divisor + BRat.ZERO.i)
+
+    operator fun div(divisor: FixedImaginary): FixedComplex =
+        this / (ZERO + divisor)
+
+    override fun toString(): String =
         if (BRat.ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
 
     companion object : RingCompanion<FixedComplex> {
-        override val ONE =
+        override val ONE: FixedComplex =
             FixedComplex(BRat.ONE, BRat.ZERO.i)
-        override val ZERO =
+        override val ZERO: FixedComplex =
             FixedComplex(BRat.ZERO, BRat.ZERO.i)
     }
 }
 
 // Constructors using +/-
 
-operator fun BRat.plus(imag: FixedImaginary) =
+operator fun BRat.plus(imag: FixedImaginary): FixedComplex =
     FixedComplex(this, imag)
 
-operator fun BInt.plus(imag: FixedImaginary) = toBigRational() + imag
-operator fun Long.plus(imag: FixedImaginary) = toBigRational() + imag
-operator fun Int.plus(imag: FixedImaginary) = toBigRational() + imag
+operator fun BInt.plus(imag: FixedImaginary): FixedComplex =
+    toBigRational() + imag
 
-operator fun FixedImaginary.plus(real: BRat) = real + this
-operator fun FixedImaginary.plus(real: BInt) = real + this
-operator fun FixedImaginary.plus(real: Long) = real + this
-operator fun FixedImaginary.plus(real: Int) = real + this
+operator fun Long.plus(imag: FixedImaginary): FixedComplex =
+    toBigRational() + imag
 
-operator fun BRat.minus(imag: FixedImaginary) = this + -imag
-operator fun BInt.minus(imag: FixedImaginary) = this + -imag
-operator fun Long.minus(imag: FixedImaginary) = this + -imag
-operator fun Int.minus(imag: FixedImaginary) = this + -imag
+operator fun Int.plus(imag: FixedImaginary): FixedComplex =
+    toBigRational() + imag
 
-operator fun FixedImaginary.minus(real: BRat) = -real + this
-operator fun FixedImaginary.minus(real: BInt) = -real + this
-operator fun FixedImaginary.minus(real: Long) = -real + this
-operator fun FixedImaginary.minus(real: Int) = -real + this
+operator fun FixedImaginary.plus(real: BRat): FixedComplex = real + this
+operator fun FixedImaginary.plus(real: BInt): FixedComplex = real + this
+operator fun FixedImaginary.plus(real: Long): FixedComplex = real + this
+operator fun FixedImaginary.plus(real: Int): FixedComplex = real + this
+
+operator fun BRat.minus(imag: FixedImaginary): FixedComplex = this + -imag
+operator fun BInt.minus(imag: FixedImaginary): FixedComplex = this + -imag
+operator fun Long.minus(imag: FixedImaginary): FixedComplex = this + -imag
+operator fun Int.minus(imag: FixedImaginary): FixedComplex = this + -imag
+
+operator fun FixedImaginary.minus(real: BRat): FixedComplex = -real + this
+operator fun FixedImaginary.minus(real: BInt): FixedComplex = -real + this
+operator fun FixedImaginary.minus(real: Long): FixedComplex = -real + this
+operator fun FixedImaginary.minus(real: Int): FixedComplex = -real + this
 
 // Operators with complex on the right side
 
-operator fun BRat.plus(addend: FixedComplex) = addend + this
-operator fun BInt.plus(addend: FixedComplex) = addend + this
-operator fun Long.plus(addend: FixedComplex) = addend + this
-operator fun Int.plus(addend: FixedComplex) = addend + this
-operator fun FixedImaginary.plus(addend: FixedComplex) = addend + this
+operator fun BRat.plus(addend: FixedComplex): FixedComplex = addend + this
+operator fun BInt.plus(addend: FixedComplex): FixedComplex = addend + this
+operator fun Long.plus(addend: FixedComplex): FixedComplex = addend + this
+operator fun Int.plus(addend: FixedComplex): FixedComplex = addend + this
+operator fun FixedImaginary.plus(addend: FixedComplex): FixedComplex =
+    addend + this
 
-operator fun BRat.minus(subtrahend: FixedComplex) =
+operator fun BRat.minus(subtrahend: FixedComplex): FixedComplex =
     this + -subtrahend
 
-operator fun BInt.minus(subtrahend: FixedComplex) = this + -subtrahend
-operator fun Long.minus(subtrahend: FixedComplex) = this + -subtrahend
-operator fun Int.minus(subtrahend: FixedComplex) = this + -subtrahend
-operator fun FixedImaginary.minus(subtrahend: FixedComplex) =
+operator fun BInt.minus(subtrahend: FixedComplex): FixedComplex =
     this + -subtrahend
 
-operator fun BRat.times(multiplier: FixedComplex) =
+operator fun Long.minus(subtrahend: FixedComplex): FixedComplex =
+    this + -subtrahend
+
+operator fun Int.minus(subtrahend: FixedComplex): FixedComplex =
+    this + -subtrahend
+
+operator fun FixedImaginary.minus(subtrahend: FixedComplex): FixedComplex =
+    this + -subtrahend
+
+operator fun BRat.times(multiplier: FixedComplex): FixedComplex =
     multiplier * this
 
-operator fun BInt.times(multiplier: FixedComplex) = multiplier * this
-operator fun Long.times(multiplier: FixedComplex) = multiplier * this
-operator fun Int.times(multiplier: FixedComplex) = multiplier * this
-operator fun FixedImaginary.times(multiplier: FixedComplex) =
+operator fun BInt.times(multiplier: FixedComplex): FixedComplex =
     multiplier * this
 
-operator fun BRat.div(divisor: FixedComplex) = divisor / this
-operator fun BInt.div(divisor: FixedComplex) = divisor / this
-operator fun Long.div(divisor: FixedComplex) = divisor / this
-operator fun Int.div(divisor: FixedComplex) = divisor / this
-operator fun FixedImaginary.div(divisor: FixedComplex) = divisor / this
+operator fun Long.times(multiplier: FixedComplex): FixedComplex =
+    multiplier * this
+
+operator fun Int.times(multiplier: FixedComplex): FixedComplex =
+    multiplier * this
+
+operator fun FixedImaginary.times(multiplier: FixedComplex): FixedComplex =
+    multiplier * this
+
+operator fun BRat.div(divisor: FixedComplex): FixedComplex = divisor / this
+operator fun BInt.div(divisor: FixedComplex): FixedComplex = divisor / this
+operator fun Long.div(divisor: FixedComplex): FixedComplex = divisor / this
+operator fun Int.div(divisor: FixedComplex): FixedComplex = divisor / this
+operator fun FixedImaginary.div(divisor: FixedComplex): FixedComplex =
+    divisor / this
 
 // Functions
 
-fun FixedComplex.toBigRational() =
+fun FixedComplex.toBigRational(): BRat =
     if (imag.isZero()) real
     else throw ArithmeticException("Not real: $this")
 
-fun FixedComplex.toBigInteger() =
+fun FixedComplex.toBigInteger(): BigInteger =
     if (imag.isZero()) real.toBigInteger()
     else throw ArithmeticException("Not real: $this")
 
-fun FixedComplex.toLong() =
+fun FixedComplex.toLong(): Long =
     if (imag.isZero()) real.toLong()
     else throw ArithmeticException("Not real: $this")
 
-fun FixedComplex.toInt() =
+fun FixedComplex.toInt(): Int =
     if (imag.isZero()) real.toInt()
     else throw ArithmeticException("Not real: $this")
 
-fun FixedComplex.toImaginary() =
+fun FixedComplex.toImaginary(): FixedImaginary =
     if (real.isZero()) imag
     else throw ArithmeticException("Not imaginary: $this")
 
-fun FixedComplex.modulusApproximated() = det.sqrtApproximated()
+fun FixedComplex.modulusApproximated(): FixedBigRational =
+    det.sqrtApproximated()
 
 fun FixedComplex.sqrtApproximated(): FixedComplex {
     val gamma =
@@ -168,7 +210,7 @@ fun FixedComplex.sqrtApproximated(): FixedComplex {
     return gamma + delta.i
 }
 
-infix fun FixedComplex.`**`(n: Int) = pow(n)
+infix fun FixedComplex.`**`(n: Int): FixedComplex = pow(n)
 
 fun FixedComplex.pow(n: Int): FixedComplex {
     // TODO: Improve on brute force

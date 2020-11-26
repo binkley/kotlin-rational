@@ -45,7 +45,7 @@ class FloatingBigRational private constructor(
      * @see [Double.toLong]
      * @see [BigDecimal.toLong]
      */
-    override fun toLong() = when {
+    override fun toLong(): Long = when {
         isNaN() -> 0L
         isPositiveInfinity() -> Long.MAX_VALUE
         isNegativeInfinity() -> Long.MIN_VALUE
@@ -62,7 +62,7 @@ class FloatingBigRational private constructor(
      *
      * @see [BigDecimal.toDouble] with similar behavior
      */
-    override fun toDouble() = when {
+    override fun toDouble(): Double = when {
         isNaN() -> Double.NaN
         isPositiveInfinity() -> Double.POSITIVE_INFINITY
         isNegativeInfinity() -> Double.NEGATIVE_INFINITY
@@ -85,7 +85,7 @@ class FloatingBigRational private constructor(
      * - +∞
      * - NaN
      */
-    override fun compareTo(other: FloatingBigRational) = when {
+    override fun compareTo(other: FloatingBigRational): Int = when {
         this === other -> 0 // Sort stability for constants
         isNegativeInfinity() -> -1
         isNaN() -> 1 // NaN sorts after +Inf at the end
@@ -111,7 +111,9 @@ class FloatingBigRational private constructor(
      *
      * @see [divideAndRemainder]
      */
-    override operator fun rem(divisor: FloatingBigRational) = when {
+    override operator fun rem(
+        divisor: FloatingBigRational,
+    ): FloatingBigRational = when {
         isNaN() || divisor.isNaN() -> NaN
         else -> super.rem(divisor)
     }
@@ -132,12 +134,13 @@ class FloatingBigRational private constructor(
      * this function returns `(a+c)/(b+d)` (order of `this` and [that] does
      * not matter).
      */
-    override fun mediant(that: FloatingBigRational) = when {
-        isNaN() || that.isNaN() -> NaN
-        (isPositiveInfinity() && that.isNegativeInfinity())
-            || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
-        else -> super.mediant(that)
-    }
+    override fun mediant(that: FloatingBigRational): FloatingBigRational =
+        when {
+            isNaN() || that.isNaN() -> NaN
+            (isPositiveInfinity() && that.isNegativeInfinity())
+                || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
+            else -> super.mediant(that)
+        }
 
     override fun roundsToSelf() = super.roundsToSelf() || !isFinite()
 
@@ -147,7 +150,7 @@ class FloatingBigRational private constructor(
      *
      * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
      */
-    override fun isDyadic() = isFinite() && super.isDyadic()
+    override fun isDyadic(): Boolean = isFinite() && super.isDyadic()
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a power
@@ -159,14 +162,14 @@ class FloatingBigRational private constructor(
      * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
      * number</cite></a>
      */
-    override fun isPAdic(p: Long) = isFinite() && super.isPAdic(p)
+    override fun isPAdic(p: Long): Boolean = isFinite() && super.isPAdic(p)
 
     /**
      * NB -- Infinities and "not a number" are not equal to themselves.
      *
      * @see Any.equals
      */
-    override fun equals(other: Any?) = when {
+    override fun equals(other: Any?): Boolean = when {
         isNaN() -> false
         else -> super.equals(other)
     }
@@ -178,7 +181,7 @@ class FloatingBigRational private constructor(
      * * [NEGATIVE_INFINITY] is "-∞" (UNICODE)
      * * Finite values are [numerator]/[denominator]
      */
-    override fun toString() = when {
+    override fun toString(): String = when {
         isNaN() -> "NaN"
         isPositiveInfinity() -> "Infinity"
         isNegativeInfinity() -> "-Infinity"
@@ -190,24 +193,29 @@ class FloatingBigRational private constructor(
          * A constant holding "not a number" (NaN) value of type
          * [FloatingBigRational]. It is equivalent `0 over 0`.
          */
-        val NaN = FloatingBigRational(0.big, 0.big)
+        val NaN: FloatingBigRational = FloatingBigRational(0.big, 0.big)
 
-        override val ZERO = FloatingBigRational(0.big, 1.big)
-        override val ONE = FloatingBigRational(1.big, 1.big)
-        override val TWO = FloatingBigRational(2.big, 1.big)
-        override val TEN = FloatingBigRational(10.big, 1.big)
+        override val ZERO: FloatingBigRational =
+            FloatingBigRational(0.big, 1.big)
+        override val ONE: FloatingBigRational =
+            FloatingBigRational(1.big, 1.big)
+        override val TWO: FloatingBigRational =
+            FloatingBigRational(2.big, 1.big)
+        override val TEN: FloatingBigRational =
+            FloatingBigRational(10.big, 1.big)
 
         /**
          * A constant holding positive infinity value of type [FloatingBigRational].
          * It is equivalent `1 over 0`.
          */
-        val POSITIVE_INFINITY = FloatingBigRational(1.big, 0.big)
+        val POSITIVE_INFINITY: FloatingBigRational =
+            FloatingBigRational(1.big, 0.big)
 
         /**
          * A constant holding negative infinity value of type [FloatingBigRational].
          * It is equivalent `-1 over 0`.
          */
-        val NEGATIVE_INFINITY =
+        val NEGATIVE_INFINITY: FloatingBigRational =
             FloatingBigRational(1.big.negate(), 0.big)
 
         /**
@@ -240,19 +248,21 @@ class FloatingBigRational private constructor(
             }
         }
 
-        override fun valueOf(floatingPoint: Double) = when {
-            floatingPoint.isNaN() -> NaN
-            floatingPoint == Double.POSITIVE_INFINITY -> POSITIVE_INFINITY
-            floatingPoint == Double.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
-            else -> super.valueOf(floatingPoint)
-        }
+        override fun valueOf(floatingPoint: Double): FloatingBigRational =
+            when {
+                floatingPoint.isNaN() -> NaN
+                floatingPoint == Double.POSITIVE_INFINITY -> POSITIVE_INFINITY
+                floatingPoint == Double.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
+                else -> super.valueOf(floatingPoint)
+            }
 
-        override fun valueOf(floatingPoint: Float) = when {
-            floatingPoint.isNaN() -> NaN
-            floatingPoint == Float.POSITIVE_INFINITY -> POSITIVE_INFINITY
-            floatingPoint == Float.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
-            else -> super.valueOf(floatingPoint)
-        }
+        override fun valueOf(floatingPoint: Float): FloatingBigRational =
+            when {
+                floatingPoint.isNaN() -> NaN
+                floatingPoint == Float.POSITIVE_INFINITY -> POSITIVE_INFINITY
+                floatingPoint == Float.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
+                else -> super.valueOf(floatingPoint)
+            }
 
         override fun iteratorCheck(
             first: FloatingBigRational,
@@ -277,7 +287,7 @@ class FloatingBigRational private constructor(
  *
  * @see valueOf
  */
-infix fun BDouble.over(denominator: BDouble) =
+infix fun BDouble.over(denominator: BDouble): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -286,7 +296,7 @@ infix fun BDouble.over(denominator: BDouble) =
  *
  * @see valueOf
  */
-infix fun BDouble.over(denominator: Double) =
+infix fun BDouble.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -295,7 +305,7 @@ infix fun BDouble.over(denominator: Double) =
  *
  * @see valueOf
  */
-infix fun BDouble.over(denominator: Float) =
+infix fun BDouble.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -304,7 +314,7 @@ infix fun BDouble.over(denominator: Float) =
  *
  * @see valueOf
  */
-infix fun BDouble.over(denominator: BInt) =
+infix fun BDouble.over(denominator: BInt): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -313,7 +323,7 @@ infix fun BDouble.over(denominator: BInt) =
  *
  * @see valueOf
  */
-infix fun BDouble.over(denominator: Long) =
+infix fun BDouble.over(denominator: Long): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -322,7 +332,7 @@ infix fun BDouble.over(denominator: Long) =
  *
  * @see valueOf
  */
-infix fun BDouble.over(denominator: Int) =
+infix fun BDouble.over(denominator: Int): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -331,7 +341,7 @@ infix fun BDouble.over(denominator: Int) =
  *
  * @see valueOf
  */
-infix fun Double.over(denominator: BDouble) =
+infix fun Double.over(denominator: BDouble): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -340,7 +350,7 @@ infix fun Double.over(denominator: BDouble) =
  *
  * @see valueOf
  */
-infix fun Double.over(denominator: BInt) =
+infix fun Double.over(denominator: BInt): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -349,7 +359,7 @@ infix fun Double.over(denominator: BInt) =
  *
  * @see valueOf
  */
-infix fun Double.over(denominator: Long) =
+infix fun Double.over(denominator: Long): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -358,7 +368,7 @@ infix fun Double.over(denominator: Long) =
  *
  * @see valueOf
  */
-infix fun Double.over(denominator: Int) =
+infix fun Double.over(denominator: Int): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -367,7 +377,7 @@ infix fun Double.over(denominator: Int) =
  *
  * @see valueOf
  */
-infix fun Double.over(denominator: Double) =
+infix fun Double.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -376,7 +386,7 @@ infix fun Double.over(denominator: Double) =
  *
  * @see valueOf
  */
-infix fun Double.over(denominator: Float) =
+infix fun Double.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -385,7 +395,7 @@ infix fun Double.over(denominator: Float) =
  *
  * @see valueOf
  */
-infix fun Float.over(denominator: BDouble) =
+infix fun Float.over(denominator: BDouble): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -394,7 +404,7 @@ infix fun Float.over(denominator: BDouble) =
  *
  * @see valueOf
  */
-infix fun Float.over(denominator: BInt) =
+infix fun Float.over(denominator: BInt): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -403,7 +413,7 @@ infix fun Float.over(denominator: BInt) =
  *
  * @see valueOf
  */
-infix fun Float.over(denominator: Long) =
+infix fun Float.over(denominator: Long): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -412,7 +422,7 @@ infix fun Float.over(denominator: Long) =
  *
  * @see valueOf
  */
-infix fun Float.over(denominator: Int) =
+infix fun Float.over(denominator: Int): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -421,7 +431,7 @@ infix fun Float.over(denominator: Int) =
  *
  * @see valueOf
  */
-infix fun Float.over(denominator: Double) =
+infix fun Float.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -430,7 +440,7 @@ infix fun Float.over(denominator: Double) =
  *
  * @see valueOf
  */
-infix fun Float.over(denominator: Float) =
+infix fun Float.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -439,7 +449,7 @@ infix fun Float.over(denominator: Float) =
  *
  * @see valueOf
  */
-infix fun BInt.over(denominator: BDouble) =
+infix fun BInt.over(denominator: BDouble): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -448,7 +458,7 @@ infix fun BInt.over(denominator: BDouble) =
  *
  * @see valueOf
  */
-infix fun BInt.over(denominator: Double) =
+infix fun BInt.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -457,7 +467,7 @@ infix fun BInt.over(denominator: Double) =
  *
  * @see valueOf
  */
-infix fun BInt.over(denominator: Float) =
+infix fun BInt.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -466,7 +476,8 @@ infix fun BInt.over(denominator: Float) =
  *
  * @see valueOf
  */
-infix fun BInt.over(denominator: BInt) = valueOf(this, denominator)
+infix fun BInt.over(denominator: BInt): FloatingBigRational =
+    valueOf(this, denominator)
 
 /**
  * Returns a `BigRational` whose value is equal to that of the
@@ -474,7 +485,7 @@ infix fun BInt.over(denominator: BInt) = valueOf(this, denominator)
  *
  * @see valueOf
  */
-infix fun BInt.over(denominator: Long) =
+infix fun BInt.over(denominator: Long): FloatingBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
@@ -483,7 +494,7 @@ infix fun BInt.over(denominator: Long) =
  *
  * @see valueOf
  */
-infix fun BInt.over(denominator: Int) =
+infix fun BInt.over(denominator: Int): FloatingBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
@@ -492,7 +503,7 @@ infix fun BInt.over(denominator: Int) =
  *
  * @see valueOf
  */
-infix fun Long.over(denominator: Double) =
+infix fun Long.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -501,7 +512,7 @@ infix fun Long.over(denominator: Double) =
  *
  * @see valueOf
  */
-infix fun Long.over(denominator: Float) =
+infix fun Long.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -510,7 +521,7 @@ infix fun Long.over(denominator: Float) =
  *
  * @see valueOf
  */
-infix fun Long.over(denominator: BDouble) =
+infix fun Long.over(denominator: BDouble): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -519,7 +530,8 @@ infix fun Long.over(denominator: BDouble) =
  *
  * @see valueOf
  */
-infix fun Long.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
+infix fun Long.over(denominator: BInt): FloatingBigRational =
+    valueOf(toBigInteger(), denominator)
 
 /**
  * Returns a `BigRational` whose value is equal to that of the
@@ -527,7 +539,7 @@ infix fun Long.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
  *
  * @see valueOf
  */
-infix fun Long.over(denominator: Long) =
+infix fun Long.over(denominator: Long): FloatingBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
@@ -536,7 +548,7 @@ infix fun Long.over(denominator: Long) =
  *
  * @see valueOf
  */
-infix fun Long.over(denominator: Int) =
+infix fun Long.over(denominator: Int): FloatingBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
@@ -545,7 +557,7 @@ infix fun Long.over(denominator: Int) =
  *
  * @see valueOf
  */
-infix fun Int.over(denominator: BDouble) =
+infix fun Int.over(denominator: BDouble): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -554,7 +566,7 @@ infix fun Int.over(denominator: BDouble) =
  *
  * @see valueOf
  */
-infix fun Int.over(denominator: Double) =
+infix fun Int.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -563,7 +575,7 @@ infix fun Int.over(denominator: Double) =
  *
  * @see valueOf
  */
-infix fun Int.over(denominator: Float) =
+infix fun Int.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -572,7 +584,8 @@ infix fun Int.over(denominator: Float) =
  *
  * @see valueOf
  */
-infix fun Int.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
+infix fun Int.over(denominator: BInt): FloatingBigRational =
+    valueOf(toBigInteger(), denominator)
 
 /**
  * Returns a `BigRational` whose value is equal to that of the
@@ -580,7 +593,7 @@ infix fun Int.over(denominator: BInt) = valueOf(toBigInteger(), denominator)
  *
  * @see valueOf
  */
-infix fun Int.over(denominator: Long) =
+infix fun Int.over(denominator: Long): FloatingBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
@@ -589,65 +602,67 @@ infix fun Int.over(denominator: Long) =
  *
  * @see valueOf
  */
-infix fun Int.over(denominator: Int) =
+infix fun Int.over(denominator: Int): FloatingBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /** Returns the value of this number as a `BigRational`. */
-fun BDouble.toBigRational() = valueOf(this)
+fun BDouble.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-fun Double.toBigRational() = valueOf(this)
+fun Double.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-fun Float.toBigRational() = valueOf(this)
+fun Float.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-fun BInt.toBigRational() = valueOf(this)
+fun BInt.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-fun Long.toBigRational() = valueOf(this)
+fun Long.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-fun Int.toBigRational() = valueOf(this)
+fun Int.toBigRational(): FloatingBigRational = valueOf(this)
 
 /**
  * Returns the finite continued fraction of this BigRational.
  *
  * Non-finite BigRationals produce `[NaN;]`.
  */
-fun FloatingBigRational.toContinuedFraction() =
+fun FloatingBigRational.toContinuedFraction(): FloatingContinuedFraction =
     FloatingContinuedFraction.valueOf(this)
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a
  * number" is not infinite.
  */
-fun FloatingBigRational.isInfinite() =
+fun FloatingBigRational.isInfinite(): Boolean =
     isPositiveInfinity() || isNegativeInfinity()
 
 /**
  * Checks that this rational is finite.  "Not a number" and infinities are
  * not finite.
  */
-fun FloatingBigRational.isFinite() = !isNaN() && !isInfinite()
+fun FloatingBigRational.isFinite(): Boolean = !isNaN() && !isInfinite()
 
 /**
  * Checks that this rational is "not a number".
  *
  * NB -- `NaN != NaN`
  */
-fun FloatingBigRational.isNaN() = this === NaN
+fun FloatingBigRational.isNaN(): Boolean = this === NaN
 
 /**
  * Checks that this rational is positive infinity.
  *
  * NB -- `POSITIVE_INFINITY != POSITIVE_INFINITY`
  */
-fun FloatingBigRational.isPositiveInfinity() = this === POSITIVE_INFINITY
+fun FloatingBigRational.isPositiveInfinity(): Boolean =
+    this === POSITIVE_INFINITY
 
 /**
  * Checks that this rational is negative infinity.
  *
  * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
  */
-fun FloatingBigRational.isNegativeInfinity() = this === NEGATIVE_INFINITY
+fun FloatingBigRational.isNegativeInfinity(): Boolean =
+    this === NEGATIVE_INFINITY

@@ -23,7 +23,7 @@ internal val Int.big: BInt get() = toLong().big
 /** A sad property.  [BigInteger.valueOf] does not check for constants. */
 internal val Long.big: BInt
     get() = when (this) {
-        // ZERO handled internally by valueOf, the only constant thus
+        // ZERO handled internally by valueOf, unlike the others
         1L -> BInt.ONE
         2L -> BInt.TWO
         10L -> BInt.TEN

@@ -19,6 +19,7 @@ import hm.binkley.math.floor
 import hm.binkley.math.fraction
 import hm.binkley.math.gcd
 import hm.binkley.math.isDenominatorEven
+import hm.binkley.math.isOne
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.minus
@@ -96,10 +97,15 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should maintain positive denominator`() {
-            // TODO: Dumb test -- check the denominator!
             +(4 over -4L) shouldBe -ONE
             +(-4 over 4L) shouldBe -ONE
             +(-4 over -4) shouldBe ONE
+        }
+
+        @Test
+        fun `should know its own value`() {
+            ZERO.isZero() shouldBe true
+            ONE.isOne() shouldBe true
         }
     }
 
@@ -120,12 +126,10 @@ internal class FixedBigRationalTest {
 
     @Test
     fun `should not be a floating big rational range`() {
-        (ONE..TWO) shouldNotBe (
+        (ONE..TWO) shouldNotBe
             FloatingBigRational.ONE..FloatingBigRational.TWO
-            )
-        (ONE..TWO).hashCode() shouldNotBe (
+        (ONE..TWO).hashCode() shouldNotBe
             (FloatingBigRational.ONE..FloatingBigRational.TWO).hashCode()
-            )
     }
 
     @Test
@@ -654,7 +658,7 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should find between`() {
-            ZERO.mediant(ZERO).isZero() shouldBe true
+            ZERO.mediant(ZERO) shouldBe ZERO
             ONE.mediant(TWO) shouldBe (3 over 2)
         }
 
@@ -664,9 +668,8 @@ internal class FixedBigRationalTest {
             cfA shouldBe listOf(3 over 1, 4 over 1, 12 over 1, 4 over 1)
             cfA.toBigRational() shouldBe (3245 over 1000)
             val negCfA = (-3245 over 1000).toContinuedFraction()
-            negCfA shouldBe (
+            negCfA shouldBe
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1)
-                )
             negCfA.toBigRational() shouldBe (-3245 over 1000)
             ZERO.toContinuedFraction() shouldBe listOf(ZERO)
             ONE.toContinuedFraction() shouldBe listOf(ONE)

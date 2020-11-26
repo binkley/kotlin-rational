@@ -129,7 +129,9 @@ operator fun <T : BigRationalBase<T>> T.rangeTo(
     this..companion.valueOf(endInclusive)
 
 /** Creates a range from this value to [endInclusive]. */
-operator fun <T : BigRationalBase<T>> BInt.rangeTo(endInclusive: T) =
+operator fun <T : BigRationalBase<T>> BInt.rangeTo(
+    endInclusive: T,
+): BigRationalRange<T> =
     endInclusive.companion.valueOf(this)..endInclusive
 
 /** Creates a range from this value to [endInclusive]. */

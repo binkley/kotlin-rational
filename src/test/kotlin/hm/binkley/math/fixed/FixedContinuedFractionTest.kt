@@ -18,6 +18,7 @@ private val eulerApproximation =
 internal class FixedContinuedFractionTest {
     @Test
     fun `should be a list`() {
+        ZERO.toContinuedFraction() shouldBe listOf(ZERO)
         (145 over 7).toContinuedFraction() shouldBe
             listOf(20 over 1, ONE, TWO, TWO)
     }

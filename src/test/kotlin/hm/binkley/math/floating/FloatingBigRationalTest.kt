@@ -23,6 +23,7 @@ import hm.binkley.math.floor
 import hm.binkley.math.fraction
 import hm.binkley.math.gcd
 import hm.binkley.math.isDenominatorEven
+import hm.binkley.math.isOne
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
 import hm.binkley.math.minus
@@ -124,6 +125,12 @@ internal class FloatingBigRationalTest {
             +(-4 over 4L) shouldBe -ONE
             (-4 over -4) shouldBe ONE
         }
+
+        @Test
+        fun `should know its own value`() {
+            ZERO.isZero() shouldBe true
+            ONE.isOne() shouldBe true
+        }
     }
 
     @Suppress("ReplaceCallWithBinaryOperator")
@@ -144,16 +151,11 @@ internal class FloatingBigRationalTest {
 
     @Test
     fun `should not be a floating big rational`() {
-        FixedBigRational.valueOf(
-            1.big,
-            1.big
-        ).hashCode() shouldNotBe (1 over 1).hashCode()
-        (FixedBigRational.ONE..FixedBigRational.TWO) shouldNotBe (
-            ONE..TWO
-            )
-        (FixedBigRational.ONE..FixedBigRational.TWO).hashCode() shouldNotBe (
+        FixedBigRational.valueOf(1.big, 1.big).hashCode() shouldNotBe
+            (1 over 1).hashCode()
+        (FixedBigRational.ONE..FixedBigRational.TWO) shouldNotBe ONE..TWO
+        (FixedBigRational.ONE..FixedBigRational.TWO).hashCode() shouldNotBe
             (ONE..TWO).hashCode()
-            )
     }
 
     @Test
@@ -954,7 +956,7 @@ internal class FloatingBigRationalTest {
             ZERO.mediant(NaN).isNaN() shouldBe true
             POSITIVE_INFINITY.mediant(NaN).isNaN() shouldBe true
             NEGATIVE_INFINITY.mediant(NaN).isNaN() shouldBe true
-            ZERO.mediant(ZERO).isZero() shouldBe true
+            ZERO.mediant(ZERO) shouldBe ZERO
             POSITIVE_INFINITY.mediant(NEGATIVE_INFINITY) shouldBe ZERO
             NEGATIVE_INFINITY.mediant(POSITIVE_INFINITY) shouldBe ZERO
             POSITIVE_INFINITY.mediant(ZERO) shouldBe ONE
@@ -971,9 +973,8 @@ internal class FloatingBigRationalTest {
             cfA.isFinite() shouldBe true
             cfA.backAgain() shouldBe (3245 over 1000)
             val negCfA = (-3245 over 1000).toContinuedFraction()
-            negCfA shouldBe (
+            negCfA shouldBe
                 listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1)
-                )
             negCfA.isFinite() shouldBe true
             negCfA.backAgain() shouldBe (-3245 over 1000)
             ZERO.toContinuedFraction() shouldBe listOf(ZERO)

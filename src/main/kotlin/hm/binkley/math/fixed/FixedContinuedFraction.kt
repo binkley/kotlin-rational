@@ -25,7 +25,7 @@ class FixedContinuedFraction private constructor(
 ) : ContinuedFractionBase<BRat, FixedContinuedFraction>(
     terms
 ) {
-    override fun construct(terms: List<BRat>) =
+    override fun construct(terms: List<BRat>): FixedContinuedFraction =
         FixedContinuedFraction(terms)
 
     companion object :
@@ -40,4 +40,4 @@ class FixedContinuedFraction private constructor(
 }
 
 /** Returns the FiniteBigRational for the continued fraction. */
-fun FixedContinuedFraction.toBigRational() = backAgain()
+fun FixedContinuedFraction.toBigRational(): BRat = backAgain()

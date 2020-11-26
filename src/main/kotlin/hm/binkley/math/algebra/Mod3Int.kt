@@ -3,16 +3,18 @@ package hm.binkley.math.algebra
 import kotlin.math.absoluteValue
 
 class Mod3Int private constructor(val value: Int) : Ring<Mod3Int> {
-    override val companion = Companion
+    override val companion: Companion = Companion
 
-    override fun unaryMinus() = valueOf(-value)
-    override fun plus(addend: Mod3Int) = valueOf(value + addend.value)
-    override fun times(multiplier: Mod3Int) =
+    override fun unaryMinus(): Mod3Int = valueOf(-value)
+    override fun plus(addend: Mod3Int): Mod3Int =
+        valueOf(value + addend.value)
+
+    override fun times(multiplier: Mod3Int): Mod3Int =
         valueOf(value * multiplier.value)
 
-    override fun equals(other: Any?) = this === other
-    override fun hashCode() = value.hashCode()
-    override fun toString() = value.toString()
+    override fun equals(other: Any?): Boolean = this === other
+    override fun hashCode(): Int = value.hashCode()
+    override fun toString(): String = value.toString()
 
     companion object : RingCompanion<Mod3Int> {
         fun valueOf(value: Int): Mod3Int {
@@ -27,8 +29,8 @@ class Mod3Int private constructor(val value: Int) : Ring<Mod3Int> {
             }
         }
 
-        override val ZERO = Mod3Int(0)
-        override val ONE = Mod3Int(1)
-        val TWO = Mod3Int(2)
+        override val ZERO: Mod3Int = Mod3Int(0)
+        override val ONE: Mod3Int = Mod3Int(1)
+        val TWO: Mod3Int = Mod3Int(2)
     }
 }
