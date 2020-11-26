@@ -12,9 +12,9 @@
 An immutable, infinite-precision `FloatingBigRational` and `FixedBigRational`
 (ratio, fraction) class for Kotlin.
 
-*DISCLAIMER* This code has not been vetted by a mathematician in the way in
-which the JDK's `BigDecimal` has been. It is a pleasure project, not a
-reviewed scientific library.
+*DISCLAIMER* This code has not been vetted by a mathematician in the way that
+the JDK's `BigDecimal` has been. It is a pleasure project, not a reviewed
+scientific library.
 
 There are two versions, `FloatingBigRational` and `FixedBigRational`,
 providing pseudo-IEEE 754 and purely finite versions, respectively.
