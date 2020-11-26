@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    name: Builds, verifies, and publishes
+    name: Builds, verifies, and creates site
     runs-on: ubuntu-latest
 
     steps:
