@@ -269,8 +269,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     /** Checks that this rational is an integer. */
     fun isInteger(): Boolean = 1.big == denominator
 
-    internal open fun roundsToSelf() = isInteger()
-
     /**
      * Checks that this rational is dyadic, that is, the denominator is a power
      * of 2.

@@ -142,8 +142,6 @@ class FloatingBigRational private constructor(
             else -> super.mediant(that)
         }
 
-    override fun roundsToSelf() = super.roundsToSelf() || !isFinite()
-
     /**
      * Checks that this rational is dyadic, that is, the denominator is a power
      * of 2, or `false` if this number is not finite.
