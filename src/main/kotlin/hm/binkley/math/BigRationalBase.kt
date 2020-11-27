@@ -793,14 +793,10 @@ fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     )
 }
 
-/** Rounds to the nearest whole number _less than or equal_ to this. */
-fun <T : BigRationalBase<T>> T.floor(): T = when {
-    roundsToSelf() -> this
-    companion.ZERO <= this -> truncate()
-    else -> truncate() - companion.ONE
-}
-
-/** Rounds to the nearest whole number _greater than or equal_ to this. */
+/**
+ * Rounds to the nearest whole number towards positive infinity corresponding
+ * to [Math.ceil] and [RoundingMode.UP].
+ */
 fun <T : BigRationalBase<T>> T.ceil(): T = when {
     roundsToSelf() -> this
     companion.ZERO <= this -> truncate() + companion.ONE
@@ -808,11 +804,14 @@ fun <T : BigRationalBase<T>> T.ceil(): T = when {
 }
 
 /**
- * Rounds to the nearest _even_ whole number.
- *
- * @see HALF_EVEN
+ * Rounds to the nearest whole number towards negative infinity corresponding
+ * to [Math.floor] and [RoundingMode.DOWN].
  */
-fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
+fun <T : BigRationalBase<T>> T.floor(): T = when {
+    roundsToSelf() -> this
+    companion.ZERO <= this -> truncate()
+    else -> truncate() - companion.ONE
+}
 
 /** Rounds according to [roundingMode]. */
 fun <T : BigRationalBase<T>> T.round(roundingMode: RoundingMode): T =
@@ -850,6 +849,9 @@ fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
  * @see truncateAndFraction
  */
 fun <T : BigRationalBase<T>> T.truncate(): T = truncateAndFraction().first
+
+/** Rounds to the nearest _even_ whole number corresponding to [HALF_EVEN]. */
+fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
 
 /**
  * Provides the signed fractional remainder after [truncation][truncate].
