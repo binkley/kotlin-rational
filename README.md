@@ -60,6 +60,7 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 ## Releases
 
 * [2.0.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.1)
+  [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.0.1)
   &mdash; (2020-11-27) Switch to bintray for publishing
 * [2.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.0)
   &mdash; (2020-11-26) Rationalized type and package names, refreshed site
