@@ -4,6 +4,7 @@ import hm.binkley.math.algebra.Field
 import hm.binkley.math.algebra.FieldCompanion
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.math.RoundingMode
 import java.math.RoundingMode.HALF_EVEN
 import java.util.Objects.hash
 
@@ -783,9 +784,6 @@ fun <T : BigRationalBase<T>> T.sqrt(): T {
  * Returns the nearest _positive_ (non-complex) rational square root _based
  * on IEEE 754_ floating point values.  The caller should take
  * [BigRationalBase.sign] into consideration.
- *
- * @todo What produces the most correct rounding?  Double division?
- *       Construction of BigRational from Doubles?
  */
 fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
@@ -814,11 +812,14 @@ fun <T : BigRationalBase<T>> T.ceil(): T = when {
  *
  * @see HALF_EVEN
  */
-fun <T : BigRationalBase<T>> T.round(): T =
+fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
+
+/** Rounds according to [roundingMode]. */
+fun <T : BigRationalBase<T>> T.round(roundingMode: RoundingMode): T =
     companion.valueOf(
         numerator.toBigDecimal()
             .div(denominator.toBigDecimal())
-            .setScale(0, HALF_EVEN)
+            .setScale(0, roundingMode)
     )
 
 /**

@@ -152,7 +152,8 @@ All constructors are _private_. Please use:
 - `pow(exponent)`
 - `divideAndRemainder(other)`
 - `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
-  towards the nearest even whole number
+  towards the nearest even whole number; `round(roundingMode)` rounds as you
+  ask
 - `truncateAndFraction()` provides truncation and the remaining fraction;
   `truncate()` rounds towards 0; `fraction()` provides the remaining fraction
 
