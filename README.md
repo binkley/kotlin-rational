@@ -470,6 +470,8 @@ restriction 2.
   Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
 - [_Continued
   Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/FiniteContinuedFractions.pdf)
+- [_Continued fraction - An
+  introduction_](view-source:http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/cfINTRO.html)
 - [_Continued fraction - Square
   roots_](https://en.wikipedia.org/wiki/Continued_fraction#Square_roots)
 - [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)

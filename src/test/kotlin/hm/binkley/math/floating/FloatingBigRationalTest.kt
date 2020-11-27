@@ -515,6 +515,21 @@ internal class FloatingBigRationalTest {
     @Nested
     inner class SpecialCasesTests {
         @Test
+        fun `should round trip NaN and infinities`() {
+            NaN.toDouble().toBigRational().isNaN() shouldBe true
+            POSITIVE_INFINITY.toDouble().toBigRational()
+                .isPositiveInfinity() shouldBe true
+            NEGATIVE_INFINITY.toDouble().toBigRational()
+                .isNegativeInfinity() shouldBe true
+
+            NaN.toFloat().toBigRational().isNaN() shouldBe true
+            POSITIVE_INFINITY.toFloat().toBigRational()
+                .isPositiveInfinity() shouldBe true
+            NEGATIVE_INFINITY.toFloat().toBigRational()
+                .isNegativeInfinity() shouldBe true
+        }
+
+        @Test
         fun `should round trip as double precision`() {
             Double.NaN.toBigRational().toDouble() shouldBe Double.NaN
             Double.MAX_VALUE.toBigRational().toDouble() shouldBe
