@@ -516,9 +516,6 @@ internal class FloatingBigRationalTest {
     inner class SpecialCasesTests {
         @Test
         fun `should round trip as double precision`() {
-            0.0.toBigRational().toDouble() shouldBe 0.0
-            1.0.toBigRational().toDouble() shouldBe 1.0
-            0.1.toBigRational().toDouble() shouldBe 0.1
             Double.NaN.toBigRational().toDouble() shouldBe Double.NaN
             Double.MAX_VALUE.toBigRational().toDouble() shouldBe
                 Double.MAX_VALUE
@@ -533,9 +530,6 @@ internal class FloatingBigRationalTest {
                 Float.MAX_VALUE
             Float.MIN_VALUE.toBigRational().toFloat() shouldBe
                 Float.MIN_VALUE
-            0.0f.toBigRational().toFloat() shouldBe 0.0f
-            1.0f.toBigRational().toFloat() shouldBe 1.0f
-            0.1f.toBigRational().toFloat() shouldBe 0.1f
         }
 
         @Test
