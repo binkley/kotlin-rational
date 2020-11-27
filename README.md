@@ -61,6 +61,8 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 ## Releases
 
+* [2.0.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.1)
+  &mdash; (2020-11-27) Switch to bintray for publishing
 * [2.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.0)
   &mdash; (2020-11-26) Rationalized type and package names, refreshed site
 * [1.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-1.0.0)
@@ -71,10 +73,6 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 ## Use
 
-**NB** &mdash; jitpack is failing to build the project, even as it builds
-cleanly locally and in GitHub Actions (CI), so this section on "Use" does not
-at this time work.
-
 ### Gradle
 
 This snippet uses Kotlin syntax for the build script:
@@ -82,12 +80,12 @@ This snippet uses Kotlin syntax for the build script:
 ```kotlin
 repositories {
     maven {
-        url = uri("https://jitpack.io")
+        url = uri("https://dl.bintray.com/binkley/maven")
     }
 }
 
 dependencies {
-    implementation("com.github.binkley:kotlin-rational:2.0.0")
+    implementation("hm.binkley:kotlin-rational:2.0.1")
 }
 ```
 
@@ -100,16 +98,20 @@ This snippet is an elided `pom.xml`:
 <project>
     <dependencies>
         <dependency>
-            <groupId>com.github.binkley</groupId>
+            <groupId>hm.binkley</groupId>
             <artifactId>kotlin-rational</artifactId>
-            <version>2.0.0</version>
+            <version>2.0.1</version>
         </dependency>
     </dependencies>
 
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-binkley-maven</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/binkley/maven</url>
         </repository>
     </repositories>
 </project>
