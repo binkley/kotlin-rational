@@ -4,6 +4,7 @@ import hm.binkley.math.algebra.Field
 import hm.binkley.math.algebra.FieldCompanion
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.math.RoundingMode.HALF_EVEN
 import java.util.Objects.hash
 
 /**
@@ -165,7 +166,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      * rounding.  This produces an _exact_ conversion, that is,
      * `123.456.toBigRational().toDouble == 123.456`.
      *
-     * @see [BigDecimal.toDouble] with similar behavior
+     * @see [BigDecimal.toDouble]
      * @see [BigRationalCompanion.valueOf(Double)]
      */
     override fun toDouble(): Double =
@@ -290,10 +291,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-        other is BigRationalBase<*> &&
-        javaClass == other.javaClass &&
-        numerator == other.numerator &&
-        denominator == other.denominator
+            other is BigRationalBase<*> &&
+            javaClass == other.javaClass &&
+            numerator == other.numerator &&
+            denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
@@ -807,6 +808,16 @@ fun <T : BigRationalBase<T>> T.ceil(): T = when {
     companion.ZERO <= this -> truncate() + companion.ONE
     else -> truncate()
 }
+
+/**
+ * Rounds to the nearest _even_ whole number.
+ *
+ * @see HALF_EVEN
+ */
+fun <T : BigRationalBase<T>> T.round(): T =
+    companion.valueOf(numerator.toBigDecimal()
+        .div(denominator.toBigDecimal())
+        .setScale(0, HALF_EVEN))
 
 /**
  * Truncates to the nearest whole number _closer to 0_ than this BigRational,
