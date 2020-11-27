@@ -270,8 +270,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     )
 
     /** Rounds according to [roundingMode]. */
+    @Suppress("UNCHECKED_CAST")
     open fun round(roundingMode: RoundingMode): T =
-        companion.valueOf(
+        if (isInteger()) this as T
+        else companion.valueOf(
             numerator.toBigDecimal()
                 .divide(denominator.toBigDecimal(), roundingMode)
                 .setScale(0)
