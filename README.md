@@ -71,6 +71,10 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 ## Use
 
+**NB** &mdash; jitpack is failing to build the project, even as it builds
+cleanly locally and in GitHub Actions (CI), so this section on "Use" does not
+at this time work.
+
 ### Gradle
 
 This snippet uses Kotlin syntax for the build script:
