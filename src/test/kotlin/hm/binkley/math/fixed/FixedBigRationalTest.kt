@@ -128,9 +128,9 @@ internal class FixedBigRationalTest {
     @Test
     fun `should not be a floating big rational range`() {
         (ONE..TWO) shouldNotBe
-            FloatingBigRational.ONE..FloatingBigRational.TWO
+                FloatingBigRational.ONE..FloatingBigRational.TWO
         (ONE..TWO).hashCode() shouldNotBe
-            (FloatingBigRational.ONE..FloatingBigRational.TWO).hashCode()
+                (FloatingBigRational.ONE..FloatingBigRational.TWO).hashCode()
     }
 
     @Test
@@ -157,11 +157,11 @@ internal class FixedBigRationalTest {
 
         // Associativity
         ((twoThirds + threeHalves) + fiveSevenths) shouldBe (
-            twoThirds + (threeHalves + fiveSevenths)
-            )
+                twoThirds + (threeHalves + fiveSevenths)
+                )
         ((twoThirds * threeHalves) * fiveSevenths) shouldBe (
-            twoThirds * (threeHalves * fiveSevenths)
-            )
+                twoThirds * (threeHalves * fiveSevenths)
+                )
 
         // Commutativity
         (twoThirds + threeHalves) shouldBe threeHalves + twoThirds
@@ -169,24 +169,24 @@ internal class FixedBigRationalTest {
 
         // Distributive
         ((twoThirds + threeHalves) * fiveSevenths) shouldBe (
-            twoThirds * fiveSevenths + threeHalves * fiveSevenths
-            )
+                twoThirds * fiveSevenths + threeHalves * fiveSevenths
+                )
     }
 
     @Test
     fun `should divide with remainder`() {
         (13 over 2).divideAndRemainder(3 over 1) shouldBe (
-            (2 over 1) to (1 over 2)
-            )
+                (2 over 1) to (1 over 2)
+                )
         (-13 over 2).divideAndRemainder(-3 over 1) shouldBe (
-            (2 over 1) to (-1 over 2)
-            )
+                (2 over 1) to (-1 over 2)
+                )
         (-13 over 2).divideAndRemainder(3 over 1) shouldBe (
-            (-2 over 1) to (-1 over 2)
-            )
+                (-2 over 1) to (-1 over 2)
+                )
         (13 over 2).divideAndRemainder(-3 over 1) shouldBe (
-            (-2 over 1) to (1 over 2)
-            )
+                (-2 over 1) to (1 over 2)
+                )
     }
 
     @Nested
@@ -339,7 +339,7 @@ internal class FixedBigRationalTest {
     @Nested
     inner class RoundingTests {
         @Test
-        fun `should round down`() {
+        fun `should round towards floor`() {
             ZERO.floor() shouldBe ZERO
             ONE.floor() shouldBe ONE
             (-ONE).floor() shouldBe -ONE
@@ -350,7 +350,7 @@ internal class FixedBigRationalTest {
         }
 
         @Test
-        fun `should round up`() {
+        fun `should round towards ceiling`() {
             ZERO.ceil() shouldBe ZERO
             ONE.ceil() shouldBe ONE
             (-ONE).ceil() shouldBe -ONE
@@ -656,11 +656,11 @@ internal class FixedBigRationalTest {
             (9 over 25).sqrt() shouldBe (3 over 5)
             (9 over 25).sqrtApproximated() shouldBe (3 over 5)
             (8 over 25).sqrtApproximated() shouldBe (
-                282_842_712_474_619 over 500_000_000_000_000
-                )
+                    282_842_712_474_619 over 500_000_000_000_000
+                    )
             (9 over 26).sqrtApproximated() shouldBe (
-                5_883_484_054_145_521 over 10_000_000_000_000_000
-                )
+                    5_883_484_054_145_521 over 10_000_000_000_000_000
+                    )
 
             shouldThrow<ArithmeticException> { (8 over 25).sqrt() }
             shouldThrow<ArithmeticException> { (9 over 26).sqrt() }
@@ -699,7 +699,7 @@ internal class FixedBigRationalTest {
             cfA.toBigRational() shouldBe (3245 over 1000)
             val negCfA = (-3245 over 1000).toContinuedFraction()
             negCfA shouldBe
-                listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1)
+                    listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1)
             negCfA.toBigRational() shouldBe (-3245 over 1000)
             ZERO.toContinuedFraction() shouldBe listOf(ZERO)
             ONE.toContinuedFraction() shouldBe listOf(ONE)
@@ -712,18 +712,18 @@ internal class FixedBigRationalTest {
         @Test
         fun `should find Cantor spiral`() {
             cantorSpiral().take(10).toList() shouldBe
-                listOf(
-                    ZERO,
-                    ONE,
-                    -ONE,
-                    -1 over 2,
-                    1 over 2,
-                    TWO,
-                    -TWO,
-                    -2 over 3,
-                    -1 over 3,
-                    1 over 3
-                )
+                    listOf(
+                        ZERO,
+                        ONE,
+                        -ONE,
+                        -1 over 2,
+                        1 over 2,
+                        TWO,
+                        -TWO,
+                        -2 over 3,
+                        -1 over 3,
+                        1 over 3
+                    )
         }
     }
 }
