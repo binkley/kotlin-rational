@@ -291,10 +291,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
     open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-            other is BigRationalBase<*> &&
-            javaClass == other.javaClass &&
-            numerator == other.numerator &&
-            denominator == other.denominator
+        other is BigRationalBase<*> &&
+        javaClass == other.javaClass &&
+        numerator == other.numerator &&
+        denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
@@ -815,9 +815,11 @@ fun <T : BigRationalBase<T>> T.ceil(): T = when {
  * @see HALF_EVEN
  */
 fun <T : BigRationalBase<T>> T.round(): T =
-    companion.valueOf(numerator.toBigDecimal()
-        .div(denominator.toBigDecimal())
-        .setScale(0, HALF_EVEN))
+    companion.valueOf(
+        numerator.toBigDecimal()
+            .div(denominator.toBigDecimal())
+            .setScale(0, HALF_EVEN)
+    )
 
 /**
  * Truncates to the nearest whole number _closer to 0_ than this BigRational,

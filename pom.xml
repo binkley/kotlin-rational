@@ -73,6 +73,12 @@
         </dependency>
 
         <dependency>
+            <!-- TODO: Remove once the CVE complaint stop -->
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-common</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
@@ -321,6 +327,10 @@
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${dependency-check-maven.version}</version>
+                <configuration>
+                    <failBuildOnAnyVulnerability>true
+                    </failBuildOnAnyVulnerability>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

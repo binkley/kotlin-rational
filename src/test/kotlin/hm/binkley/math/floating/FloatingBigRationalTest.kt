@@ -65,7 +65,7 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should use constant -Infinity`() {
             (Long.MIN_VALUE over 0.big) shouldBeSameInstanceAs
-                    NEGATIVE_INFINITY
+                NEGATIVE_INFINITY
         }
 
         @Test
@@ -153,10 +153,10 @@ internal class FloatingBigRationalTest {
     @Test
     fun `should not be a floating big rational`() {
         FixedBigRational.valueOf(1.big, 1.big).hashCode() shouldNotBe
-                (1 over 1).hashCode()
+            (1 over 1).hashCode()
         (FixedBigRational.ONE..FixedBigRational.TWO) shouldNotBe ONE..TWO
         (FixedBigRational.ONE..FixedBigRational.TWO).hashCode() shouldNotBe
-                (ONE..TWO).hashCode()
+            (ONE..TWO).hashCode()
     }
 
     @Test
@@ -178,9 +178,9 @@ internal class FloatingBigRationalTest {
 
         // Associativity
         ((twoThirds + threeHalves) + fiveSevenths) shouldBe
-                twoThirds + (threeHalves + fiveSevenths)
+            twoThirds + (threeHalves + fiveSevenths)
         ((twoThirds * threeHalves) * fiveSevenths) shouldBe
-                twoThirds * (threeHalves * fiveSevenths)
+            twoThirds * (threeHalves * fiveSevenths)
 
         // Commutativity
         (threeHalves + twoThirds) shouldBe twoThirds + threeHalves
@@ -196,7 +196,7 @@ internal class FloatingBigRationalTest {
 
         // Distributive
         ((twoThirds + threeHalves) * fiveSevenths) shouldBe
-                twoThirds * fiveSevenths + threeHalves * fiveSevenths
+            twoThirds * fiveSevenths + threeHalves * fiveSevenths
 
         (ONE + -ONE) shouldBe ZERO
     }
@@ -204,13 +204,13 @@ internal class FloatingBigRationalTest {
     @Test
     fun `should divide with remainder`() {
         (13 over 2).divideAndRemainder(3 over 1) shouldBe
-                ((2 over 1) to (1 over 2))
+            ((2 over 1) to (1 over 2))
         (-13 over 2).divideAndRemainder(-3 over 1) shouldBe
-                ((2 over 1) to (-1 over 2))
+            ((2 over 1) to (-1 over 2))
         (-13 over 2).divideAndRemainder(3 over 1) shouldBe
-                ((-2 over 1) to (-1 over 2))
+            ((-2 over 1) to (-1 over 2))
         (13 over 2).divideAndRemainder(-3 over 1) shouldBe
-                ((-2 over 1) to (1 over 2))
+            ((-2 over 1) to (1 over 2))
 
         fun nonFiniteCheck(
             dividend: FloatingBigRational,
@@ -521,18 +521,18 @@ internal class FloatingBigRationalTest {
             0.1.toBigRational().toDouble() shouldBe 0.1
             Double.NaN.toBigRational().toDouble() shouldBe Double.NaN
             Double.MAX_VALUE.toBigRational().toDouble() shouldBe
-                    Double.MAX_VALUE
+                Double.MAX_VALUE
             Double.MIN_VALUE.toBigRational().toDouble() shouldBe
-                    Double.MIN_VALUE
+                Double.MIN_VALUE
         }
 
         @Test
         fun `should round trip as single precision`() {
             Float.NaN.toBigRational().toFloat() shouldBe Float.NaN
             Float.MAX_VALUE.toBigRational().toFloat() shouldBe
-                    Float.MAX_VALUE
+                Float.MAX_VALUE
             Float.MIN_VALUE.toBigRational().toFloat() shouldBe
-                    Float.MIN_VALUE
+                Float.MIN_VALUE
             0.0f.toBigRational().toFloat() shouldBe 0.0f
             1.0f.toBigRational().toFloat() shouldBe 1.0f
             0.1f.toBigRational().toFloat() shouldBe 0.1f
@@ -940,9 +940,9 @@ internal class FloatingBigRationalTest {
             (9 over 25).sqrt() shouldBe (3 over 5)
             (9 over 25).sqrtApproximated() shouldBe (3 over 5)
             (8 over 25).sqrtApproximated() shouldBe
-                    (282_842_712_474_619 over 500_000_000_000_000)
+                (282_842_712_474_619 over 500_000_000_000_000)
             (9 over 26).sqrtApproximated() shouldBe
-                    (5_883_484_054_145_521 over 10_000_000_000_000_000)
+                (5_883_484_054_145_521 over 10_000_000_000_000_000)
 
             shouldThrow<ArithmeticException> { (8 over 25).sqrt() }
             shouldThrow<ArithmeticException> { (9 over 26).sqrt() }
@@ -1004,7 +1004,7 @@ internal class FloatingBigRationalTest {
             cfA.backAgain() shouldBe (3245 over 1000)
             val negCfA = (-3245 over 1000).toContinuedFraction()
             negCfA shouldBe
-                    listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1)
+                listOf(-4 over 1, ONE, 3 over 1, 12 over 1, 4 over 1)
             negCfA.isFinite() shouldBe true
             negCfA.backAgain() shouldBe (-3245 over 1000)
             ZERO.toContinuedFraction() shouldBe listOf(ZERO)
@@ -1031,19 +1031,19 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should find Cantor spiral`() {
             cantorSpiral().take(10).toList() shouldBe (
-                    listOf(
-                        ZERO,
-                        ONE,
-                        -ONE,
-                        -1 over 2,
-                        1 over 2,
-                        TWO,
-                        -TWO,
-                        -2 over 3,
-                        -1 over 3,
-                        1 over 3
-                    )
-                    )
+                listOf(
+                    ZERO,
+                    ONE,
+                    -ONE,
+                    -1 over 2,
+                    1 over 2,
+                    TWO,
+                    -TWO,
+                    -2 over 3,
+                    -1 over 3,
+                    1 over 3
+                )
+                )
         }
     }
 }
