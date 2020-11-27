@@ -280,11 +280,12 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         denominator + that.denominator
     )
 
-    /** Rounds according to [roundingMode]. */
+    /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
     open fun round(roundingMode: RoundingMode): T =
         if (isInteger()) this as T
         else companion.valueOf(
+            // BigInteger does not have a divide with rounding mode
             numerator.toBigDecimal()
                 .divide(denominator.toBigDecimal(), roundingMode)
                 .setScale(0)

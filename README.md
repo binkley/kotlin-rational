@@ -465,27 +465,27 @@ restriction 2.
 
 ## Further reading
 
-- [_Wheel of
-  fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
 - [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
-- [_Projectively extended real
-  line_](https://en.wikipedia.org/wiki/Projectively_extended_real_line)
-  _vs_ [_Extended real number
-  line_](https://en.wikipedia.org/wiki/Extended_real_number_line)
-- [_Double-precision floating-point
-  format_](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
-- [_Exact value of a floating-point number as a
-  rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)
-  .
-- [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
 - [_An introduction to context-oriented programming in
   Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
 - [_Continued
   Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/FiniteContinuedFractions.pdf)
+- [_Continued fraction - Square
+  roots_](https://en.wikipedia.org/wiki/Continued_fraction#Square_roots)
+- [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
+- [_Double-precision floating-point
+  format_](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
+- [_Exact value of a floating-point number as a
+  rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)
 - [_Generalized continued
   fracion_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
 - [_Golden
   ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)
-- [_Continued fraction - Square
-  roots_](https://en.wikipedia.org/wiki/Continued_fraction#Square_roots)
+- [_Projectively extended real
+  line_](https://en.wikipedia.org/wiki/Projectively_extended_real_line) _
+  vs_ [_Extended real number
+  line_](https://en.wikipedia.org/wiki/Extended_real_number_line)
+- [_Repeating decimal_](https://en.wikipedia.org/wiki/Repeating_decimal)
+- [_Wheel of
+  fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
 - [num-rational](https://github.com/rust-num/num-rational)
