@@ -4,7 +4,6 @@
 
 # Kotlin Rational
 
-[![bintray](https://img.shields.io/bintray/v/github/binkley/kotlin-rational)](https://bintray.com/binkley/maven/kotlin-rational)
 [![CI](https://github.com/binkley/kotlin-rational/workflows/build/badge.svg)](https://github.com/binkley/kotlin-rational/actions)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
