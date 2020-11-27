@@ -59,6 +59,11 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 ## Releases
 
+* [2.1.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.0)
+  [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.1.0)
+  &mdash; (**IN PROGRESS**)
+    - Improved rounding
+    - Conversions to/from `BigDecimal`
 * [2.0.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.1)
   [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.0.1)
   &mdash; (2020-11-27) Switch to bintray for publishing

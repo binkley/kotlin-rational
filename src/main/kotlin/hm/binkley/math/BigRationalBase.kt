@@ -5,6 +5,9 @@ import hm.binkley.math.algebra.FieldCompanion
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
+import java.math.RoundingMode.CEILING
+import java.math.RoundingMode.DOWN
+import java.math.RoundingMode.FLOOR
 import java.math.RoundingMode.HALF_EVEN
 import java.util.Objects.hash
 
@@ -265,6 +268,14 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         numerator + that.numerator,
         denominator + that.denominator
     )
+
+    /** Rounds according to [roundingMode]. */
+    open fun round(roundingMode: RoundingMode): T =
+        companion.valueOf(
+            numerator.toBigDecimal()
+                .divide(denominator.toBigDecimal(), roundingMode)
+                .setScale(0)
+        )
 
     /** Checks that this rational is an integer. */
     fun isInteger(): Boolean = 1.big == denominator
@@ -793,48 +804,26 @@ fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
 
 /**
  * Rounds to the nearest whole number towards positive infinity corresponding
- * to [Math.ceil] and [RoundingMode.UP].
+ * to [Math.ceil] and rounding mode [CEILING].
  */
-fun <T : BigRationalBase<T>> T.ceil(): T = when {
-    roundsToSelf() -> this
-    companion.ZERO <= this -> truncate() + companion.ONE
-    else -> truncate()
-}
+fun <T : BigRationalBase<T>> T.ceil(): T = round(CEILING)
 
 /**
  * Rounds to the nearest whole number towards negative infinity corresponding
- * to [Math.floor] and [RoundingMode.DOWN].
+ * to [Math.floor] and rounding mode [FLOOR].
  */
-fun <T : BigRationalBase<T>> T.floor(): T = when {
-    roundsToSelf() -> this
-    companion.ZERO <= this -> truncate()
-    else -> truncate() - companion.ONE
-}
-
-/** Rounds according to [roundingMode]. */
-fun <T : BigRationalBase<T>> T.round(roundingMode: RoundingMode): T =
-    companion.valueOf(
-        numerator.toBigDecimal()
-            .div(denominator.toBigDecimal())
-            .setScale(0, roundingMode)
-    )
+fun <T : BigRationalBase<T>> T.floor(): T = round(FLOOR)
 
 /**
- * Truncates to the nearest whole number _closer to 0_ than this BigRational,
- * or when this is a whole number, truncates to this, returning the trunction
- * and remaining fraction.
+ * Truncates to the nearest whole number towards 0 corresponding to
+ * rounding mode [DOWN], returning the truncation and remaining fraction.
  *
  * Summing the truncation and fraction should produce the original number
- * unless `NaN` is involved.
- *
- * For `FloatingBigRational`, `NaN`, and positive and negativive infinities
- * produce `NaN` as the fraction.
+ * except for floating big rationals of `NaN` or positive or negative
+ * infinities.
  */
 fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
-    val truncation = when {
-        roundsToSelf() -> this
-        else -> companion.valueOf(numerator / denominator)
-    }
+    val truncation = round(DOWN)
     val fraction = this - truncation
 
     return truncation to fraction

@@ -14,6 +14,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingBigRational.Companion.valueOf
 import hm.binkley.math.isZero
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).  `BigRational`
@@ -140,6 +141,12 @@ class FloatingBigRational private constructor(
             (isPositiveInfinity() && that.isNegativeInfinity())
                 || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
             else -> super.mediant(that)
+        }
+
+    override fun round(roundingMode: RoundingMode): FloatingBigRational =
+        when {
+            isNaN() || isPositiveInfinity() || isNegativeInfinity() -> this
+            else -> super.round(roundingMode)
         }
 
     /**
