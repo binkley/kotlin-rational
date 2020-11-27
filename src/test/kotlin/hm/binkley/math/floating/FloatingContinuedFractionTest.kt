@@ -10,7 +10,10 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.comparables.shouldBeGreaterThan
+import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.jupiter.api.Test
 
@@ -19,6 +22,12 @@ private val eulerApproximation =
     (271_828_182_845 over 100_000_000_000).toContinuedFraction()
 
 internal class FloatingContinuedFractionTest {
+    @Test
+    fun `should hash`() {
+        cf(1, 2).hashCode() shouldBe cf(1, 2).hashCode()
+        cf(2, 2).hashCode() shouldNotBe cf(1, 2).hashCode()
+    }
+
     @Test
     fun `should be a list`() {
         ZERO.toContinuedFraction() shouldBe listOf(ZERO)
@@ -124,4 +133,24 @@ internal class FloatingContinuedFractionTest {
         shouldThrow<IllegalStateException> { phi(0) }
         shouldThrow<IllegalStateException> { phi(-1) }
     }
+
+    @Test
+    fun `should compare`() {
+        val threeHalvesByTwo = cf(1, 2)
+        val three = cf(2, 1)
+        val threeHalvesByOnes = cf(1, 1, 1)
+        val two = cf(1, 1)
+
+        two shouldBe two
+        threeHalvesByTwo shouldBeLessThan three
+        three shouldBeGreaterThan threeHalvesByTwo
+        threeHalvesByOnes shouldBeLessThan two
+        two shouldBeGreaterThan threeHalvesByOnes
+    }
+}
+
+private fun cf(i: Int, vararg f: Int): FloatingContinuedFraction {
+    val bigF = f.map { it.big }.toTypedArray()
+
+    return FloatingContinuedFraction.valueOf(i.big, *bigF)
 }

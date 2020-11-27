@@ -38,4 +38,5 @@ internal val Double.big: BDouble
         10.0 -> BDouble.TEN
         else -> BDouble.valueOf(this)
     }
+
 internal val String.big: BDouble get() = BDouble(this)

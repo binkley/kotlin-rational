@@ -116,7 +116,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
     }
 }
 
-abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
+abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     val numerator: BInt,
     val denominator: BInt,
     override val companion: BigRationalCompanion<T>,

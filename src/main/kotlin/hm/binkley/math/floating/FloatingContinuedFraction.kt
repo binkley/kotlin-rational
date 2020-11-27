@@ -32,6 +32,10 @@ class FloatingContinuedFraction private constructor(
     ): FloatingContinuedFraction =
         FloatingContinuedFraction(terms)
 
+    override fun toBigRational(): FloatingBigRational =
+        if (!isFinite()) NaN
+        else backAgain()
+
     companion object :
         ContinuedFractionCompanionBase<FloatingBigRational,
             FloatingContinuedFraction>(ONE) {
@@ -60,13 +64,3 @@ class FloatingContinuedFraction private constructor(
  * BigRationals produce a non-finite continued fraction.
  */
 fun FloatingContinuedFraction.isFinite(): Boolean = integerPart.isFinite()
-
-/**
- * Returns the BigRational for the continued fraction.
- *
- * Note that the roundtrip of BigRational → ContinuedFraction →
- * BigRational is lossy for infinities, producing `NaN`.
- */
-fun FloatingContinuedFraction.toBigRational(): FloatingBigRational =
-    if (!isFinite()) NaN
-    else backAgain()
