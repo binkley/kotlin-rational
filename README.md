@@ -4,9 +4,8 @@
 
 # Kotlin Rational
 
-[![build](https://github.com/binkley/kotlin-rational/workflows/build/badge.svg)](https://github.com/binkley/kotlin-rational/actions)
-[![jitpack](https://img.shields.io/jitpack/v/github/binkley/kotlin-rational)](https://jitpack.io/#binkley/kotlin-rational)
-[![tag](https://img.shields.io/github/v/tag/binkley/kotlin-rational)](https://github.com/binkley/kotlin-rational/tags)
+[![bintray](https://img.shields.io/bintray/v/github/binkley/kotlin-rational)](https://bintray.com/binkley/maven/kotlin-rational)
+[![CI](https://github.com/binkley/kotlin-rational/workflows/build/badge.svg)](https://github.com/binkley/kotlin-rational/actions)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 [![made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)](https://kotlinlang.org/)
@@ -65,9 +64,11 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
   &mdash; (2020-11-27) Switch to bintray for publishing
 * [2.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.0)
   &mdash; (2020-11-26) Rationalized type and package names, refreshed site
+  (**NB** &mdash; not a published version)
 * [1.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-1.0.0)
   &mdash; (2020-04-02) Initial prototype released for reuse by
-  [KUnits](https://github.com/binkley/kunits)
+  [KUnits](https://github.com/binkley/kunits) (**NB** &mdash; not a published
+  version)
 
 ---
 
