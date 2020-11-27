@@ -471,7 +471,54 @@ internal class FixedBigRationalTest {
         }
 
         @Test
-        fun `should convert from double`() {
+        fun `should convert to and from big decimal`() {
+            val decimals = listOf(
+                -4.0,
+                -3.0,
+                -2.0,
+                -1.0,
+                -0.5,
+                -0.3,
+                -0.1,
+                0.0,
+                0.1,
+                0.3,
+                0.5,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                123.456
+            ).map { it.toBigDecimal() }
+            val rationals = listOf(
+                -4 over 1,
+                -3 over 1,
+                -2 over 1,
+                -1 over 1,
+                -1 over 2,
+                -3 over 10,
+                -1 over 10,
+                ZERO,
+                1 over 10,
+                3 over 10,
+                1 over 2,
+                ONE,
+                2 over 1,
+                3 over 1,
+                4 over 1,
+                15432 over 125
+            )
+
+            decimals.map {
+                it.toBigRational()
+            } shouldBe rationals
+            rationals.map {
+                it.toBigDecimal()
+            } shouldBe decimals
+        }
+
+        @Test
+        fun `should convert to and from double`() {
             val doubles = listOf(
                 -4.0,
                 -3.0,
@@ -518,7 +565,7 @@ internal class FixedBigRationalTest {
         }
 
         @Test
-        fun `should convert from float`() {
+        fun `should convert to and from float`() {
             val floats = listOf(
                 -4.0f,
                 -3.0f,

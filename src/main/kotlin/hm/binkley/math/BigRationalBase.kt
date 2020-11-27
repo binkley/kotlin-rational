@@ -9,6 +9,7 @@ import java.math.RoundingMode.CEILING
 import java.math.RoundingMode.DOWN
 import java.math.RoundingMode.FLOOR
 import java.math.RoundingMode.HALF_EVEN
+import java.math.RoundingMode.HALF_UP
 import java.util.Objects.hash
 
 /**
@@ -142,6 +143,21 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
         get() = companion.valueOf(numerator.signum())
 
     /**
+     * Returns this as a [BigInteger] which may involve rounding
+     * corresponding to rounding mode [HALF_UP].
+     */
+    fun toBigInteger(): BigInteger = numerator / denominator
+
+    /**
+     * Returns this as a [BigDecimal] corresponding to [toDouble].
+     *
+     * @todo This is wrong for very large/small numbers.  A general algorithm
+     *       for decimals from rationals will not "spread out" for very large
+     *       nor small values
+     */
+    fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
+
+    /**
      * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
      * Java does not have a conversion to [Character] for [java.lang.Number].
      */
@@ -175,11 +191,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> internal constructor(
      */
     override fun toDouble(): Double =
         numerator.toBigDecimal().divide(denominator.toBigDecimal()).toDouble()
-
-    /**
-     * Returns this as a [BigInteger], which may involve rounding.
-     */
-    fun toBigInteger(): BigInteger = numerator / denominator
 
     /**
      * Compares this object with the specified object for order. Returns
