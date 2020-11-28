@@ -210,6 +210,7 @@ fun FixedComplex.sqrtApproximated(): FixedComplex {
     return gamma + delta.i
 }
 
+@Suppress("DANGEROUS_CHARACTERS")
 infix fun FixedComplex.`**`(n: Int): FixedComplex = pow(n)
 
 fun FixedComplex.pow(n: Int): FixedComplex {

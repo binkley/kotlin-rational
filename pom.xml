@@ -154,8 +154,7 @@
                 <configuration>
                     <args>
                         <arg>-Xinline-classes</arg>
-                        <!-- TODO: Enable -Werror when `**` warning is suppressible -->
-                        <!-- <arg>-Werror</arg>-->
+                        <arg>-Werror</arg>
                     </args>
                 </configuration>
                 <executions>

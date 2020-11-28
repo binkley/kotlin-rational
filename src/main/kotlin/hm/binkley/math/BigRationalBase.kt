@@ -784,7 +784,7 @@ fun <T : BigRationalBase<T>> T.divideAndRemainder(other: T): Pair<T, T> {
 }
 
 /** Provides a pseudo-operator for exponentiation. */
-@Suppress("FunctionName")
+@Suppress("DANGEROUS_CHARACTERS")
 infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int): T = pow(exponent)
 
 /**
