@@ -33,6 +33,23 @@ internal class FixedContinuedFractionTest {
     }
 
     @Test
+    fun `should be a number`() {
+        (11 over 10).toContinuedFraction().toByte() shouldBe 1L.toByte()
+        (11 over 10).toContinuedFraction().toShort() shouldBe 1L.toShort()
+        (11 over 10).toContinuedFraction().toInt() shouldBe 1L.toInt()
+        (11 over 10).toContinuedFraction().toLong() shouldBe 1L
+        (11 over 10).toContinuedFraction().toFloat() shouldBe 1.1.toFloat()
+        (11 over 10).toContinuedFraction().toDouble() shouldBe 1.1
+    }
+
+    @Test
+    fun `should not be a character`() {
+        shouldThrow<IllegalStateException> {
+            ONE.toContinuedFraction().toChar()
+        }
+    }
+
+    @Test
     fun `should continue`() {
         eulerApproximation.terms(0) shouldBe listOf(2 over 1)
         eulerApproximation.terms(14) shouldBe (

@@ -12,6 +12,7 @@ abstract class ContinuedFractionBase<
     T : BigRationalBase<T>,
     C : ContinuedFractionBase<T, C>,
     > protected constructor(private val terms: List<T>) :
+    Number(),
     List<T> by terms,
     Comparable<ContinuedFractionBase<T, C>> {
     protected abstract fun construct(terms: List<T>): C
@@ -42,6 +43,19 @@ abstract class ContinuedFractionBase<
     else
         construct(listOf(integerPart.companion.ZERO) + terms)
 
+    override fun toByte(): Byte = toBigRational().toByte()
+
+    /**
+     * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
+     * Java does not have a conversion to [Character] for [java.lang.Number].
+     */
+    override fun toChar(): Char = toBigRational().toChar()
+    override fun toDouble(): Double = toBigRational().toDouble()
+    override fun toFloat(): Float = toBigRational().toFloat()
+    override fun toInt(): Int = toBigRational().toInt()
+    override fun toLong(): Long = toBigRational().toLong()
+    override fun toShort(): Short = toBigRational().toShort()
+
     override fun compareTo(other: ContinuedFractionBase<T, C>): Int =
         toBigRational().compareTo(other.toBigRational())
 
@@ -70,12 +84,15 @@ abstract class ContinuedFractionBase<
     fun terms(fractionalTerms: Int): List<T> = subList(0, fractionalTerms + 1)
 }
 
-/** Returns number of requested convergents. */
+/**
+ * Returns number of requested convergents.
+ *
+ * @todo How is caller to know the # of convergents available?!
+ */
 fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.convergent(
     n: Int,
 ): T {
     if (0 > n) error("Convergents start from the 0th")
-    // TODO: How is caller to know the # of convergents available?!
     if (size <= n) error("Not enough terms for convergent: $n")
 
     val c0 = integerPart
