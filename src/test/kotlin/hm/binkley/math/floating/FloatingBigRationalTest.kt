@@ -151,6 +151,11 @@ internal class FloatingBigRationalTest {
     }
 
     @Test
+    fun `should reciprocate`() {
+        (3 over 2).reciprocal shouldBe (2 over 3)
+    }
+
+    @Test
     fun `should not be a floating big rational`() {
         FixedBigRational.valueOf(1.big, 1.big).hashCode() shouldNotBe
             (1 over 1).hashCode()

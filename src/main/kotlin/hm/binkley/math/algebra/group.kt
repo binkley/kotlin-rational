@@ -1,6 +1,7 @@
 package hm.binkley.math.algebra
 
 interface GroupCompanion<T : Group<T>> {
+    @Suppress("PropertyName")
     val ZERO: T
 }
 

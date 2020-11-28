@@ -1,6 +1,7 @@
 package hm.binkley.math.algebra
 
 interface RingCompanion<T : Ring<T>> : GroupCompanion<T> {
+    @Suppress("PropertyName")
     val ONE: T
 }
 

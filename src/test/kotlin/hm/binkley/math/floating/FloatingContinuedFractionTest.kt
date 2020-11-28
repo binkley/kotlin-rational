@@ -23,7 +23,7 @@ private val eulerApproximation =
 
 internal class FloatingContinuedFractionTest {
     @Test
-    fun `should hash`() {
+    fun `should hash separately`() {
         cf(1, 2).hashCode() shouldBe cf(1, 2).hashCode()
         cf(2, 2).hashCode() shouldNotBe cf(1, 2).hashCode()
     }

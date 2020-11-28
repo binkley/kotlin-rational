@@ -62,7 +62,7 @@ internal class Mod3IntTest {
     }
 
     @Test
-    fun `should hash`() {
+    fun `should hash separately`() {
         ZERO.hashCode() shouldBe ZERO.hashCode()
         ONE.hashCode() shouldNotBe ZERO.hashCode()
         TWO.hashCode() shouldNotBe ZERO.hashCode()

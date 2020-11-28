@@ -126,6 +126,11 @@ internal class FixedBigRationalTest {
     }
 
     @Test
+    fun `should reciprocate`() {
+        (3 over 2).reciprocal shouldBe (2 over 3)
+    }
+
+    @Test
     fun `should not be a floating big rational range`() {
         (ONE..TWO) shouldNotBe
             FloatingBigRational.ONE..FloatingBigRational.TWO
