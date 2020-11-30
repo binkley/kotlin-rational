@@ -23,16 +23,15 @@ import java.math.BigInteger
 class FixedContinuedFraction private constructor(
     terms: List<BRat>,
 ) : ContinuedFractionBase<BRat, FixedContinuedFraction>(
-    terms
+    terms, FixedContinuedFraction
 ) {
     override fun construct(terms: List<BRat>): FixedContinuedFraction =
         FixedContinuedFraction(terms)
 
     override fun toBigRational(): BRat = backAgain()
 
-    companion object :
-        ContinuedFractionCompanionBase<BRat,
-            FixedContinuedFraction>(ONE) {
+    companion object : ContinuedFractionCompanionBase<BRat,
+        FixedContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             BRat.valueOf(integerPart)
 

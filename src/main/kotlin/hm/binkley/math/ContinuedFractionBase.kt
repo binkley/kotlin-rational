@@ -11,8 +11,10 @@ import java.util.Collections.nCopies
 abstract class ContinuedFractionBase<
     T : BigRationalBase<T>,
     C : ContinuedFractionBase<T, C>,
-    > protected constructor(private val terms: List<T>) :
-    Number(),
+    > protected constructor(
+    private val terms: List<T>,
+    open val companion: ContinuedFractionCompanionBase<T, C>,
+) : Number(),
     List<T> by terms,
     Comparable<ContinuedFractionBase<T, C>> {
     protected abstract fun construct(terms: List<T>): C
@@ -32,6 +34,38 @@ abstract class ContinuedFractionBase<
      * @see unaryDiv
      */
     val reciprocal: C get() = unaryDiv()
+
+    /**
+     * Adds this to [other].
+     *
+     * @see BigRationalBase.plus
+     */
+    operator fun plus(other: C): C =
+        companion.valueOf(toBigRational() + other.toBigRational())
+
+    /**
+     * Divides this by [other].
+     *
+     * @see BigRationalBase.plus
+     */
+    operator fun minus(other: C): C =
+        companion.valueOf(toBigRational() - other.toBigRational())
+
+    /**
+     * Multiplies this by [other].
+     *
+     * @see BigRationalBase.plus
+     */
+    operator fun times(other: C): C =
+        companion.valueOf(toBigRational() * other.toBigRational())
+
+    /**
+     * Divides this by [other].
+     *
+     * @see BigRationalBase.plus
+     */
+    operator fun div(other: C): C =
+        companion.valueOf(toBigRational() / other.toBigRational())
 
     /**
      * Simulates a non-existent "unary div" operator.

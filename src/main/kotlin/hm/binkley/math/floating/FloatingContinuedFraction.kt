@@ -25,7 +25,7 @@ import java.math.BigInteger
 class FloatingContinuedFraction private constructor(
     terms: List<FloatingBigRational>,
 ) : ContinuedFractionBase<FloatingBigRational, FloatingContinuedFraction>(
-    terms
+    terms, FloatingContinuedFraction
 ) {
     override fun construct(
         terms: List<FloatingBigRational>,

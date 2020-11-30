@@ -12,6 +12,7 @@ import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 // The ever popular Euler's number, 2.71828 18284 59045...
@@ -147,18 +148,48 @@ internal class FixedContinuedFractionTest {
         shouldThrow<IllegalStateException> { phi(-1) }
     }
 
-    @Test
-    fun `should compare`() {
-        val threeHalvesByTwo = cf(1, 2)
-        val three = cf(2, 1)
-        val threeHalvesByOnes = cf(1, 1, 1)
-        val two = cf(1, 1)
+    @Nested
+    inner class Numeric {
+        private val aFraction = 133 over 42
+        private val oneHalf = 1 over 2
 
-        two shouldBe two
-        threeHalvesByTwo shouldBeLessThan three
-        three shouldBeGreaterThan threeHalvesByTwo
-        threeHalvesByOnes shouldBeLessThan two
-        two shouldBeGreaterThan threeHalvesByOnes
+        @Test
+        fun `should compare`() {
+            val threeHalvesByTwo = cf(1, 2)
+            val three = cf(2, 1)
+            val threeHalvesByOnes = cf(1, 1, 1)
+            val two = cf(1, 1)
+
+            two shouldBe two
+            threeHalvesByTwo shouldBeLessThan three
+            three shouldBeGreaterThan threeHalvesByTwo
+            threeHalvesByOnes shouldBeLessThan two
+            two shouldBeGreaterThan threeHalvesByOnes
+        }
+
+        @Test
+        fun `should add`() = (
+            aFraction.toContinuedFraction() +
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(3, 1, 2)
+
+        @Test
+        fun `should subtract`() = (
+            aFraction.toContinuedFraction() -
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(2, 1, 2)
+
+        @Test
+        fun `should multiply`() = (
+            aFraction.toContinuedFraction() *
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(1, 1, 1, 2, 2)
+
+        @Test
+        fun `should divide`() = (
+            aFraction.toContinuedFraction() /
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(6, 3)
     }
 }
 
