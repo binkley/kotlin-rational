@@ -488,6 +488,8 @@ restriction 2.
   vs_ [_Extended real number
   line_](https://en.wikipedia.org/wiki/Extended_real_number_line)
 - [_Repeating decimal_](https://en.wikipedia.org/wiki/Repeating_decimal)
+- [_What's So Great about Continued
+  Fractions?_](https://blogs.scientificamerican.com/roots-of-unity/what-8217-s-so-great-about-continued-fractions/)
 - [_Wheel of
   fractions_](https://en.wikipedia.org/wiki/Wheel_theory#Wheel_of_fractions)
 - [num-rational](https://github.com/rust-num/num-rational)

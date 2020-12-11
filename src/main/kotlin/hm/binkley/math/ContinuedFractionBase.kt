@@ -3,8 +3,6 @@ package hm.binkley.math
 import java.util.Collections.nCopies
 
 /**
- * @todo Consider providing infinite continued fractions as generators, eg,
- *       https://en.wikipedia.org/wiki/Continued_fraction#Other_continued_fraction_expansions
  * @todo Consider providing semiconvergents, eg,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Semiconvergents
  */
