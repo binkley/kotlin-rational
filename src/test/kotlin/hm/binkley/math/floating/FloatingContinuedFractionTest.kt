@@ -48,7 +48,7 @@ internal class FloatingContinuedFractionTest {
 
     @Test
     fun `should not be a character`() {
-        shouldThrow<IllegalStateException> {
+        shouldThrow<UnsupportedOperationException> {
             ONE.toContinuedFraction().toChar()
         }
     }

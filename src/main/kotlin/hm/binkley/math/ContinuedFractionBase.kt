@@ -78,8 +78,8 @@ abstract class ContinuedFractionBase<
     override fun toByte(): Byte = toBigRational().toByte()
 
     /**
-     * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
-     * Java does not have a conversion to [Character] for [java.lang.Number].
+     * Raises an [UnsupportedOperationException].  There is no sensible way to
+     * express a general continued fraction as an character in a language.
      */
     override fun toChar(): Char = toBigRational().toChar()
     override fun toDouble(): Double = toBigRational().toDouble()

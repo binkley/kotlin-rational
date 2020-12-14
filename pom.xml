@@ -223,7 +223,7 @@
                                     <limits>
                                         <limit>
                                             <!-- TODO: Kotlin vs JaCoCo -->
-                                            <minimum>99%</minimum>
+                                            <minimum>98%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

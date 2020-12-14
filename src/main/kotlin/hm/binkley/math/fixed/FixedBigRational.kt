@@ -78,7 +78,7 @@ class FixedBigRational private constructor(
             last: FixedBigRational,
             step: FixedBigRational,
         ) {
-            if (step == ZERO) error("Step must be non-zero.")
+            if (step.isZero()) error("Step must be non-zero.")
         }
 
         /** Generates the Cantor spiral for walking the rationals. */

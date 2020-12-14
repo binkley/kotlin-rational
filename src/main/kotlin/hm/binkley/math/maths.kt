@@ -35,6 +35,7 @@ internal val Double.big: BDouble
     get() = when (this) {
         0.0 -> BDouble.ZERO // Unlike BInt, BDouble.valueOf does not handle
         1.0 -> BDouble.ONE
+        // BigDecimal does not have a `TWO`
         10.0 -> BDouble.TEN
         else -> BDouble.valueOf(this)
     }

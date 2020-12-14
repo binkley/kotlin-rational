@@ -9,22 +9,22 @@
 [![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 [![made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)](https://kotlinlang.org/)
 
-An immutable, infinite-precision `FloatingBigRational` and `FixedBigRational`
+An immutable, infinite-precision `FixedBigRational` and `FloatingBigRational`
 (ratio, fraction) class for Kotlin.
 
 *DISCLAIMER* This code has not been vetted by a mathematician in the way that
 the JDK's `BigDecimal` has been. It is a pleasure project, not a reviewed
 scientific library.
 
-There are two versions, `FloatingBigRational` and `FixedBigRational`,
-providing pseudo-IEEE 754 and purely finite versions, respectively.
+There are two versions, `FixedBigRational` and `FloatingBigRational`, providing
+pseudo-IEEE 754 and purely finite versions, respectively.
 
 This code is a "finger exercise", largely demonstrating Kotlin operator
-overloading and extension methods, and writing clean, clear, concise Kotlin.
-It also explores the impact of `NaN` (on the `FloatingBigRational` version ,
-which is extensive), rather than raising an error on division by zero (as the
-`FixedBigRational` version does). In general, this code prefers expressivity
-to performance.
+overloading and extension methods, and writing clean, clear, concise Kotlin. It
+also explores the impact of `NaN` (on the `FloatingBigRational` version , which
+is extensive), rather than raising an error on division by zero (as the
+`FixedBigRational` version does). In general, this code prefers expressivity to
+performance.
 
 A secondary goal is to model the Kotlin standard library, and Java's
 `BigDecimal` and `BigInteger` types, as well as `Number`.
@@ -127,8 +127,8 @@ This snippet is an elided `pom.xml`:
 
 ## API
 
-In general, when properties, methods, and operations do not have
-documentation, they behave similarly as their floating-point counterpart.
+In general, when properties, methods, and operations do not have documentation,
+they behave similarly as their floating-point counterpart.
 
 ### Constructors
 
@@ -156,9 +156,8 @@ All constructors are _private_. Please use:
 - `toContinuedFraction()`
 - `pow(exponent)`
 - `divideAndRemainder(other)`
-- `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds
-  towards the nearest even whole number; `round(roundingMode)` rounds as you
-  ask
+- `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds towards
+  the nearest even whole number; `round(roundingMode)` rounds as you ask
 - `truncateAndFraction()` provides truncation and the remaining fraction;
   `truncate()` rounds towards 0; `fraction()` provides the remaining fraction
 
@@ -166,15 +165,15 @@ All constructors are _private_. Please use:
 
 - All numeric operators (binary and unary `plus` and `minus`, `times`, `div`,
   and `rem`)
-- `rem` always returns `ZERO` or a non-finite value (rational division is
-  exact with no remainder)
+- `rem` always returns `ZERO` or a non-finite value (rational division is exact
+  with no remainder)
 - Ranges and progressions
 - See also `divideAndRemainder`
 
 ### Types
 
 This code attempts to ease programmer typing through overloading. Where
-sensible, if a `FloatingBigRational` and `FixedBigRational` are provided as
+sensible, if a `FixedBigRational` and `FloatingBigRational` are provided as
 argument or extension method types, then so are `BigDecimal`, `Double`,
 `Float`, `BigInteger`, `Long`, and `Int`.
 
@@ -199,8 +198,8 @@ create a demo program. Use `./run.sh` or `./batect run` to run the demo.
 optimization is to avoid redownloading plugins and dependencies from within a
 Docker container.
 
-This shares Maven plugin and dependency downloads with the Docker container
-run by Batect.
+This shares Maven plugin and dependency downloads with the Docker container run
+by Batect.
 
 ---
 
@@ -208,8 +207,7 @@ run by Batect.
 
 ### Two choices
 
-This code provides `FloatingBigRational` and `FixedBigRational`. They differ
-by:
+This code provides `FixedBigRational` and `FloatingBigRational`. They differ by:
 
 <dl>
 <dt><code>BigRational</code></dt>
@@ -226,8 +224,8 @@ by:
 These were great help:
 
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational)
-  , especially treating `FloatingBigRational` as a `kotlin.Number`, and
-  methods such as `isFinite()` and `isInfinite()`
+  , especially treating `FloatingBigRational` as a `kotlin.Number`, and methods
+  such as `isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the
   infix `over` constructor, and various overloads
 - [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
@@ -238,8 +236,8 @@ with [division by zero](https://en.wikipedia.org/wiki/Division_by_zero),
 "not a number", -∞, and +∞, following the lead of
 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), and using the
 _affinely extended real line_ as a model. However, this code does not
-consider `+0` or `-0`, treating all zeros as `0`, and distinguishes +∞ from
--∞ (as opposed to the projectively extended real line). In these ways,
+consider `+0` or `-0`, treating all zeros as `0`, and distinguishes +∞ from -∞ (
+as opposed to the projectively extended real line). In these ways,
 `FloatingBigRational` does not represent a proper _Field_.
 
 The code for `FixedBigRational`, however, _should_ simply be ℚ, and raises
@@ -263,9 +261,9 @@ This code always keeps rationals in proper form:
 Thus, for these cases, care should be taken in using their denominators
 
 The denominator is always non-negative; it is zero for the special values
-`NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as an implementation
-detail for `FloatingBigRational` (there is no proper representation in ℚ for
-these cases).
+`NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as an implementation detail
+for `FloatingBigRational` (there is no proper representation in ℚ for these
+cases).
 
 One may conclude that `FixedBigRational` is a _Field_ under addition and
 multiplication, and `FloatingBigRational` is not.
@@ -302,16 +300,18 @@ discussion.)
 In this code there is only `ZERO` (0). There are no positive or negative zeros
 to represent approaching zero from different directions.
 
-### `FloatingBigRational` and `FixedBigRational` are `Number`s
+### `FixedBigRational` and `FloatingBigRational` are `Number`s
 
-In this code, `FloatingBigRational` and `FixedBigRational` are a
-`kotlin.Number`, in part to inherit Kotlin handling of numeric types. One
-consequence: This code raises an error for conversion to and from
-`Character`. This conversion seemed perverse, _eg_, `3/5` converts to what
-character?
+`FixedBigRational` and `FloatingBigRational` are a `kotlin.Number` to implement
+Kotlin handling of numeric types. However, in this the Kotlin stdlib API errs:
+it requires a conversion to `Char` unlike
+[the Java equivalent](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Number.html)
+. One consequence: This code raises `UnsupportedOperationException` for
+conversion to and from `Character` in all cases. This conversion seemed
+perverse, _eg_, to what language character should `3/5` convert?
 
 This code supports conversion among `Double` and `Float`, and
-`FloatingBigRational` and `FixedBigRational` for all finite values, and
+`FixedBigRational` and `FloatingBigRational` for all finite values, and
 non-finite values for `FloatingBigRational`. The conversion is _exact_: it
 constructs a power-of-2 rational value following IEEE 754; so reconverting
 returns the original floating-point value, and for `FloatingBigRational`
@@ -342,13 +342,11 @@ For `FloatingBigRational`, as with floating-point, `NaN != NaN`, and finite
 values equal themselves. As with mathematics, infinities are not equal to
 themselves, so `POSITIVE_INFINITY != POSITIVE_INFINTY` and
 `NEGATIVE_INFINITY != NEGATIVE_INFINITY`.  (`FloatingBigRational` does not
-provide the needed sense of equivalence, nor does it cope with
-infinitesimals.)
+provide the needed sense of equivalence, nor does it cope with infinitesimals.)
 
-`FloatingBigRational` represents infinities as division by 0 (positive
-infinity reduces to `1 / 0`, negative infinity to `-1 / 0`). The field of
-rationals (ℚ) is complex ("difficult", in the colloquial meaning) when
-considering infinities.
+`FloatingBigRational` represents infinities as division by 0 (positive infinity
+reduces to `1 / 0`, negative infinity to `-1 / 0`). The field of rationals (ℚ)
+is complex ("difficult", in the colloquial meaning) when considering infinities.
 
 |Infix constructor|`FloatingBigRational`|`FixedBigRational`|
 |---|---|---|
@@ -359,8 +357,8 @@ considering infinities.
 
 ### Conversions and operators
 
-This code provides conversions (`toBigRational` and ilk) and operator
-overloads for these `Number` types:
+This code provides conversions (`toBigRational` and ilk) and operator overloads
+for these `Number` types:
 
 - `BigDecimal`
 - `Double`
@@ -385,8 +383,8 @@ sort, regardless of other values. There is no sense of natural order for
 `NaN`, so this code chooses to sort `NaN` the same as does `Double`.
 
 For `FloatingBigRational`, all `NaN` are "quiet"; none are "signaling",
-including sorting. This follows the Java convention for floating-point, and is
-a complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
+including sorting. This follows the Java convention for floating-point, and is a
+complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
 
 ---
 
@@ -408,41 +406,39 @@ this code, the denominator is always non-negative, and for values with
 
 ### Identity of constants
 
-Rather than check numerator and denominator throughout for special values,
-this code relies on the factory constructor (`valueOf`) to produce known
-constants, and relevant code checks for those constants.
+Rather than check numerator and denominator throughout for special values, this
+code relies on the factory constructor (`valueOf`) to produce known constants,
+and relevant code checks for those constants.
 
 See:
 
 - `Nan`, `isNaN()` (`FloatingBigRational`)
 - `POSITIVE_INFINITY`, `isPositiveInfinity()` (`FloatingBigRational`)
 - `NEGATIVE_INFINITY`, `isNegativeInfinity()` (`FloatingBigRational`)
-- `ZERO`, `ONE`, `TWO`, `TEN` (`FloatingBigRational` and `FixedBigRational`)
+- `ZERO`, `ONE`, `TWO`, `TEN` (`FixedBigRational` and `FloatingBigRational`)
 
 ### Factory constructor
 
-Rather than provide a public constructor, always use the `over` infix
-operator (or `valueOf` factory method). This maintains invariants such as
-"lowest terms" (numerator and denominator are coprime), sign handling, and
-reuse of special case objects.
+Rather than provide a public constructor, always use the `over` infix operator (
+or `valueOf` factory method). This maintains invariants such as
+"lowest terms" (numerator and denominator are coprime), sign handling, and reuse
+of special case objects.
 
 ### Special case handling _vs_ sealed class
 
-This code uses special case handling for non-finite values. An alternative
-would be to use a sealed class with separate subclasses for special cases.
-This would potentially provide handling of infinitesimals. However, the
-abstraction bleeds between subclasses. It is unclear if a sealed class makes
-clearer code.
+This code uses special case handling for non-finite values. An alternative would
+be to use a sealed class with separate subclasses for special cases. This would
+potentially provide handling of infinitesimals. However, the abstraction bleeds
+between subclasses. It is unclear if a sealed class makes clearer code.
 
 ### GCD vs LCM
 
 There are several places that might use LCM (_eg_, dividing rationals). This
-code relies on the factory constructor (`valueOf`) for GCM in reducing
-rationals to simplest form, and `gcm` and `lcm` methods are recursive between
-themselves.
+code relies on the factory constructor (`valueOf`) for GCM in reducing rationals
+to simplest form, and `gcm` and `lcm` methods are recursive between themselves.
 
-Do note, however, this code implements GCD and LCM recursively in terms of
-each other.
+Do note, however, this code implements GCD and LCM recursively in terms of each
+other.
 
 ### Continued fractions
 
@@ -456,10 +452,11 @@ The representation is for _finite simple continued fractions_, that is:
 1. The numerator is always 1
 2. There are a finite number of terms
 
-Restriction 1 would need to be loosened to accommodate using continued
-fractions for computing square roots of rationals. A function signature might
-look like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet
-restriction 2.
+Restriction 1 would need to be loosened to accommodate using continued fractions
+for computing square roots of rationals. A function signature might look
+like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet restriction
+
+2.
 
 ---
 
@@ -481,8 +478,7 @@ restriction 2.
   rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)
 - [_Generalized continued
   fracion_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
-- [_Golden
-  ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)
+- [_Golden ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)
 - [_Projectively extended real
   line_](https://en.wikipedia.org/wiki/Projectively_extended_real_line) _
   vs_ [_Extended real number

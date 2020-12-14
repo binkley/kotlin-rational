@@ -16,6 +16,10 @@ import java.util.Objects.hash
  * An abuse of Fields: `FixedBigRational` is a field, but
  * `FloatingBigRational` is not because of `NaN` and the infinities.
  *
+ * *NB* &mdash; To avoid circular references, initialize [ZERO], [ONE], [TWO],
+ * and [TEN] directly from constructures, and use neither [construct] nor
+ * [valueOf].
+ *
  * @todo Provide`sqrt` via continued fractions, ie,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Square_roots and
  *       [BigInteger.sqrtAndRemainder]
@@ -118,7 +122,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
     }
 }
 
-abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
+open class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     val numerator: BInt,
     val denominator: BInt,
     override val companion: BigRationalCompanion<T>,
@@ -150,7 +154,8 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     fun toBigInteger(): BigInteger = numerator / denominator
 
     /**
-     * Returns this as a [BigDecimal] corresponding to [toDouble].
+     * Returns this as a [BigDecimal] corresponding to [toDouble] following the
+     * same rules as [Double.toBigDecimal].
      *
      * @todo This is wrong for very large/small numbers.  A general algorithm
      *       for decimals from rationals will not "spread out" for very large
@@ -165,7 +170,8 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
      * Java does not have a conversion to [Character] for [java.lang.Number].
      */
-    override fun toChar(): Char = error("Characters are non-numeric")
+    override fun toChar(): Char =
+        throw UnsupportedOperationException("Characters are non-numeric")
 
     /** @see [Long.toByte] */
     override fun toByte(): Byte = toLong().toByte()
@@ -188,7 +194,8 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     /**
      * Returns the value of this number as a [Double], which may involve
      * rounding.  This produces an _exact_ conversion, that is,
-     * `123.456.toBigRational().toDouble == 123.456`.
+     * `123.456.toBigRational().toDouble == 123.456`, and follows the rules
+     * for [BigDecimal.toDouble].
      *
      * @see [BigDecimal.toDouble]
      * @see [BigRationalCompanion.valueOf(Double)]
@@ -898,6 +905,8 @@ fun <T : BigRationalBase<T>> T.isOne(): Boolean = companion.ONE === this
  * Checks that this rational has an even denominator.  The odds of a random
  * rational number having an even denominator is exactly 1/3 (Salamin and
  * Gosper 1972).
+ *
+ * @see [HAKMEM][https://en.wikipedia.org/wiki/HAKMEM].
  */
 fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
     denominator.isEven()
