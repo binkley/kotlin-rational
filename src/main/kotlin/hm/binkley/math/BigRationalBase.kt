@@ -19,6 +19,8 @@ import java.util.Objects.hash
  * @todo Provide`sqrt` via continued fractions, ie,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Square_roots and
  *       [BigInteger.sqrtAndRemainder]
+ * @todo Explore other ways to share code between fixed and floating flavors;
+ *       `BigRationalBase` only exists to provide implementation inheritance
  */
 @Suppress("PropertyName")
 interface BigRationalCompanion<T : BigRationalBase<T>> :
@@ -139,8 +141,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * The signum of this value: -1 for negative, 0 for zero, or 1 for
      * positive.
      */
-    open val sign: T
-        get() = companion.valueOf(numerator.signum())
+    open val sign: T get() = companion.valueOf(numerator.signum())
 
     /**
      * Returns this as a [BigInteger] which may involve rounding
@@ -153,7 +154,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      *
      * @todo This is wrong for very large/small numbers.  A general algorithm
      *       for decimals from rationals will not "spread out" for very large
-     *       nor small values
+     *       nor small values.  When the denominator and base-10 are coprime
+     *       (the denominator can be viewed as a base), there are only
+     *       approximations, even for numbers will within the "nice" range of
+     *       `double`, _eg_, 1/3
      */
     fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
 
@@ -248,7 +252,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
 
     /**
      * Finds the remainder of this value by [divisor]: always 0 (division is
-     * exact).
+     * exact for rationals).
      *
      * @see [divideAndRemainder]
      */
@@ -283,16 +287,13 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
     open fun round(roundingMode: RoundingMode): T =
-        if (isInteger()) this as T
+        if ((this as T).isInteger()) this
         else companion.valueOf(
             // BigInteger does not have a divide with rounding mode
             numerator.toBigDecimal()
                 .divide(denominator.toBigDecimal(), roundingMode)
                 .setScale(0)
         )
-
-    /** Checks that this rational is an integer. */
-    fun isInteger(): Boolean = 1.big == denominator
 
     /**
      * Checks that this rational is dyadic, that is, the denominator is a power
@@ -883,6 +884,9 @@ fun <T : BigRationalBase<T>> T.lcm(that: T): T =
         numerator.lcm(that.numerator),
         denominator.gcd(that.denominator)
     )
+
+/** Checks that this rational is an integer. */
+fun <T : BigRationalBase<T>> T.isInteger(): Boolean = 1.big == denominator
 
 /** Checks that this rational is 0. */
 fun <T : BigRationalBase<T>> T.isZero(): Boolean = companion.ZERO === this

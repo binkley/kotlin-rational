@@ -19,6 +19,7 @@ import hm.binkley.math.floor
 import hm.binkley.math.fraction
 import hm.binkley.math.gcd
 import hm.binkley.math.isDenominatorEven
+import hm.binkley.math.isInteger
 import hm.binkley.math.isOne
 import hm.binkley.math.isZero
 import hm.binkley.math.lcm
