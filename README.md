@@ -17,7 +17,7 @@ the JDK's `BigDecimal` has been. It is a pleasure project, not a reviewed
 scientific library.
 
 There are two versions, `FixedBigRational` and `FloatingBigRational`, providing
-pseudo-IEEE 754 and purely finite versions, respectively.
+purely finite and pseudo-IEEE 754 versions, respectively.
 
 This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading and extension methods, and writing clean, clear, concise Kotlin. It
