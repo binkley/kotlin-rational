@@ -3,7 +3,11 @@ package hm.binkley.math
 internal class TestBigRational(
     numerator: BInt,
     denominator: BInt,
-) : BigRationalBase<TestBigRational>(numerator, denominator, Companion) {
+) : BigRationalBase<TestBigRational>(
+    numerator,
+    denominator,
+    TestBigRational,
+) {
     companion object : BigRationalCompanion<TestBigRational> {
         override val ZERO: TestBigRational =
             TestBigRational(BInt.ZERO, BInt.ONE)
