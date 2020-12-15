@@ -3,7 +3,7 @@ package hm.binkley.math.algebra
 import kotlin.math.absoluteValue
 
 class Mod3Int private constructor(val value: Int) : Ring<Mod3Int> {
-    override val companion: Companion = Companion
+    override val companion: Companion = Mod3Int
 
     override fun unaryMinus(): Mod3Int = valueOf(-value)
     override fun plus(addend: Mod3Int): Mod3Int =
