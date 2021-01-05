@@ -1,6 +1,9 @@
 package hm.binkley.math
 
 import hm.binkley.math.algebra.Mod3Int
+import hm.binkley.math.fixed.BRat
+import hm.binkley.math.fixed.FixedImaginary
+import hm.binkley.math.fixed.plus
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
@@ -136,9 +139,17 @@ fun main() {
 
     println()
     println("==CANTOR SPIRAL")
+
     cantorSpiral().take(10).forEach {
         println(it)
     }
+
+    println()
+    println("==FIXED BIG COMPLEX NUMBERS")
+
+    val onePlusI = BRat.ONE + FixedImaginary.I
+    println(onePlusI)
+    println(onePlusI * onePlusI.conjugate)
 }
 
 @Generated // Lie to JaCoCo
