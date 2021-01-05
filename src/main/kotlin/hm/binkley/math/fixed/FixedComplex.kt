@@ -1,8 +1,8 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
-import hm.binkley.math.algebra.Ring
-import hm.binkley.math.algebra.RingCompanion
+import hm.binkley.math.algebra.Field
+import hm.binkley.math.algebra.FieldCompanion
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedComplex.Companion.ONE
 import hm.binkley.math.isZero
@@ -14,7 +14,7 @@ import kotlin.math.absoluteValue
 data class FixedComplex(
     val real: BRat,
     val imag: FixedImaginary,
-) : Ring<FixedComplex> {
+) : Field<FixedComplex> {
     override val companion: Companion = Companion
 
     val conjugate: FixedComplex get() = real + -imag
@@ -24,7 +24,7 @@ data class FixedComplex(
 
     override operator fun unaryMinus(): FixedComplex = -real + -imag
 
-    fun unaryDiv(): FixedComplex {
+    override fun unaryDiv(): FixedComplex {
         val det = det
         return real / det - (imag.value / det).i
     }
@@ -73,7 +73,7 @@ data class FixedComplex(
     operator fun times(multiplier: FixedImaginary): FixedComplex =
         this * (ZERO + multiplier)
 
-    operator fun div(divisor: FixedComplex): FixedComplex =
+    override operator fun div(divisor: FixedComplex): FixedComplex =
         this * divisor.unaryDiv()
 
     operator fun div(divisor: BRat): FixedComplex =
@@ -94,7 +94,7 @@ data class FixedComplex(
     override fun toString(): String =
         if (BRat.ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
 
-    companion object : RingCompanion<FixedComplex> {
+    companion object : FieldCompanion<FixedComplex> {
         override val ONE: FixedComplex =
             FixedComplex(BRat.ONE, BRat.ZERO.i)
         override val ZERO: FixedComplex =

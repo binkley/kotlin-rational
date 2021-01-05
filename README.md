@@ -130,6 +130,14 @@ This snippet is an elided `pom.xml`:
 In general, when properties, methods, and operations do not have documentation,
 they behave similarly as their floating-point counterpart.
 
+### Algebra
+
+These are algebraic fields with supporting overloaded operators:
+
+- `FixedBigRational`
+- `FixedComplex`
+- `FloatingBigRational`
+
 ### Constructors
 
 All constructors are _private_. Please use:
