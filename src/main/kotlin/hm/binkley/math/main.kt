@@ -13,7 +13,8 @@ import lombok.Generated
 
 @Generated // Lie to JaCoCo
 fun main() {
-    println("== FLOATING BIG RATIONALS")
+    println("==FLOATING BIG RATIONALS")
+
     println("ZERO is $ZERO")
     println("NaN is $NaN")
     println("POSITIVE_INFINITY is $POSITIVE_INFINITY")
@@ -68,7 +69,9 @@ fun main() {
     )
     println("$toSort sorted is ${toSort.sorted()}")
 
-    println("DOUBLE CONVERSIONS")
+    println()
+    println("==DOUBLE CONVERSIONS")
+
     for (
         d in listOf(
             -4.0,
@@ -94,7 +97,9 @@ fun main() {
     )
         dump(d)
 
-    println("FLOAT CONVERSIONS")
+    println()
+    println("==FLOAT CONVERSIONS")
+
     for (
         d in listOf(
             -4.0f,
@@ -121,7 +126,8 @@ fun main() {
         dump(d)
 
     println()
-    println("== MOD3 INT")
+    println("==MOD3 INT")
+
     println("-1 (constructor) -> ${Mod3Int.valueOf(-1)}")
     println("-1 (inverse) -> ${-Mod3Int.ONE}")
     println("3-4 -> ${Mod3Int.valueOf(3) - Mod3Int.valueOf(4)}")
@@ -129,7 +135,7 @@ fun main() {
     println("3*4 -> ${Mod3Int.valueOf(3) * Mod3Int.valueOf(4)}")
 
     println()
-    println("== CANTOR")
+    println("==CANTOR SPIRAL")
     cantorSpiral().take(10).forEach {
         println(it)
     }
