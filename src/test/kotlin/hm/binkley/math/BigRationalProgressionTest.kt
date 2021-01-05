@@ -7,7 +7,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-internal class BigRationalRangeTest {
+internal class BigRationalProgressionTest {
     @Test
     fun `should move forward for big rational`() {
         (ZERO..TWO).toList() shouldBe listOf(ZERO, ONE, TWO)
