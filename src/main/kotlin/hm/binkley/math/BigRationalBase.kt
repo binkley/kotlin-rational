@@ -89,7 +89,9 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
     fun valueOf(wholeNumber: Long): T = valueOf(wholeNumber.toBigInteger())
     fun valueOf(wholeNumber: Int): T = valueOf(wholeNumber.toBigInteger())
 
-    fun iteratorCheck(first: T, last: T, step: T)
+    open fun iteratorCheck(first: T, last: T, step: T) {
+        if (step.isZero()) error("Step must be non-zero.")
+    }
 
     fun construct(
         numerator: BInt,

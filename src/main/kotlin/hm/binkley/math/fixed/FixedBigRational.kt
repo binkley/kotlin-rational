@@ -73,14 +73,6 @@ class FixedBigRational private constructor(
             else -> super.valueOf(floatingPoint)
         }
 
-        override fun iteratorCheck(
-            first: FixedBigRational,
-            last: FixedBigRational,
-            step: FixedBigRational,
-        ) {
-            if (step.isZero()) error("Step must be non-zero.")
-        }
-
         /** Generates the Cantor spiral for walking the rationals. */
         fun cantorSpiral(): Sequence<FixedBigRational> =
             CantorSpiral(FixedBigRational)

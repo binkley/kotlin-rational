@@ -274,10 +274,10 @@ class FloatingBigRational private constructor(
             last: FloatingBigRational,
             step: FloatingBigRational,
         ) {
+            super.iteratorCheck(first, last, step)
             if (!step.isFinite()) error("Non-finite step.")
             if (!first.isFinite() || !last.isFinite())
                 error("Non-finite bounds.")
-            if (step.isZero()) error("Step must be non-zero.")
         }
 
         /** Generates the Cantor spiral for walking the rationals. */
