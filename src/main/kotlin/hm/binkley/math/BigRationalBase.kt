@@ -89,7 +89,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
     fun valueOf(wholeNumber: Long): T = valueOf(wholeNumber.toBigInteger())
     fun valueOf(wholeNumber: Int): T = valueOf(wholeNumber.toBigInteger())
 
-    open fun iteratorCheck(first: T, last: T, step: T) {
+    fun iteratorCheck(first: T, last: T, step: T) {
         if (step.isZero()) error("Step must be non-zero.")
     }
 
@@ -908,7 +908,7 @@ fun <T : BigRationalBase<T>> T.isOne(): Boolean = companion.ONE === this
  * rational number having an even denominator is exactly 1/3 (Salamin and
  * Gosper 1972).
  *
- * @see [HAKMEM][https://en.wikipedia.org/wiki/HAKMEM].
+ * See [HAKMEM](https://en.wikipedia.org/wiki/HAKMEM).
  */
 fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
     denominator.isEven()
