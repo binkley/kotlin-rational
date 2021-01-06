@@ -12,30 +12,6 @@ inline class FixedImaginary(val value: BRat) :
     override fun compareTo(other: FixedImaginary): Int =
         value.compareTo(other.value)
 
-    operator fun unaryPlus(): FixedImaginary = this
-    operator fun unaryMinus(): FixedImaginary = (-value).toImaginary()
-
-    operator fun plus(addend: FixedImaginary): FixedImaginary =
-        (value + addend.value).toImaginary()
-
-    operator fun minus(subtrahend: FixedImaginary): FixedImaginary =
-        (value - subtrahend.value).toImaginary()
-
-    operator fun times(multiplier: FixedImaginary): FixedBigRational =
-        -(value * multiplier.value)
-
-    operator fun times(multiplier: BRat): FixedImaginary =
-        (value * multiplier).toImaginary()
-
-    operator fun times(multiplier: BInt): FixedImaginary =
-        (value * multiplier).toImaginary()
-
-    operator fun times(multiplier: Long): FixedImaginary =
-        (value * multiplier).toImaginary()
-
-    operator fun times(multiplier: Int): FixedImaginary =
-        (value * multiplier).toImaginary()
-
     override fun toString(): String = "${value}i"
 
     companion object {
@@ -51,6 +27,31 @@ fun Long.toImaginary(): FixedImaginary = toBigRational().toImaginary()
 val Long.i: FixedImaginary get() = toImaginary()
 fun Int.toImaginary(): FixedImaginary = toBigRational().toImaginary()
 val Int.i: FixedImaginary get() = toImaginary()
+
+operator fun FixedImaginary.unaryPlus(): FixedImaginary = this
+operator fun FixedImaginary.unaryMinus(): FixedImaginary =
+    (-value).toImaginary()
+
+operator fun FixedImaginary.plus(addend: FixedImaginary): FixedImaginary =
+    (value + addend.value).toImaginary()
+
+operator fun FixedImaginary.minus(subtrahend: FixedImaginary): FixedImaginary =
+    (value - subtrahend.value).toImaginary()
+
+operator fun FixedImaginary.times(multiplier: FixedImaginary): FixedBigRational =
+    -(value * multiplier.value)
+
+operator fun FixedImaginary.times(multiplier: BRat): FixedImaginary =
+    (value * multiplier).toImaginary()
+
+operator fun FixedImaginary.times(multiplier: BInt): FixedImaginary =
+    (value * multiplier).toImaginary()
+
+operator fun FixedImaginary.times(multiplier: Long): FixedImaginary =
+    (value * multiplier).toImaginary()
+
+operator fun FixedImaginary.times(multiplier: Int): FixedImaginary =
+    (value * multiplier).toImaginary()
 
 operator fun BRat.times(multiplier: FixedImaginary): FixedImaginary =
     multiplier * this

@@ -30,8 +30,6 @@ import java.math.RoundingMode
  * propagate where appropriate.
  *
  * Ranges increment by 1 unless otherwise specified.
- *
- * @todo Assign properties at construction; avoid circular ctors
  */
 @Suppress("EqualsOrHashCode")
 class FloatingBigRational private constructor(

@@ -24,8 +24,6 @@ internal typealias BRat = FixedBigRational
  * Division by [ZERO] (or implied) throws [ArithmeticException] in all cases.
  *
  * Ranges increment by 1 unless otherwise specified.
- *
- * @todo Assign properties at construction; avoid circular ctors
  */
 class FixedBigRational private constructor(
     numerator: BInt,

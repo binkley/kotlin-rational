@@ -61,8 +61,9 @@ internal class FixedComplexTest {
 
     @Test
     fun `should reciprocate`() {
-        (2 + 2.i).unaryDiv() shouldBe ((1 over 4) - (1 over 4).i)
-        (2 + 2.i).reciprocal shouldBe ((1 over 4) - (1 over 4).i)
+        val z = 2 + 2.i
+        z.unaryDiv() shouldBe ((1 over 4) - (1 over 4).i)
+        z.reciprocal shouldBe z.unaryDiv()
     }
 
     @Test

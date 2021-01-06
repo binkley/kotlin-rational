@@ -24,10 +24,8 @@ data class FixedComplex(
 
     override operator fun unaryMinus(): FixedComplex = -real + -imag
 
-    override fun unaryDiv(): FixedComplex {
-        val det = det
-        return real / det - (imag.value / det).i
-    }
+    /** *NB* &mdash; `1/(a+bi)` is `(a-bi)/(a² + b²)`. */
+    override fun unaryDiv(): FixedComplex = conjugate / det
 
     override operator fun plus(addend: FixedComplex): FixedComplex =
         (real + addend.real) + (imag + addend.imag)
@@ -76,20 +74,20 @@ data class FixedComplex(
     override operator fun div(divisor: FixedComplex): FixedComplex =
         this * divisor.unaryDiv()
 
-    operator fun div(divisor: BRat): FixedComplex =
-        this / (divisor + BRat.ZERO.i)
-
-    operator fun div(divisor: BInt): FixedComplex =
-        this / (divisor + BRat.ZERO.i)
-
-    operator fun div(divisor: Long): FixedComplex =
-        this / (divisor + BRat.ZERO.i)
-
-    operator fun div(divisor: Int): FixedComplex =
-        this / (divisor + BRat.ZERO.i)
-
     operator fun div(divisor: FixedImaginary): FixedComplex =
         this / (ZERO + divisor)
+
+    operator fun div(divisor: BRat): FixedComplex =
+        real / divisor + (imag.value / divisor).i
+
+    operator fun div(divisor: BInt): FixedComplex =
+        this / divisor.toBigRational()
+
+    operator fun div(divisor: Long): FixedComplex =
+        this / divisor.toBigRational()
+
+    operator fun div(divisor: Int): FixedComplex =
+        this / divisor.toBigRational()
 
     override fun toString(): String =
         if (BRat.ZERO > imag.value) "$real-${-imag}" else "$real+$imag"

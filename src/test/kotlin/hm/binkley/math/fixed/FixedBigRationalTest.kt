@@ -15,9 +15,6 @@ import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-// TODO: Range syntax does not pick up the typealias for the 2nd argument
-// private typealias BDouble = BigDecimal
-
 /**
  * NB -- the tests use a mixture of constructors while testing functionality.
  * This is intentional, and raises coverage.
