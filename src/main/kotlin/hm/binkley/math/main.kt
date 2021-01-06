@@ -3,6 +3,7 @@ package hm.binkley.math
 import hm.binkley.math.algebra.Mod3Int
 import hm.binkley.math.fixed.BRat
 import hm.binkley.math.fixed.FixedImaginary
+import hm.binkley.math.fixed.conjugate
 import hm.binkley.math.fixed.plus
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN

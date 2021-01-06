@@ -51,6 +51,7 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 * [Use](#use)
 * [API](#api)
 * [Build](#build)
+* [Maintenance](#maintenance)
 * [Design choices](#design-choices)
 * [Implementation choices](#implementation-choices)
 * [Further reading](#further-reading)
@@ -208,6 +209,42 @@ Docker container.
 
 This shares Maven plugin and dependency downloads with the Docker container run
 by Batect.
+
+---
+
+## Maintenance
+
+### Type aliases
+
+Use type aliases when possible:
+
+- `BComplex` is `FixedComplex`
+- `BImag` is `FixedImaginary`
+- `BRat` is either `BigFixedRational` or `BigFloatingRational`, depending on
+  context
+- `BDouble` is `BigDecimal`
+- `BInt` is `BigInteger`
+
+### Formatting
+
+When providing two versions of reflexive functions, please keep these together
+in the following order:
+
+```kotlin
+fun ReceiverType.func(arg: ArgumentType)
+fun ArgumentType.func(receiver: ReceiverType)
+```
+
+When providing function overloads, please keep these together in the following
+order (using type aliases):
+
+- `BComplex`
+- `BImag`
+- `BRat`
+- `BDouble`
+- `BInt`
+- `Long`
+- `Int`
 
 ---
 
@@ -398,7 +435,7 @@ complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
 
 ## Implementation choices
 
-### Always in simplest terms
+### Always keep in simplest form
 
 (See [_Always proper form_](#always-proper-form).)
 

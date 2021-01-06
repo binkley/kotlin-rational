@@ -1,8 +1,12 @@
 package hm.binkley.math
 
+import hm.binkley.math.fixed.FixedComplex
+import hm.binkley.math.fixed.FixedImaginary
 import java.math.BigDecimal
 import java.math.BigInteger
 
+internal typealias BComplex = FixedComplex
+internal typealias BImag = FixedImaginary
 internal typealias BInt = BigInteger
 internal typealias BDouble = BigDecimal
 

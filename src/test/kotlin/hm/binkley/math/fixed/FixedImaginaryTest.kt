@@ -10,6 +10,11 @@ import org.junit.jupiter.api.Test
 
 internal class FixedImaginaryTest {
     @Test
+    fun `should pick correct branch`() {
+        I * I shouldBe -ONE
+    }
+
+    @Test
     fun `should have value`() {
         I.value shouldBe ONE
     }

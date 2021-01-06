@@ -44,23 +44,23 @@ operator fun FixedImaginary.times(multiplier: FixedImaginary): FixedBigRational 
 operator fun FixedImaginary.times(multiplier: BRat): FixedImaginary =
     (value * multiplier).toImaginary()
 
-operator fun FixedImaginary.times(multiplier: BInt): FixedImaginary =
-    (value * multiplier).toImaginary()
-
-operator fun FixedImaginary.times(multiplier: Long): FixedImaginary =
-    (value * multiplier).toImaginary()
-
-operator fun FixedImaginary.times(multiplier: Int): FixedImaginary =
-    (value * multiplier).toImaginary()
-
 operator fun BRat.times(multiplier: FixedImaginary): FixedImaginary =
     multiplier * this
+
+operator fun FixedImaginary.times(multiplier: BInt): FixedImaginary =
+    (value * multiplier).toImaginary()
 
 operator fun BInt.times(multiplier: FixedImaginary): FixedImaginary =
     multiplier * this
 
+operator fun FixedImaginary.times(multiplier: Long): FixedImaginary =
+    (value * multiplier).toImaginary()
+
 operator fun Long.times(multiplier: FixedImaginary): FixedImaginary =
     multiplier * this
+
+operator fun FixedImaginary.times(multiplier: Int): FixedImaginary =
+    (value * multiplier).toImaginary()
 
 operator fun Int.times(multiplier: FixedImaginary): FixedImaginary =
     multiplier * this
