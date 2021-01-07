@@ -1,5 +1,6 @@
 package hm.binkley.math.fixed
 
+import hm.binkley.math.BDouble
 import hm.binkley.math.BImag
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Field
@@ -54,6 +55,10 @@ val FixedComplex.reciprocal: FixedComplex get() = unaryDiv()
 operator fun BImag.plus(real: BRat): FixedComplex = real + this
 operator fun BRat.plus(imag: BImag): FixedComplex =
     FixedComplex(this, imag)
+
+operator fun BImag.plus(real: BDouble): FixedComplex = real + this
+operator fun BDouble.plus(imag: BImag): FixedComplex =
+    toBigRational() + imag
 
 operator fun BImag.plus(real: BInt): FixedComplex = real + this
 operator fun BInt.plus(imag: BImag): FixedComplex =

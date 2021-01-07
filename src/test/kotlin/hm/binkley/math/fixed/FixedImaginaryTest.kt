@@ -1,14 +1,22 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
+import hm.binkley.math.algebra.Group
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedImaginary.Companion.I
+import hm.binkley.math.fixed.FixedImaginary.Companion.ZERO
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.Test
 
 internal class FixedImaginaryTest {
+    @Test
+    fun `should be a group`() {
+        I.shouldBeInstanceOf<Group<FixedImaginary>>()
+    }
+
     @Test
     fun `should pick correct branch`() {
         I * I shouldBe -ONE
@@ -50,7 +58,7 @@ internal class FixedImaginaryTest {
 
     @Test
     fun `should subtract`() {
-        (1.i - 1.i) shouldBe 0.i
+        (1.i - 1.i) shouldBe ZERO
     }
 
     @Test
@@ -69,7 +77,7 @@ internal class FixedImaginaryTest {
         (I <= I) shouldBe true
         (I == I) shouldBe true
         (I >= I) shouldBe true
-        (I >= 0.i) shouldBe true
-        (I > 0.i) shouldBe true
+        (I >= ZERO) shouldBe true
+        (I > ZERO) shouldBe true
     }
 }

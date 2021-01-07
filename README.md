@@ -220,28 +220,30 @@ Use type aliases when possible:
 
 - `BComplex` is `FixedComplex`
 - `BImag` is `FixedImaginary`
-- `BRat` is either `BigFixedRational` or `BigFloatingRational`, depending on
+- `BRat` is either `FixedBigRational` or `FloatingBigRational`, depending on
   context
 - `BDouble` is `BigDecimal`
 - `BInt` is `BigInteger`
 
 ### Formatting
 
-When providing two versions of reflexive functions, please keep these together
-in the following order:
+When providing two versions of reflexive functions, please keep them together in
+this order:
 
 ```kotlin
 fun ReceiverType.func(arg: ArgumentType)
 fun ArgumentType.func(receiver: ReceiverType)
 ```
 
-When providing function overloads, please keep these together in the following
-order (using type aliases):
+When providing function overloads, please include these types as applicable, and
+keep them together in this order (using type aliases):
 
 - `BComplex`
 - `BImag`
 - `BRat`
 - `BDouble`
+- `Double`
+- `Float`
 - `BInt`
 - `Long`
 - `Int`

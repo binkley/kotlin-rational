@@ -1,23 +1,33 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.BInt
-import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
+import hm.binkley.math.algebra.Group
+import hm.binkley.math.algebra.GroupCompanion
 import hm.binkley.math.isZero
 import hm.binkley.math.times
-import lombok.Generated
 
-@Generated // Lie to JaCoCo -- inline class confuses it
-inline class FixedImaginary(val value: BRat) :
+data class FixedImaginary(val value: BRat) :
+    Group<FixedImaginary>,
     Comparable<FixedImaginary> {
+    override val companion get() = FixedImaginary
+
+    override fun unaryMinus(): FixedImaginary = (-value).toImaginary()
+
+    override fun plus(addend: FixedImaginary): FixedImaginary =
+        (value + addend.value).toImaginary()
+
     override fun compareTo(other: FixedImaginary): Int =
         value.compareTo(other.value)
 
     override fun toString(): String = "${value}i"
 
-    companion object {
-        val I: FixedImaginary = ONE.i
+    companion object : GroupCompanion<FixedImaginary> {
+        override val ZERO: FixedImaginary = 0.i
+        val I: FixedImaginary = 1.i
     }
 }
+
+// Constructors
 
 fun BRat.toImaginary(): FixedImaginary = FixedImaginary(this)
 val BRat.i: FixedImaginary get() = toImaginary()
@@ -28,17 +38,9 @@ val Long.i: FixedImaginary get() = toImaginary()
 fun Int.toImaginary(): FixedImaginary = toBigRational().toImaginary()
 val Int.i: FixedImaginary get() = toImaginary()
 
-operator fun FixedImaginary.unaryPlus(): FixedImaginary = this
-operator fun FixedImaginary.unaryMinus(): FixedImaginary =
-    (-value).toImaginary()
+// Multiplication operator
 
-operator fun FixedImaginary.plus(addend: FixedImaginary): FixedImaginary =
-    (value + addend.value).toImaginary()
-
-operator fun FixedImaginary.minus(subtrahend: FixedImaginary): FixedImaginary =
-    (value - subtrahend.value).toImaginary()
-
-operator fun FixedImaginary.times(multiplier: FixedImaginary): FixedBigRational =
+operator fun FixedImaginary.times(multiplier: FixedImaginary): BRat =
     -(value * multiplier.value)
 
 operator fun FixedImaginary.times(multiplier: BRat): FixedImaginary =
@@ -64,5 +66,7 @@ operator fun FixedImaginary.times(multiplier: Int): FixedImaginary =
 
 operator fun Int.times(multiplier: FixedImaginary): FixedImaginary =
     multiplier * this
+
+// TODO: Division operator
 
 fun FixedImaginary.isZero(): Boolean = value.isZero()
