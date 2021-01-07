@@ -1,15 +1,47 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2214,SC2215
 
+readonly package=hm.binkley.math
+readonly artifactId=kotlin-rational
+readonly version=2.1.0-SNAPSHOT
+
+# No editable parts below here
+
 export PS4='+${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}():} '
 
 set -e
 set -u
 set -o pipefail
 
-package=hm.binkley.math
-artifactId=kotlin-rational
-version=2.1.0-SNAPSHOT
+readonly jar=target/$artifactId-$version-jar-with-dependencies.jar
+readonly progname="${0##*/}"
+
+function print-help() {
+    cat <<EOH
+Usage: $progname [-Xdh] [CLASS] [ARGUMENTS]
+Runs a single-jar Kotlin project.
+
+With no CLASS, assume the jar is executable.
+
+  -X, --executable  stop processing command line
+  -d, --debug       print script execution to STDERR
+  -h, --help        display this help and exit
+
+Examples:
+  $progname            Runs the executable jar with no arguments to main
+  $progname -X an-arg  Runs the executable jar passing "an-arg" to main
+  $progname a-class    Runs the main from "a-class"
+EOH
+}
+
+function bad-option() {
+    local opt="$1"
+
+    cat <<EOM
+$progname: invalid option -- '$opt'
+Try '$progname --help' for more information.
+EOM
+}
 
 function mangle-kotlin-classname() {
     local IFS=.
@@ -37,27 +69,38 @@ function rebuild-if-needed() {
 }
 
 debug=false
-while getopts :d-: opt; do
+executable=false
+while getopts :Xdh-: opt; do
     [[ $opt == - ]] && opt=${OPTARG%%=*} OPTARG=${OPTARG#*=}
     case $opt in
+    X | executable)
+        executable=true
+        break
+        ;;
     d | debug) debug=true ;;
-    *) exit 2 ;;
+    h | help)
+        print-help
+        exit 0
+        ;;
+    *)
+        bad-option "$opt"
+        exit 2
+        ;;
     esac
 done
 shift $((OPTIND - 1))
 
 $debug && set -x
+((0 == $#)) && executable=true
 
-readonly jar=target/$artifactId-$version-jar-with-dependencies.jar
-
-case $# in
-0) set - -jar "$jar" ;;
-*)
-    class="$1"
+if $executable; then
+    set - -jar "$jar" "$@"
+else
+    readonly class="$(mangle-kotlin-classname "$package.$1")"
     shift
-    set - -cp "$jar" "$(mangle-kotlin-classname "$package.$class")" "$@"
-    ;;
-esac
+    set - -cp "$jar" "$class" "$@"
+fi
+
 $debug && set -x # "set - ..." clears the -x flag
 
 rebuild-if-needed
