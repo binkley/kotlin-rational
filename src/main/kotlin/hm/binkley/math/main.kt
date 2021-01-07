@@ -2,7 +2,7 @@ package hm.binkley.math
 
 import hm.binkley.math.algebra.Mod3Int
 import hm.binkley.math.fixed.BRat
-import hm.binkley.math.fixed.FixedImaginary
+import hm.binkley.math.fixed.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.conjugate
 import hm.binkley.math.fixed.plus
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
@@ -69,7 +69,7 @@ fun main() {
         NaN,
         NEGATIVE_INFINITY,
         ZERO,
-        NEGATIVE_INFINITY
+        NEGATIVE_INFINITY,
     )
     println("$toSort sorted is ${toSort.sorted()}")
 
@@ -96,7 +96,7 @@ fun main() {
             Double.MIN_VALUE,
             Double.POSITIVE_INFINITY,
             Double.NEGATIVE_INFINITY,
-            Double.NaN
+            Double.NaN,
         )
     )
         dump(d)
@@ -124,7 +124,7 @@ fun main() {
             Float.MIN_VALUE,
             Float.POSITIVE_INFINITY,
             Float.NEGATIVE_INFINITY,
-            Float.NaN
+            Float.NaN,
         )
     )
         dump(d)
@@ -148,7 +148,7 @@ fun main() {
     println()
     println("==FIXED BIG COMPLEX NUMBERS")
 
-    val onePlusI = BRat.ONE + FixedImaginary.I
+    val onePlusI = BRat.ONE + I
     println(onePlusI)
     println(onePlusI * onePlusI.conjugate)
 }

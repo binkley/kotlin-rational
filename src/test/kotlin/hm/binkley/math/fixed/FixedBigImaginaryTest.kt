@@ -5,16 +5,16 @@ import hm.binkley.math.algebra.Group
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
-import hm.binkley.math.fixed.FixedImaginary.Companion.I
-import hm.binkley.math.fixed.FixedImaginary.Companion.ZERO
+import hm.binkley.math.fixed.FixedBigImaginary.Companion.I
+import hm.binkley.math.fixed.FixedBigImaginary.Companion.ZERO
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.Test
 
-internal class FixedImaginaryTest {
+internal class FixedBigImaginaryTest {
     @Test
     fun `should be a group`() {
-        I.shouldBeInstanceOf<Group<FixedImaginary>>()
+        I.shouldBeInstanceOf<Group<FixedBigImaginary>>()
     }
 
     @Test

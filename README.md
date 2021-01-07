@@ -136,8 +136,9 @@ they behave similarly as their floating-point counterpart.
 These are algebraic fields with supporting overloaded operators:
 
 - `FixedBigRational`
-- `FixedComplex`
 - `FloatingBigRational`
+
+Additionally, `FixBigComplex` and `FixedBigImaginary` are under development.
 
 ### Constructors
 
@@ -218,8 +219,8 @@ by Batect.
 
 Use type aliases when possible:
 
-- `BComplex` is `FixedComplex`
-- `BImag` is `FixedImaginary`
+- `BComplex` is `FixedBigComplex`
+- `BImag` is `FixedBigImaginary`
 - `BRat` is either `FixedBigRational` or `FloatingBigRational`, depending on
   context
 - `BDouble` is `BigDecimal`
