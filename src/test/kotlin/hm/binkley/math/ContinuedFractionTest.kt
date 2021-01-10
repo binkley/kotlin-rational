@@ -1,13 +1,25 @@
 package hm.binkley.math
 
 import hm.binkley.math.TestBigRational.Companion.ONE
+import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestContinuedFraction.Companion.valueOf
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Test
 
 internal class ContinuedFractionTest {
+    @Test
+    fun `should be or not be itself`() {
+        val cf = valueOf(TWO)
+
+        (cf == cf).shouldBeTrue()
+        cf shouldNotBe 2
+        cf shouldNotBe valueOf(ONE)
+    }
+
     @Test
     fun `should find continued fraction`() {
         val cfA = valueOf(bRat(3245.big, 1000.big))

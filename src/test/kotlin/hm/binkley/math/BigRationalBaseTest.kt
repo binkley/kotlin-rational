@@ -8,6 +8,8 @@ import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestBigRational.Companion.valueOf
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -192,44 +194,44 @@ internal class BigRationalBaseTest {
     inner class Ordering {
         @Test
         fun `should compare to big rational`() {
-            (ONE > ZERO) shouldBe true
-            (ZERO < ONE) shouldBe true
+            (ONE > ZERO).shouldBeTrue()
+            (ZERO < ONE).shouldBeTrue()
         }
 
         @Test
         fun `should compare to big decimal`() {
-            (1.0.big > ZERO) shouldBe true
-            (ONE > 0.0.big) shouldBe true
+            (1.0.big > ZERO).shouldBeTrue()
+            (ONE > 0.0.big).shouldBeTrue()
         }
 
         @Test
         fun `should compare to double`() {
-            (1.0 > ZERO) shouldBe true
-            (ONE > 0.0) shouldBe true
+            (1.0 > ZERO).shouldBeTrue()
+            (ONE > 0.0).shouldBeTrue()
         }
 
         @Test
         fun `should compare to float`() {
-            (1.0f > ZERO) shouldBe true
-            (ONE > 0.0f) shouldBe true
+            (1.0f > ZERO).shouldBeTrue()
+            (ONE > 0.0f).shouldBeTrue()
         }
 
         @Test
         fun `should compare to big integer`() {
-            (1.big > ZERO) shouldBe true
-            (ONE > 0.big) shouldBe true
+            (1.big > ZERO).shouldBeTrue()
+            (ONE > 0.big).shouldBeTrue()
         }
 
         @Test
         fun `should compare to long`() {
-            (1L > ZERO) shouldBe true
-            (ONE > 0L) shouldBe true
+            (1L > ZERO).shouldBeTrue()
+            (ONE > 0L).shouldBeTrue()
         }
 
         @Test
         fun `should compare to int`() {
-            (1 > ZERO) shouldBe true
-            (ONE > 0) shouldBe true
+            (1 > ZERO).shouldBeTrue()
+            (ONE > 0).shouldBeTrue()
         }
 
         @Test
@@ -697,42 +699,44 @@ internal class BigRationalBaseTest {
     inner class Predicates {
         @Test
         fun `should be zero`() {
-            ZERO.isZero() shouldBe true
+            ZERO.isZero().shouldBeTrue()
+            ONE.isZero().shouldBeFalse()
         }
 
         @Test
         fun `should be one`() {
-            ONE.isOne() shouldBe true
+            ONE.isOne().shouldBeTrue()
+            ZERO.isOne().shouldBeFalse()
         }
 
         @Test
         fun `should be integral`() {
-            ZERO.isInteger() shouldBe true
-            valueOf(1.big, 2.big).isInteger() shouldBe false
-            valueOf(2.big, 1.big).isInteger() shouldBe true
+            ZERO.isInteger().shouldBeTrue()
+            valueOf(2.big, 1.big).isInteger().shouldBeTrue()
+            valueOf(1.big, 2.big).isInteger().shouldBeFalse()
         }
 
         @Test
         fun `should be dyadic`() {
-            ZERO.isDyadic() shouldBe true
-            valueOf(1.big, 2.big).isDyadic() shouldBe true
-            valueOf(2.big, 1.big).isDyadic() shouldBe true
-            valueOf(2.big, 3.big).isDyadic() shouldBe false
+            ZERO.isDyadic().shouldBeTrue()
+            valueOf(1.big, 2.big).isDyadic().shouldBeTrue()
+            valueOf(2.big, 1.big).isDyadic().shouldBeTrue()
+            valueOf(2.big, 3.big).isDyadic().shouldBeFalse()
         }
 
         @Test
         fun `should be p-adic`() {
-            ZERO.isPAdic(3) shouldBe true
-            valueOf(1.big, 3.big).isPAdic(3) shouldBe true
-            valueOf(2.big, 1.big).isPAdic(3) shouldBe true
-            valueOf(2.big, 5.big).isPAdic(3) shouldBe false
+            ZERO.isPAdic(3).shouldBeTrue()
+            valueOf(1.big, 3.big).isPAdic(3).shouldBeTrue()
+            valueOf(2.big, 1.big).isPAdic(3).shouldBeTrue()
+            valueOf(2.big, 5.big).isPAdic(3).shouldBeFalse()
         }
 
         @Test
         fun `should be evenly denominated`() {
-            ZERO.isDenominatorEven() shouldBe false
-            valueOf(1.big, 2.big).isDenominatorEven() shouldBe true
-            valueOf(1.big, 3.big).isDenominatorEven() shouldBe false
+            ZERO.isDenominatorEven().shouldBeFalse()
+            valueOf(1.big, 2.big).isDenominatorEven().shouldBeTrue()
+            valueOf(1.big, 3.big).isDenominatorEven().shouldBeFalse()
         }
     }
 }

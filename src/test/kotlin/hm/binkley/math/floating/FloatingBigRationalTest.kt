@@ -19,7 +19,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingBigRational.Companion.cantorSpiral
 import hm.binkley.math.floor
 import hm.binkley.math.fraction
-import hm.binkley.math.isInteger
 import hm.binkley.math.rangeTo
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated

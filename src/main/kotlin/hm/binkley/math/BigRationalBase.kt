@@ -132,9 +132,9 @@ open class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     /** Returns the absolute value. */
     @Suppress("UNCHECKED_CAST")
     val absoluteValue: T
-        get() =
-            if (numerator >= BInt.ZERO) this as T
-            else companion.valueOf(numerator.abs(), denominator)
+        get() = if (numerator < BInt.ZERO)
+            companion.valueOf(numerator.abs(), denominator)
+        else this as T
 
     /**
      * Returns the reciprocal.
@@ -293,10 +293,13 @@ open class BigRationalBase<T : BigRationalBase<T>> protected constructor(
         denominator + that.denominator
     )
 
+    /** Checks that this rational is an integer. */
+    fun isInteger(): Boolean = denominator.isOne()
+
     /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
     open fun round(roundingMode: RoundingMode): T =
-        if ((this as T).isInteger()) this
+        if (isInteger()) this as T
         else companion.valueOf(
             // BigInteger does not have a divide with rounding mode
             numerator.toBigDecimal()
@@ -893,9 +896,6 @@ fun <T : BigRationalBase<T>> T.lcm(that: T): T =
         numerator.lcm(that.numerator),
         denominator.gcd(that.denominator)
     )
-
-/** Checks that this rational is an integer. */
-fun <T : BigRationalBase<T>> T.isInteger(): Boolean = 1.big == denominator
 
 /** Checks that this rational is 0. */
 fun <T : BigRationalBase<T>> T.isZero(): Boolean = companion.ZERO === this
