@@ -5,8 +5,8 @@ import hm.binkley.math.BImag
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Field
 import hm.binkley.math.algebra.FieldCompanion
-import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigComplex.Companion.ONE
+import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.isZero
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
@@ -38,14 +38,16 @@ data class FixedBigComplex(
         if (BRat.ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
 
     companion object : FieldCompanion<FixedBigComplex> {
-        override val ZERO: FixedBigComplex = FixedBigComplex(BRat.ZERO, BRat.ZERO.i)
-        override val ONE: FixedBigComplex = FixedBigComplex(BRat.ONE, BRat.ZERO.i)
+        override val ZERO: FixedBigComplex =
+            FixedBigComplex(BRat.ZERO, BRat.ZERO.i)
+        override val ONE: FixedBigComplex =
+            FixedBigComplex(BRat.ONE, BRat.ZERO.i)
     }
 }
 
 // Properties
 
-val FixedBigComplex.conjugate: FixedBigComplex get() = real + -imag
+val FixedBigComplex.conjugate: FixedBigComplex get() = real - imag
 val FixedBigComplex.det: FixedBigRational get() = real * real - imag * imag
 val FixedBigComplex.absoluteValue: FixedBigRational get() = det.sqrt()
 val FixedBigComplex.reciprocal: FixedBigComplex get() = unaryDiv()
@@ -86,7 +88,8 @@ operator fun Int.minus(imag: BImag): FixedBigComplex = this + -imag
 operator fun FixedBigComplex.plus(addend: BImag): FixedBigComplex =
     this + (BRat.ZERO + addend)
 
-operator fun BImag.plus(addend: FixedBigComplex): FixedBigComplex = addend + this
+operator fun BImag.plus(addend: FixedBigComplex): FixedBigComplex =
+    addend + this
 
 operator fun FixedBigComplex.plus(addend: BRat): FixedBigComplex =
     this + (addend + BRat.ZERO.i)
@@ -177,22 +180,26 @@ operator fun Int.times(multiplier: FixedBigComplex): FixedBigComplex =
 operator fun FixedBigComplex.div(divisor: BImag): FixedBigComplex =
     this / (FixedBigComplex.ZERO + divisor)
 
-operator fun BImag.div(divisor: FixedBigComplex): FixedBigComplex = divisor / this
+operator fun BImag.div(divisor: FixedBigComplex): FixedBigComplex =
+    divisor / this
 
 operator fun FixedBigComplex.div(divisor: BRat): FixedBigComplex =
     real / divisor + (imag.value / divisor).i
 
-operator fun BRat.div(divisor: FixedBigComplex): FixedBigComplex = divisor / this
+operator fun BRat.div(divisor: FixedBigComplex): FixedBigComplex =
+    divisor / this
 
 operator fun FixedBigComplex.div(divisor: BInt): FixedBigComplex =
     this / divisor.toBigRational()
 
-operator fun BInt.div(divisor: FixedBigComplex): FixedBigComplex = divisor / this
+operator fun BInt.div(divisor: FixedBigComplex): FixedBigComplex =
+    divisor / this
 
 operator fun FixedBigComplex.div(divisor: Long): FixedBigComplex =
     this / divisor.toBigRational()
 
-operator fun Long.div(divisor: FixedBigComplex): FixedBigComplex = divisor / this
+operator fun Long.div(divisor: FixedBigComplex): FixedBigComplex =
+    divisor / this
 
 operator fun FixedBigComplex.div(divisor: Int): FixedBigComplex =
     this / divisor.toBigRational()

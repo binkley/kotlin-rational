@@ -24,10 +24,10 @@ import hm.binkley.math.rangeTo
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
 import hm.binkley.math.truncate
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -400,20 +400,32 @@ internal class FloatingBigRationalTest {
             POSITIVE_INFINITY.toFloat() shouldBe Float.POSITIVE_INFINITY
             NEGATIVE_INFINITY.toFloat() shouldBe Float.NEGATIVE_INFINITY
             NaN.toFloat() shouldBe Float.NaN
-
-            POSITIVE_INFINITY.toLong() shouldBe Long.MAX_VALUE
-            NEGATIVE_INFINITY.toLong() shouldBe Long.MIN_VALUE
         }
 
-        @Disabled("See issue #14")
         @Test
-        fun `should overflow on conversion`() {
-            POSITIVE_INFINITY.toInt() shouldBe Int.MAX_VALUE
-            NEGATIVE_INFINITY.toInt() shouldBe Int.MIN_VALUE
+        fun `should not convert extrema to long`() {
+            shouldThrow<ArithmeticException> {
+                POSITIVE_INFINITY.toLong()
+            }
+            shouldThrow<ArithmeticException> {
+                NEGATIVE_INFINITY.toLong()
+            }
+            shouldThrow<ArithmeticException> {
+                NaN.toLong()
+            }
+        }
 
-            POSITIVE_INFINITY.toByte() shouldBe Byte.MAX_VALUE
-            NEGATIVE_INFINITY.toByte() shouldBe Byte.MIN_VALUE
-            NaN.toByte() shouldBe 0b0
+        @Test
+        fun `should not convert extrema to int`() {
+            shouldThrow<ArithmeticException> {
+                POSITIVE_INFINITY.toInt()
+            }
+            shouldThrow<ArithmeticException> {
+                NEGATIVE_INFINITY.toInt()
+            }
+            shouldThrow<ArithmeticException> {
+                NaN.toInt()
+            }
         }
 
         @Test

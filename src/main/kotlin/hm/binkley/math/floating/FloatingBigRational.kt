@@ -45,9 +45,7 @@ class FloatingBigRational private constructor(
      * @see [BigDecimal.toLong]
      */
     override fun toLong(): Long = when {
-        isNaN() -> 0L
-        isPositiveInfinity() -> Long.MAX_VALUE
-        isNegativeInfinity() -> Long.MIN_VALUE
+        !isFinite() -> throw ArithmeticException("No conversion for $this")
         else -> super.toLong()
     }
 
