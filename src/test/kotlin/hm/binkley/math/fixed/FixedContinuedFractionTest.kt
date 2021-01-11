@@ -8,6 +8,8 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.shouldBe
@@ -106,8 +108,8 @@ internal class FixedContinuedFractionTest {
 
     @Test
     fun `should check if simple`() {
-        (2 over 1).toContinuedFraction().isSimple() shouldBe true
-        (2 over 3).toContinuedFraction().isSimple() shouldBe false
+        (2 over 1).toContinuedFraction().isSimple().shouldBeTrue()
+        (2 over 3).toContinuedFraction().isSimple().shouldBeFalse()
     }
 
     @Test

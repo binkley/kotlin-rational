@@ -3,10 +3,11 @@ package hm.binkley.math.fixed
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.big
-import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
-import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.FixedBigImaginary.Companion.ZERO
+import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
+import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.Test
@@ -72,12 +73,12 @@ internal class FixedBigImaginaryTest {
 
     @Test
     fun `should compare`() {
-        (I < 2.i) shouldBe true
-        (I <= 2.i) shouldBe true
-        (I <= I) shouldBe true
-        (I == I) shouldBe true
-        (I >= I) shouldBe true
-        (I >= ZERO) shouldBe true
-        (I > ZERO) shouldBe true
+        (I < 2.i).shouldBeTrue()
+        (I <= 2.i).shouldBeTrue()
+        (I <= I).shouldBeTrue()
+        (I == I).shouldBeTrue()
+        (I >= I).shouldBeTrue()
+        (I >= ZERO).shouldBeTrue()
+        (I > ZERO).shouldBeTrue()
     }
 }

@@ -9,6 +9,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.rangeTo
 import hm.binkley.math.step
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -47,8 +48,8 @@ class FloatingProgressionTests {
 
     @Test
     fun `should progress`() {
-        (ZERO..(-ONE)).isEmpty() shouldBe true
-        (ZERO..TWO).contains(ONE) shouldBe true
+        (ZERO..(-ONE)).isEmpty().shouldBeTrue()
+        (ZERO..TWO).contains(ONE).shouldBeTrue()
         ((1 over 1)..(5 over 2)).toList() shouldBe
             listOf(ONE, (2 over 1))
         val three = 3 over 1

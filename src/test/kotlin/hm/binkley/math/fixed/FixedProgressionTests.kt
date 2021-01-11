@@ -8,6 +8,8 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.rangeTo
 import hm.binkley.math.step
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -24,7 +26,7 @@ class FixedProgressionTests {
     fun `should be itself`() {
         val zeroToOne = ZERO..ONE
         (ZERO..ONE) shouldBe zeroToOne
-        zeroToOne.equals(ZERO) shouldBe false
+        zeroToOne.equals(ZERO).shouldBeFalse()
         (zeroToOne step ONE) shouldBe zeroToOne
         if (shouldNotBeWorks)
             (zeroToOne step TWO) shouldNotBe (zeroToOne step ONE)
@@ -48,8 +50,8 @@ class FixedProgressionTests {
 
     @Test
     fun `should progress`() {
-        (ZERO..(-ONE)).isEmpty() shouldBe true
-        (ZERO..TWO).contains(ONE) shouldBe true
+        (ZERO..(-ONE)).isEmpty().shouldBeTrue()
+        (ZERO..TWO).contains(ONE).shouldBeTrue()
         ((1 over 1)..(5 over 2)).toList() shouldBe listOf(ONE, 2 over 1)
         val three = 3 over 1
         (1.0.big..three step 2).toList() shouldBe listOf(ONE, three)

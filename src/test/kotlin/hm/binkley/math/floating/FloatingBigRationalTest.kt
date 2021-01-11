@@ -24,6 +24,8 @@ import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
 import hm.binkley.math.truncate
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -64,9 +66,9 @@ internal class FloatingBigRationalTest {
     @Suppress("ReplaceCallWithBinaryOperator")
     @Test
     fun `should be itself`() {
-        POSITIVE_INFINITY.equals(POSITIVE_INFINITY) shouldBe true
-        NEGATIVE_INFINITY.equals(NEGATIVE_INFINITY) shouldBe true
-        NaN.equals(NaN) shouldBe false
+        POSITIVE_INFINITY.equals(POSITIVE_INFINITY).shouldBeTrue()
+        NEGATIVE_INFINITY.equals(NEGATIVE_INFINITY).shouldBeTrue()
+        NaN.equals(NaN).shouldBeFalse()
     }
 
     @Test
@@ -135,77 +137,77 @@ internal class FloatingBigRationalTest {
     inner class OperatorTests {
         @Test
         fun `should add`() {
-            (ONE + POSITIVE_INFINITY).isPositiveInfinity() shouldBe true
+            (ONE + POSITIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
             (POSITIVE_INFINITY + POSITIVE_INFINITY)
-                .isPositiveInfinity() shouldBe true
-            (POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN() shouldBe true
-            (ONE + NEGATIVE_INFINITY).isNegativeInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (ONE + NEGATIVE_INFINITY).isNegativeInfinity().shouldBeTrue()
             (NEGATIVE_INFINITY + NEGATIVE_INFINITY)
-                .isNegativeInfinity() shouldBe true
-            (NEGATIVE_INFINITY + POSITIVE_INFINITY).isNaN() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY + POSITIVE_INFINITY).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should subtract`() {
-            (POSITIVE_INFINITY - ONE).isPositiveInfinity() shouldBe true
-            (POSITIVE_INFINITY - POSITIVE_INFINITY).isNaN() shouldBe true
+            (POSITIVE_INFINITY - ONE).isPositiveInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY - POSITIVE_INFINITY).isNaN().shouldBeTrue()
             (POSITIVE_INFINITY - NEGATIVE_INFINITY)
-                .isPositiveInfinity() shouldBe true
-            (NEGATIVE_INFINITY - ONE).isNegativeInfinity() shouldBe true
-            (NEGATIVE_INFINITY - NEGATIVE_INFINITY).isNaN() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY - ONE).isNegativeInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY - NEGATIVE_INFINITY).isNaN().shouldBeTrue()
             (NEGATIVE_INFINITY - POSITIVE_INFINITY)
-                .isNegativeInfinity() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
         }
 
         @Test
         fun `should multiply`() {
-            (ONE * POSITIVE_INFINITY).isPositiveInfinity() shouldBe true
-            (ONE * NEGATIVE_INFINITY).isNegativeInfinity() shouldBe true
-            (ZERO * POSITIVE_INFINITY).isNaN() shouldBe true
-            (POSITIVE_INFINITY * ZERO).isNaN() shouldBe true
-            (ZERO * NEGATIVE_INFINITY).isNaN() shouldBe true
-            (NEGATIVE_INFINITY * ZERO).isNaN() shouldBe true
+            (ONE * POSITIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
+            (ONE * NEGATIVE_INFINITY).isNegativeInfinity().shouldBeTrue()
+            (ZERO * POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY * ZERO).isNaN().shouldBeTrue()
+            (ZERO * NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (NEGATIVE_INFINITY * ZERO).isNaN().shouldBeTrue()
             (POSITIVE_INFINITY * POSITIVE_INFINITY)
-                .isPositiveInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
         }
 
         @Test
         fun `should divide`() {
             (ZERO / POSITIVE_INFINITY) shouldBe ZERO
-            (ONE / ZERO).isPositiveInfinity() shouldBe true
+            (ONE / ZERO).isPositiveInfinity().shouldBeTrue()
             (ZERO / NEGATIVE_INFINITY) shouldBe ZERO
-            (-ONE / ZERO).isNegativeInfinity() shouldBe true
-            (NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN() shouldBe true
-            (POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN() shouldBe true
-            (ONE / NaN).isNaN() shouldBe true
-            (ZERO / ZERO).isNaN() shouldBe true
+            (-ONE / ZERO).isNegativeInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (ONE / NaN).isNaN().shouldBeTrue()
+            (ZERO / ZERO).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should find remainder`() {
             (ONE % POSITIVE_INFINITY) shouldBe ZERO
             (ONE % NEGATIVE_INFINITY) shouldBe ZERO
-            (ONE % NaN).isNaN() shouldBe true
+            (ONE % NaN).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should increment`() {
             var nonFinite = POSITIVE_INFINITY
-            (++nonFinite).isPositiveInfinity() shouldBe true
+            (++nonFinite).isPositiveInfinity().shouldBeTrue()
             nonFinite = NEGATIVE_INFINITY
-            (++nonFinite).isNegativeInfinity() shouldBe true
+            (++nonFinite).isNegativeInfinity().shouldBeTrue()
             nonFinite = NaN
-            (++nonFinite).isNaN() shouldBe true
+            (++nonFinite).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should decrement`() {
             var nonFinite = POSITIVE_INFINITY
-            (--nonFinite).isPositiveInfinity() shouldBe true
+            (--nonFinite).isPositiveInfinity().shouldBeTrue()
             nonFinite = NEGATIVE_INFINITY
-            (--nonFinite).isNegativeInfinity() shouldBe true
+            (--nonFinite).isNegativeInfinity().shouldBeTrue()
             nonFinite = NaN
-            (--nonFinite).isNaN() shouldBe true
+            (--nonFinite).isNaN().shouldBeTrue()
         }
     }
 
@@ -213,30 +215,30 @@ internal class FloatingBigRationalTest {
     inner class RoundingTests {
         @Test
         fun `should round towards ceiling`() {
-            POSITIVE_INFINITY.ceil().isPositiveInfinity() shouldBe true
-            NEGATIVE_INFINITY.ceil().isNegativeInfinity() shouldBe true
-            NaN.ceil().isNaN() shouldBe true
+            POSITIVE_INFINITY.ceil().isPositiveInfinity().shouldBeTrue()
+            NEGATIVE_INFINITY.ceil().isNegativeInfinity().shouldBeTrue()
+            NaN.ceil().isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should round towards floor`() {
-            POSITIVE_INFINITY.floor().isPositiveInfinity() shouldBe true
-            NEGATIVE_INFINITY.floor().isNegativeInfinity() shouldBe true
-            NaN.floor().isNaN() shouldBe true
+            POSITIVE_INFINITY.floor().isPositiveInfinity().shouldBeTrue()
+            NEGATIVE_INFINITY.floor().isNegativeInfinity().shouldBeTrue()
+            NaN.floor().isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should round towards 0`() {
-            POSITIVE_INFINITY.truncate().isPositiveInfinity() shouldBe true
-            NEGATIVE_INFINITY.truncate().isNegativeInfinity() shouldBe true
-            NaN.truncate().isNaN() shouldBe true
+            POSITIVE_INFINITY.truncate().isPositiveInfinity().shouldBeTrue()
+            NEGATIVE_INFINITY.truncate().isNegativeInfinity().shouldBeTrue()
+            NaN.truncate().isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should fractionate`() {
-            POSITIVE_INFINITY.fraction().isNaN() shouldBe true
-            NEGATIVE_INFINITY.fraction().isNaN() shouldBe true
-            NaN.fraction().isNaN() shouldBe true
+            POSITIVE_INFINITY.fraction().isNaN().shouldBeTrue()
+            NEGATIVE_INFINITY.fraction().isNaN().shouldBeTrue()
+            NaN.fraction().isNaN().shouldBeTrue()
         }
     }
 
@@ -245,16 +247,16 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should round trip NaN and infinities`() {
             POSITIVE_INFINITY.toDouble().toBigRational()
-                .isPositiveInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
             NEGATIVE_INFINITY.toDouble().toBigRational()
-                .isNegativeInfinity() shouldBe true
-            NaN.toDouble().toBigRational().isNaN() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
+            NaN.toDouble().toBigRational().isNaN().shouldBeTrue()
 
             POSITIVE_INFINITY.toFloat().toBigRational()
-                .isPositiveInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
             NEGATIVE_INFINITY.toFloat().toBigRational()
-                .isNegativeInfinity() shouldBe true
-            NaN.toFloat().toBigRational().isNaN() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
+            NaN.toFloat().toBigRational().isNaN().shouldBeTrue()
         }
 
         @Test
@@ -277,57 +279,57 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should be infinity`() {
-            (2 over 0).isPositiveInfinity() shouldBe true
-            (-2 over 0).isNegativeInfinity() shouldBe true
+            (2 over 0).isPositiveInfinity().shouldBeTrue()
+            (-2 over 0).isNegativeInfinity().shouldBeTrue()
         }
 
         @Test
         fun `should check finitude`() {
-            ZERO.isFinite() shouldBe true
-            POSITIVE_INFINITY.isFinite() shouldBe false
-            NEGATIVE_INFINITY.isFinite() shouldBe false
-            NaN.isFinite() shouldBe false
+            ZERO.isFinite().shouldBeTrue()
+            POSITIVE_INFINITY.isFinite().shouldBeFalse()
+            NEGATIVE_INFINITY.isFinite().shouldBeFalse()
+            NaN.isFinite().shouldBeFalse()
         }
 
         @Test
         fun `should check infinitude`() {
-            ZERO.isInfinite() shouldBe false
-            POSITIVE_INFINITY.isInfinite() shouldBe true
-            NEGATIVE_INFINITY.isInfinite() shouldBe true
-            NaN.isInfinite() shouldBe false
+            ZERO.isInfinite().shouldBeFalse()
+            POSITIVE_INFINITY.isInfinite().shouldBeTrue()
+            NEGATIVE_INFINITY.isInfinite().shouldBeTrue()
+            NaN.isInfinite().shouldBeFalse()
         }
 
         @Test
         fun `should propagate NaN`() {
-            (ZERO + NaN).isNaN() shouldBe true
-            (NaN + NaN).isNaN() shouldBe true
-            (NaN + ONE).isNaN() shouldBe true
-            (NaN - ZERO).isNaN() shouldBe true
-            (NaN - NaN).isNaN() shouldBe true
-            (ZERO - NaN).isNaN() shouldBe true
-            (ONE * NaN).isNaN() shouldBe true
-            (NaN * NaN).isNaN() shouldBe true
-            (NaN * ONE).isNaN() shouldBe true
-            (NaN / ONE).isNaN() shouldBe true
-            (NaN / NaN).isNaN() shouldBe true
-            (ONE / NaN).isNaN() shouldBe true
+            (ZERO + NaN).isNaN().shouldBeTrue()
+            (NaN + NaN).isNaN().shouldBeTrue()
+            (NaN + ONE).isNaN().shouldBeTrue()
+            (NaN - ZERO).isNaN().shouldBeTrue()
+            (NaN - NaN).isNaN().shouldBeTrue()
+            (ZERO - NaN).isNaN().shouldBeTrue()
+            (ONE * NaN).isNaN().shouldBeTrue()
+            (NaN * NaN).isNaN().shouldBeTrue()
+            (NaN * ONE).isNaN().shouldBeTrue()
+            (NaN / ONE).isNaN().shouldBeTrue()
+            (NaN / NaN).isNaN().shouldBeTrue()
+            (ONE / NaN).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should propagate infinities`() {
-            (-NEGATIVE_INFINITY).isPositiveInfinity() shouldBe true
-            (ONE + POSITIVE_INFINITY).isPositiveInfinity() shouldBe true
-            (NEGATIVE_INFINITY - ONE).isNegativeInfinity() shouldBe true
-            (POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN() shouldBe true
+            (-NEGATIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
+            (ONE + POSITIVE_INFINITY).isPositiveInfinity().shouldBeTrue()
+            (NEGATIVE_INFINITY - ONE).isNegativeInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY + NEGATIVE_INFINITY).isNaN().shouldBeTrue()
             (POSITIVE_INFINITY * POSITIVE_INFINITY)
-                .isPositiveInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
             (POSITIVE_INFINITY * NEGATIVE_INFINITY)
-                .isNegativeInfinity() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
             (NEGATIVE_INFINITY * NEGATIVE_INFINITY)
-                .isPositiveInfinity() shouldBe true
-            (POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN() shouldBe true
-            (POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN() shouldBe true
-            (NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY / POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            (POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
+            (NEGATIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
         }
 
         @Test
@@ -338,15 +340,15 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should cope with various infinities`() {
-            (ZERO * POSITIVE_INFINITY).isNaN() shouldBe true
+            (ZERO * POSITIVE_INFINITY).isNaN().shouldBeTrue()
             (ZERO / POSITIVE_INFINITY) shouldBe ZERO
-            (POSITIVE_INFINITY / ZERO).isPositiveInfinity() shouldBe true
-            (ZERO * NEGATIVE_INFINITY).isNaN() shouldBe true
+            (POSITIVE_INFINITY / ZERO).isPositiveInfinity().shouldBeTrue()
+            (ZERO * NEGATIVE_INFINITY).isNaN().shouldBeTrue()
             (ZERO / NEGATIVE_INFINITY) shouldBe ZERO
-            (NEGATIVE_INFINITY / ZERO).isNegativeInfinity() shouldBe true
+            (NEGATIVE_INFINITY / ZERO).isNegativeInfinity().shouldBeTrue()
             (POSITIVE_INFINITY * NEGATIVE_INFINITY)
-                .isNegativeInfinity() shouldBe true
-            (POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
+            (POSITIVE_INFINITY / NEGATIVE_INFINITY).isNaN().shouldBeTrue()
         }
 
         @Test
@@ -354,29 +356,29 @@ internal class FloatingBigRationalTest {
             POSITIVE_INFINITY shouldBe POSITIVE_INFINITY
             NEGATIVE_INFINITY shouldBe NEGATIVE_INFINITY
             // Cannot use shouldNotBe: It short-circuits for === objects
-            (NaN == NaN) shouldBe false
+            (NaN == NaN).shouldBeFalse()
         }
     }
 
     @Test
     fun `should note integer rationals`() {
-        POSITIVE_INFINITY.isInteger() shouldBe false
-        NEGATIVE_INFINITY.isInteger() shouldBe false
-        NaN.isInteger() shouldBe false
+        POSITIVE_INFINITY.isInteger().shouldBeFalse()
+        NEGATIVE_INFINITY.isInteger().shouldBeFalse()
+        NaN.isInteger().shouldBeFalse()
     }
 
     @Test
     fun `should note dyadic rationals`() {
-        POSITIVE_INFINITY.isDyadic() shouldBe false
-        NEGATIVE_INFINITY.isDyadic() shouldBe false
-        NaN.isDyadic() shouldBe false
+        POSITIVE_INFINITY.isDyadic().shouldBeFalse()
+        NEGATIVE_INFINITY.isDyadic().shouldBeFalse()
+        NaN.isDyadic().shouldBeFalse()
     }
 
     @Test
     fun `should note p-adic rationals`() {
-        POSITIVE_INFINITY.isPAdic(3) shouldBe false
-        NEGATIVE_INFINITY.isPAdic(3) shouldBe false
-        NaN.isPAdic(3) shouldBe false
+        POSITIVE_INFINITY.isPAdic(3).shouldBeFalse()
+        NEGATIVE_INFINITY.isPAdic(3).shouldBeFalse()
+        NaN.isPAdic(3).shouldBeFalse()
     }
 
     @Test
@@ -529,10 +531,10 @@ internal class FloatingBigRationalTest {
             )
 
             Double.NEGATIVE_INFINITY.toBigRational()
-                .isNegativeInfinity() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
             Double.POSITIVE_INFINITY.toBigRational()
-                .isPositiveInfinity() shouldBe true
-            Double.NaN.toBigRational().isNaN() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
+            Double.NaN.toBigRational().isNaN().shouldBeTrue()
 
             doubles.map {
                 it.toBigRational()
@@ -583,10 +585,10 @@ internal class FloatingBigRationalTest {
             )
 
             Float.NEGATIVE_INFINITY.toBigRational()
-                .isNegativeInfinity() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
             Float.POSITIVE_INFINITY.toBigRational()
-                .isPositiveInfinity() shouldBe true
-            Float.NaN.toBigRational().isNaN() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
+            Float.NaN.toBigRational().isNaN().shouldBeTrue()
 
             floats.map {
                 it.toBigRational()
@@ -628,40 +630,40 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should compare other number types`() {
-            (Double.POSITIVE_INFINITY > ZERO) shouldBe true
-            (ZERO > Double.NEGATIVE_INFINITY) shouldBe true
-            (Float.NaN > ZERO) shouldBe true
-            (NaN > Float.MAX_VALUE) shouldBe true
+            (Double.POSITIVE_INFINITY > ZERO).shouldBeTrue()
+            (ZERO > Double.NEGATIVE_INFINITY).shouldBeTrue()
+            (Float.NaN > ZERO).shouldBeTrue()
+            (NaN > Float.MAX_VALUE).shouldBeTrue()
         }
 
         @Test
         fun `should not order NaN values`() {
-            (NaN == NaN) shouldBe false
-            (NaN > NaN) shouldBe false
-            (NaN < NaN) shouldBe false
+            (NaN == NaN).shouldBeFalse()
+            (NaN > NaN).shouldBeFalse()
+            (NaN < NaN).shouldBeFalse()
         }
 
         @Test
         fun `should reciprocate`() {
             POSITIVE_INFINITY.unaryDiv() shouldBe ZERO
             NEGATIVE_INFINITY.unaryDiv() shouldBe ZERO
-            NaN.unaryDiv().isNaN() shouldBe true
+            NaN.unaryDiv().isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should absolute`() {
-            NaN.absoluteValue.isNaN() shouldBe true
+            NaN.absoluteValue.isNaN().shouldBeTrue()
             POSITIVE_INFINITY.absoluteValue
-                .isPositiveInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
             NEGATIVE_INFINITY.absoluteValue
-                .isPositiveInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
         }
 
         @Test
         fun `should signum`() {
             (NEGATIVE_INFINITY.sign) shouldBe -ONE
             (POSITIVE_INFINITY.sign) shouldBe ONE
-            NaN.sign.isNaN() shouldBe true
+            NaN.sign.isNaN().shouldBeTrue()
         }
 
         @Test
@@ -671,36 +673,36 @@ internal class FloatingBigRationalTest {
             NEGATIVE_INFINITY.pow(3) shouldBe NEGATIVE_INFINITY
             NEGATIVE_INFINITY.pow(2) shouldBe POSITIVE_INFINITY
             NEGATIVE_INFINITY.pow(-1) shouldBe ZERO
-            NaN.pow(2).isNaN() shouldBe true
-            POSITIVE_INFINITY.pow(0).isNaN() shouldBe true
-            NEGATIVE_INFINITY.pow(0).isNaN() shouldBe true
+            NaN.pow(2).isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.pow(0).isNaN().shouldBeTrue()
+            NEGATIVE_INFINITY.pow(0).isNaN().shouldBeTrue()
         }
 
         @Test
         fun `should square root`() {
-            NaN.sqrt().isNaN() shouldBe true
+            NaN.sqrt().isNaN().shouldBeTrue()
             POSITIVE_INFINITY.sqrt() shouldBe POSITIVE_INFINITY
         }
 
         @Test
         fun `should square root approximately`() {
-            NaN.sqrtApproximated().isNaN() shouldBe true
+            NaN.sqrtApproximated().isNaN().shouldBeTrue()
             POSITIVE_INFINITY.sqrtApproximated() shouldBe POSITIVE_INFINITY
         }
 
         @Test
         fun `should find between`() {
-            NaN.mediant(NaN).isNaN() shouldBe true
-            NaN.mediant(POSITIVE_INFINITY).isNaN() shouldBe true
-            NaN.mediant(NEGATIVE_INFINITY).isNaN() shouldBe true
+            NaN.mediant(NaN).isNaN().shouldBeTrue()
+            NaN.mediant(POSITIVE_INFINITY).isNaN().shouldBeTrue()
+            NaN.mediant(NEGATIVE_INFINITY).isNaN().shouldBeTrue()
             POSITIVE_INFINITY.mediant(POSITIVE_INFINITY)
-                .isPositiveInfinity() shouldBe true
+                .isPositiveInfinity().shouldBeTrue()
             NEGATIVE_INFINITY.mediant(NEGATIVE_INFINITY)
-                .isNegativeInfinity() shouldBe true
-            NaN.mediant(ZERO).isNaN() shouldBe true
-            ZERO.mediant(NaN).isNaN() shouldBe true
-            POSITIVE_INFINITY.mediant(NaN).isNaN() shouldBe true
-            NEGATIVE_INFINITY.mediant(NaN).isNaN() shouldBe true
+                .isNegativeInfinity().shouldBeTrue()
+            NaN.mediant(ZERO).isNaN().shouldBeTrue()
+            ZERO.mediant(NaN).isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.mediant(NaN).isNaN().shouldBeTrue()
+            NEGATIVE_INFINITY.mediant(NaN).isNaN().shouldBeTrue()
             POSITIVE_INFINITY.mediant(NEGATIVE_INFINITY) shouldBe ZERO
             NEGATIVE_INFINITY.mediant(POSITIVE_INFINITY) shouldBe ZERO
             POSITIVE_INFINITY.mediant(ZERO) shouldBe ONE
@@ -712,22 +714,22 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should find continued fraction`() {
             val cfA = (3245 over 1000).toContinuedFraction()
-            cfA.isFinite() shouldBe true
+            cfA.isFinite().shouldBeTrue()
             val negCfA = (-3245 over 1000).toContinuedFraction()
-            negCfA.isFinite() shouldBe true
+            negCfA.isFinite().shouldBeTrue()
 
             val cfNaN = NaN.toContinuedFraction()
-            cfNaN.isFinite() shouldBe false
-            cfNaN.backAgain().isNaN() shouldBe true
-            cfNaN.integerPart.isNaN() shouldBe true
+            cfNaN.isFinite().shouldBeFalse()
+            cfNaN.backAgain().isNaN().shouldBeTrue()
+            cfNaN.integerPart.isNaN().shouldBeTrue()
             val cfPosInf = POSITIVE_INFINITY.toContinuedFraction()
-            cfPosInf.isFinite() shouldBe false
-            cfPosInf.backAgain().isNaN() shouldBe true
-            cfPosInf.integerPart.isNaN() shouldBe true
+            cfPosInf.isFinite().shouldBeFalse()
+            cfPosInf.backAgain().isNaN().shouldBeTrue()
+            cfPosInf.integerPart.isNaN().shouldBeTrue()
             val cfNegInf = NEGATIVE_INFINITY.toContinuedFraction()
-            cfNegInf.isFinite() shouldBe false
-            cfNegInf.backAgain().isNaN() shouldBe true
-            cfNegInf.integerPart.isNaN() shouldBe true
+            cfNegInf.isFinite().shouldBeFalse()
+            cfNegInf.backAgain().isNaN().shouldBeTrue()
+            cfNegInf.integerPart.isNaN().shouldBeTrue()
         }
     }
 
