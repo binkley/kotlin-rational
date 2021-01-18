@@ -62,8 +62,12 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 * [2.1.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.0)
   [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.1.0)
   &mdash; (**IN PROGRESS**)
-    - Improved rounding
+    - Better naming for `FixedBigComplex` -- the feature is still experimental
     - Conversions to/from `BigDecimal`
+    - Improved algebra
+    - Improved continued fractions
+    - Improved ranges and progressions
+    - Improved rounding
 * [2.0.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.1)
   [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.0.1)
   &mdash; (2020-11-27) Switch to bintray for publishing
@@ -502,8 +506,6 @@ The representation is for _finite simple continued fractions_, that is:
 Restriction 1 would need to be loosened to accommodate using continued fractions
 for computing square roots of rationals. A function signature might look
 like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet restriction
-
-2.
 
 ---
 
