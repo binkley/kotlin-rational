@@ -33,7 +33,7 @@ jobs:
           java-version: 11
 
       - name: Build and verify
-        run: ./mvnw --batch-mode --strict-checksums verify
+        run: ./mvnw --batch-mode --no-transfer-progress --strict-checksums verify
 
       - name: Create site
-        run: ./mvnw --batch-mode --strict-checksums site
+        run: ./mvnw --batch-mode --no-transfer-progress --strict-checksums site
