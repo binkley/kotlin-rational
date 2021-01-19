@@ -42,6 +42,6 @@ jobs:
             ${{ runner.os }}-
 
       - name: Build and test with Maven under Batect
-        run: ./batect build-maven
+        run: ./batect build
         env:
           BATECT_ENABLE_TELEMETRY: true
