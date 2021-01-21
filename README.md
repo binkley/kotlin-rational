@@ -307,7 +307,7 @@ This code always keeps rationals in proper form:
 2. The denominator is non-negative
 3. For `FloatingBigRational`, the denominator is `0` for three special cases:
    `NaN` ("0 / 0"), `POSITIVE_INFINITY` ("1 / 0") and `NEGATIVE_INFINITY`
-   ("-1 / 0").
+   ("-1 / 0")
 
 Thus, for these cases, care should be taken in using their denominators
 
