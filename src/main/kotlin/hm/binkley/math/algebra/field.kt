@@ -1,11 +1,3 @@
-@file:Suppress("KDocMissingDocumentation", "KDocMissingDocumentation",
-    "KDocMissingDocumentation", "KDocMissingDocumentation",
-    "KDocMissingDocumentation", "KDocMissingDocumentation",
-    "KDocMissingDocumentation", "KDocMissingDocumentation",
-    "KDocMissingDocumentation", "KDocMissingDocumentation",
-    "KDocMissingDocumentation", "KDocMissingDocumentation",
-    "KDocMissingDocumentation", "KDocMissingDocumentation")
-
 package hm.binkley.math.algebra
 
 interface FieldCompanion<T : Field<T>> : RingCompanion<T>
