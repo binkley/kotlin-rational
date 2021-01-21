@@ -261,7 +261,7 @@ keep them together in this order (using type aliases):
 This code provides `FixedBigRational` and `FloatingBigRational`. They differ by:
 
 <dl>
-<dt><code>BigRational</code></dt>
+<dt><code>FloatingBigRational</code></dt>
 <dd>An <em>approximation</em> of IEEE 754 behaviors, with <code>NaN</code>,
 <code>POSITIVE_INFINITY</code>, and <code>NEGATIVE_INFINITY</code></dd>
 <dt><code>FixedBigRational</code></dt>
