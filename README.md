@@ -412,8 +412,8 @@ This code provides conversions (`toBigRational` and ilk) and operator overloads
 for these `Number` types:
 
 - `BigDecimal`
-- `Double`
-- `Float`
+- `Double` (closest approximation)
+- `Float` (closest approximation)
 - `BigInteger`
 - `Long` (with truncation)
 - `Int` (with truncation)
@@ -428,10 +428,11 @@ consider it worthwhile without more outside input. As discussed, support for
 
 ### Sorting
 
-All values sort in the natural mathematical sense, except that for
+All values sort in the natural mathematical sense, excepting that with
 `FloatingBigRational`, `NaN` sorts to the position where `Double.NaN` would
 sort, regardless of other values. There is no sense of natural order for
-`NaN`, so this code chooses to sort `NaN` the same as does `Double`.
+`NaN`, so this code chooses to sort `NaN` the same as does `Double`, or,
+to the end.
 
 For `FloatingBigRational`, all `NaN` are "quiet"; none are "signaling",
 including sorting. This follows the Java convention for floating-point, and is a
@@ -470,8 +471,8 @@ See:
 
 ### Factory constructor
 
-Rather than provide a public constructor, always use the `over` infix operator (
-or `valueOf` factory method). This maintains invariants such as
+Rather than provide a public constructor, always use the `over` infix operator
+(or `valueOf` factory method). This maintains invariants such as
 "lowest terms" (numerator and denominator are coprime), sign handling, and reuse
 of special case objects.
 
@@ -517,7 +518,7 @@ like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet restriction
 - [_Continued
   Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/FiniteContinuedFractions.pdf)
 - [_Continued fraction - An
-  introduction_](view-source:http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/cfINTRO.html)
+  introduction_](http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/cfINTRO.html)
 - [_Continued fraction - Square
   roots_](https://en.wikipedia.org/wiki/Continued_fraction#Square_roots)
 - [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
