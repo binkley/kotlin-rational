@@ -9,7 +9,7 @@ import hm.binkley.math.times
 data class FixedBigImaginary(val value: BRat) :
     Group<FixedBigImaginary>,
     Comparable<FixedBigImaginary> {
-    override val companion get() = FixedBigImaginary
+    override val companion: Companion get() = FixedBigImaginary
 
     override fun unaryMinus(): FixedBigImaginary = (-value).toImaginary()
 

@@ -17,7 +17,7 @@ import java.util.Objects.hash
  * `FloatingBigRational` is not because of `NaN` and the infinities.
  *
  * *NB* &mdash; To avoid circular references, initialize [ZERO], [ONE], [TWO],
- * and [TEN] directly from constructures, and use neither [construct] nor
+ * and [TEN] directly from constructors, and use neither [construct] nor
  * [valueOf].
  *
  * @todo Provide`sqrt` via continued fractions, ie,
@@ -797,7 +797,7 @@ fun <T : BigRationalBase<T>> T.divideAndRemainder(other: T): Pair<T, T> {
 }
 
 /** Provides a pseudo-operator for exponentiation. */
-@Suppress("DANGEROUS_CHARACTERS")
+@Suppress("DANGEROUS_CHARACTERS", "FunctionName")
 infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int): T = pow(exponent)
 
 /**
@@ -870,7 +870,7 @@ fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
 /**
  * Provides the signed fractional remainder after [truncation][truncate].
  *
- * For `FloatingBigRational`, `NaN`, and positive and negativive infinities
+ * For `FloatingBigRational`, `NaN`, and positive and negative infinities
  * produce `NaN`.
  *
  * @see truncateAndFraction

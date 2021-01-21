@@ -43,7 +43,7 @@ internal class FixedBigImaginaryTest {
     }
 
     @Test
-    fun `should posite`() {
+    fun `should positivize`() {
         +I shouldBe 1.i
     }
 

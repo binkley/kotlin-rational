@@ -22,8 +22,8 @@ This code is a "finger exercise", largely demonstrating Kotlin operator
 overloading and extension methods, and writing clean, clear, concise Kotlin. It
 also explores the impact of `NaN` (on the `FloatingBigRational` version , which
 is extensive), rather than raising an error on division by zero (as the
-`FixedBigRational` version does). In general, this code prefers expressivity to
-performance.
+`FixedBigRational` version does). In general, this code prefers expressiveness
+to performance.
 
 A secondary goal is to model the Kotlin standard library, and Java's
 `BigDecimal` and `BigInteger` types, as well as `Number`.
@@ -38,7 +38,7 @@ There are no run-time dependencies beyond the Kotlin standard library.
 
 To build as CI would, use `./batect build`.
 
-Try `./batect run` for a demonstration as CI would (were it interested).
+Try `./batect run` for a demonstration as CI would.
 
 This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
@@ -208,7 +208,7 @@ Use `./mvnw` (Maven) or `./batect build` (Batect) to build, run tests, and
 create a demo program. Use `./run.sh` or `./batect run` to run the demo.
 
 [Batect](https://batect.dev/) works "out of the box", however, an important
-optimization is to avoid redownloading plugins and dependencies from within a
+optimization is to avoid re-downloading plugins and dependencies from within a
 Docker container.
 
 This shares Maven plugin and dependency downloads with the Docker container run
@@ -277,8 +277,8 @@ These were great help:
 - [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational)
   , especially treating `FloatingBigRational` as a `kotlin.Number`, and methods
   such as `isFinite()` and `isInfinite()`
-- [Fylipp/rational](https://github.com/Fylipp/rational), especially the
-  infix `over` constructor, and various overloads
+- [Fylipp/rational](https://github.com/Fylipp/rational), especially the infix
+  `over` constructor, and various overloads
 - [_Rational number_](https://en.wikipedia.org/wiki/Rational_number) describes
   mathematical properties of ℚ, the field of the rationals
 
@@ -431,8 +431,8 @@ consider it worthwhile without more outside input. As discussed, support for
 All values sort in the natural mathematical sense, excepting that with
 `FloatingBigRational`, `NaN` sorts to the position where `Double.NaN` would
 sort, regardless of other values. There is no sense of natural order for
-`NaN`, so this code chooses to sort `NaN` the same as does `Double`, or,
-to the end.
+`NaN`, so this code chooses to sort `NaN` the same as does `Double`, or, to the
+end.
 
 For `FloatingBigRational`, all `NaN` are "quiet"; none are "signaling",
 including sorting. This follows the Java convention for floating-point, and is a
@@ -442,11 +442,11 @@ complex area.  (See [`NaN`](https://en.wikipedia.org/wiki/NaN).)
 
 ## Implementation choices
 
-### Always keep in simplest form
+### Always keep in lowest terms
 
 (See [_Always proper form_](#always-proper-form).)
 
-The code assumes rationals are in simplest terms (proper form). The
+The code assumes rationals are in lowest terms (proper form). The
 `valueOf` factory method ensures this. However, you should usually use
 the `over` infix operator instead, _eg_, `1 over 2` or `2 over 1`.
 
@@ -487,7 +487,7 @@ between subclasses. It is unclear if a sealed class makes clearer code.
 
 There are several places that might use LCM (_eg_, dividing rationals). This
 code relies on the factory constructor (`valueOf`) for GCM in reducing rationals
-to simplest form, and `gcm` and `lcm` methods are recursive between themselves.
+to proper form, and `gcm` and `lcm` methods are recursive between themselves.
 
 Do note, however, this code implements GCD and LCM recursively in terms of each
 other.
@@ -527,7 +527,7 @@ like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet restriction
 - [_Exact value of a floating-point number as a
   rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)
 - [_Generalized continued
-  fracion_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
+  fraction_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
 - [_Golden ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)
 - [_Projectively extended real
   line_](https://en.wikipedia.org/wiki/Projectively_extended_real_line) _

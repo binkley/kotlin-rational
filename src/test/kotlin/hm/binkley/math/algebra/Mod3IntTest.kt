@@ -27,7 +27,7 @@ internal class Mod3IntTest {
     }
 
     @Test
-    fun `should posite`() {
+    fun `should positivize`() {
         +Mod3Int.valueOf(1) shouldBe ONE
     }
 

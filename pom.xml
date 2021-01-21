@@ -298,7 +298,7 @@
                     <execution>
                         <goals>
                             <goal>format</goal>
-                            <!-- TODO: Reenable after addressing
+                            <!-- TODO: Re-enable after addressing
                                   https://github.com/pinterest/ktlint/issues/983
                             <goal>check</goal> -->
                         </goals>

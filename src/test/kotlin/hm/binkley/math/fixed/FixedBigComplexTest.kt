@@ -67,7 +67,7 @@ internal class FixedBigComplexTest {
     }
 
     @Test
-    fun `should posite`() {
+    fun `should positivize`() {
         +ONE_PLUS_I shouldBe ONE_PLUS_I
     }
 
