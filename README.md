@@ -190,6 +190,12 @@ sensible, if a `FixedBigRational` and `FloatingBigRational` are provided as
 argument or extension method types, then so are `BigDecimal`, `Double`,
 `Float`, `BigInteger`, `Long`, and `Int`.
 
+`FixedBigRational` and `FloatingBigRational` are both of type JDK `Number`
+and `Comparable`. The exception:
+
+- `toChar()` raises `UnsupportedOperationException` &mdash; there is no sensible
+  way to describe a character as a fraction
+
 ---
 
 ## Build
