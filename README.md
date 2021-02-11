@@ -59,6 +59,8 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 ## Releases
 
+* [2.1.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.1)
+  &mdash; (**IN PROGRESS**)
 * [2.1.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.0)
   [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.1.0)
     - Better naming for `FixedBigComplex` -- the feature is still experimental
