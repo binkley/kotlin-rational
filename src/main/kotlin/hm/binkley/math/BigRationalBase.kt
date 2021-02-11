@@ -27,21 +27,21 @@ import java.util.Objects.hash
  *       `BigRationalBase` only exists to provide implementation inheritance
  */
 @Suppress("PropertyName")
-interface BigRationalCompanion<T : BigRationalBase<T>> :
+abstract class BigRationalCompanion<T : BigRationalBase<T>> :
     FieldCompanion<T> {
     /** A constant holding value 0. It is equivalent `0 over 1`. */
-    override val ZERO: T
+    abstract override val ZERO: T
 
     /** A constant holding value 1. It is equivalent `1 over 1`. */
-    override val ONE: T
+    abstract override val ONE: T
 
     /** A constant holding value 2. It is equivalent `2 over 1`. */
-    val TWO: T
+    abstract val TWO: T
 
     /** A constant holding value 10. It is equivalent `10 over 1`. */
-    val TEN: T
+    abstract val TEN: T
 
-    fun valueOf(numerator: BInt, denominator: BInt): T
+    abstract fun valueOf(numerator: BInt, denominator: BInt): T
 
     /**
      * Since the conversion to a rational is _exact_, converting the resulting
@@ -51,7 +51,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      * just as converting BigDecimal -> Double -> BigDecimal does not preserve
      * them.
      */
-    fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
+    open fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
         0.0.big -> ZERO
         1.0.big -> ONE
         10.0.big -> TEN
@@ -70,7 +70,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      * Since the conversion to a rational is _exact_, converting the resulting
      * rational back to a [Double] produces the original value.
      */
-    fun valueOf(floatingPoint: Double): T =
+    open fun valueOf(floatingPoint: Double): T =
         valueOf(floatingPoint.toBigDecimal())
 
     /**
@@ -79,7 +79,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
      *
      * @todo Why does `Float` need try/catch, but `Double` does not?
      */
-    fun valueOf(floatingPoint: Float): T = try {
+    open fun valueOf(floatingPoint: Float): T = try {
         valueOf(floatingPoint.toBigDecimal())
     } catch (e: NumberFormatException) {
         throw ArithmeticException("$floatingPoint: ${e.message}")
@@ -89,7 +89,7 @@ interface BigRationalCompanion<T : BigRationalBase<T>> :
     fun valueOf(wholeNumber: Long): T = valueOf(wholeNumber.toBigInteger())
     fun valueOf(wholeNumber: Int): T = valueOf(wholeNumber.toBigInteger())
 
-    fun iteratorCheck(first: T, last: T, step: T) {
+    open fun iteratorCheck(first: T, last: T, step: T) {
         if (step.isZero()) error("Step must be non-zero.")
     }
 

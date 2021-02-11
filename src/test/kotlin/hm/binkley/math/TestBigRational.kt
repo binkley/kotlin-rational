@@ -8,7 +8,7 @@ internal class TestBigRational(
     denominator,
     TestBigRational,
 ) {
-    companion object : BigRationalCompanion<TestBigRational> {
+    companion object : BigRationalCompanion<TestBigRational>() {
         override val ZERO: TestBigRational =
             TestBigRational(BInt.ZERO, BInt.ONE)
         override val ONE: TestBigRational =

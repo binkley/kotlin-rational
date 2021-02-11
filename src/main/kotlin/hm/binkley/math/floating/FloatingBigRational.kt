@@ -189,7 +189,7 @@ class FloatingBigRational private constructor(
         else -> super.toString()
     }
 
-    companion object : BigRationalCompanion<FloatingBigRational> {
+    companion object : BigRationalCompanion<FloatingBigRational>() {
         /**
          * A constant holding "not a number" (NaN) value of type
          * [FloatingBigRational]. It is equivalent `0 over 0`.

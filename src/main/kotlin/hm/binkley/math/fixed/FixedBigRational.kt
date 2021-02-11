@@ -33,7 +33,7 @@ class FixedBigRational private constructor(
     denominator,
     FixedBigRational
 ) {
-    companion object : BigRationalCompanion<FixedBigRational> {
+    companion object : BigRationalCompanion<FixedBigRational>() {
         override val ZERO: FixedBigRational = FixedBigRational(0.big, 1.big)
         override val ONE: FixedBigRational = FixedBigRational(1.big, 1.big)
         override val TWO: FixedBigRational = FixedBigRational(2.big, 1.big)
