@@ -1,11 +1,9 @@
 package hm.binkley.math
 
-import hm.binkley.math.fixed.FixedBigComplex
 import hm.binkley.math.fixed.FixedBigImaginary
 import java.math.BigDecimal
 import java.math.BigInteger
 
-internal typealias BComplex = FixedBigComplex
 internal typealias BImag = FixedBigImaginary
 internal typealias BInt = BigInteger
 internal typealias BDouble = BigDecimal
@@ -15,10 +13,7 @@ internal fun BInt.isOne() = 1.big == this
 internal fun BInt.isTwo() = 2.big == this
 internal fun BInt.isTen() = 10.big == this
 internal fun BInt.isDyadic() = (isOne() || (this % 2.big).isZero())
-
-internal fun BInt.isPAdic(p: Long) =
-    (isOne() || (this % p.big).isZero())
-
+internal fun BInt.isPAdic(p: Long) = (isOne() || (this % p.big).isZero())
 internal fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 internal fun BInt.isEven() = (this % 2.big).isZero()
 
