@@ -21,13 +21,5 @@ internal class TestBigRational(
         ): TestBigRational = construct(numerator, denominator) { n, d ->
             TestBigRational(n, d)
         }
-
-        override fun iteratorCheck(
-            first: TestBigRational,
-            last: TestBigRational,
-            step: TestBigRational,
-        ) {
-            if (step.isZero()) error("Step must be non-zero.")
-        }
     }
 }

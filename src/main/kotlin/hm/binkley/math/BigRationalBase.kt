@@ -89,6 +89,7 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     fun valueOf(wholeNumber: Long): T = valueOf(wholeNumber.toBigInteger())
     fun valueOf(wholeNumber: Int): T = valueOf(wholeNumber.toBigInteger())
 
+    /** @todo This should be `protected`, not `public` */
     open fun iteratorCheck(first: T, last: T, step: T) {
         if (step.isZero()) error("Step must be non-zero.")
     }
