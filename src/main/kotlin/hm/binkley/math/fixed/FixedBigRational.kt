@@ -31,8 +31,9 @@ class FixedBigRational private constructor(
 ) : BigRationalBase<FixedBigRational>(
     numerator,
     denominator,
-    FixedBigRational
 ) {
+    override val companion: Companion get() = Companion
+
     companion object : BigRationalCompanion<FixedBigRational>() {
         override val ZERO: FixedBigRational = FixedBigRational(0.big, 1.big)
         override val ONE: FixedBigRational = FixedBigRational(1.big, 1.big)

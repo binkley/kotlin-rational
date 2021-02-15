@@ -6,8 +6,9 @@ internal class TestBigRational(
 ) : BigRationalBase<TestBigRational>(
     numerator,
     denominator,
-    TestBigRational,
 ) {
+    override val companion: Companion get() = Companion
+
     companion object : BigRationalCompanion<TestBigRational>() {
         override val ZERO: TestBigRational =
             TestBigRational(BInt.ZERO, BInt.ONE)

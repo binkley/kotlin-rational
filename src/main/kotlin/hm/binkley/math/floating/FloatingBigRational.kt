@@ -38,8 +38,9 @@ class FloatingBigRational private constructor(
 ) : BigRationalBase<FloatingBigRational>(
     numerator,
     denominator,
-    FloatingBigRational
 ) {
+    override val companion: Companion get() = Companion
+
     /**
      * @see [Double.toLong]
      * @see [BigDecimal.toLong]

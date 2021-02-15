@@ -123,11 +123,12 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>> :
     }
 }
 
-open class BigRationalBase<T : BigRationalBase<T>> protected constructor(
+abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     val numerator: BInt,
     val denominator: BInt,
-    override val companion: BigRationalCompanion<T>,
 ) : Number(), Comparable<T>, Field<T> {
+    abstract override val companion: BigRationalCompanion<T>
+
     /** Returns the absolute value. */
     @Suppress("UNCHECKED_CAST")
     val absoluteValue: T
@@ -327,10 +328,10 @@ open class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-            other is BigRationalBase<*> &&
-            javaClass == other.javaClass &&
-            numerator == other.numerator &&
-            denominator == other.denominator
+        other is BigRationalBase<*> &&
+        javaClass == other.javaClass &&
+        numerator == other.numerator &&
+        denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
