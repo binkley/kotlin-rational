@@ -136,7 +136,7 @@ class FloatingBigRational private constructor(
         when {
             isNaN() || that.isNaN() -> NaN
             (isPositiveInfinity() && that.isNegativeInfinity())
-                || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
+                    || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
             else -> super.mediant(that)
         }
 
@@ -199,20 +199,29 @@ class FloatingBigRational private constructor(
         /**
          * A constant holding "not a number" (NaN) value of type
          * [FloatingBigRational]. It is equivalent `0 over 0`.
+         *
+         * Usable directly from Java via `Companion`.
          */
+        @JvmField
         val NaN: FloatingBigRational = FloatingBigRational(0.big, 0.big)
 
         /**
          * A constant holding positive infinity value of type [FloatingBigRational].
          * It is equivalent `1 over 0`.
+         *
+         * Usable directly from Java via `Companion`.
          */
+        @JvmField
         val POSITIVE_INFINITY: FloatingBigRational =
             FloatingBigRational(1.big, 0.big)
 
         /**
          * A constant holding negative infinity value of type [FloatingBigRational].
          * It is equivalent `-1 over 0`.
+         *
+         * Usable directly from Java via `Companion`.
          */
+        @JvmField
         val NEGATIVE_INFINITY: FloatingBigRational =
             FloatingBigRational(1.big.negate(), 0.big)
 

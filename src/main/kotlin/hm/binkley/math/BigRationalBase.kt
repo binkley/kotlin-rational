@@ -28,16 +28,32 @@ import java.util.Objects.hash
  */
 @Suppress("PropertyName")
 abstract class BigRationalCompanion<T : BigRationalBase<T>>(
-    /** A constant holding value 0. It is equivalent `0 over 1`. */
+    /**
+     * A constant holding value 0. It is equivalent `0 over 1`.
+     *
+     * Usable directly from Java via `Companion`.
+     */
     @JvmField
     override val ZERO: T,
-    /** A constant holding value 1. It is equivalent `1 over 1`. */
+    /**
+     * A constant holding value 1. It is equivalent `1 over 1`.
+     *
+     * Usable directly from Java via `Companion`.
+     */
     @JvmField
     override val ONE: T,
-    /** A constant holding value 2. It is equivalent `2 over 1`. */
+    /**
+     * A constant holding value 2. It is equivalent `2 over 1`.
+     *
+     * Usable directly from Java via `Companion`.
+     */
     @JvmField
     val TWO: T,
-    /** A constant holding value 10. It is equivalent `10 over 1`. */
+    /**
+     * A constant holding value 10. It is equivalent `10 over 1`.
+     *
+     * Usable directly from Java via `Companion`.
+     */
     @JvmField
     val TEN: T,
 ) : FieldCompanion<T> {
@@ -329,10 +345,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-        other is BigRationalBase<*> &&
-        javaClass == other.javaClass &&
-        numerator == other.numerator &&
-        denominator == other.denominator
+            other is BigRationalBase<*> &&
+            javaClass == other.javaClass &&
+            numerator == other.numerator &&
+            denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
