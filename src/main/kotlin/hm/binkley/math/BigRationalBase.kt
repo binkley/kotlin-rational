@@ -107,17 +107,16 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>> :
             d = d.negate()
         }
 
-        if (d.isOne()) return when {
-            n.isOne() -> ONE
-            n.isTwo() -> TWO
-            n.isTen() -> TEN
-            else -> ctor(n, d)
-        }
-
         val gcd = n.gcd(d)
         if (!gcd.isOne()) {
             n /= gcd
             d /= gcd
+        }
+
+        if (d.isOne()) when {
+            n.isOne() -> return ONE
+            n.isTwo() -> return TWO
+            n.isTen() -> return TEN
         }
 
         return ctor(n, d)

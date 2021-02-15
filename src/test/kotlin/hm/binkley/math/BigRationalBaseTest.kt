@@ -45,21 +45,25 @@ internal class BigRationalBaseTest {
         @Test
         fun `should use constant 0`() {
             valueOf(0.big, 1.big) shouldBeSameInstanceAs ZERO
+            valueOf(0.big, 2.big) shouldBeSameInstanceAs ZERO
         }
 
         @Test
         fun `should use constant 1`() {
             valueOf(1.big, 1.big) shouldBeSameInstanceAs ONE
+            valueOf(2.big, 2.big) shouldBeSameInstanceAs ONE
         }
 
         @Test
         fun `should use constant 2`() {
             valueOf(2.big, 1.big) shouldBeSameInstanceAs TWO
+            valueOf(4.big, 2.big) shouldBeSameInstanceAs TWO
         }
 
         @Test
         fun `should use constant 10`() {
             valueOf(10.big, 1.big) shouldBeSameInstanceAs TEN
+            valueOf(20.big, 2.big) shouldBeSameInstanceAs TEN
         }
 
         @Test
