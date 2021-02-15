@@ -190,21 +190,17 @@ class FloatingBigRational private constructor(
         else -> super.toString()
     }
 
-    companion object : BigRationalCompanion<FloatingBigRational>() {
+    companion object : BigRationalCompanion<FloatingBigRational>(
+        ZERO = FloatingBigRational(0.big, 1.big),
+        ONE = FloatingBigRational(1.big, 1.big),
+        TWO = FloatingBigRational(2.big, 1.big),
+        TEN = FloatingBigRational(10.big, 1.big),
+    ) {
         /**
          * A constant holding "not a number" (NaN) value of type
          * [FloatingBigRational]. It is equivalent `0 over 0`.
          */
         val NaN: FloatingBigRational = FloatingBigRational(0.big, 0.big)
-
-        override val ZERO: FloatingBigRational =
-            FloatingBigRational(0.big, 1.big)
-        override val ONE: FloatingBigRational =
-            FloatingBigRational(1.big, 1.big)
-        override val TWO: FloatingBigRational =
-            FloatingBigRational(2.big, 1.big)
-        override val TEN: FloatingBigRational =
-            FloatingBigRational(10.big, 1.big)
 
         /**
          * A constant holding positive infinity value of type [FloatingBigRational].

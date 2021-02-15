@@ -9,16 +9,12 @@ internal class TestBigRational(
 ) {
     override val companion: Companion get() = Companion
 
-    companion object : BigRationalCompanion<TestBigRational>() {
-        override val ZERO: TestBigRational =
-            TestBigRational(BInt.ZERO, BInt.ONE)
-        override val ONE: TestBigRational =
-            TestBigRational(BInt.ONE, BInt.ONE)
-        override val TWO: TestBigRational =
-            TestBigRational(BInt.TWO, BInt.ONE)
-        override val TEN: TestBigRational =
-            TestBigRational(BInt.TEN, BInt.ONE)
-
+    companion object : BigRationalCompanion<TestBigRational>(
+        ZERO = TestBigRational(BInt.ZERO, BInt.ONE),
+        ONE = TestBigRational(BInt.ONE, BInt.ONE),
+        TWO = TestBigRational(BInt.TWO, BInt.ONE),
+        TEN = TestBigRational(BInt.TEN, BInt.ONE),
+    ) {
         override fun valueOf(
             numerator: BInt,
             denominator: BInt,

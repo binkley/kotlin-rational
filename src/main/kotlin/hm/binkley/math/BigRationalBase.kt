@@ -27,20 +27,16 @@ import java.util.Objects.hash
  *       `BigRationalBase` only exists to provide implementation inheritance
  */
 @Suppress("PropertyName")
-abstract class BigRationalCompanion<T : BigRationalBase<T>> :
-    FieldCompanion<T> {
+abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     /** A constant holding value 0. It is equivalent `0 over 1`. */
-    abstract override val ZERO: T
-
+    override val ZERO: T,
     /** A constant holding value 1. It is equivalent `1 over 1`. */
-    abstract override val ONE: T
-
+    override val ONE: T,
     /** A constant holding value 2. It is equivalent `2 over 1`. */
-    abstract val TWO: T
-
+    val TWO: T,
     /** A constant holding value 10. It is equivalent `10 over 1`. */
-    abstract val TEN: T
-
+    val TEN: T,
+) : FieldCompanion<T> {
     abstract fun valueOf(numerator: BInt, denominator: BInt): T
 
     /**

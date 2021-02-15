@@ -34,12 +34,12 @@ class FixedBigRational private constructor(
 ) {
     override val companion: Companion get() = Companion
 
-    companion object : BigRationalCompanion<FixedBigRational>() {
-        override val ZERO: FixedBigRational = FixedBigRational(0.big, 1.big)
-        override val ONE: FixedBigRational = FixedBigRational(1.big, 1.big)
-        override val TWO: FixedBigRational = FixedBigRational(2.big, 1.big)
-        override val TEN: FixedBigRational = FixedBigRational(10.big, 1.big)
-
+    companion object : BigRationalCompanion<FixedBigRational>(
+        ZERO = FixedBigRational(0.big, 1.big),
+        ONE = FixedBigRational(1.big, 1.big),
+        TWO = FixedBigRational(2.big, 1.big),
+        TEN = FixedBigRational(10.big, 1.big),
+    ) {
         /**
          * Returns a `FiniteBigRational` whose value is equal to that of the
          * specified ratio, `numerator / denominator`.
