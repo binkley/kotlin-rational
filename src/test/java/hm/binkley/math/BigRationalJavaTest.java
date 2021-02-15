@@ -9,7 +9,6 @@ import static hm.binkley.math.TestBigRational.Companion;
 import static io.kotest.matchers.ShouldKt.shouldBe;
 
 class BigRationalJavaTest {
-    // TODO: Using Companion in static import is flaking
     private static final TestBigRational ZERO = Companion.ZERO;
     private static final TestBigRational ONE = Companion.ONE;
     private static final TestBigRational TWO = Companion.TWO;
