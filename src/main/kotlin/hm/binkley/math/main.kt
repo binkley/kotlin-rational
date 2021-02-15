@@ -3,6 +3,7 @@ package hm.binkley.math
 import hm.binkley.math.algebra.Mod3Int
 import hm.binkley.math.fixed.BRat
 import hm.binkley.math.fixed.FixedBigImaginary.Companion.I
+import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.conjugate
 import hm.binkley.math.fixed.plus
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
@@ -98,8 +99,7 @@ fun main() {
             Double.NEGATIVE_INFINITY,
             Double.NaN,
         )
-    )
-        dump(d)
+    ) dump(d)
 
     println()
     println("==FLOAT CONVERSIONS")
@@ -126,8 +126,7 @@ fun main() {
             Float.NEGATIVE_INFINITY,
             Float.NaN,
         )
-    )
-        dump(d)
+    ) dump(d)
 
     println()
     println("==MOD3 INT")
@@ -151,6 +150,14 @@ fun main() {
     val onePlusI = BRat.ONE + I
     println(onePlusI)
     println(onePlusI * onePlusI.conjugate)
+
+    println()
+    println("==COMPARING FIXED AND FLOATING BIG RATIONALS")
+    println(
+        "1 fixed eq? 1 floating? -> ${
+        FixedBigRational.ONE.equivalent(ONE)
+        }"
+    )
 }
 
 @Generated // Lie to JaCoCo
