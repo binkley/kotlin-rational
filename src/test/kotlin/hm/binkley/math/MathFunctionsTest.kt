@@ -90,9 +90,9 @@ internal class MathFunctionsTest {
             valueOf(3.big, 2.big).fraction() shouldBe valueOf(1.big, 2.big)
             valueOf(1.big, 2.big).fraction() shouldBe valueOf(1.big, 2.big)
             valueOf((-1).big, 2.big).fraction() shouldBe
-                    valueOf((-1).big, 2.big)
+                valueOf((-1).big, 2.big)
             valueOf((-3).big, 2.big).fraction() shouldBe
-                    valueOf((-1).big, 2.big)
+                valueOf((-1).big, 2.big)
         }
     }
 
@@ -113,15 +113,17 @@ internal class MathFunctionsTest {
         @Test
         fun `should square root approximately`() {
             valueOf(9.big, 25.big).sqrtApproximated() shouldBe
-                    valueOf(3.big, 5.big)
+                valueOf(3.big, 5.big)
             valueOf(8.big, 25.big).sqrtApproximated() shouldBe
-                    valueOf(282_842_712_474_619.big,
-                        500_000_000_000_000.big)
+                valueOf(
+                    282_842_712_474_619.big,
+                    500_000_000_000_000.big
+                )
             valueOf(9.big, 26.big).sqrtApproximated() shouldBe
-                    valueOf(
-                        5_883_484_054_145_521.big,
-                        10_000_000_000_000_000.big
-                    )
+                valueOf(
+                    5_883_484_054_145_521.big,
+                    10_000_000_000_000_000.big
+                )
         }
     }
 
@@ -130,13 +132,13 @@ internal class MathFunctionsTest {
         @Test
         fun `should find GCD (HCF)`() {
             valueOf(2.big, 9.big).gcd(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
+                valueOf(2.big, 63.big)
             valueOf((-2).big, 9.big).gcd(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
+                valueOf(2.big, 63.big)
             valueOf(2.big, 9.big).gcd(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
+                valueOf(2.big, 63.big)
             valueOf((-2).big, 9.big).gcd(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
+                valueOf(2.big, 63.big)
             ZERO.gcd(valueOf(2.big, 9.big)) shouldBe valueOf(2.big, 9.big)
             ZERO.gcd(ZERO) shouldBe ZERO
         }
@@ -144,13 +146,13 @@ internal class MathFunctionsTest {
         @Test
         fun `should find LCM (LCD)`() {
             valueOf(2.big, 9.big).lcm(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
+                valueOf(2.big, 1.big)
             valueOf((-2).big, 9.big).lcm(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
+                valueOf(2.big, 1.big)
             valueOf(2.big, 9.big).lcm(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
+                valueOf(2.big, 1.big)
             valueOf((-2).big, 9.big).lcm(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
+                valueOf(2.big, 1.big)
             ZERO.lcm(valueOf(6.big, 21.big)) shouldBe ZERO
             ZERO.lcm(ZERO) shouldBe ZERO
         }

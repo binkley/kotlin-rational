@@ -2,174 +2,120 @@
 
 package hm.binkley.math
 
+import hm.binkley.math.TestBigRational.Companion.ONE
+import hm.binkley.math.TestBigRational.Companion.ZERO
+import hm.binkley.math.TestBigRational.Companion.valueOf
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class OperatorsTest {
-
     @Nested
     inner class Group {
         @Test
         fun `should add big rational`() {
-            (
-                TestBigRational.valueOf(
-                    3.big,
-                    5.big
-                ) + TestBigRational.valueOf(2.big, 3.big)
-                ) shouldBe
-                TestBigRational.valueOf(19.big, 15.big)
+            (valueOf(3.big, 5.big) + valueOf(2.big, 3.big)) shouldBe
+                valueOf(19.big, 15.big)
         }
 
         @Test
         fun `should add big decimal`() {
-            (1.0.big + TestBigRational.ONE) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
-            (TestBigRational.ONE + 10.0.big) shouldBe TestBigRational.valueOf(
-                11.big,
-                1.big
-            )
+            (1.0.big + ONE) shouldBe valueOf(2.big, 1.big)
+            (ONE + 10.0.big) shouldBe valueOf(11.big, 1.big)
         }
 
         @Test
         fun `should add double`() {
-            (1.0 + TestBigRational.ONE) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
-            (TestBigRational.ONE + 1.0) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
+            (1.0 + ONE) shouldBe valueOf(2.big, 1.big)
+            (ONE + 1.0) shouldBe valueOf(2.big, 1.big)
         }
 
         @Test
         fun `should add float`() {
-            (1.0f + TestBigRational.ONE) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
-            (TestBigRational.ONE + 1.0f) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
+            (1.0f + ONE) shouldBe valueOf(2.big, 1.big)
+            (ONE + 1.0f) shouldBe valueOf(2.big, 1.big)
         }
 
         @Test
         fun `should add big integer`() {
-            (1.big + TestBigRational.ONE) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
-            (TestBigRational.ONE + 1.big) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
+            (1.big + ONE) shouldBe valueOf(2.big, 1.big)
+            (ONE + 1.big) shouldBe valueOf(2.big, 1.big)
         }
 
         @Test
         fun `should add long`() {
-            (1L + TestBigRational.ONE) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
-            (TestBigRational.ONE + 1L) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
+            (1L + ONE) shouldBe valueOf(2.big, 1.big)
+            (ONE + 1L) shouldBe valueOf(2.big, 1.big)
         }
 
         @Test
         fun `should add int`() {
-            (1 + TestBigRational.ONE) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
-            (TestBigRational.ONE + 1) shouldBe TestBigRational.valueOf(
-                2.big,
-                1.big
-            )
+            (1 + ONE) shouldBe valueOf(2.big, 1.big)
+            (ONE + 1) shouldBe valueOf(2.big, 1.big)
         }
 
         @Test
         fun `should subtract big rational`() {
-            (
-                TestBigRational.valueOf(
-                    3.big,
-                    5.big
-                ) - TestBigRational.valueOf(2.big, 3.big)
-                ) shouldBe
-                TestBigRational.valueOf((-1).big, 15.big)
+            (valueOf(3.big, 5.big) - valueOf(2.big, 3.big)) shouldBe
+                valueOf((-1).big, 15.big)
         }
 
         @Test
         fun `should subtract big decimal`() {
-            (1.0.big - TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE - 1.0.big) shouldBe TestBigRational.ZERO
+            (1.0.big - ONE) shouldBe ZERO
+            (ONE - 1.0.big) shouldBe ZERO
         }
 
         @Test
         fun `should subtract double`() {
-            (1.0 - TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE - 1.0) shouldBe TestBigRational.ZERO
+            (1.0 - ONE) shouldBe ZERO
+            (ONE - 1.0) shouldBe ZERO
         }
 
         @Test
         fun `should subtract float`() {
-            (1.0f - TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE - 1.0f) shouldBe TestBigRational.ZERO
+            (1.0f - ONE) shouldBe ZERO
+            (ONE - 1.0f) shouldBe ZERO
         }
 
         @Test
         fun `should subtract big integer`() {
-            (1.big - TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE - 1.big) shouldBe TestBigRational.ZERO
+            (1.big - ONE) shouldBe ZERO
+            (ONE - 1.big) shouldBe ZERO
         }
 
         @Test
         fun `should subtract long`() {
-            (1L - TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE - 1L) shouldBe TestBigRational.ZERO
+            (1L - ONE) shouldBe ZERO
+            (ONE - 1L) shouldBe ZERO
         }
 
         @Test
         fun `should subtract int`() {
-            (1 - TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE - 1) shouldBe TestBigRational.ZERO
+            (1 - ONE) shouldBe ZERO
+            (ONE - 1) shouldBe ZERO
         }
 
         @Test
         fun `should do nothing arithmetically`() {
-            (
-                +TestBigRational.valueOf(
-                    2.big,
-                    3.big
-                )
-                ) shouldBe TestBigRational.valueOf(2.big, 3.big)
+            (+valueOf(2.big, 3.big)) shouldBe valueOf(2.big, 3.big)
         }
 
         @Test
         fun `should invert arithmetically`() {
-            (
-                -TestBigRational.valueOf(
-                    2.big,
-                    3.big
-                )
-                ) shouldBe TestBigRational.valueOf((-2).big, 3.big)
+            (-valueOf(2.big, 3.big)) shouldBe valueOf((-2).big, 3.big)
         }
 
         @Test
         fun `should increment`() {
-            var a = TestBigRational.ZERO
-            ++a shouldBe TestBigRational.ONE
+            var a = ZERO
+            ++a shouldBe ONE
         }
 
         @Test
         fun `should decrement`() {
-            var a = TestBigRational.ONE
-            --a shouldBe TestBigRational.ZERO
+            var a = ONE
+            --a shouldBe ZERO
         }
     }
 
@@ -177,65 +123,51 @@ internal class OperatorsTest {
     inner class Ring {
         @Test
         fun `should multiply big rational`() {
-            (
-                TestBigRational.valueOf(
-                    3.big,
-                    5.big
-                ) * TestBigRational.valueOf(2.big, 3.big)
-                ) shouldBe
-                TestBigRational.valueOf(2.big, 5.big)
+            (valueOf(3.big, 5.big) * valueOf(2.big, 3.big)) shouldBe
+                valueOf(2.big, 5.big)
         }
 
         @Test
         fun `should multiply big decimal`() {
-            (1.0.big * TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE * 1.0.big) shouldBe TestBigRational.ONE
+            (1.0.big * ONE) shouldBe ONE
+            (ONE * 1.0.big) shouldBe ONE
         }
 
         @Test
         fun `should multiply double`() {
-            (1.0 * TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE * 1.0) shouldBe TestBigRational.ONE
+            (1.0 * ONE) shouldBe ONE
+            (ONE * 1.0) shouldBe ONE
         }
 
         @Test
         fun `should multiply float`() {
-            (1.0f * TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE * 1.0f) shouldBe TestBigRational.ONE
+            (1.0f * ONE) shouldBe ONE
+            (ONE * 1.0f) shouldBe ONE
         }
 
         @Test
         fun `should multiply big integer`() {
-            (1.big * TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE * 1.big) shouldBe TestBigRational.ONE
+            (1.big * ONE) shouldBe ONE
+            (ONE * 1.big) shouldBe ONE
         }
 
         @Test
         fun `should multiply long`() {
-            (1L * TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE * 1L) shouldBe TestBigRational.ONE
+            (1L * ONE) shouldBe ONE
+            (ONE * 1L) shouldBe ONE
         }
 
         @Test
         fun `should multiply int`() {
-            (1 * TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE * 1) shouldBe TestBigRational.ONE
+            (1 * ONE) shouldBe ONE
+            (ONE * 1) shouldBe ONE
         }
 
         @Test
         fun `should exponentiate`() {
-            TestBigRational.valueOf(
-                3.big,
-                5.big
-            ) `**` 0 shouldBe TestBigRational.ONE
-            TestBigRational.valueOf(
-                3.big,
-                5.big
-            ) `**` 2 shouldBe TestBigRational.valueOf(9.big, 25.big)
-            TestBigRational.valueOf(
-                3.big,
-                5.big
-            ) `**` -2 shouldBe TestBigRational.valueOf(25.big, 9.big)
+            valueOf(3.big, 5.big) `**` 0 shouldBe ONE
+            valueOf(3.big, 5.big) `**` 2 shouldBe valueOf(9.big, 25.big)
+            valueOf(3.big, 5.big) `**` -2 shouldBe valueOf(25.big, 9.big)
         }
     }
 
@@ -243,160 +175,126 @@ internal class OperatorsTest {
     inner class Field {
         @Test
         fun `should divide big rational`() {
-            (
-                TestBigRational.valueOf(
-                    3.big,
-                    5.big
-                ) / TestBigRational.valueOf(2.big, 3.big)
-                ) shouldBe
-                TestBigRational.valueOf(9.big, 10.big)
+            (valueOf(3.big, 5.big) / valueOf(2.big, 3.big)) shouldBe
+                valueOf(9.big, 10.big)
         }
 
         @Test
         fun `should divide big decimal`() {
-            (1.0.big / TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE / 1.0.big) shouldBe TestBigRational.ONE
+            (1.0.big / ONE) shouldBe ONE
+            (ONE / 1.0.big) shouldBe ONE
         }
 
         @Test
         fun `should divide double`() {
-            (1.0 / TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE / 1.0) shouldBe TestBigRational.ONE
+            (1.0 / ONE) shouldBe ONE
+            (ONE / 1.0) shouldBe ONE
         }
 
         @Test
         fun `should divide float`() {
-            (1.0f / TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE / 1.0f) shouldBe TestBigRational.ONE
+            (1.0f / ONE) shouldBe ONE
+            (ONE / 1.0f) shouldBe ONE
         }
 
         @Test
         fun `should divide big integer`() {
-            (1.big / TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE / 1.big) shouldBe TestBigRational.ONE
+            (1.big / ONE) shouldBe ONE
+            (ONE / 1.big) shouldBe ONE
         }
 
         @Test
         fun `should divide long`() {
-            (1L / TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE / 1L) shouldBe TestBigRational.ONE
+            (1L / ONE) shouldBe ONE
+            (ONE / 1L) shouldBe ONE
         }
 
         @Test
         fun `should divide int`() {
-            (1 / TestBigRational.ONE) shouldBe TestBigRational.ONE
-            (TestBigRational.ONE / 1) shouldBe TestBigRational.ONE
+            (1 / ONE) shouldBe ONE
+            (ONE / 1) shouldBe ONE
         }
 
         @Test
         fun `should modulo big rational`() {
-            (
-                TestBigRational.valueOf(
-                    3.big,
-                    5.big
-                ) % TestBigRational.valueOf(
-                    2.big,
-                    3.big
-                )
-                ) shouldBe TestBigRational.ZERO
+            (valueOf(3.big, 5.big) % valueOf(2.big, 3.big)) shouldBe ZERO
         }
 
         @Test
         fun `should modulo big decimal`() {
-            (1.0.big % TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE % 1.0.big) shouldBe TestBigRational.ZERO
+            (1.0.big % ONE) shouldBe ZERO
+            (ONE % 1.0.big) shouldBe ZERO
         }
 
         @Test
         fun `should modulo double`() {
-            (1.0 % TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE % 1.0) shouldBe TestBigRational.ZERO
+            (1.0 % ONE) shouldBe ZERO
+            (ONE % 1.0) shouldBe ZERO
         }
 
         @Test
         fun `should modulo float`() {
-            (1.0f % TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE % 1.0f) shouldBe TestBigRational.ZERO
+            (1.0f % ONE) shouldBe ZERO
+            (ONE % 1.0f) shouldBe ZERO
         }
 
         @Test
         fun `should modulo big integer`() {
-            (1.big % TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE % 1.big) shouldBe TestBigRational.ZERO
+            (1.big % ONE) shouldBe ZERO
+            (ONE % 1.big) shouldBe ZERO
         }
 
         @Test
         fun `should modulo long`() {
-            (1L % TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE % 1L) shouldBe TestBigRational.ZERO
+            (1L % ONE) shouldBe ZERO
+            (ONE % 1L) shouldBe ZERO
         }
 
         @Test
         fun `should modulo int`() {
-            (1 % TestBigRational.ONE) shouldBe TestBigRational.ZERO
-            (TestBigRational.ONE % 1) shouldBe TestBigRational.ZERO
+            (1 % ONE) shouldBe ZERO
+            (ONE % 1) shouldBe ZERO
         }
 
         @Test
         fun `should divide with remainder`() {
-            TestBigRational.valueOf(13.big, 2.big).divideAndRemainder(
-                TestBigRational.valueOf(3.big, 1.big)
+            valueOf(13.big, 2.big).divideAndRemainder(
+                valueOf(3.big, 1.big)
             ) shouldBe
-                (
-                    TestBigRational.valueOf(
-                        2.big,
-                        1.big
-                    ) to TestBigRational.valueOf(1.big, 2.big)
-                    )
-            TestBigRational.valueOf((-13).big, 2.big).divideAndRemainder(
-                TestBigRational.valueOf((-3).big, 1.big)
+                (valueOf(2.big, 1.big) to valueOf(1.big, 2.big))
+            valueOf((-13).big, 2.big).divideAndRemainder(
+                valueOf((-3).big, 1.big)
             ) shouldBe
-                (
-                    TestBigRational.valueOf(
-                        2.big,
-                        1.big
-                    ) to TestBigRational.valueOf((-1).big, 2.big)
-                    )
-            TestBigRational.valueOf((-13).big, 2.big).divideAndRemainder(
-                TestBigRational.valueOf(3.big, 1.big)
+                (valueOf(2.big, 1.big) to valueOf((-1).big, 2.big))
+            valueOf((-13).big, 2.big).divideAndRemainder(
+                valueOf(3.big, 1.big)
             ) shouldBe
-                (
-                    TestBigRational.valueOf(
-                        (-2).big,
-                        1.big
-                    ) to TestBigRational.valueOf((-1).big, 2.big)
-                    )
-            TestBigRational.valueOf(13.big, 2.big).divideAndRemainder(
-                TestBigRational.valueOf((-3).big, 1.big)
+                (valueOf((-2).big, 1.big) to valueOf((-1).big, 2.big))
+            valueOf(13.big, 2.big).divideAndRemainder(
+                valueOf((-3).big, 1.big)
             ) shouldBe
-                (
-                    TestBigRational.valueOf(
-                        (-2).big,
-                        1.big
-                    ) to TestBigRational.valueOf(1.big, 2.big)
-                    )
+                (valueOf((-2).big, 1.big) to valueOf(1.big, 2.big))
         }
 
         @Test
         fun `should invert multiplicatively`() {
-            TestBigRational.valueOf(2.big, 3.big)
-                .unaryDiv() shouldBe TestBigRational.valueOf(3.big, 2.big)
+            valueOf(2.big, 3.big).unaryDiv() shouldBe valueOf(3.big, 2.big)
         }
     }
 
     @Test
     fun `should be ℚ-ish`() {
-        val twoThirds = TestBigRational.valueOf(2.big, 3.big)
-        val threeHalves = TestBigRational.valueOf(3.big, 2.big)
-        val fiveSevenths = TestBigRational.valueOf(5.big, 7.big)
+        val twoThirds = valueOf(2.big, 3.big)
+        val threeHalves = valueOf(3.big, 2.big)
+        val fiveSevenths = valueOf(5.big, 7.big)
 
         // Identity elements
-        (twoThirds + TestBigRational.ZERO) shouldBe twoThirds
-        (twoThirds * TestBigRational.ONE) shouldBe twoThirds
+        (twoThirds + ZERO) shouldBe twoThirds
+        (twoThirds * ONE) shouldBe twoThirds
 
         // Inverses
-        (twoThirds + -twoThirds) shouldBe TestBigRational.ZERO
-        (twoThirds * twoThirds.unaryDiv()) shouldBe TestBigRational.ONE
+        (twoThirds + -twoThirds) shouldBe ZERO
+        (twoThirds * twoThirds.unaryDiv()) shouldBe ONE
 
         // Associativity
         ((twoThirds + threeHalves) + fiveSevenths) shouldBe

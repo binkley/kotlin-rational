@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.math.BigInteger
-import java.math.RoundingMode.UNNECESSARY
 
 internal class BigRationalBaseTest {
     @Test

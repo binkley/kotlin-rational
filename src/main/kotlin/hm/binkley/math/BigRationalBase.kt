@@ -5,10 +5,6 @@ import hm.binkley.math.algebra.FieldCompanion
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
-import java.math.RoundingMode.CEILING
-import java.math.RoundingMode.DOWN
-import java.math.RoundingMode.FLOOR
-import java.math.RoundingMode.HALF_EVEN
 import java.math.RoundingMode.HALF_UP
 import java.util.Objects.hash
 
