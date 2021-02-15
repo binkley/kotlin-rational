@@ -10,7 +10,7 @@ fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.equivalent(other: U): Boo
 
 /** Compares this value to [other]. */
 operator fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.compareTo(
-    other: U
+    other: U,
 ): Int =
     (compareBy<Pair<BInt, BInt>> { it.first }).compare(toPair(), other.toPair())
 
