@@ -161,6 +161,8 @@ All constructors are _private_. Please use:
 
 ### Methods
 
+- `equivalent(other)` checks fixed and floating big rationals &mdash;
+  `equals (other)` is a better choice unless mixing the two
 - `isNaN()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`. Note than `NaN` is neither finite nor infinite
 - `isInteger()`, `isDyadic()` (See

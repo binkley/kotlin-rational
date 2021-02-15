@@ -345,10 +345,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-            other is BigRationalBase<*> &&
-            javaClass == other.javaClass &&
-            numerator == other.numerator &&
-            denominator == other.denominator
+        other is BigRationalBase<*> &&
+        javaClass == other.javaClass &&
+        numerator == other.numerator &&
+        denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
@@ -361,102 +361,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
         else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
 }
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: BDouble): Int =
-    compareTo(companion.valueOf(other))
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> BDouble.compareTo(other: T): Int =
-    other.companion.valueOf(this).compareTo(other)
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Double): Int =
-    compareTo(companion.valueOf(other))
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> Double.compareTo(other: T): Int =
-    other.companion.valueOf(this).compareTo(other)
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Float): Int =
-    compareTo(companion.valueOf(other))
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> Float.compareTo(other: T): Int =
-    other.companion.valueOf(this).compareTo(other)
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: BInt): Int =
-    compareTo(companion.valueOf(other))
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> BInt.compareTo(other: T): Int =
-    other.companion.valueOf(this).compareTo(other)
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Long): Int =
-    compareTo(companion.valueOf(other))
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> Long.compareTo(other: T): Int =
-    other.companion.valueOf(this).compareTo(other)
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> T.compareTo(other: Int): Int =
-    compareTo(companion.valueOf(other))
-
-/**
- * Compares this value to the other.
- *
- * @see [BigRationalBase.compareTo]
- */
-operator fun <T : BigRationalBase<T>> Int.compareTo(other: T): Int =
-    other.companion.valueOf(this).compareTo(other)
 
 /** Adds the other value to this value. */
 operator fun <T : BigRationalBase<T>> T.plus(addend: BDouble): T =

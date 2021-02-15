@@ -195,62 +195,6 @@ internal class BigRationalBaseTest {
     }
 
     @Nested
-    inner class Ordering {
-        @Test
-        fun `should compare to big rational`() {
-            (ONE > ZERO).shouldBeTrue()
-            (ZERO < ONE).shouldBeTrue()
-        }
-
-        @Test
-        fun `should compare to big decimal`() {
-            (1.0.big > ZERO).shouldBeTrue()
-            (ONE > 0.0.big).shouldBeTrue()
-        }
-
-        @Test
-        fun `should compare to double`() {
-            (1.0 > ZERO).shouldBeTrue()
-            (ONE > 0.0).shouldBeTrue()
-        }
-
-        @Test
-        fun `should compare to float`() {
-            (1.0f > ZERO).shouldBeTrue()
-            (ONE > 0.0f).shouldBeTrue()
-        }
-
-        @Test
-        fun `should compare to big integer`() {
-            (1.big > ZERO).shouldBeTrue()
-            (ONE > 0.big).shouldBeTrue()
-        }
-
-        @Test
-        fun `should compare to long`() {
-            (1L > ZERO).shouldBeTrue()
-            (ONE > 0L).shouldBeTrue()
-        }
-
-        @Test
-        fun `should compare to int`() {
-            (1 > ZERO).shouldBeTrue()
-            (ONE > 0).shouldBeTrue()
-        }
-
-        @Test
-        fun `should sort`() {
-            val sorted = listOf(
-                ZERO,
-                ONE,
-                ZERO
-            ).sorted()
-
-            sorted shouldBe listOf(ZERO, ZERO, ONE)
-        }
-    }
-
-    @Nested
     inner class Group {
         @Test
         fun `should add big rational`() {
