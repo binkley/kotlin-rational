@@ -9,7 +9,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-internal class ComparisonTest {
+internal class ComparisonsTest {
     @Test
     fun `should compare to big rational`() {
         (ONE > ZERO).shouldBeTrue()
