@@ -114,9 +114,15 @@ internal class BigRationalBaseTest {
     inner class Conversions {
         @Test
         fun `should convert to big decimal`() {
-            // This is confusing, but adheres to the API for conversion to
-            // BigDecimal from Double
+            // This adheres to the API for conversion to BigDecimal from double
             ONE.toBigDecimal() shouldBe BigDecimal("1.0")
+        }
+
+        @Test
+        fun `should fail to convert to big decimal for repeating decimals`() {
+            shouldThrow<ArithmeticException> {
+                valueOf(1.big, 3.big).toBigDecimal()
+            }
         }
 
         @Test

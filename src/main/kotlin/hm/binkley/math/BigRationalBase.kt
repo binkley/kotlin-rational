@@ -163,23 +163,24 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     open val sign: T get() = companion.valueOf(numerator.signum())
 
     /**
+     * Returns this as a [BigDecimal] corresponding to [toDouble] following the
+     * same rules as [Double.toBigDecimal].  Note: this maintains that "double
+     * -> BigDecimal" and "BigRational -> BigDecimal" look the same.
+     *
+     * @throws ArithmeticException if denominator are coprime (produce a
+     * repeating decimal)
+     *
+     * @todo This is wrong for very large/small numbers.  A general algorithm
+     *       for decimals from rationals will not "spread out" for very large
+     *       nor small values
+     */
+    fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
+
+    /**
      * Returns this as a [BigInteger] which may involve rounding
      * corresponding to rounding mode [HALF_UP].
      */
     fun toBigInteger(): BigInteger = numerator / denominator
-
-    /**
-     * Returns this as a [BigDecimal] corresponding to [toDouble] following the
-     * same rules as [Double.toBigDecimal].
-     *
-     * @todo This is wrong for very large/small numbers.  A general algorithm
-     *       for decimals from rationals will not "spread out" for very large
-     *       nor small values.  When the denominator and base-10 are coprime
-     *       (the denominator can be viewed as a base), there are only
-     *       approximations, even for numbers will within the "nice" range of
-     *       `double`, _eg_, 1/3
-     */
-    fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
 
     /**
      * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
