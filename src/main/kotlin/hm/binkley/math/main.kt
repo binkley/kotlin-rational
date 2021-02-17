@@ -161,14 +161,14 @@ fun main() {
 }
 
 @Generated // Lie to JaCoCo
-fun dump(d: Double) {
+private fun dump(d: Double) {
     val rat = d.toBigRational()
 
     println("$d -> $rat -> ${rat.toDouble()}")
 }
 
 @Generated // Lie to JaCoCo
-fun dump(f: Float) {
+private fun dump(f: Float) {
     val rat = f.toBigRational()
 
     println("$f -> $rat -> ${rat.toFloat()}")
