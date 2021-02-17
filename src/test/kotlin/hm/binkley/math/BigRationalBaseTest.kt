@@ -126,6 +126,14 @@ internal class BigRationalBaseTest {
         }
 
         @Test
+        fun `should convert to big decimal for repeating decimals`() {
+            valueOf(1.big, 3.big).toBigDecimal(2) shouldBe BDouble("0.33")
+            valueOf(1.big, 3.big).toBigDecimal(0) shouldBe BDouble("0")
+            valueOf(1.big, 2.big).toBigDecimal(2) shouldBe BDouble("0.50")
+            valueOf(1.big, 2.big).toBigDecimal(0) shouldBe BDouble("0")
+        }
+
+        @Test
         fun `should convert to double`() {
             valueOf(11.big, 10.big).toDouble() shouldBe 1.1
         }

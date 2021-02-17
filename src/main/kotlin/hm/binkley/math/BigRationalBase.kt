@@ -177,6 +177,35 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
 
     /**
+     * Returns this as a [BigDecimal] corresponding to [toDouble] up to
+     * [limitPlaces] digits after the decimal place, for example when working
+     * with repeating expansions such as "1/3".  For non-repeating decimals,
+     * zero-pads any remaining places to reach the limit.
+     *
+     * There is no rounding; the value is truncated after [limitPlaces]
+     * regardless of remaining expansion digits.
+     *
+     * This function is costly.
+     */
+    fun toBigDecimal(limitPlaces: Int): BigDecimal {
+        val digits = ArrayList<BInt>(1 + limitPlaces)
+        var x = numerator.divideAndRemainder(denominator)
+        var i = 0
+        while (i <= limitPlaces) {
+            digits.add(x[0])
+            x = (x[1] * 10.big).divideAndRemainder(denominator)
+            ++i
+        }
+
+        val buf = StringBuilder()
+        buf.append(digits.first().toString())
+        buf.append('.')
+        digits.drop(1).forEach { buf.append(it.toString()) }
+
+        return BigDecimal(buf.toString())
+    }
+
+    /**
      * Returns this as a [BigInteger] which may involve rounding
      * corresponding to rounding mode [HALF_UP].
      */
