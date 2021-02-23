@@ -404,6 +404,47 @@ internal class FloatingBigRationalTest {
         }
 
         @Test
+        fun `should not convert extrema to big decimal`() {
+            // Note JDK rules for BigDecimal->Double->BigDecimal
+            ONE.toBigDecimal() shouldBe "1.0".toBigDecimal()
+            ONE.toBigDecimal(1) shouldBe "1.0".toBigDecimal()
+
+            shouldThrow<ArithmeticException> {
+                POSITIVE_INFINITY.toBigDecimal()
+            }
+            shouldThrow<ArithmeticException> {
+                POSITIVE_INFINITY.toBigDecimal(1)
+            }
+            shouldThrow<ArithmeticException> {
+                NEGATIVE_INFINITY.toBigDecimal()
+            }
+            shouldThrow<ArithmeticException> {
+                NEGATIVE_INFINITY.toBigDecimal(1)
+            }
+            shouldThrow<ArithmeticException> {
+                NaN.toBigDecimal()
+            }
+            shouldThrow<ArithmeticException> {
+                NaN.toBigDecimal(1)
+            }
+        }
+
+        @Test
+        fun `should not convert extrema to big integer`() {
+            ONE.toBigInteger() shouldBe BInt.ONE
+
+            shouldThrow<ArithmeticException> {
+                POSITIVE_INFINITY.toBigInteger()
+            }
+            shouldThrow<ArithmeticException> {
+                NEGATIVE_INFINITY.toBigInteger()
+            }
+            shouldThrow<ArithmeticException> {
+                NaN.toBigInteger()
+            }
+        }
+
+        @Test
         fun `should not convert extrema to long`() {
             shouldThrow<ArithmeticException> {
                 POSITIVE_INFINITY.toLong()
@@ -430,7 +471,7 @@ internal class FloatingBigRationalTest {
         }
 
         @Test
-        fun `should convert BigDecimal in infix constructor`() {
+        fun `should convert big decimal in infix constructor`() {
             0.0.big.toBigRational() shouldBe ZERO
             30.0.big.toBigRational() shouldBe (30 over 1)
             3.0.big.toBigRational() shouldBe (3 over 1)
@@ -448,7 +489,7 @@ internal class FloatingBigRationalTest {
         }
 
         @Test
-        fun `should convert BigInteger in infix constructor`() {
+        fun `should convert big integer in infix constructor`() {
             0.big.toBigRational() shouldBe ZERO
             BInt.valueOf(30L).toBigRational() shouldBe (30 over 1)
             3.big.toBigRational() shouldBe (3 over 1)

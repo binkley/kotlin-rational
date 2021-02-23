@@ -175,7 +175,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      *       for decimals from rationals will not "spread out" for very large
      *       nor small values
      */
-    fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
+    open fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
 
     /**
      * Returns this as a [BigDecimal] corresponding to [toDouble] up to

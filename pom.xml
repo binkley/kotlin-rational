@@ -283,7 +283,7 @@
                                         <limit>
                                             <!-- TODO: Kotlin vs JaCoCo -->
                                             <!-- TODO: JUnit vs JaCoCo -->
-                                            <minimum>97%</minimum>
+                                            <minimum>98%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

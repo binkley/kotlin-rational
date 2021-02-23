@@ -42,6 +42,22 @@ class FloatingBigRational private constructor(
     override val companion: Companion get() = Companion
 
     /**
+     * Returns this as a [BigDecimal] corresponding to [toDouble] following the
+     * same rules as [Double.toBigDecimal].  Note: this maintains that "double
+     * -> BigDecimal" and "BigRational -> BigDecimal" look the same.
+     *
+     * @throws ArithmeticException if denominator are coprime (produce a
+     * repeating decimal) or for non-finite rationals
+     *
+     * @todo This is wrong for very large/small numbers.  A general algorithm
+     *       for decimals from rationals will not "spread out" for very large
+     *       nor small values
+     */
+    override fun toBigDecimal(): BigDecimal =
+        if (!isFinite()) throw ArithmeticException("Non-finite")
+        else super.toBigDecimal()
+
+    /**
      * @see [Double.toLong]
      * @see [BigDecimal.toLong]
      */
