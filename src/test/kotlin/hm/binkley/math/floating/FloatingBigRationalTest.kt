@@ -406,8 +406,8 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should not convert extrema to big decimal`() {
             // Note JDK rules for BigDecimal->Double->BigDecimal
-            ONE.toBigDecimal() shouldBe "1.0".toBigDecimal()
-            ONE.toBigDecimal(1) shouldBe "1.0".toBigDecimal()
+            ONE.toBigDecimal() shouldBe "1.0".big
+            ONE.toBigDecimal(1) shouldBe "1.0".big
 
             shouldThrow<ArithmeticException> {
                 POSITIVE_INFINITY.toBigDecimal()

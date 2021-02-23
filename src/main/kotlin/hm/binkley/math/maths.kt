@@ -17,17 +17,7 @@ internal fun BInt.isPAdic(p: Long) = (isOne() || (this % p.big).isZero())
 internal fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 internal fun BInt.isEven() = (this % 2.big).isZero()
 
-internal val Int.big: BInt get() = toLong().big
-
-/** A sad property.  [BigInteger.valueOf] does not check for constants. */
-internal val Long.big: BInt
-    get() = when (this) {
-        // ZERO handled internally by valueOf, unlike the others
-        1L -> BInt.ONE
-        2L -> BInt.TWO
-        10L -> BInt.TEN
-        else -> BInt.valueOf(this)
-    }
+internal val String.big: BDouble get() = BDouble(this)
 
 /** A sad property.  [BigDecimal.valueOf] does not check for constants. */
 internal val Double.big: BDouble
@@ -39,4 +29,14 @@ internal val Double.big: BDouble
         else -> BDouble.valueOf(this)
     }
 
-internal val String.big: BDouble get() = BDouble(this)
+/** A sad property.  [BigInteger.valueOf] does not check for constants. */
+internal val Long.big: BInt
+    get() = when (this) {
+        // ZERO handled internally by valueOf, unlike the others
+        1L -> BInt.ONE
+        2L -> BInt.TWO
+        10L -> BInt.TEN
+        else -> BInt.valueOf(this)
+    }
+
+internal val Int.big: BInt get() = toLong().big
