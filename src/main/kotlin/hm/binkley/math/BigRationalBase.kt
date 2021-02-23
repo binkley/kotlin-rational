@@ -183,6 +183,20 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * with repeating expansions such as "1/3".  For non-repeating decimals,
      * zero-pads any remaining places to reach the limit.
      *
+     * Examples with `1 over 2`:
+     * - `toBigDecimal(0)` -> 0
+     * - `toBigDecimal(0, CEILING)` -> 1
+     * - `toBigDecimal(1)` -> 0.5
+     * - `toBigDecimal(2)` -> 0.50
+     * - `toBigDecimal(2, CEILING)` -> 0.50
+     *
+     * Examples with `1 over 3`:
+     * - `toBigDecimal(0)` -> 0
+     * - `toBigDecimal(0, CEILING)` -> 1
+     * - `toBigDecimal(1)` -> 0.3
+     * - `toBigDecimal(2)` -> 0.33
+     * - `toBigDecimal(2, CEILING)` -> 0.34
+     *
      * The default [roundingMode] is [FLOOR] when truncating digits past
      * [limitPlaces].
      */
