@@ -5,6 +5,7 @@ import hm.binkley.math.algebra.FieldCompanion
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
+import java.math.RoundingMode.FLOOR
 import java.math.RoundingMode.HALF_UP
 import java.util.Objects.hash
 
@@ -182,28 +183,16 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * with repeating expansions such as "1/3".  For non-repeating decimals,
      * zero-pads any remaining places to reach the limit.
      *
-     * There is no rounding; the value is truncated after [limitPlaces]
-     * regardless of remaining expansion digits.
-     *
-     * @todo This function is costly
+     * The default [roundingMode] is [FLOOR] when truncating digits past
+     * [limitPlaces].
      */
-    fun toBigDecimal(limitPlaces: Int): BigDecimal {
-        val digits = ArrayList<BInt>(1 + limitPlaces)
-        var x = numerator.divideAndRemainder(denominator)
-        var i = 0
-        while (i <= limitPlaces) {
-            digits.add(x[0])
-            x = (x[1] * 10.big).divideAndRemainder(denominator)
-            ++i
-        }
-
-        val buf = StringBuilder()
-        buf.append(digits.first().toString())
-        buf.append('.')
-        digits.drop(1).forEach { buf.append(it.toString()) }
-
-        return BigDecimal(buf.toString())
-    }
+    fun toBigDecimal(
+        limitPlaces: Int,
+        roundingMode: RoundingMode = FLOOR,
+    ): BigDecimal = BDouble(numerator, limitPlaces)
+        .multiply(BDouble.TEN.pow(limitPlaces))
+        .divide(BDouble(denominator, limitPlaces), roundingMode)
+        .divide(BDouble.TEN.pow(limitPlaces), roundingMode)
 
     /**
      * Returns this as a [BigInteger] which may involve rounding

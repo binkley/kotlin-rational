@@ -437,6 +437,9 @@ consider it worthwhile without more outside input. As discussed, support for
 `Character` does not make sense (and it is unfortunate Java's
 `java.lang.Number`, which `kotlin.Number` models, includes this conversion.)
 
+Note that `toBigDecimal(limitPlaces, roundingMode)` defaults to `FLOOR`
+rounding when truncating decimal places.
+
 ### Sorting
 
 All values sort in the natural mathematical sense, excepting that with

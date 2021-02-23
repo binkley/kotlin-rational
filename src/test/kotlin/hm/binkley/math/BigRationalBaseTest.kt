@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.math.RoundingMode.CEILING
 
 internal class BigRationalBaseTest {
     @Test
@@ -135,6 +136,18 @@ internal class BigRationalBaseTest {
             valueOf(33.big, 2.big).toBigDecimal(0) shouldBe BDouble("16")
             valueOf(340.big, 11.big).toBigDecimal(2) shouldBe BDouble("30.90")
             valueOf(340.big, 11.big).toBigDecimal(0) shouldBe BDouble("30")
+        }
+
+        @Test
+        fun `should convert to big decimal for repeating decimals with given rounding`() {
+            valueOf(1.big, 3.big).toBigDecimal(2, CEILING) shouldBe BDouble("0.34")
+            valueOf(1.big, 3.big).toBigDecimal(0, CEILING) shouldBe BDouble("1")
+            valueOf(1.big, 2.big).toBigDecimal(2, CEILING) shouldBe BDouble("0.50")
+            valueOf(1.big, 2.big).toBigDecimal(0, CEILING) shouldBe BDouble("1")
+            valueOf(33.big, 2.big).toBigDecimal(2, CEILING) shouldBe BDouble("16.50")
+            valueOf(33.big, 2.big).toBigDecimal(0, CEILING) shouldBe BDouble("17")
+            valueOf(340.big, 11.big).toBigDecimal(2, CEILING) shouldBe BDouble("30.91")
+            valueOf(340.big, 11.big).toBigDecimal(0, CEILING) shouldBe BDouble("31")
         }
 
         @Test
