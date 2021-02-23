@@ -15,8 +15,11 @@ import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.math.RoundingMode
 import java.math.RoundingMode.CEILING
 
 internal class BigRationalBaseTest {
@@ -127,38 +130,6 @@ internal class BigRationalBaseTest {
         }
 
         @Test
-        fun `should convert to big decimal for default rounding`() {
-            valueOf(1.big, 3.big).toBigDecimal(0) shouldBe BDouble("0")
-            valueOf(1.big, 3.big).toBigDecimal(1) shouldBe BDouble("0.3")
-            valueOf(1.big, 3.big).toBigDecimal(2) shouldBe BDouble("0.33")
-            valueOf(1.big, 2.big).toBigDecimal(0) shouldBe BDouble("0")
-            valueOf(1.big, 2.big).toBigDecimal(1) shouldBe BDouble("0.5")
-            valueOf(1.big, 2.big).toBigDecimal(2) shouldBe BDouble("0.50")
-            valueOf(33.big, 2.big).toBigDecimal(0) shouldBe BDouble("16")
-            valueOf(33.big, 2.big).toBigDecimal(1) shouldBe BDouble("16.5")
-            valueOf(33.big, 2.big).toBigDecimal(2) shouldBe BDouble("16.50")
-            valueOf(340.big, 11.big).toBigDecimal(0) shouldBe BDouble("30")
-            valueOf(340.big, 11.big).toBigDecimal(1) shouldBe BDouble("30.9")
-            valueOf(340.big, 11.big).toBigDecimal(2) shouldBe BDouble("30.90")
-        }
-
-        @Test
-        fun `should convert to big decimal for custom rounding`() {
-            valueOf(1.big, 3.big).toBigDecimal(0, CEILING) shouldBe BDouble("1")
-            valueOf(1.big, 3.big).toBigDecimal(1, CEILING) shouldBe BDouble("0.4")
-            valueOf(1.big, 3.big).toBigDecimal(2, CEILING) shouldBe BDouble("0.34")
-            valueOf(1.big, 2.big).toBigDecimal(0, CEILING) shouldBe BDouble("1")
-            valueOf(1.big, 2.big).toBigDecimal(1, CEILING) shouldBe BDouble("0.5")
-            valueOf(1.big, 2.big).toBigDecimal(2, CEILING) shouldBe BDouble("0.50")
-            valueOf(33.big, 2.big).toBigDecimal(0, CEILING) shouldBe BDouble("17")
-            valueOf(33.big, 2.big).toBigDecimal(1, CEILING) shouldBe BDouble("16.5")
-            valueOf(33.big, 2.big).toBigDecimal(2, CEILING) shouldBe BDouble("16.50")
-            valueOf(340.big, 11.big).toBigDecimal(0, CEILING) shouldBe BDouble("31")
-            valueOf(340.big, 11.big).toBigDecimal(1, CEILING) shouldBe BDouble("31.0")
-            valueOf(340.big, 11.big).toBigDecimal(2, CEILING) shouldBe BDouble("30.91")
-        }
-
-        @Test
         fun `should convert to double`() {
             valueOf(11.big, 10.big).toDouble() shouldBe 1.1
         }
@@ -206,6 +177,64 @@ internal class BigRationalBaseTest {
             shouldThrow<UnsupportedOperationException> {
                 ONE.toChar()
             }
+        }
+    }
+
+    @Nested
+    internal class BigDecimalConversions {
+        data class Conversion(
+            val numerator: Int,
+            val denominator: Int,
+            val limitPlaces: Int,
+            val roundingMode: RoundingMode?,
+            val result: String,
+        )
+
+        fun testData() = listOf(
+            // Non-repeating
+            Conversion(1, 2, 0, null, "0"),
+            Conversion(1, 2, 1, null, "0.5"),
+            Conversion(1, 2, 2, null, "0.50"),
+            // Repeating
+            Conversion(1, 3, 0, null, "0"),
+            Conversion(1, 3, 1, null, "0.3"),
+            Conversion(1, 3, 2, null, "0.33"),
+            // 2-digit characteristic
+            Conversion(33, 2, 0, null, "16"),
+            Conversion(33, 2, 1, null, "16.5"),
+            Conversion(33, 2, 2, null, "16.50"),
+            // 2-digit mantissa
+            Conversion(340, 11, 0, null, "30"),
+            Conversion(340, 11, 1, null, "30.9"),
+            Conversion(340, 11, 2, null, "30.90"),
+            // Non-repeating
+            Conversion(1, 2, 0, CEILING, "1"),
+            Conversion(1, 2, 1, CEILING, "0.5"),
+            Conversion(1, 2, 2, CEILING, "0.50"),
+            // Repeating
+            Conversion(1, 3, 0, CEILING, "1"),
+            Conversion(1, 3, 1, CEILING, "0.4"),
+            Conversion(1, 3, 2, CEILING, "0.34"),
+            // 2-digit characteristic
+            Conversion(33, 2, 0, CEILING, "17"),
+            Conversion(33, 2, 1, CEILING, "16.5"),
+            Conversion(33, 2, 2, CEILING, "16.50"),
+            // 2-digit mantissa
+            Conversion(340, 11, 0, CEILING, "31"),
+            Conversion(340, 11, 1, CEILING, "31.0"),
+            Conversion(340, 11, 2, CEILING, "30.91"),
+        )
+
+        @ParameterizedTest
+        @MethodSource("testData")
+        fun `should convert to big decimal`(c: Conversion) {
+            val rat = valueOf(c.numerator.big, c.denominator.big)
+            val actual =
+                if (null == c.roundingMode) rat.toBigDecimal(c.limitPlaces)
+                else rat.toBigDecimal(c.limitPlaces, c.roundingMode)
+            val expected = c.result.big
+
+            actual shouldBe expected
         }
     }
 

@@ -202,6 +202,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * The default [roundingMode] is [FLOOR] when truncating digits past
      * [limitPlaces].
      */
+    @JvmOverloads
     fun toBigDecimal(
         limitPlaces: Int,
         roundingMode: RoundingMode = FLOOR,
