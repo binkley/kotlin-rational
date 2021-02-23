@@ -187,6 +187,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * - `toBigDecimal(0)` -> 0
      * - `toBigDecimal(0, CEILING)` -> 1
      * - `toBigDecimal(1)` -> 0.5
+     * - `toBigDecimal(1, CEILING)` -> 0.5
      * - `toBigDecimal(2)` -> 0.50
      * - `toBigDecimal(2, CEILING)` -> 0.50
      *
@@ -194,6 +195,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * - `toBigDecimal(0)` -> 0
      * - `toBigDecimal(0, CEILING)` -> 1
      * - `toBigDecimal(1)` -> 0.3
+     * - `toBigDecimal(1, CEILING)` -> 0.4
      * - `toBigDecimal(2)` -> 0.33
      * - `toBigDecimal(2, CEILING)` -> 0.34
      *
