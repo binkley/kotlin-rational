@@ -185,7 +185,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * There is no rounding; the value is truncated after [limitPlaces]
      * regardless of remaining expansion digits.
      *
-     * This function is costly.
+     * @todo This function is costly
      */
     fun toBigDecimal(limitPlaces: Int): BigDecimal {
         val digits = ArrayList<BInt>(1 + limitPlaces)

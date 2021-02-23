@@ -74,9 +74,9 @@ internal class BigRationalBaseTest {
 
         @Test
         fun `should maintain positive denominator`() {
-            +valueOf(4.big, (-4L).big) shouldBe -ONE
-            +valueOf((-4).big, 4L.big) shouldBe -ONE
-            +valueOf((-4).big, (-4).big) shouldBe ONE
+            valueOf(4.big, (-4L).big).denominator shouldBe 1.big
+            valueOf((-4).big, 4L.big).denominator shouldBe 1.big
+            valueOf((-4).big, (-4).big).denominator shouldBe 1.big
         }
 
         @Test
@@ -131,6 +131,10 @@ internal class BigRationalBaseTest {
             valueOf(1.big, 3.big).toBigDecimal(0) shouldBe BDouble("0")
             valueOf(1.big, 2.big).toBigDecimal(2) shouldBe BDouble("0.50")
             valueOf(1.big, 2.big).toBigDecimal(0) shouldBe BDouble("0")
+            valueOf(33.big, 2.big).toBigDecimal(2) shouldBe BDouble("16.50")
+            valueOf(33.big, 2.big).toBigDecimal(0) shouldBe BDouble("16")
+            valueOf(33.big, 11.big).toBigDecimal(2) shouldBe BDouble("3.00")
+            valueOf(33.big, 11.big).toBigDecimal(0) shouldBe BDouble("3")
         }
 
         @Test
