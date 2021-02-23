@@ -127,7 +127,7 @@ internal class BigRationalBaseTest {
         }
 
         @Test
-        fun `should convert to big decimal for repeating decimals`() {
+        fun `should convert to big decimal for default rounding`() {
             valueOf(1.big, 3.big).toBigDecimal(0) shouldBe BDouble("0")
             valueOf(1.big, 3.big).toBigDecimal(1) shouldBe BDouble("0.3")
             valueOf(1.big, 3.big).toBigDecimal(2) shouldBe BDouble("0.33")
@@ -143,7 +143,7 @@ internal class BigRationalBaseTest {
         }
 
         @Test
-        fun `should convert to big decimal for repeating decimals with given rounding`() {
+        fun `should convert to big decimal for custom rounding`() {
             valueOf(1.big, 3.big).toBigDecimal(0, CEILING) shouldBe BDouble("1")
             valueOf(1.big, 3.big).toBigDecimal(1, CEILING) shouldBe BDouble("0.4")
             valueOf(1.big, 3.big).toBigDecimal(2, CEILING) shouldBe BDouble("0.34")
