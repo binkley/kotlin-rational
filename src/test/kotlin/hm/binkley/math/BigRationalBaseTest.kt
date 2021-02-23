@@ -133,8 +133,8 @@ internal class BigRationalBaseTest {
             valueOf(1.big, 2.big).toBigDecimal(0) shouldBe BDouble("0")
             valueOf(33.big, 2.big).toBigDecimal(2) shouldBe BDouble("16.50")
             valueOf(33.big, 2.big).toBigDecimal(0) shouldBe BDouble("16")
-            valueOf(33.big, 11.big).toBigDecimal(2) shouldBe BDouble("3.00")
-            valueOf(33.big, 11.big).toBigDecimal(0) shouldBe BDouble("3")
+            valueOf(340.big, 11.big).toBigDecimal(2) shouldBe BDouble("30.90")
+            valueOf(340.big, 11.big).toBigDecimal(0) shouldBe BDouble("30")
         }
 
         @Test
