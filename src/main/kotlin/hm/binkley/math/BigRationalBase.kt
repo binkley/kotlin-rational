@@ -207,9 +207,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
         limitPlaces: Int,
         roundingMode: RoundingMode = FLOOR,
     ): BigDecimal = BDouble(numerator, limitPlaces)
-        .multiply(BDouble.TEN.pow(limitPlaces))
         .divide(BDouble(denominator, limitPlaces), roundingMode)
-        .divide(BDouble.TEN.pow(limitPlaces), roundingMode)
 
     /**
      * Returns this as a [BigInteger] which may involve rounding
