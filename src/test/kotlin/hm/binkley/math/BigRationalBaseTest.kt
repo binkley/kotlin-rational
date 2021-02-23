@@ -142,6 +142,8 @@ internal class BigRationalBaseTest {
         @Test
         fun `should convert to big integer`() {
             ONE.toBigInteger() shouldBe BigInteger.ONE
+            valueOf(1.big, 2.big).toBigInteger() shouldBe BigInteger.ZERO
+            valueOf(3.big, 2.big).toBigInteger() shouldBe BigInteger.ONE
         }
 
         @Test
