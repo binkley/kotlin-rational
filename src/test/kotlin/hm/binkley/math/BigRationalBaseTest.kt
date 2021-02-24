@@ -25,54 +25,54 @@ import java.math.RoundingMode.CEILING
 internal class BigRationalBaseTest {
     @Test
     fun `should be itself`() {
-        valueOf(1.big, 2.big) shouldBe valueOf(1.big, 2.big)
+        (1 over 2) shouldBe (1 over 2)
         0 shouldNotBe ZERO
-        valueOf(2.big, 5.big) shouldNotBe valueOf(2.big, 3.big)
+        (2 over 5) shouldNotBe (2 over 3)
     }
 
     @Test
     fun `should hash separately`() {
-        TEN.hashCode() shouldNotBe valueOf(1.big, 2.big).hashCode()
+        TEN.hashCode() shouldNotBe (1 over 2).hashCode()
     }
 
     @Test
     fun `should pretty print`() {
         ZERO.toString() shouldBe "0"
         TEN.toString() shouldBe "10"
-        valueOf(1.big, 2.big).toString() shouldBe "1⁄2"
-        valueOf((-1).big, 2.big).toString() shouldBe "-1⁄2"
+        (1 over 2).toString() shouldBe "1⁄2"
+        (-1 over 2).toString() shouldBe "-1⁄2"
     }
 
     @Nested
     inner class Factories {
         @Test
         fun `should use constant 0`() {
-            valueOf(0.big, 1.big) shouldBeSameInstanceAs ZERO
-            valueOf(0.big, 2.big) shouldBeSameInstanceAs ZERO
+            (0 over 1) shouldBeSameInstanceAs ZERO
+            (0 over 2) shouldBeSameInstanceAs ZERO
         }
 
         @Test
         fun `should use constant 1`() {
-            valueOf(1.big, 1.big) shouldBeSameInstanceAs ONE
-            valueOf(2.big, 2.big) shouldBeSameInstanceAs ONE
+            (1 over 1) shouldBeSameInstanceAs ONE
+            (2 over 2) shouldBeSameInstanceAs ONE
         }
 
         @Test
         fun `should use constant 2`() {
-            valueOf(2.big, 1.big) shouldBeSameInstanceAs TWO
-            valueOf(4.big, 2.big) shouldBeSameInstanceAs TWO
+            (2 over 1) shouldBeSameInstanceAs TWO
+            (4 over 2) shouldBeSameInstanceAs TWO
         }
 
         @Test
         fun `should use constant 10`() {
-            valueOf(10.big, 1.big) shouldBeSameInstanceAs TEN
-            valueOf(20.big, 2.big) shouldBeSameInstanceAs TEN
+            (10 over 1) shouldBeSameInstanceAs TEN
+            (20 over 2) shouldBeSameInstanceAs TEN
         }
 
         @Test
         fun `should simplify fractions`() {
-            valueOf(4.big, 2.big) shouldBe valueOf(2.big, 1.big)
-            valueOf(4.big, 8L.big) shouldBe valueOf(1.big, 2.big)
+            (4 over 2) shouldBe (2 over 1)
+            valueOf(4.big, 8L.big) shouldBe (1 over 2)
             valueOf(4L.big, 8.big).denominator shouldBe 2.big
         }
 
@@ -125,51 +125,51 @@ internal class BigRationalBaseTest {
         @Test
         fun `should fail to convert to big decimal for repeating decimals`() {
             shouldThrow<ArithmeticException> {
-                valueOf(1.big, 3.big).toBigDecimal()
+                (1 over 3).toBigDecimal()
             }
         }
 
         @Test
         fun `should convert to double`() {
-            valueOf(11.big, 10.big).toDouble() shouldBe 1.1
+            (11 over 10).toDouble() shouldBe 1.1
         }
 
         @Test
         fun `should convert to float`() {
-            valueOf(11.big, 10.big).toFloat() shouldBe 1.1f
+            (11 over 10).toFloat() shouldBe 1.1f
         }
 
         @Test
         fun `should convert to big integer`() {
             ONE.toBigInteger() shouldBe BigInteger.ONE
-            valueOf(1.big, 2.big).toBigInteger() shouldBe BigInteger.ZERO
-            valueOf(3.big, 2.big).toBigInteger() shouldBe BigInteger.ONE
+            (1 over 2).toBigInteger() shouldBe BigInteger.ZERO
+            (3 over 2).toBigInteger() shouldBe BigInteger.ONE
         }
 
         @Test
         fun `should convert to long`() {
-            valueOf(11.big, 10.big).toLong() shouldBe 1L
+            (11 over 10).toLong() shouldBe 1L
             (valueOf(Long.MAX_VALUE) + 1).toLong() shouldBe
                 Long.MIN_VALUE
         }
 
         @Test
         fun `should convert to int`() {
-            valueOf(11.big, 10.big).toInt() shouldBe 1
+            (11 over 10).toInt() shouldBe 1
             (valueOf(Int.MAX_VALUE) + 1).toInt() shouldBe
                 Int.MIN_VALUE
         }
 
         @Test
         fun `should convert to short`() {
-            valueOf(11.big, 10.big).toShort() shouldBe 1.toShort()
+            (11 over 10).toShort() shouldBe 1.toShort()
             (valueOf(Short.MAX_VALUE.toInt()) + 1).toShort() shouldBe
                 Short.MIN_VALUE
         }
 
         @Test
         fun `should convert to byte`() {
-            valueOf(11.big, 10.big).toByte() shouldBe 1.toByte()
+            (11 over 10).toByte() shouldBe 1.toByte()
             (valueOf(Byte.MAX_VALUE.toInt()) + 1).toByte() shouldBe
                 Byte.MIN_VALUE
         }
@@ -230,7 +230,7 @@ internal class BigRationalBaseTest {
         @ParameterizedTest
         @MethodSource("testData")
         fun `should convert to big decimal`(c: Conversion) {
-            val rat = valueOf(c.numerator.big, c.denominator.big)
+            val rat = c.numerator over c.denominator
             val actual =
                 if (null == c.roundingMode) rat.toBigDecimal(c.limitPlaces)
                 else rat.toBigDecimal(c.limitPlaces, c.roundingMode)
@@ -245,21 +245,20 @@ internal class BigRationalBaseTest {
         @Test
         fun `should absolve`() {
             ZERO.absoluteValue shouldBe ZERO
-            valueOf(3.big, 5.big).absoluteValue shouldBe valueOf(3.big, 5.big)
-            valueOf((-3).big, 5.big).absoluteValue shouldBe
-                valueOf(3.big, 5.big)
+            (3 over 5).absoluteValue shouldBe (3 over 5)
+            (-3 over 5).absoluteValue shouldBe (3 over 5)
         }
 
         @Test
         fun `should reciprocate`() {
-            valueOf(3.big, 2.big).reciprocal shouldBe valueOf(2.big, 3.big)
+            (3 over 2).reciprocal shouldBe (2 over 3)
         }
 
         @Test
         fun `should sign`() {
-            valueOf(3.big, 5.big).sign shouldBe ONE
-            valueOf(0.big, 5.big).sign shouldBe ZERO
-            valueOf((-3).big, 5.big).sign shouldBe -ONE
+            (3 over 5).sign shouldBe ONE
+            (0 over 5).sign shouldBe ZERO
+            (-3 over 5).sign shouldBe -ONE
         }
     }
 
@@ -280,31 +279,31 @@ internal class BigRationalBaseTest {
         @Test
         fun `should be integral`() {
             ZERO.isInteger().shouldBeTrue()
-            valueOf(2.big, 1.big).isInteger().shouldBeTrue()
-            valueOf(1.big, 2.big).isInteger().shouldBeFalse()
+            (2 over 1).isInteger().shouldBeTrue()
+            (1 over 2).isInteger().shouldBeFalse()
         }
 
         @Test
         fun `should be dyadic`() {
             ZERO.isDyadic().shouldBeTrue()
-            valueOf(1.big, 2.big).isDyadic().shouldBeTrue()
-            valueOf(2.big, 1.big).isDyadic().shouldBeTrue()
-            valueOf(2.big, 3.big).isDyadic().shouldBeFalse()
+            (1 over 2).isDyadic().shouldBeTrue()
+            (2 over 1).isDyadic().shouldBeTrue()
+            (2 over 3).isDyadic().shouldBeFalse()
         }
 
         @Test
         fun `should be p-adic`() {
             ZERO.isPAdic(3).shouldBeTrue()
-            valueOf(1.big, 3.big).isPAdic(3).shouldBeTrue()
-            valueOf(2.big, 1.big).isPAdic(3).shouldBeTrue()
-            valueOf(2.big, 5.big).isPAdic(3).shouldBeFalse()
+            (1 over 3).isPAdic(3).shouldBeTrue()
+            (2 over 1).isPAdic(3).shouldBeTrue()
+            (2 over 5).isPAdic(3).shouldBeFalse()
         }
 
         @Test
         fun `should be evenly denominated`() {
             ZERO.isDenominatorEven().shouldBeFalse()
-            valueOf(1.big, 2.big).isDenominatorEven().shouldBeTrue()
-            valueOf(1.big, 3.big).isDenominatorEven().shouldBeFalse()
+            (1 over 2).isDenominatorEven().shouldBeTrue()
+            (1 over 3).isDenominatorEven().shouldBeFalse()
         }
     }
 }

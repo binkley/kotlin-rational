@@ -1,5 +1,7 @@
 package hm.binkley.math
 
+import hm.binkley.math.TestBigRational.Companion.valueOf
+
 internal class TestBigRational(
     numerator: BInt,
     denominator: BInt,
@@ -23,3 +25,5 @@ internal class TestBigRational(
         }
     }
 }
+
+internal infix fun Int.over(denominator: Int) = valueOf(big, denominator.big)
