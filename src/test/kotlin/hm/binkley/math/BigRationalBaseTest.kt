@@ -6,6 +6,7 @@ import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TEN
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
+import hm.binkley.math.TestBigRational.Companion.cantorSpiral
 import hm.binkley.math.TestBigRational.Companion.valueOf
 import hm.binkley.math.floating.toBigRational
 import io.kotest.assertions.throwables.shouldThrow
@@ -324,5 +325,10 @@ internal class BigRationalBaseTest {
     fun `should find absolute difference`() {
         ONE.diff(ZERO) shouldBe ONE
         ZERO.diff(ONE) shouldBe ONE
+    }
+
+    @Test
+    fun `should have Cantor spiral`() {
+        cantorSpiral() shouldNotBe null
     }
 }

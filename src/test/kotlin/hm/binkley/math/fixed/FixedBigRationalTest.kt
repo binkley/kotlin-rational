@@ -6,7 +6,6 @@ import hm.binkley.math.compareTo
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
-import hm.binkley.math.fixed.FixedBigRational.Companion.cantorSpiral
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.rangeTo
 import io.kotest.assertions.throwables.shouldThrow
@@ -260,10 +259,5 @@ internal class FixedBigRationalTest {
                 ZERO.unaryDiv()
             }
         }
-    }
-
-    @Test
-    fun `should have Cantor spiral`() {
-        cantorSpiral() shouldNotBe null
     }
 }

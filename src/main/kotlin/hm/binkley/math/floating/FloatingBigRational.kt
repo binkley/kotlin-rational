@@ -4,7 +4,6 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
-import hm.binkley.math.CantorSpiral
 import hm.binkley.math.big
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
@@ -293,10 +292,6 @@ public class FloatingBigRational private constructor(
             if (!first.isFinite() || !last.isFinite())
                 error("Non-finite bounds.")
         }
-
-        /** Generates the Cantor spiral for walking the rationals. */
-        public fun cantorSpiral(): Sequence<FloatingBigRational> =
-            CantorSpiral(FloatingBigRational)
     }
 }
 

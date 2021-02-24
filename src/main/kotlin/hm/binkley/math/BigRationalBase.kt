@@ -137,6 +137,9 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
 
         return ctor(n, d)
     }
+
+    /** Generates the Cantor spiral for walking the rationals. */
+    public fun cantorSpiral(): Sequence<T> = CantorSpiral(this)
 }
 
 public abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(

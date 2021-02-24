@@ -16,7 +16,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
-import hm.binkley.math.floating.FloatingBigRational.Companion.cantorSpiral
 import hm.binkley.math.floor
 import hm.binkley.math.fraction
 import hm.binkley.math.rangeTo
@@ -754,10 +753,5 @@ internal class FloatingBigRationalTest {
             cfNegInf.backAgain().isNaN().shouldBeTrue()
             cfNegInf.integerPart.isNaN().shouldBeTrue()
         }
-    }
-
-    @Test
-    fun `should have Cantor spiral`() {
-        cantorSpiral() shouldNotBe null
     }
 }

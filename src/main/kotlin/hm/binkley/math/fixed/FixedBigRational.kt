@@ -4,7 +4,6 @@ import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
-import hm.binkley.math.CantorSpiral
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
@@ -71,10 +70,6 @@ public class FixedBigRational private constructor(
             )
             else -> super.valueOf(floatingPoint)
         }
-
-        /** Generates the Cantor spiral for walking the rationals. */
-        public fun cantorSpiral(): Sequence<FixedBigRational> =
-            CantorSpiral(FixedBigRational)
     }
 }
 
