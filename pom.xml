@@ -156,7 +156,7 @@
                 <version>${kotlin.version}</version>
                 <configuration>
                     <args>
-                        <arg>-Xinline-classes</arg>
+                        <arg>-Xexplicit-api=strict</arg>
                         <arg>-Werror</arg>
                     </args>
                 </configuration>

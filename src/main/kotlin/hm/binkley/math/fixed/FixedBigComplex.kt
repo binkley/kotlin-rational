@@ -13,7 +13,7 @@ import hm.binkley.math.sqrtApproximated
 import java.math.BigInteger
 import kotlin.math.absoluteValue
 
-data class FixedBigComplex(
+public data class FixedBigComplex(
     val real: BRat,
     val imag: BImag,
 ) : Field<FixedBigComplex> {
@@ -37,7 +37,7 @@ data class FixedBigComplex(
     override fun toString(): String =
         if (BRat.ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
 
-    companion object : FieldCompanion<FixedBigComplex> {
+    public companion object : FieldCompanion<FixedBigComplex> {
         override val ZERO: FixedBigComplex =
             FixedBigComplex(BRat.ZERO, BRat.ZERO.i)
         override val ONE: FixedBigComplex =
@@ -47,191 +47,196 @@ data class FixedBigComplex(
 
 // Properties
 
-val FixedBigComplex.conjugate: FixedBigComplex get() = real - imag
-val FixedBigComplex.det: FixedBigRational get() = real * real - imag * imag
-val FixedBigComplex.absoluteValue: FixedBigRational get() = det.sqrt()
-val FixedBigComplex.reciprocal: FixedBigComplex get() = unaryDiv()
+public val FixedBigComplex.conjugate: FixedBigComplex get() = real - imag
+public val FixedBigComplex.det: FixedBigRational get() = real * real - imag * imag
+public val FixedBigComplex.absoluteValue: FixedBigRational get() = det.sqrt()
+public val FixedBigComplex.reciprocal: FixedBigComplex get() = unaryDiv()
 
 // Constructors -- including improper order, eg, 1.i + 1.big
 
-operator fun BImag.plus(real: BRat): FixedBigComplex = real + this
-operator fun BRat.plus(imag: BImag): FixedBigComplex =
+public operator fun BImag.plus(real: BRat): FixedBigComplex = real + this
+public operator fun BRat.plus(imag: BImag): FixedBigComplex =
     FixedBigComplex(this, imag)
 
-operator fun BImag.plus(real: BDouble): FixedBigComplex = real + this
-operator fun BDouble.plus(imag: BImag): FixedBigComplex =
+public operator fun BImag.plus(real: BDouble): FixedBigComplex = real + this
+public operator fun BDouble.plus(imag: BImag): FixedBigComplex =
     toBigRational() + imag
 
-operator fun BImag.plus(real: BInt): FixedBigComplex = real + this
-operator fun BInt.plus(imag: BImag): FixedBigComplex =
+public operator fun BImag.plus(real: BInt): FixedBigComplex = real + this
+public operator fun BInt.plus(imag: BImag): FixedBigComplex =
     toBigRational() + imag
 
-operator fun BImag.plus(real: Long): FixedBigComplex = real + this
-operator fun Long.plus(imag: BImag): FixedBigComplex =
+public operator fun BImag.plus(real: Long): FixedBigComplex = real + this
+public operator fun Long.plus(imag: BImag): FixedBigComplex =
     toBigRational() + imag
 
-operator fun BImag.plus(real: Int): FixedBigComplex = real + this
-operator fun Int.plus(imag: BImag): FixedBigComplex =
+public operator fun BImag.plus(real: Int): FixedBigComplex = real + this
+public operator fun Int.plus(imag: BImag): FixedBigComplex =
     toBigRational() + imag
 
-operator fun BImag.minus(real: BRat): FixedBigComplex = -real + this
-operator fun BRat.minus(imag: BImag): FixedBigComplex = this + -imag
-operator fun BImag.minus(real: BInt): FixedBigComplex = -real + this
-operator fun BInt.minus(imag: BImag): FixedBigComplex = this + -imag
-operator fun BImag.minus(real: Long): FixedBigComplex = -real + this
-operator fun Long.minus(imag: BImag): FixedBigComplex = this + -imag
-operator fun BImag.minus(real: Int): FixedBigComplex = -real + this
-operator fun Int.minus(imag: BImag): FixedBigComplex = this + -imag
+public operator fun BImag.minus(real: BRat): FixedBigComplex = -real + this
+public operator fun BRat.minus(imag: BImag): FixedBigComplex = this + -imag
+public operator fun BImag.minus(real: BInt): FixedBigComplex = -real + this
+public operator fun BInt.minus(imag: BImag): FixedBigComplex = this + -imag
+public operator fun BImag.minus(real: Long): FixedBigComplex = -real + this
+public operator fun Long.minus(imag: BImag): FixedBigComplex = this + -imag
+public operator fun BImag.minus(real: Int): FixedBigComplex = -real + this
+public operator fun Int.minus(imag: BImag): FixedBigComplex = this + -imag
 
 // Addition operator
 
-operator fun FixedBigComplex.plus(addend: BImag): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: BImag): FixedBigComplex =
     this + (BRat.ZERO + addend)
 
-operator fun BImag.plus(addend: FixedBigComplex): FixedBigComplex =
+public operator fun BImag.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
-operator fun FixedBigComplex.plus(addend: BRat): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: BRat): FixedBigComplex =
     this + (addend + BRat.ZERO.i)
 
-operator fun BRat.plus(addend: FixedBigComplex): FixedBigComplex = addend + this
+public operator fun BRat.plus(addend: FixedBigComplex): FixedBigComplex =
+    addend + this
 
-operator fun FixedBigComplex.plus(addend: BInt): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: BInt): FixedBigComplex =
     this + (addend + BRat.ZERO.i)
 
-operator fun BInt.plus(addend: FixedBigComplex): FixedBigComplex = addend + this
+public operator fun BInt.plus(addend: FixedBigComplex): FixedBigComplex =
+    addend + this
 
-operator fun FixedBigComplex.plus(addend: Long): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: Long): FixedBigComplex =
     this + (addend + BRat.ZERO.i)
 
-operator fun Long.plus(addend: FixedBigComplex): FixedBigComplex = addend + this
+public operator fun Long.plus(addend: FixedBigComplex): FixedBigComplex =
+    addend + this
 
-operator fun FixedBigComplex.plus(addend: Int): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: Int): FixedBigComplex =
     this + (addend + BRat.ZERO.i)
 
-operator fun Int.plus(addend: FixedBigComplex): FixedBigComplex = addend + this
+public operator fun Int.plus(addend: FixedBigComplex): FixedBigComplex =
+    addend + this
 
 // Subtraction operator
 
-operator fun FixedBigComplex.minus(subtrahend: BImag): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: BImag): FixedBigComplex =
     this + -subtrahend
 
-operator fun BImag.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+public operator fun BImag.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-operator fun FixedBigComplex.minus(subtrahend: BRat): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: BRat): FixedBigComplex =
     this + -subtrahend
 
-operator fun BRat.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+public operator fun BRat.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-operator fun FixedBigComplex.minus(subtrahend: BInt): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: BInt): FixedBigComplex =
     this + -subtrahend
 
-operator fun BInt.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+public operator fun BInt.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-operator fun FixedBigComplex.minus(subtrahend: Long): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: Long): FixedBigComplex =
     this + -subtrahend
 
-operator fun Long.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+public operator fun Long.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-operator fun FixedBigComplex.minus(subtrahend: Int): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: Int): FixedBigComplex =
     this + -subtrahend
 
-operator fun Int.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+public operator fun Int.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
 // Multiplication operator
 
-operator fun FixedBigComplex.times(multiplier: BImag): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: BImag): FixedBigComplex =
     this * (FixedBigComplex.ZERO + multiplier)
 
-operator fun BImag.times(multiplier: FixedBigComplex): FixedBigComplex =
+public operator fun BImag.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-operator fun FixedBigComplex.times(multiplier: BRat): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: BRat): FixedBigComplex =
     this * (multiplier + BRat.ZERO.i)
 
-operator fun BRat.times(multiplier: FixedBigComplex): FixedBigComplex =
+public operator fun BRat.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-operator fun FixedBigComplex.times(multiplier: BInt): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: BInt): FixedBigComplex =
     this * (multiplier + BRat.ZERO.i)
 
-operator fun BInt.times(multiplier: FixedBigComplex): FixedBigComplex =
+public operator fun BInt.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-operator fun FixedBigComplex.times(multiplier: Long): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: Long): FixedBigComplex =
     this * (multiplier + BRat.ZERO.i)
 
-operator fun Long.times(multiplier: FixedBigComplex): FixedBigComplex =
+public operator fun Long.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-operator fun FixedBigComplex.times(multiplier: Int): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: Int): FixedBigComplex =
     this * (multiplier + BRat.ZERO.i)
 
-operator fun Int.times(multiplier: FixedBigComplex): FixedBigComplex =
+public operator fun Int.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
 // Division operator
 
-operator fun FixedBigComplex.div(divisor: BImag): FixedBigComplex =
+public operator fun FixedBigComplex.div(divisor: BImag): FixedBigComplex =
     this / (FixedBigComplex.ZERO + divisor)
 
-operator fun BImag.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun BImag.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
-operator fun FixedBigComplex.div(divisor: BRat): FixedBigComplex =
+public operator fun FixedBigComplex.div(divisor: BRat): FixedBigComplex =
     real / divisor + (imag.value / divisor).i
 
-operator fun BRat.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun BRat.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
-operator fun FixedBigComplex.div(divisor: BInt): FixedBigComplex =
+public operator fun FixedBigComplex.div(divisor: BInt): FixedBigComplex =
     this / divisor.toBigRational()
 
-operator fun BInt.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun BInt.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
-operator fun FixedBigComplex.div(divisor: Long): FixedBigComplex =
+public operator fun FixedBigComplex.div(divisor: Long): FixedBigComplex =
     this / divisor.toBigRational()
 
-operator fun Long.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun Long.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
-operator fun FixedBigComplex.div(divisor: Int): FixedBigComplex =
+public operator fun FixedBigComplex.div(divisor: Int): FixedBigComplex =
     this / divisor.toBigRational()
 
-operator fun Int.div(divisor: FixedBigComplex): FixedBigComplex = divisor / this
+public operator fun Int.div(divisor: FixedBigComplex): FixedBigComplex =
+    divisor / this
 
 // Functions
 
-fun FixedBigComplex.toImaginary(): BImag =
+public fun FixedBigComplex.toImaginary(): BImag =
     if (real.isZero()) imag
     else throw ArithmeticException("Not imaginary: $this")
 
-fun FixedBigComplex.toBigRational(): BRat =
+public fun FixedBigComplex.toBigRational(): BRat =
     if (imag.isZero()) real
     else throw ArithmeticException("Not real: $this")
 
-fun FixedBigComplex.toBigInteger(): BigInteger =
+public fun FixedBigComplex.toBigInteger(): BigInteger =
     if (imag.isZero()) real.toBigInteger()
     else throw ArithmeticException("Not real: $this")
 
-fun FixedBigComplex.toLong(): Long =
+public fun FixedBigComplex.toLong(): Long =
     if (imag.isZero()) real.toLong()
     else throw ArithmeticException("Not real: $this")
 
-fun FixedBigComplex.toInt(): Int =
+public fun FixedBigComplex.toInt(): Int =
     if (imag.isZero()) real.toInt()
     else throw ArithmeticException("Not real: $this")
 
-fun FixedBigComplex.modulusApproximated(): FixedBigRational =
+public fun FixedBigComplex.modulusApproximated(): FixedBigRational =
     det.sqrtApproximated()
 
-fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
+public fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
     val gamma = ((real + modulusApproximated()) / TWO).sqrtApproximated()
     val delta = imag.value.sign *
         ((-real + modulusApproximated()) / TWO).sqrtApproximated()
@@ -239,10 +244,10 @@ fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
 }
 
 @Suppress("DANGEROUS_CHARACTERS", "FunctionName")
-infix fun FixedBigComplex.`**`(n: Int): FixedBigComplex = pow(n)
+public infix fun FixedBigComplex.`**`(n: Int): FixedBigComplex = pow(n)
 
 /** @todo Improve on brute force */
-fun FixedBigComplex.pow(n: Int): FixedBigComplex {
+public fun FixedBigComplex.pow(n: Int): FixedBigComplex {
     when (n) {
         0 -> return ONE // TODO: What is 0^0?
         1 -> return this

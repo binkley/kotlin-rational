@@ -17,7 +17,7 @@ import hm.binkley.math.floating.toBigRational
 import lombok.Generated
 
 @Generated // Lie to JaCoCo
-fun main() {
+public fun main() {
     println("==FLOATING BIG RATIONALS")
 
     println("ZERO is $ZERO")

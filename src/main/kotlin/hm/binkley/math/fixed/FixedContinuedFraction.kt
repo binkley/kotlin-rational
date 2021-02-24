@@ -20,7 +20,7 @@ import java.math.BigInteger
  * This class does not support infinite continued fractions; all represented
  * values are convertible to [BRat].
  */
-class FixedContinuedFraction private constructor(
+public class FixedContinuedFraction private constructor(
     terms: List<BRat>,
 ) : ContinuedFractionBase<BRat, FixedContinuedFraction>(
     terms, FixedContinuedFraction
@@ -30,7 +30,7 @@ class FixedContinuedFraction private constructor(
 
     override fun toBigRational(): BRat = backAgain()
 
-    companion object : ContinuedFractionCompanionBase<BRat,
+    public companion object : ContinuedFractionCompanionBase<BRat,
         FixedContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             BRat.valueOf(integerPart)

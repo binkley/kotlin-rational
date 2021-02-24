@@ -6,39 +6,39 @@ import java.util.Collections.nCopies
  * @todo Consider providing semiconvergents, eg,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Semiconvergents
  */
-abstract class ContinuedFractionBase<
+public abstract class ContinuedFractionBase<
     T : BigRationalBase<T>,
     C : ContinuedFractionBase<T, C>,
     > protected constructor(
     private val terms: List<T>,
-    open val companion: ContinuedFractionCompanionBase<T, C>,
+    public open val companion: ContinuedFractionCompanionBase<T, C>,
 ) : Number(),
     List<T> by terms,
     Comparable<ContinuedFractionBase<T, C>> {
     protected abstract fun construct(terms: List<T>): C
 
     /** Returns the big rational for the continued fraction. */
-    abstract fun toBigRational(): T
+    public abstract fun toBigRational(): T
 
     /** The integer part of this continued fraction. */
-    val integerPart: T get() = first()
+    public val integerPart: T get() = first()
 
     /** The fractional parts of this continued fraction. */
-    val fractionalParts: List<T> get() = subList(1, lastIndex + 1)
+    public val fractionalParts: List<T> get() = subList(1, lastIndex + 1)
 
     /**
      * The multiplicative inverse of this continued fraction.
      *
      * @see unaryDiv
      */
-    val reciprocal: C get() = unaryDiv()
+    public val reciprocal: C get() = unaryDiv()
 
     /**
      * Adds this to [other].
      *
      * @see BigRationalBase.plus
      */
-    operator fun plus(other: C): C =
+    public operator fun plus(other: C): C =
         companion.valueOf(toBigRational() + other.toBigRational())
 
     /**
@@ -46,7 +46,7 @@ abstract class ContinuedFractionBase<
      *
      * @see BigRationalBase.plus
      */
-    operator fun minus(other: C): C =
+    public operator fun minus(other: C): C =
         companion.valueOf(toBigRational() - other.toBigRational())
 
     /**
@@ -54,7 +54,7 @@ abstract class ContinuedFractionBase<
      *
      * @see BigRationalBase.plus
      */
-    operator fun times(other: C): C =
+    public operator fun times(other: C): C =
         companion.valueOf(toBigRational() * other.toBigRational())
 
     /**
@@ -62,7 +62,7 @@ abstract class ContinuedFractionBase<
      *
      * @see BigRationalBase.plus
      */
-    operator fun div(other: C): C =
+    public operator fun div(other: C): C =
         companion.valueOf(toBigRational() / other.toBigRational())
 
     /**
@@ -70,7 +70,7 @@ abstract class ContinuedFractionBase<
      *
      * @see reciprocal
      */
-    fun unaryDiv(): C = if (integerPart.isZero())
+    public fun unaryDiv(): C = if (integerPart.isZero())
         construct(fractionalParts)
     else
         construct(listOf(integerPart.companion.ZERO) + terms)
@@ -113,7 +113,7 @@ abstract class ContinuedFractionBase<
      * example, `terms(0)` returns only the _integral part_ of this continued
      * fraction.
      */
-    fun terms(fractionalTerms: Int): List<T> = subList(0, fractionalTerms + 1)
+    public fun terms(fractionalTerms: Int): List<T> = subList(0, fractionalTerms + 1)
 }
 
 /**
@@ -121,7 +121,7 @@ abstract class ContinuedFractionBase<
  *
  * @todo How is caller to know the # of convergents available?!
  */
-fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.convergent(
+public fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.convergent(
     n: Int,
 ): T {
     if (0 > n) error("Convergents start from the 0th")
@@ -153,7 +153,7 @@ private tailrec fun <T : BigRationalBase<T>> converge(
     else converge(terms, n, i + 1, ci, c_1)
 }
 
-abstract class ContinuedFractionCompanionBase<
+public abstract class ContinuedFractionCompanionBase<
     T : BigRationalBase<T>,
     C : ContinuedFractionBase<T, C>,
     >(private val ONE: T) {
@@ -164,14 +164,14 @@ abstract class ContinuedFractionCompanionBase<
      * Decomposes the given big rational into a canonical continued
      * fraction.
      */
-    open fun valueOf(r: T): C {
+    public open fun valueOf(r: T): C {
         val terms = mutableListOf<T>()
         fractionateInPlace(r, terms)
         return construct(terms)
     }
 
     /** Creates a continued fraction from the given decomposed elements. */
-    fun valueOf(
+    public fun valueOf(
         integerPart: BInt,
         vararg fractionalParts: BInt,
     ): C {
@@ -186,7 +186,7 @@ abstract class ContinuedFractionCompanionBase<
      * - Convergents are ratios of Fibonacci numbers
      * - The approximation is rather slow
      */
-    fun phi(n: Int): C =
+    public fun phi(n: Int): C =
         if (0 < n) construct(nCopies(n, ONE))
         else error("Not enough digits to approximate φ: $n")
 }
@@ -204,7 +204,7 @@ internal fun <
  * Checks if this continued fraction is _simple_ (has only 1 in all
  * numerators).
  */
-fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple(): Boolean =
+public fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple(): Boolean =
     fractionalParts.all { it.numerator.isOne() }
 
 internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(

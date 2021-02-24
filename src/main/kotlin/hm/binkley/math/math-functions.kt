@@ -11,7 +11,7 @@ import java.math.RoundingMode.HALF_EVEN
  *
  * @throws ArithmeticException if there is no exact square root
  */
-fun <T : BigRationalBase<T>> T.sqrt(): T {
+public fun <T : BigRationalBase<T>> T.sqrt(): T {
     val p = numerator.sqrt()
     if (numerator != p * p)
         throw ArithmeticException("No rational square root: $this")
@@ -26,7 +26,7 @@ fun <T : BigRationalBase<T>> T.sqrt(): T {
  * on IEEE 754_ floating point values.  The caller should take
  * [BigRationalBase.sign] into consideration.
  */
-fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
+public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
 } catch (_: ArithmeticException) {
     companion.valueOf(
@@ -38,13 +38,13 @@ fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
  * Rounds to the nearest whole number towards positive infinity corresponding
  * to [Math.ceil] and rounding mode [CEILING].
  */
-fun <T : BigRationalBase<T>> T.ceil(): T = round(CEILING)
+public fun <T : BigRationalBase<T>> T.ceil(): T = round(CEILING)
 
 /**
  * Rounds to the nearest whole number towards negative infinity corresponding
  * to [Math.floor] and rounding mode [FLOOR].
  */
-fun <T : BigRationalBase<T>> T.floor(): T = round(FLOOR)
+public fun <T : BigRationalBase<T>> T.floor(): T = round(FLOOR)
 
 /**
  * Truncates to the nearest whole number towards 0 corresponding to
@@ -54,7 +54,7 @@ fun <T : BigRationalBase<T>> T.floor(): T = round(FLOOR)
  * except for floating big rationals of `NaN` or positive or negative
  * infinities.
  */
-fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
+public fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
     val truncation = round(DOWN)
     val fraction = this - truncation
 
@@ -67,10 +67,11 @@ fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
  *
  * @see truncateAndFraction
  */
-fun <T : BigRationalBase<T>> T.truncate(): T = truncateAndFraction().first
+public fun <T : BigRationalBase<T>> T.truncate(): T =
+    truncateAndFraction().first
 
 /** Rounds to the nearest _even_ whole number corresponding to [HALF_EVEN]. */
-fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
+public fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
 
 /**
  * Provides the signed fractional remainder after [truncation][truncate].
@@ -80,13 +81,14 @@ fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
  *
  * @see truncateAndFraction
  */
-fun <T : BigRationalBase<T>> T.fraction(): T = truncateAndFraction().second
+public fun <T : BigRationalBase<T>> T.fraction(): T =
+    truncateAndFraction().second
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and
  * [that].  Returns 0 when `this` and [that] are both 0.
  */
-fun <T : BigRationalBase<T>> T.gcd(that: T): T =
+public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
     if (isZero()) that else companion.valueOf(
         numerator.gcd(that.numerator),
         denominator.lcm(that.denominator)
@@ -96,7 +98,7 @@ fun <T : BigRationalBase<T>> T.gcd(that: T): T =
  * Returns the lowest common multiple of the absolute values of `this` and
  * [that].  Returns 0 when `this` and [that] are both 0.
  */
-fun <T : BigRationalBase<T>> T.lcm(that: T): T =
+public fun <T : BigRationalBase<T>> T.lcm(that: T): T =
     if (isZero()) companion.ZERO else companion.valueOf(
         numerator.lcm(that.numerator),
         denominator.gcd(that.denominator)

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test
 // TODO: shouldNotBe is using === comparison before calling equals
 private const val shouldNotBeWorks = false
 
-class FloatingProgressionTests {
+internal class FloatingProgressionTests {
     @Suppress("ReplaceCallWithBinaryOperator")
     @Test
     fun `should be itself`() {

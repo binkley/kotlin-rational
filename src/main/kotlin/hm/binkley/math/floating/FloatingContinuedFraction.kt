@@ -22,7 +22,7 @@ import java.math.BigInteger
  * This class supports infinite continued fractions in a very limited sense;
  * none are calculated to their limit; all convert to [NaN].
  */
-class FloatingContinuedFraction private constructor(
+public class FloatingContinuedFraction private constructor(
     terms: List<FloatingBigRational>,
 ) : ContinuedFractionBase<FloatingBigRational, FloatingContinuedFraction>(
     terms, FloatingContinuedFraction
@@ -36,7 +36,7 @@ class FloatingContinuedFraction private constructor(
         if (!isFinite()) NaN
         else backAgain()
 
-    companion object :
+    public companion object :
         ContinuedFractionCompanionBase<FloatingBigRational,
             FloatingContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
@@ -63,4 +63,5 @@ class FloatingContinuedFraction private constructor(
  * BigRationals produce a finite continued fraction; all non-finite
  * BigRationals produce a non-finite continued fraction.
  */
-fun FloatingContinuedFraction.isFinite(): Boolean = integerPart.isFinite()
+public fun FloatingContinuedFraction.isFinite(): Boolean =
+    integerPart.isFinite()

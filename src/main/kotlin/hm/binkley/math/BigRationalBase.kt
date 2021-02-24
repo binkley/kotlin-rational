@@ -24,7 +24,7 @@ import java.util.Objects.hash
  *       `BigRationalBase` only exists to provide implementation inheritance
  */
 @Suppress("PropertyName")
-abstract class BigRationalCompanion<T : BigRationalBase<T>>(
+public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     /**
      * A constant holding value 0. It is equivalent `0 over 1`.
      *
@@ -45,16 +45,16 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * Usable directly from Java via `Companion`.
      */
     @JvmField
-    val TWO: T,
+    public val TWO: T,
     /**
      * A constant holding value 10. It is equivalent `10 over 1`.
      *
      * Usable directly from Java via `Companion`.
      */
     @JvmField
-    val TEN: T,
+    public val TEN: T,
 ) : FieldCompanion<T> {
-    abstract fun valueOf(numerator: BInt, denominator: BInt): T
+    public abstract fun valueOf(numerator: BInt, denominator: BInt): T
 
     /**
      * Since the conversion to a rational is _exact_, converting the resulting
@@ -64,7 +64,7 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * just as converting BigDecimal -> Double -> BigDecimal does not preserve
      * them.
      */
-    open fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
+    public open fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
         0.0.big -> ZERO
         1.0.big -> ONE
         10.0.big -> TEN
@@ -83,7 +83,7 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * Since the conversion to a rational is _exact_, converting the resulting
      * rational back to a [Double] produces the original value.
      */
-    open fun valueOf(floatingPoint: Double): T =
+    public open fun valueOf(floatingPoint: Double): T =
         valueOf(floatingPoint.toBigDecimal())
 
     /**
@@ -92,18 +92,20 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      *
      * @todo Why does `Float` need try/catch, but `Double` does not?
      */
-    open fun valueOf(floatingPoint: Float): T = try {
+    public open fun valueOf(floatingPoint: Float): T = try {
         valueOf(floatingPoint.toBigDecimal())
     } catch (e: NumberFormatException) {
         throw ArithmeticException("$floatingPoint: ${e.message}")
     }
 
-    fun valueOf(wholeNumber: BInt): T = valueOf(wholeNumber, 1.big)
-    fun valueOf(wholeNumber: Long): T = valueOf(wholeNumber.toBigInteger())
-    fun valueOf(wholeNumber: Int): T = valueOf(wholeNumber.toBigInteger())
+    public fun valueOf(wholeNumber: BInt): T = valueOf(wholeNumber, 1.big)
+    public fun valueOf(wholeNumber: Long): T =
+        valueOf(wholeNumber.toBigInteger())
 
-    /** @todo This should be `protected`, not `public` */
-    open fun iteratorCheck(first: T, last: T, step: T) {
+    public fun valueOf(wholeNumber: Int): T =
+        valueOf(wholeNumber.toBigInteger())
+
+    internal open fun iteratorCheck(first: T, last: T, step: T) {
         if (step.isZero()) error("Step must be non-zero.")
     }
 
@@ -137,15 +139,15 @@ abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     }
 }
 
-abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
-    val numerator: BInt,
-    val denominator: BInt,
+public abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
+    public val numerator: BInt,
+    public val denominator: BInt,
 ) : Number(), Comparable<T>, Field<T> {
-    abstract override val companion: BigRationalCompanion<T>
+    public abstract override val companion: BigRationalCompanion<T>
 
     /** Returns the absolute value. */
     @Suppress("UNCHECKED_CAST")
-    val absoluteValue: T
+    public val absoluteValue: T
         get() =
             if (0 > numerator.signum()) -this
             else this as T
@@ -155,13 +157,13 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      *
      * @see unaryDiv
      */
-    val reciprocal: T get() = companion.valueOf(denominator, numerator)
+    public val reciprocal: T get() = companion.valueOf(denominator, numerator)
 
     /**
      * The signum of this value: -1 for negative, 0 for zero, or 1 for
      * positive.
      */
-    open val sign: T get() = companion.valueOf(numerator.signum())
+    public open val sign: T get() = companion.valueOf(numerator.signum())
 
     /**
      * Returns this as a [BigDecimal] corresponding to [toDouble] following the
@@ -171,7 +173,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * @throws ArithmeticException if denominator are coprime (produce a
      * repeating decimal)
      */
-    open fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
+    public open fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
 
     /**
      * Returns this as a [BigDecimal] corresponding to [toDouble] up to
@@ -199,7 +201,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * [limitPlaces].
      */
     @JvmOverloads
-    fun toBigDecimal(
+    public fun toBigDecimal(
         limitPlaces: Int,
         roundingMode: RoundingMode = FLOOR,
     ): BigDecimal = BDouble(numerator, limitPlaces)
@@ -209,7 +211,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * Returns this as a [BigInteger] which may involve rounding
      * corresponding to rounding mode [HALF_UP].
      */
-    fun toBigInteger(): BigInteger = numerator / denominator
+    public fun toBigInteger(): BigInteger = numerator / denominator
 
     /**
      * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
@@ -272,11 +274,11 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
         companion.valueOf(numerator.negate(), denominator)
 
     /** Increments this value by 1. */
-    operator fun inc(): T =
+    public operator fun inc(): T =
         companion.valueOf(numerator + denominator, denominator)
 
     /** Decrements this value by 1. */
-    operator fun dec(): T =
+    public operator fun dec(): T =
         companion.valueOf(numerator - denominator, denominator)
 
     /** Adds the other value to this value. */
@@ -309,13 +311,13 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * @see [divideAndRemainder]
      */
     @Suppress("UNUSED_PARAMETER")
-    open operator fun rem(divisor: T): T = companion.ZERO
+    public open operator fun rem(divisor: T): T = companion.ZERO
 
     /**
      * Returns a the value `(this^exponent)`. Note that [exponent] is an
      * integer rather than a big rational.
      */
-    open fun pow(exponent: Int): T = when {
+    public open fun pow(exponent: Int): T = when {
         0 > exponent -> unaryDiv().pow(-exponent)
         else -> companion.valueOf(
             numerator.pow(exponent),
@@ -331,17 +333,17 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * this function returns `(a+c)/(b+d)` (order of `this` and [that] does
      * not matter).
      */
-    open fun mediant(that: T): T = companion.valueOf(
+    public open fun mediant(that: T): T = companion.valueOf(
         numerator + that.numerator,
         denominator + that.denominator
     )
 
     /** Checks that this rational is an integer. */
-    fun isInteger(): Boolean = denominator.isOne()
+    public fun isInteger(): Boolean = denominator.isOne()
 
     /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
-    open fun round(roundingMode: RoundingMode): T =
+    public open fun round(roundingMode: RoundingMode): T =
         if (isInteger()) this as T
         else companion.valueOf(
             // BigInteger does not have a divide with rounding mode
@@ -356,7 +358,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      *
      * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
      */
-    open fun isDyadic(): Boolean = denominator.isDyadic()
+    public open fun isDyadic(): Boolean = denominator.isDyadic()
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a power
@@ -368,7 +370,7 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      * @see <a href="https://en.wikipedia.org/wiki/P-adic_number"><cite>_p_-adic
      * number</cite></a>
      */
-    open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
+    public open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
         other is BigRationalBase<*> &&
@@ -389,14 +391,15 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
 }
 
 /** Finds the absolute different betwene values. */
-fun <T : BigRationalBase<T>> T.diff(other: T): T =
+public fun <T : BigRationalBase<T>> T.diff(other: T): T =
     (this - other).absoluteValue
 
 /** Checks that this rational is 0. */
-fun <T : BigRationalBase<T>> T.isZero(): Boolean = companion.ZERO === this
+public fun <T : BigRationalBase<T>> T.isZero(): Boolean =
+    companion.ZERO === this
 
 /** Checks that this rational is 1. */
-fun <T : BigRationalBase<T>> T.isOne(): Boolean = companion.ONE === this
+public fun <T : BigRationalBase<T>> T.isOne(): Boolean = companion.ONE === this
 
 /**
  * Checks that this rational has an even denominator.  The odds of a random
@@ -405,5 +408,5 @@ fun <T : BigRationalBase<T>> T.isOne(): Boolean = companion.ONE === this
  *
  * See [HAKMEM](https://en.wikipedia.org/wiki/HAKMEM).
  */
-fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
+public fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
     denominator.isEven()

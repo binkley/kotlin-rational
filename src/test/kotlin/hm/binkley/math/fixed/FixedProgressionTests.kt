@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test
 private const val shouldNotBeWorks = false
 
 @Nested
-class FixedProgressionTests {
+internal class FixedProgressionTests {
     @Suppress("ReplaceCallWithBinaryOperator")
     @Test
     fun `should be itself`() {

@@ -6,7 +6,7 @@ import hm.binkley.math.algebra.GroupCompanion
 import hm.binkley.math.isZero
 import hm.binkley.math.times
 
-data class FixedBigImaginary(val value: BRat) :
+public data class FixedBigImaginary(val value: BRat) :
     Group<FixedBigImaginary>,
     Comparable<FixedBigImaginary> {
     override val companion: Companion get() = FixedBigImaginary
@@ -21,52 +21,52 @@ data class FixedBigImaginary(val value: BRat) :
 
     override fun toString(): String = "${value}i"
 
-    companion object : GroupCompanion<FixedBigImaginary> {
+    public companion object : GroupCompanion<FixedBigImaginary> {
         override val ZERO: FixedBigImaginary = 0.i
-        val I: FixedBigImaginary = 1.i
+        public val I: FixedBigImaginary = 1.i
     }
 }
 
 // Constructors
 
-fun BRat.toImaginary(): FixedBigImaginary = FixedBigImaginary(this)
-val BRat.i: FixedBigImaginary get() = toImaginary()
-fun BInt.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
-val BInt.i: FixedBigImaginary get() = toImaginary()
-fun Long.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
-val Long.i: FixedBigImaginary get() = toImaginary()
-fun Int.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
-val Int.i: FixedBigImaginary get() = toImaginary()
+public fun BRat.toImaginary(): FixedBigImaginary = FixedBigImaginary(this)
+public val BRat.i: FixedBigImaginary get() = toImaginary()
+public fun BInt.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
+public val BInt.i: FixedBigImaginary get() = toImaginary()
+public fun Long.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
+public val Long.i: FixedBigImaginary get() = toImaginary()
+public fun Int.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
+public val Int.i: FixedBigImaginary get() = toImaginary()
 
 // Multiplication operator
 
-operator fun FixedBigImaginary.times(multiplier: FixedBigImaginary): BRat =
+public operator fun FixedBigImaginary.times(multiplier: FixedBigImaginary): BRat =
     -(value * multiplier.value)
 
-operator fun FixedBigImaginary.times(multiplier: BRat): FixedBigImaginary =
+public operator fun FixedBigImaginary.times(multiplier: BRat): FixedBigImaginary =
     (value * multiplier).toImaginary()
 
-operator fun BRat.times(multiplier: FixedBigImaginary): FixedBigImaginary =
+public operator fun BRat.times(multiplier: FixedBigImaginary): FixedBigImaginary =
     multiplier * this
 
-operator fun FixedBigImaginary.times(multiplier: BInt): FixedBigImaginary =
+public operator fun FixedBigImaginary.times(multiplier: BInt): FixedBigImaginary =
     (value * multiplier).toImaginary()
 
-operator fun BInt.times(multiplier: FixedBigImaginary): FixedBigImaginary =
+public operator fun BInt.times(multiplier: FixedBigImaginary): FixedBigImaginary =
     multiplier * this
 
-operator fun FixedBigImaginary.times(multiplier: Long): FixedBigImaginary =
+public operator fun FixedBigImaginary.times(multiplier: Long): FixedBigImaginary =
     (value * multiplier).toImaginary()
 
-operator fun Long.times(multiplier: FixedBigImaginary): FixedBigImaginary =
+public operator fun Long.times(multiplier: FixedBigImaginary): FixedBigImaginary =
     multiplier * this
 
-operator fun FixedBigImaginary.times(multiplier: Int): FixedBigImaginary =
+public operator fun FixedBigImaginary.times(multiplier: Int): FixedBigImaginary =
     (value * multiplier).toImaginary()
 
-operator fun Int.times(multiplier: FixedBigImaginary): FixedBigImaginary =
+public operator fun Int.times(multiplier: FixedBigImaginary): FixedBigImaginary =
     multiplier * this
 
 // TODO: Division operator
 
-fun FixedBigImaginary.isZero(): Boolean = value.isZero()
+public fun FixedBigImaginary.isZero(): Boolean = value.isZero()
