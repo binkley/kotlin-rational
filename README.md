@@ -549,6 +549,7 @@ like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet restriction
 - [_Generalized continued
   fraction_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
 - [_Golden ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)
+- [_Niven's Theorem_](https://mathworld.wolfram.com/NivensTheorem.html)
 - [_Projectively extended real
   line_](https://en.wikipedia.org/wiki/Projectively_extended_real_line) _
   vs_ [_Extended real number
