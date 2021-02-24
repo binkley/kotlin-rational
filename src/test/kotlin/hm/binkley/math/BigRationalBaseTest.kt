@@ -319,4 +319,10 @@ internal class BigRationalBaseTest {
             (1 over 3).isDenominatorEven().shouldBeFalse()
         }
     }
+
+    @Test
+    fun `should find absolute difference`() {
+        ONE.diff(ZERO) shouldBe ONE
+        ZERO.diff(ONE) shouldBe ONE
+    }
 }

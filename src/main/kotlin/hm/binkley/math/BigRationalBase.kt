@@ -388,6 +388,10 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     }
 }
 
+/** Finds the absolute different betwene values. */
+fun <T : BigRationalBase<T>> T.diff(other: T): T =
+    (this - other).absoluteValue
+
 /** Checks that this rational is 0. */
 fun <T : BigRationalBase<T>> T.isZero(): Boolean = companion.ZERO === this
 

@@ -136,7 +136,9 @@ This snippet is an elided `pom.xml`:
 ## API
 
 In general, when properties, methods, and operations do not have documentation,
-they behave similarly as their floating-point counterpart.
+they behave similarly as their floating-point counterpart. In general, follow
+the lead of `BigDecimal` and `BigInteger`, and add features when sensible from
+popular math libraries, such as F77.
 
 ### Algebra
 
@@ -179,6 +181,7 @@ All constructors are _private_. Please use:
   the nearest even whole number; `round(roundingMode)` rounds as you ask
 - `truncateAndFraction()` provides truncation and the remaining fraction;
   `truncate()` rounds towards 0; `fraction()` provides the remaining fraction
+- `diff(other)` finds the absolute difference between values
 
 ### Operators
 
@@ -530,6 +533,8 @@ like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet restriction
 - [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
 - [_An introduction to context-oriented programming in
   Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
+- [_Arithmetic and Mathematical
+  Functions_](https://docs.oracle.com/cd/E19957-01/805-4939/6j4m0vnca/index.html)
 - [_Continued
   Fractions_<sup>\[PDF\]</sup>](http://pi.math.cornell.edu/~gautam/FiniteContinuedFractions.pdf)
 - [_Continued fraction - An
