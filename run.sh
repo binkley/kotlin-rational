@@ -3,7 +3,7 @@
 
 readonly package=hm.binkley.math
 readonly artifactId=kotlin-rational
-readonly version=2.1.1
+readonly version=2.2.0-SNAPSHOT
 
 # No editable parts below here
 

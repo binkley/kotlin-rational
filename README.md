@@ -59,6 +59,8 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 ## Releases
 
+* [2.2.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.2.0)  &mdash; IN PROGRESS
+    - Explicit API mode
 * [2.1.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.1)
     - Smaller footprint for big rational instances
     - Java interoperability
