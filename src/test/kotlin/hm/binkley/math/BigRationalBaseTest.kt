@@ -7,6 +7,7 @@ import hm.binkley.math.TestBigRational.Companion.TEN
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestBigRational.Companion.valueOf
+import hm.binkley.math.floating.toBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -132,6 +133,18 @@ internal class BigRationalBaseTest {
         @Test
         fun `should convert to double`() {
             (11 over 10).toDouble() shouldBe 1.1
+        }
+
+        @Test
+        fun `should convert to and from floating point for finite but extreme values`() {
+            Double.MAX_VALUE.toBigRational().toDouble() shouldBe
+                Double.MAX_VALUE
+            Double.MIN_VALUE.toBigRational().toDouble() shouldBe
+                Double.MIN_VALUE
+            Float.MAX_VALUE.toBigRational().toFloat() shouldBe
+                Float.MAX_VALUE
+            Float.MIN_VALUE.toBigRational().toFloat() shouldBe
+                Float.MIN_VALUE
         }
 
         @Test

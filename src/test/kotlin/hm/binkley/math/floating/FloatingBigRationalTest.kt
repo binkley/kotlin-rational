@@ -246,35 +246,17 @@ internal class FloatingBigRationalTest {
     inner class SpecialCasesTests {
         @Test
         fun `should round trip NaN and infinities`() {
-            POSITIVE_INFINITY.toDouble().toBigRational()
-                .isPositiveInfinity().shouldBeTrue()
-            NEGATIVE_INFINITY.toDouble().toBigRational()
-                .isNegativeInfinity().shouldBeTrue()
-            NaN.toDouble().toBigRational().isNaN().shouldBeTrue()
+            POSITIVE_INFINITY.toDouble().toBigRational() shouldBe
+                POSITIVE_INFINITY
+            NEGATIVE_INFINITY.toDouble().toBigRational() shouldBe
+                NEGATIVE_INFINITY
+            NaN.toDouble().toBigRational() shouldBe NaN
 
-            POSITIVE_INFINITY.toFloat().toBigRational()
-                .isPositiveInfinity().shouldBeTrue()
-            NEGATIVE_INFINITY.toFloat().toBigRational()
-                .isNegativeInfinity().shouldBeTrue()
-            NaN.toFloat().toBigRational().isNaN().shouldBeTrue()
-        }
-
-        @Test
-        fun `should round trip as double precision`() {
-            Double.MAX_VALUE.toBigRational().toDouble() shouldBe
-                Double.MAX_VALUE
-            Double.MIN_VALUE.toBigRational().toDouble() shouldBe
-                Double.MIN_VALUE
-            Double.NaN.toBigRational().toDouble() shouldBe Double.NaN
-        }
-
-        @Test
-        fun `should round trip as single precision`() {
-            Float.MAX_VALUE.toBigRational().toFloat() shouldBe
-                Float.MAX_VALUE
-            Float.MIN_VALUE.toBigRational().toFloat() shouldBe
-                Float.MIN_VALUE
-            Float.NaN.toBigRational().toFloat() shouldBe Float.NaN
+            POSITIVE_INFINITY.toFloat().toBigRational() shouldBe
+                POSITIVE_INFINITY
+            NEGATIVE_INFINITY.toFloat().toBigRational() shouldBe
+                NEGATIVE_INFINITY
+            NaN.toFloat().toBigRational() shouldBe NaN
         }
 
         @Test

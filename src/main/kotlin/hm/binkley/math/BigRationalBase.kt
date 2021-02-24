@@ -170,10 +170,6 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
      *
      * @throws ArithmeticException if denominator are coprime (produce a
      * repeating decimal)
-     *
-     * @todo This is wrong for very large/small numbers.  A general algorithm
-     *       for decimals from rationals will not "spread out" for very large
-     *       nor small values
      */
     open fun toBigDecimal(): BigDecimal = toDouble().toBigDecimal()
 
