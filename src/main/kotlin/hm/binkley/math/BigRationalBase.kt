@@ -146,9 +146,9 @@ abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
     /** Returns the absolute value. */
     @Suppress("UNCHECKED_CAST")
     val absoluteValue: T
-        get() = if (numerator < BInt.ZERO)
-            companion.valueOf(numerator.abs(), denominator)
-        else this as T
+        get() =
+            if (0 > numerator.signum()) -this
+            else this as T
 
     /**
      * Returns the reciprocal.
