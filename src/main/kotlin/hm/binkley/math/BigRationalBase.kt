@@ -390,7 +390,7 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
     }
 }
 
-/** Finds the absolute different betwene values. */
+/** Finds the absolute difference between values. */
 public fun <T : BigRationalBase<T>> T.diff(other: T): T =
     (this - other).absoluteValue
 
