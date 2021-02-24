@@ -63,6 +63,7 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
   &mdash; (**IN PROGRESS**)
     - Smaller footprint for big rational instances
     - Java interoperability
+    - Conversion to `BigDecimal` with number of decimal places and rounding
 * [2.1.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.0)
   [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.1.0)
     - Better naming for `FixedBigComplex` -- the feature is still experimental
