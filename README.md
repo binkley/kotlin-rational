@@ -143,9 +143,7 @@ they behave similarly as their floating-point counterpart. In general, follow
 the lead of `BigDecimal` and `BigInteger`, and add features when sensible from
 popular math libraries, such as F77.
 
-### Algebra
-
-These are algebraic fields with supporting overloaded operators:
+These are algebraic Fields with supporting overloaded operators:
 
 - `FixedBigRational`
 - `FloatingBigRational`
