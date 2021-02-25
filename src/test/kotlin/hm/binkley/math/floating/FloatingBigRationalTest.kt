@@ -62,19 +62,6 @@ internal class FloatingBigRationalTest {
         }
     }
 
-    @Suppress("ReplaceCallWithBinaryOperator")
-    @Test
-    fun `should be itself`() {
-        POSITIVE_INFINITY.equals(POSITIVE_INFINITY).shouldBeTrue()
-        NEGATIVE_INFINITY.equals(NEGATIVE_INFINITY).shouldBeTrue()
-        NaN.equals(NaN).shouldBeFalse()
-    }
-
-    @Test
-    fun `should hash separately`() {
-        NEGATIVE_INFINITY.hashCode() shouldNotBe POSITIVE_INFINITY.hashCode()
-    }
-
     @Test
     fun `should not be a floating big rational`() {
         FixedBigRational.valueOf(1.big, 1.big).hashCode() shouldNotBe

@@ -33,7 +33,8 @@ internal class BigRationalBaseTest {
     }
 
     @Test
-    fun `should hash separately`() {
+    fun `should hash sensibly`() {
+        (1 over 2).hashCode() shouldBe (1 over 2).hashCode()
         TEN.hashCode() shouldNotBe (1 over 2).hashCode()
     }
 
