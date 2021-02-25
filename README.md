@@ -53,13 +53,15 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 * [Maintenance](#maintenance)
 * [Design choices](#design-choices)
 * [Implementation choices](#implementation-choices)
+* [Algebra](#algebra)
 * [Further reading](#further-reading)
 
 ---
 
 ## Releases
 
-* [2.2.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.2.0)  &mdash; IN PROGRESS
+* [2.2.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.2.0)
+  &mdash; IN PROGRESS
     - Explicit API mode
 * [2.1.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.1)
     - Smaller footprint for big rational instances
@@ -526,6 +528,17 @@ The representation is for _finite simple continued fractions_, that is:
 Restriction 1 would need to be loosened to accommodate using continued fractions
 for computing square roots of rationals. A function signature might look
 like `FixedBigRational.sqrt(n: Int): FixedContinuedFraction` to meet restriction
+
+---
+
+## Algebra
+
+Not strictly required for the code or implementation, this project uses
+interfaces for applicable abstract algebra concepts: Monoid (`+` and `0`),
+Group (`-`), Ring (`*` and `1`), and Field (`/`). This is an indulgence.
+
+These also provide simple demonstration of Kotlin companion objects as
+themselves a type hierarchy mirroring hierarchy of types the companions go with.
 
 ---
 
