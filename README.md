@@ -145,10 +145,9 @@ popular math libraries, such as F77.
 
 These are algebraic Fields with supporting overloaded operators:
 
+- `FixedBigComplex`
 - `FixedBigRational`
 - `FloatingBigRational`
-
-Additionally, `FixBigComplex` and `FixedBigImaginary` are under development.
 
 ### Constructors
 
