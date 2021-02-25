@@ -149,9 +149,13 @@ These are algebraic Fields with supporting overloaded operators:
 - `FixedBigRational`
 - `FloatingBigRational`
 
+Public functions and types follow [Kotlin's _explicit
+API_](https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md)
+in strict mode.
+
 ### Constructors
 
-All constructors are _private_. Please use:
+All constructors are intended to be _private_ for users of the API. Please use:
 
 - `over` infix operators, _eg_, `2 over 1`
 - `valueOf` companion methods, _eg_,
