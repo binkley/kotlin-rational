@@ -205,7 +205,7 @@ internal fun <
  * numerators).
  */
 public fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple(): Boolean =
-    fractionalParts.all { it.numerator.isOne() }
+    fractionalParts.all { it.numerator.isUnit() }
 
 internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
     r: T,

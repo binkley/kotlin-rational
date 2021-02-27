@@ -124,13 +124,13 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
         }
 
         val gcd = n.gcd(d)
-        if (!gcd.isOne()) {
+        if (!gcd.isUnit()) {
             n /= gcd
             d /= gcd
         }
 
-        if (d.isOne()) when {
-            n.isOne() -> return ONE
+        if (d.isUnit()) when {
+            n.isUnit() -> return ONE
             n.isTwo() -> return TWO
             n.isTen() -> return TEN
         }
@@ -342,7 +342,7 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
     )
 
     /** Checks that this rational is an integer. */
-    public fun isInteger(): Boolean = denominator.isOne()
+    public fun isInteger(): Boolean = denominator.isUnit()
 
     /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
@@ -388,7 +388,7 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
      * "[numerator]/[denominator]".
      */
     override fun toString(): String = when {
-        denominator.isOne() -> numerator.toString()
+        denominator.isUnit() -> numerator.toString()
         else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
 }
@@ -402,7 +402,7 @@ public fun <T : BigRationalBase<T>> T.isZero(): Boolean =
     companion.ZERO === this
 
 /** Checks that this rational is 1. */
-public fun <T : BigRationalBase<T>> T.isOne(): Boolean = companion.ONE === this
+public fun <T : BigRationalBase<T>> T.isUnit(): Boolean = companion.ONE === this
 
 /**
  * Checks that this rational has an even denominator.  The odds of a random

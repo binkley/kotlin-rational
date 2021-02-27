@@ -287,8 +287,8 @@ internal class BigRationalBaseTest {
 
         @Test
         fun `should be one`() {
-            ONE.isOne().shouldBeTrue()
-            ZERO.isOne().shouldBeFalse()
+            ONE.isUnit().shouldBeTrue()
+            ZERO.isUnit().shouldBeFalse()
         }
 
         @Test
