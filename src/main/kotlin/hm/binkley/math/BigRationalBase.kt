@@ -294,10 +294,10 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
         )
 
     /** Multiplies this value by the other value. */
-    override operator fun times(multiplier: T): T =
+    override operator fun times(factor: T): T =
         companion.valueOf(
-            numerator * multiplier.numerator,
-            denominator * multiplier.denominator
+            numerator * factor.numerator,
+            denominator * factor.denominator
         )
 
     /**

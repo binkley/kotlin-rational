@@ -27,9 +27,9 @@ public data class FixedBigComplex(
     override operator fun plus(addend: FixedBigComplex): FixedBigComplex =
         (real + addend.real) + (imag + addend.imag)
 
-    override operator fun times(multiplier: FixedBigComplex): FixedBigComplex =
-        (real * multiplier.real + imag * multiplier.imag) +
-            (real * multiplier.imag + imag * multiplier.real)
+    override operator fun times(factor: FixedBigComplex): FixedBigComplex =
+        (real * factor.real + imag * factor.imag) +
+            (real * factor.imag + imag * factor.real)
 
     override operator fun div(divisor: FixedBigComplex): FixedBigComplex =
         this * divisor.unaryDiv()

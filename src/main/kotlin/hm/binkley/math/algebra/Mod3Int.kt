@@ -11,8 +11,8 @@ public class Mod3Int private constructor(
     override fun plus(addend: Mod3Int): Mod3Int =
         valueOf(value + addend.value)
 
-    override fun times(multiplier: Mod3Int): Mod3Int =
-        valueOf(value * multiplier.value)
+    override fun times(factor: Mod3Int): Mod3Int =
+        valueOf(value * factor.value)
 
     override fun equals(other: Any?): Boolean = this === other
     override fun hashCode(): Int = value.hashCode()

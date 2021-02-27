@@ -8,5 +8,5 @@ public interface RingCompanion<T : Ring<T>> : GroupCompanion<T> {
 public interface Ring<T : Ring<T>> : Group<T> {
     override val companion: RingCompanion<T>
 
-    public operator fun times(multiplier: T): T
+    public operator fun times(factor: T): T
 }
