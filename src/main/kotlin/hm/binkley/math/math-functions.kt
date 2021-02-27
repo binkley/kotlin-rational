@@ -67,8 +67,10 @@ public fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
  *
  * @see truncateAndFraction
  */
-public fun <T : BigRationalBase<T>> T.truncate(): T =
-    truncateAndFraction().first
+public fun <T : BigRationalBase<T>> T.truncate(): T {
+    val (numerator, _) = truncateAndFraction()
+    return numerator
+}
 
 /** Rounds to the nearest _even_ whole number corresponding to [HALF_EVEN]. */
 public fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)

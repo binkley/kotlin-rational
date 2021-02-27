@@ -549,6 +549,9 @@ themselves a type hierarchy mirroring hierarchy of types the companions go with.
 - [_Abstract algebra_](https://en.wikipedia.org/wiki/Abstract_algebra)
 - [_An introduction to context-oriented programming in
   Kotlin_](https://proandroiddev.com/an-introduction-context-oriented-programming-in-kotlin-2e79d316b0a2)
+- [_An opinionated guide on how to make your Kotlin code fun to read and joy to
+  work
+  with_](https://proandroiddev.com/an-opinionated-guide-on-how-to-make-your-kotlin-code-fun-to-read-and-joy-to-work-with-caa3a4036f9e)
 - [_Arithmetic and Mathematical
   Functions_](https://docs.oracle.com/cd/E19957-01/805-4939/6j4m0vnca/index.html)
 - [_Continued

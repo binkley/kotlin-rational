@@ -6,15 +6,19 @@ public fun <T : BigRationalBase<T>> T.toPair(): Pair<BInt, BInt> =
 
 /** Checks if this is an equivalent rational fraction to [other]. */
 public fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.equivalent(
-    other: U
+    other: U,
 ):
     Boolean = 0 == this.compareTo(other)
 
-/** Compares this value to [other]. */
+/**
+ * Compares this value to [other].
+ *
+ * @todo This hard to read.  Avoid Pair?
+ */
 public operator fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.compareTo(
     other: U,
-): Int =
-    (compareBy<Pair<BInt, BInt>> { it.first }).compare(toPair(), other.toPair())
+): Int = compareBy<Pair<BInt, BInt>> { (numerator, _) -> numerator }
+    .compare(toPair(), other.toPair())
 
 /** Compares this value to [other]. */
 public operator fun <T : BigRationalBase<T>> T.compareTo(other: BDouble): Int =
