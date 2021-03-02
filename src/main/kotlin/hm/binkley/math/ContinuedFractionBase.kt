@@ -75,13 +75,14 @@ public abstract class ContinuedFractionBase<
     else
         construct(listOf(integerPart.companion.ZERO) + terms)
 
-    override fun toByte(): Byte = toBigRational().toByte()
-
     /**
      * Raises an [UnsupportedOperationException].  There is no sensible way to
-     * express a general continued fraction as an character in a language.
+     * express a general continued fraction as a character in a language.
      */
-    override fun toChar(): Char = toBigRational().toChar()
+    override fun toChar(): Char =
+        throw UnsupportedOperationException("Characters are non-numeric")
+
+    override fun toByte(): Byte = toBigRational().toByte()
     override fun toDouble(): Double = toBigRational().toDouble()
     override fun toFloat(): Float = toBigRational().toFloat()
     override fun toInt(): Int = toBigRational().toInt()
@@ -213,8 +214,8 @@ internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
 ): List<T> {
     val (i, f) = r.toParts()
     sequence += i
-    if (f.isZero()) return sequence
-    return fractionateInPlace(f.unaryDiv(), sequence)
+    return if (f.isZero()) sequence
+    else fractionateInPlace(f.unaryDiv(), sequence)
 }
 
 private fun <T : BigRationalBase<T>> T.toParts(): Pair<T, T> {
