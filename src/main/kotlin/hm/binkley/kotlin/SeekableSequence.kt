@@ -4,7 +4,10 @@ public interface SeekableSequence<T> : Sequence<T> {
     /**
      * Finds the "nth" element of the sequence.  Sequences are lazy by design,
      * so this must walk each element the beginning to find the nth element.  No
-     * assumption is made that the sequence is bounded.
+     * assumption is made that the sequence is bounded: this could be very
+     * expensive for large indices or hard-to-compute sequences.
+     *
+     * The index must be non-negative, else throws `IndexOutOfBoundsException`.
      *
      * Repeatable: each call starts a new iterator over the sequence.  This
      * assumes the sequence is restartable.
