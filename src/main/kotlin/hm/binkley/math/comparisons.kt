@@ -1,9 +1,5 @@
 package hm.binkley.math
 
-/** Provides the `numerator` and `denominator` as a pair. */
-public fun <T : BigRationalBase<T>> T.toPair(): Pair<BInt, BInt> =
-    numerator to denominator
-
 /** Checks if this is an equivalent rational fraction to [other]. */
 public fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.equivalent(
     other: U,
