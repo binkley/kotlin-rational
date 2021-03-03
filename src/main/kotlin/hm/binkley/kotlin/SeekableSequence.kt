@@ -11,6 +11,8 @@ public interface SeekableSequence<T> : Sequence<T> {
      *
      * Repeatable: each call starts a new iterator over the sequence.  This
      * assumes the sequence is restartable.
+     *
+     * @todo Why not `drop(index).first()`?  Try/catch exception translation
      */
     public operator fun get(index: Int): T {
         if (0 > index) throw IndexOutOfBoundsException("$index: Negative index")
