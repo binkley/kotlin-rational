@@ -10,15 +10,11 @@ public fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.equivalent(
 ):
     Boolean = 0 == this.compareTo(other)
 
-/**
- * Compares this value to [other].
- *
- * @todo This hard to read.  Avoid Pair?
- */
+/** Compares this value to [other]. */
 public operator fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.compareTo(
     other: U,
-): Int = compareBy<Pair<BInt, BInt>> { (numerator, _) -> numerator }
-    .compare(toPair(), other.toPair())
+): Int =
+    (numerator * other.denominator).compareTo(other.numerator * denominator)
 
 /** Compares this value to [other]. */
 public operator fun <T : BigRationalBase<T>> T.compareTo(other: BDouble): Int =
