@@ -16,8 +16,9 @@ public interface SeekableSequence<T> : Sequence<T> {
      */
     public operator fun get(index: Int): T {
         if (0 > index) throw IndexOutOfBoundsException("$index: Negative index")
-        for ((i, it) in withIndex())
+        withIndex().forEach { (i, it) ->
             if (index == i) return it
+        }
         throw IndexOutOfBoundsException("$index: Past end")
     }
 }
