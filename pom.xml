@@ -60,7 +60,7 @@
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven.test.skip>false</maven.test.skip> <!-- Make linter happy -->
         <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.6.2</pitest-maven.version>
+        <pitest-maven.version>1.6.4</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
