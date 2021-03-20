@@ -43,7 +43,7 @@
         <junit.version>5.7.1</junit.version>
         <kotest.version>4.4.1</kotest.version>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.4.30</kotlin.version>
+        <kotlin.version>1.4.31</kotlin.version>
         <ktlint-maven-plugin.version>1.7.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.18</lombok.version>
         <main.class>hm.binkley.math.MainKt</main.class>
@@ -63,6 +63,7 @@
         <pitest-maven.version>1.6.2</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
+        <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
         <!-- @formatter:on -->
     </properties>
@@ -542,6 +543,31 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>${pitest-maven.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <version>${taglist-maven-plugin.version}</version>
+                <!-- See https://www.mojohaus.org/taglist-maven-plugin/usage.html -->
+                <configuration>
+                    <tagListOptions>
+                        <tagClasses>
+                            <tagClass>
+                                <displayName>Todo Work</displayName>
+                                <tags>
+                                    <tag>
+                                        <matchString>todo</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>FIXME</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                </tags>
+                            </tagClass>
+                        </tagClasses>
+                    </tagListOptions>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
