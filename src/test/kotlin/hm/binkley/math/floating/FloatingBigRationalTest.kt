@@ -1,4 +1,4 @@
-@file:Suppress("NonAsciiCharacters")
+@file:Suppress("NonAsciiCharacters", "RedundantInnerClassModifier")
 
 package hm.binkley.math.floating
 
@@ -337,6 +337,7 @@ internal class FloatingBigRationalTest {
 
     @Test
     fun `should note dyadic rationals`() {
+        (1 over 2).isDyadic().shouldBeTrue()
         POSITIVE_INFINITY.isDyadic().shouldBeFalse()
         NEGATIVE_INFINITY.isDyadic().shouldBeFalse()
         NaN.isDyadic().shouldBeFalse()
@@ -344,6 +345,7 @@ internal class FloatingBigRationalTest {
 
     @Test
     fun `should note p-adic rationals`() {
+        (1 over 3).isPAdic(3).shouldBeTrue()
         POSITIVE_INFINITY.isPAdic(3).shouldBeFalse()
         NEGATIVE_INFINITY.isPAdic(3).shouldBeFalse()
         NaN.isPAdic(3).shouldBeFalse()

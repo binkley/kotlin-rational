@@ -59,6 +59,7 @@ internal class Mod3IntTest {
         ONE shouldBe ONE
         TWO shouldNotBe ONE
         TWO shouldBe TWO
+        0 shouldNotBe ZERO
     }
 
     @Test
@@ -69,6 +70,7 @@ internal class Mod3IntTest {
         ONE.hashCode() shouldBe ONE.hashCode()
         TWO.hashCode() shouldNotBe ONE.hashCode()
         TWO.hashCode() shouldBe TWO.hashCode()
+        0.hashCode() shouldNotBe ZERO.hashCode()
     }
 
     @Test

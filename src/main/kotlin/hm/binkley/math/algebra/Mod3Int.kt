@@ -1,5 +1,6 @@
 package hm.binkley.math.algebra
 
+import java.util.Objects.hash
 import kotlin.math.absoluteValue
 
 public class Mod3Int private constructor(
@@ -15,7 +16,7 @@ public class Mod3Int private constructor(
         valueOf(value * factor.value)
 
     override fun equals(other: Any?): Boolean = this === other
-    override fun hashCode(): Int = value.hashCode()
+    override fun hashCode(): Int = hash(this::class, value)
     override fun toString(): String = value.toString()
 
     public companion object : RingCompanion<Mod3Int> {

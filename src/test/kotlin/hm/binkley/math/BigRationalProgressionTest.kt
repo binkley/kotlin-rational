@@ -4,10 +4,18 @@ import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 internal class BigRationalProgressionTest {
+    @Test
+    fun `should equate`() {
+        ((ZERO..TWO step 2) == ZERO..TWO step 2).shouldBeTrue()
+        ((ZERO..TWO step 1) == ZERO..TWO step 2).shouldBeFalse()
+    }
+
     @Test
     fun `should move forward for big rational`() {
         (ZERO..TWO).toList() shouldBe listOf(ZERO, ONE, TWO)

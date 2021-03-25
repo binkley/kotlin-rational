@@ -6,6 +6,7 @@ import hm.binkley.math.compareTo
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
+import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.rangeTo
 import io.kotest.assertions.throwables.shouldThrow
@@ -75,6 +76,20 @@ internal class FixedBigRationalTest {
         }
 
         @Test
+        fun `should not convert non-finite doubles`() {
+            // TODO: Decide on ArithmeticException vs IllegalArgumentException
+            shouldThrow<ArithmeticException> {
+                valueOf(Double.NaN)
+            }
+            shouldThrow<ArithmeticException> {
+                valueOf(Double.POSITIVE_INFINITY)
+            }
+            shouldThrow<ArithmeticException> {
+                valueOf(Double.NEGATIVE_INFINITY)
+            }
+        }
+
+        @Test
         fun `should convert float in infix constructor`() {
             (1.0.big over 1.0f) shouldBe ONE
             (1.big over 1.0f) shouldBe ONE
@@ -85,6 +100,12 @@ internal class FixedBigRationalTest {
             (1.0f over 1.big) shouldBe ONE
             (1.0f over 1L) shouldBe ONE
             (1.0f over 1) shouldBe ONE
+        }
+
+        @Test
+        fun `should convert integral types in infix constructor`() {
+            (1L over 1) shouldBe ONE
+            (1 over 1L) shouldBe ONE
         }
 
         @Test

@@ -1,9 +1,9 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.big
-import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigComplex.Companion.ONE
 import hm.binkley.math.fixed.FixedBigImaginary.Companion.I
+import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -76,10 +76,16 @@ internal class FixedBigComplexTest {
         -ONE_PLUS_I shouldBe NEG_ONE_MINUS_I
     }
 
+    // TODO: How to structure tests for 100% coverage?
+    //       - By binary operation?
+    //       - By type left/right side of operation?
+
     @Test
     fun `should add`() {
+        (BRat.ONE + I) shouldBe ONE_PLUS_I
         (I + BRat.ONE) shouldBe ONE_PLUS_I
-        (1.big + I) shouldBe ONE_PLUS_I
+        (1.0.big + 1.i) shouldBe ONE_PLUS_I
+        (1.i + 1.0.big) shouldBe ONE_PLUS_I
         (I + 1.big) shouldBe ONE_PLUS_I
         (1L + I) shouldBe ONE_PLUS_I
         (I + 1L) shouldBe ONE_PLUS_I

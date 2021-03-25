@@ -76,8 +76,8 @@ private class BigRationalProgression<T : BigRationalBase<T>>(
     override fun hashCode() = hash(javaClass, start, endInclusive, step)
 
     override fun toString() =
-        if (start.companion.ZERO > step) "$start downTo $endInclusive step $step"
-        else "$start..$endInclusive step $step"
+        if (start.companion.ZERO <= step) "$start..$endInclusive step $step"
+        else "$start downTo $endInclusive step $step"
 }
 
 /** Creates a range from this value to [endInclusive]. */
