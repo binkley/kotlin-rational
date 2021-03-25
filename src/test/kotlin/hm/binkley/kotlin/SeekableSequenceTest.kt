@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test
 
 internal class SeekableSequenceTest {
     @Test
+    fun `should select valid indices`() {
+        TestSeekeableSequence[0] shouldBe "abc"
+    }
+
+    @Test
     fun `should reject negative indices`() {
         shouldThrow<IndexOutOfBoundsException> {
             TestSeekeableSequence[-1]
@@ -13,8 +18,10 @@ internal class SeekableSequenceTest {
     }
 
     @Test
-    fun `should select positive indices`() {
-        TestSeekeableSequence[0] shouldBe "abc"
+    fun `should reject excessive indices`() {
+        shouldThrow<IndexOutOfBoundsException> {
+            TestSeekeableSequence[1]
+        }
     }
 }
 
