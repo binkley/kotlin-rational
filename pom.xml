@@ -34,7 +34,7 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>6.1.1</dependency-check-maven.version>
+        <dependency-check-maven.version>6.1.4</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.15.0.1</detekt-maven-plugin.version>
         <dokka.version>1.4.20</dokka.version>
         <jacoco-maven-plugin.version>0.8.7-SNAPSHOT</jacoco-maven-plugin.version>
@@ -43,7 +43,7 @@
         <junit.version>5.7.1</junit.version>
         <kotest.version>4.4.1</kotest.version>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.4.31</kotlin.version>
+        <kotlin.version>1.4.32</kotlin.version>
         <ktlint-maven-plugin.version>1.7.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.18</lombok.version>
         <main.class>hm.binkley.math.MainKt</main.class>
