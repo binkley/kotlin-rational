@@ -147,6 +147,7 @@
                 <configuration>
                     <args>
                         <arg>-Xexplicit-api=strict</arg>
+                        <arg>-Xuse-ir</arg>
                         <arg>-Werror</arg>
                     </args>
                 </configuration>
