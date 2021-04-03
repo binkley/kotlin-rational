@@ -43,7 +43,7 @@
         <junit.version>5.7.1</junit.version>
         <kotest.version>4.4.1</kotest.version>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.4.32</kotlin.version>
+        <kotlin.version>1.5.0-M2</kotlin.version>
         <ktlint-maven-plugin.version>1.7.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.18</lombok.version>
         <main.class>hm.binkley.math.MainKt</main.class>
@@ -79,6 +79,17 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <!-- TODO: These are not needed, but fix the build -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-script-runtime</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
 
