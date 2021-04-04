@@ -200,6 +200,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
+                    <!-- Help IntelliJ -->
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
                 </configuration>

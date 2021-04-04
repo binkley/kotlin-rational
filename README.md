@@ -42,6 +42,8 @@ Try `./batect run` for a demonstration as CI would.
 
 This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
+(TODO: see https://stackoverflow.com/a/44169445 for MacOS-specific issue.)
+
 ---
 
 ## TOC
