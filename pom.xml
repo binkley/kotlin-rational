@@ -43,7 +43,7 @@
         <junit.version>5.8.0-M1</junit.version>
         <kotest.version>4.4.3</kotest.version>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.5.0-M2</kotlin.version>
+        <kotlin.version>1.4.32</kotlin.version>
         <ktlint-maven-plugin.version>1.9.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.20</lombok.version>
         <main.class>hm.binkley.math.MainKt</main.class>
