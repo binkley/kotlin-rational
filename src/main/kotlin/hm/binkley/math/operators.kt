@@ -354,11 +354,11 @@ public operator fun <T : BigRationalBase<T>> Int.rem(divisor: T): T =
  */
 public fun <T : BigRationalBase<T>> T.divideAndRemainder(divisor: T):
     Pair<T, T> {
-        val quotient = (this / divisor).truncate()
-        val remainder = this - divisor * quotient
+    val quotient = (this / divisor).truncate()
+    val remainder = this - divisor * quotient
 
-        return quotient to remainder
-    }
+    return quotient to remainder
+}
 
 /**
  * Provides a pseudo-operator for exponentiation, raising this value to the
