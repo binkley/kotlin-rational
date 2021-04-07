@@ -3,7 +3,6 @@ package hm.binkley.math
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
-import hm.binkley.math.TestBigRational.Companion.valueOf
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -16,13 +15,13 @@ internal class CantorSpiralTest {
                 ZERO,
                 ONE,
                 -ONE,
-                valueOf((-1).big, 2.big),
-                valueOf(1.big, 2.big),
+                -1 over 2,
+                1 over 2,
                 TWO,
                 -TWO,
-                valueOf((-2).big, 3.big),
-                valueOf((-1).big, 3.big),
-                valueOf(1.big, 3.big),
+                -2 over 3,
+                -1 over 3,
+                1 over 3,
             )
     }
 
