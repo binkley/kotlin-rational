@@ -292,7 +292,8 @@ public operator fun <T : BigRationalBase<T>> Float.rem(divisor: T): T =
     divisor.companion.ZERO
 
 /**
- * Finds the remainder of this value divided by [divisor] exactly.
+ * Finds the remainder of this value by [divisor] exactly: always 0 (division is
+ * exact for rationals).
  *
  * @see [divideAndRemainder]
  */
@@ -300,7 +301,8 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: BInt): T =
     this % companion.valueOf(divisor)
 
 /**
- * Finds the remainder of this value divided by [divisor] exactly.
+ * Finds the remainder of this value by [divisor] exactly: always 0 (division is
+ * exact for rationals).
  *
  * @see [divideAndRemainder]
  */
@@ -309,7 +311,8 @@ public operator fun <T : BigRationalBase<T>> BInt.rem(divisor: T): T =
     divisor.companion.ZERO
 
 /**
- * Finds the remainder of this value divided by [divisor] exactly.
+ * Finds the remainder of this value by [divisor] exactly: always 0 (division is
+ * exact for rationals).
  *
  * @see [divideAndRemainder]
  */
@@ -317,7 +320,8 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: Long): T =
     this % companion.valueOf(divisor)
 
 /**
- * Finds the remainder of this value divided by [divisor] exactly.
+ * Finds the remainder of this value by [divisor] exactly: always 0 (division is
+ * exact for rationals).
  *
  * @see [divideAndRemainder]
  */
@@ -326,7 +330,8 @@ public operator fun <T : BigRationalBase<T>> Long.rem(divisor: T): T =
     divisor.companion.ZERO
 
 /**
- * Finds the remainder of this value divided by [divisor] exactly.
+ * Finds the remainder of this value by [divisor] exactly: always 0 (division is
+ * exact for rationals).
  *
  * @see [divideAndRemainder]
  */
@@ -334,7 +339,8 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: Int): T =
     this % companion.valueOf(divisor)
 
 /**
- * Finds the remainder of this value divided by [divisor] exactly.
+ * Finds the remainder of this value by [divisor] exactly: always 0 (division is
+ * exact for rationals).
  *
  * @see [divideAndRemainder]
  */

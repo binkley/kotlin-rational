@@ -308,8 +308,8 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
     override fun unaryDiv(): T = reciprocal
 
     /**
-     * Finds the remainder of this value by [divisor]: always 0 (division is
-     * exact for rationals).
+     * Finds the remainder of this value by [divisor] exactly: always 0
+     * (division is exact for rationals).
      *
      * @see [divideAndRemainder]
      */
