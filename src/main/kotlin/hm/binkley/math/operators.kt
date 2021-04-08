@@ -370,6 +370,6 @@ public fun <T : BigRationalBase<T>> T.divideAndRemainder(divisor: T):
  * Provides a pseudo-operator for exponentiation, raising this value to the
  * power of [exponent].
  */
-@Suppress("DANGEROUS_CHARACTERS", "FunctionName")
+@Suppress("DANGEROUS_CHARACTERS", "FunctionName", "Unused")
 public infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int): T =
     pow(exponent)
