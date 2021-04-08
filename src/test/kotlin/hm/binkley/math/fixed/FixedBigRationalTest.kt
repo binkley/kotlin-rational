@@ -21,6 +21,13 @@ import org.junit.jupiter.api.Test
  */
 internal class FixedBigRationalTest {
     @Test
+    fun `should not divide by 0 when constructing`() {
+        shouldThrow<ArithmeticException> {
+            (1 over 0)
+        }
+    }
+
+    @Test
     fun `should not be a floating big rational range`() {
         (ONE..TEN) shouldNotBe
             FloatingBigRational.ONE..FloatingBigRational.TEN
