@@ -120,7 +120,7 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * - Produces the constants `ONE`, `TWO`, and `TEN` when the constructed big
      *   rational has those values
      *
-     *  *[denominator] may not be `ZERO`.
+     *  **[denominator] may not be `ZERO`**.
      *
      * A typical `valueOf` looks like:
      * ```
