@@ -109,11 +109,40 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
         if (step.isZero()) error("Step must be non-zero.")
     }
 
+    /**
+     * Constructs a `T` _after_ derived types handle all special cases in
+     * `valueOf`.  The most important special case is when [denominator] is
+     * `ZERO`  Common behavior for all derived types:
+     * - Produces the constant `ZERO` for a numerator of `ZERO`
+     * - Transfers the negative sign from the [denominator] to the constructed
+     *   numerator
+     * - Reduces the constructed numerator and denominator to lowest terms
+     * - Produces the constants `ONE`, `TWO`, and `TEN` when the constructed big
+     *   rational has those values
+     *
+     *  *[denominator] may not be `ZERO`.
+     *
+     * A typical `valueOf` looks like:
+     * ```
+     * override fun valueOf(numerator: BInt, denominator: BInt)
+     *         : MyBigRationalType {
+     *     // Handle special cases for numerator and denominator, such as
+     *     // raising exceptions, or producing special values, especially for a
+     *     // denominator of ZERO
+     *     return construct(numerator, denominator) { n, d ->
+     *         MyBigRationalType(n, d)
+     *     }
+     * }
+     * ```
+     */
     protected fun construct(
         numerator: BInt,
         denominator: BInt,
         ctor: (BInt, BInt) -> T,
     ): T {
+        require(!denominator.isZero()) {
+            "BUG: Internal division by zero"
+        }
         if (numerator.isZero()) return ZERO
 
         var n = numerator
@@ -379,10 +408,10 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
     public open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-        other is BigRationalBase<*> &&
-        javaClass == other.javaClass &&
-        numerator == other.numerator &&
-        denominator == other.denominator
+            other is BigRationalBase<*> &&
+            javaClass == other.javaClass &&
+            numerator == other.numerator &&
+            denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
