@@ -506,6 +506,25 @@ be to use a sealed class with separate subclasses for special cases. This would
 potentially provide handling of infinitesimals. However, the abstraction bleeds
 between subclasses. It is unclear if a sealed class makes clearer code.
 
+### Avoid duplication
+
+One of the implementation choices was to share common code between
+`FixedBigRational` and `FloatingBigRational` as much as possible. To do this in
+Kotlin, these types extend a common base class, `BigRationalBase`
+and either member functions, or extension functions on a generic type.
+
+More interesting is avoiding duplication of class-level properties
+(constants) and functions while retaining subtype-specific behavior. An example
+is a constant like `ONE` or a shared factory method like `valueOf`. An example
+of subtype-specific behavior is that `FloatingBigDecimal.valueOf`
+produces `NaN` for a rational like `1 over 0`, but `FixedBigRational.valueOf`
+raises an `ArithmeticException`.
+
+To avoid duplication for class-level features, the companion objects for
+`FixedBigRational` and `FloatingBigRational` extend `BigRationalCompanion`.  
+That companion objects are full types and can extend base classes and implement
+interfaces is an underappreciated feature of Kotlin.
+
 ### GCD vs LCM
 
 There are several places that might use LCM (_eg_, dividing rationals). This
