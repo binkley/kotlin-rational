@@ -314,7 +314,10 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
      * @see [divideAndRemainder]
      */
     @Suppress("UNUSED_PARAMETER")
-    public open operator fun rem(divisor: T): T = companion.ZERO
+    public open operator fun rem(divisor: T): T = when (divisor) {
+        companion.ZERO -> throw ArithmeticException("Modulus by zero")
+        else -> companion.ZERO
+    }
 
     /**
      * Returns a the value `(this^exponent)`. Note that [exponent] is an

@@ -5,6 +5,7 @@ package hm.binkley.math
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestBigRational.Companion.valueOf
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -257,23 +258,59 @@ internal class OperatorsTest {
         }
 
         @Test
+        fun `should not modulo by 0`() {
+            shouldThrow<ArithmeticException> {
+                ONE % ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                ONE % BDouble.ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                BDouble.ONE % ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                ONE % 0.0
+            }
+            shouldThrow<ArithmeticException> {
+                0.0 % ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                ONE % 0.0f
+            }
+            shouldThrow<ArithmeticException> {
+                1.0f % ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                ONE % BInt.ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                BInt.ONE % ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                1L % ZERO
+            }
+            shouldThrow<ArithmeticException> {
+                ONE % 0
+            }
+            shouldThrow<ArithmeticException> {
+                1 % ZERO
+            }
+        }
+
+        @Test
         fun `should divide with remainder`() {
             valueOf(13.big, 2.big).divideAndRemainder(
                 valueOf(3.big, 1.big)
-            ) shouldBe
-                (valueOf(2.big, 1.big) to valueOf(1.big, 2.big))
+            ) shouldBe (valueOf(2.big, 1.big) to valueOf(1.big, 2.big))
             valueOf((-13).big, 2.big).divideAndRemainder(
                 valueOf((-3).big, 1.big)
-            ) shouldBe
-                (valueOf(2.big, 1.big) to valueOf((-1).big, 2.big))
+            ) shouldBe (valueOf(2.big, 1.big) to valueOf((-1).big, 2.big))
             valueOf((-13).big, 2.big).divideAndRemainder(
                 valueOf(3.big, 1.big)
-            ) shouldBe
-                (valueOf((-2).big, 1.big) to valueOf((-1).big, 2.big))
+            ) shouldBe (valueOf((-2).big, 1.big) to valueOf((-1).big, 2.big))
             valueOf(13.big, 2.big).divideAndRemainder(
                 valueOf((-3).big, 1.big)
-            ) shouldBe
-                (valueOf((-2).big, 1.big) to valueOf(1.big, 2.big))
+            ) shouldBe (valueOf((-2).big, 1.big) to valueOf(1.big, 2.big))
         }
 
         @Test

@@ -255,7 +255,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: BDouble): T =
  */
 @Suppress("UNUSED_PARAMETER")
 public operator fun <T : BigRationalBase<T>> BDouble.rem(divisor: T): T =
-    divisor.companion.ZERO
+    divisor.companion.valueOf(this) % divisor
 
 /**
  * Finds the remainder of this value divided by [divisor] exactly.
@@ -272,7 +272,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: Double): T =
  */
 @Suppress("UNUSED_PARAMETER")
 public operator fun <T : BigRationalBase<T>> Double.rem(divisor: T): T =
-    divisor.companion.ZERO
+    divisor.companion.valueOf(this) % divisor
 
 /**
  * Finds the remainder of this value divided by [divisor] exactly.
@@ -289,7 +289,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: Float): T =
  */
 @Suppress("UNUSED_PARAMETER")
 public operator fun <T : BigRationalBase<T>> Float.rem(divisor: T): T =
-    divisor.companion.ZERO
+    divisor.companion.valueOf(this) % divisor
 
 /**
  * Finds the remainder of this value by [divisor] exactly: always 0 (division is
@@ -308,7 +308,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: BInt): T =
  */
 @Suppress("UNUSED_PARAMETER")
 public operator fun <T : BigRationalBase<T>> BInt.rem(divisor: T): T =
-    divisor.companion.ZERO
+    divisor.companion.valueOf(this) % divisor
 
 /**
  * Finds the remainder of this value by [divisor] exactly: always 0 (division is
@@ -327,7 +327,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: Long): T =
  */
 @Suppress("UNUSED_PARAMETER")
 public operator fun <T : BigRationalBase<T>> Long.rem(divisor: T): T =
-    divisor.companion.ZERO
+    divisor.companion.valueOf(this) % divisor
 
 /**
  * Finds the remainder of this value by [divisor] exactly: always 0 (division is
@@ -346,7 +346,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: Int): T =
  */
 @Suppress("UNUSED_PARAMETER")
 public operator fun <T : BigRationalBase<T>> Int.rem(divisor: T): T =
-    divisor.companion.ZERO
+    divisor.companion.valueOf(this) % divisor
 
 // The remainder below are not technically operators, but in actual usage are
 // close enough as above and below share testing.  In Perl, below would be
