@@ -408,10 +408,10 @@ public abstract class BigRationalBase<T : BigRationalBase<T>> protected construc
     public open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-            other is BigRationalBase<*> &&
-            javaClass == other.javaClass &&
-            numerator == other.numerator &&
-            denominator == other.denominator
+        other is BigRationalBase<*> &&
+        javaClass == other.javaClass &&
+        numerator == other.numerator &&
+        denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
