@@ -7,7 +7,7 @@ import kotlin.math.absoluteValue
 public class Mod3Int private constructor(
     public val value: Int,
 ) : Ring<Mod3Int> {
-    override val companion: Companion = Mod3Int
+    override val companion: Companion get() = Mod3Int
 
     override fun unaryMinus(): Mod3Int = valueOf(-value)
     override fun plus(addend: Mod3Int): Mod3Int =

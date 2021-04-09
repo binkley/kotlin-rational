@@ -17,7 +17,7 @@ public data class FixedBigComplex(
     val real: BRat,
     val imag: BImag,
 ) : Field<FixedBigComplex> {
-    override val companion: Companion = FixedBigComplex
+    override val companion: Companion get() = FixedBigComplex
 
     override operator fun unaryMinus(): FixedBigComplex = -real + -imag
 
