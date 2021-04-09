@@ -291,8 +291,6 @@
                                 <rule>
                                     <limits>
                                         <limit>
-                                            <!-- TODO: Kotlin vs JaCoCo -->
-                                            <!-- TODO: JUnit vs JaCoCo -->
                                             <minimum>99%</minimum>
                                         </limit>
                                     </limits>
@@ -315,8 +313,7 @@
                         <avoidCallsTo>org.apache.commons.logging
                         </avoidCallsTo>
                     </avoidCallsTo>
-                    <!-- TODO: How to make mutation testing happier? -->
-                    <coverageThreshold>99</coverageThreshold>
+                    <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
                         <excludedClass>hm.binkley.math.MainKt
                         </excludedClass>
