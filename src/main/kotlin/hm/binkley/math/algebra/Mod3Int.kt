@@ -16,7 +16,7 @@ public class Mod3Int private constructor(
     override fun times(factor: Mod3Int): Mod3Int =
         valueOf(value * factor.value)
 
-    @Generated
+    @Generated // Lie to JaCoCo
     override fun equals(other: Any?): Boolean = this === other
     override fun hashCode(): Int = hash(this::class, value)
     override fun toString(): String = value.toString()

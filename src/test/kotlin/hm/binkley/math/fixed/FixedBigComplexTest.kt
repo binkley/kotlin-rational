@@ -2,6 +2,7 @@ package hm.binkley.math.fixed
 
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigComplex.Companion.ONE
+import hm.binkley.math.fixed.FixedBigComplex.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import io.kotest.assertions.throwables.shouldThrow
@@ -15,6 +16,12 @@ private val NEG_ONE_PLUS_I = -BRat.ONE + I
 private val NEG_ONE_MINUS_I = -BRat.ONE - I
 
 internal class FixedBigComplexTest {
+    @Test
+    fun `should have constants`() {
+        ZERO shouldBe 0 + 0.i
+        ONE shouldBe 1 + 0.i
+    }
+
     @Test
     fun `should destructure`() {
         val (real, imag) = ONE_PLUS_I
