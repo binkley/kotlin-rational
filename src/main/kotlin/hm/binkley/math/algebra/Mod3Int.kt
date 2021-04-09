@@ -1,5 +1,6 @@
 package hm.binkley.math.algebra
 
+import lombok.Generated
 import java.util.Objects.hash
 import kotlin.math.absoluteValue
 
@@ -15,6 +16,7 @@ public class Mod3Int private constructor(
     override fun times(factor: Mod3Int): Mod3Int =
         valueOf(value * factor.value)
 
+    @Generated
     override fun equals(other: Any?): Boolean = this === other
     override fun hashCode(): Int = hash(this::class, value)
     override fun toString(): String = value.toString()
