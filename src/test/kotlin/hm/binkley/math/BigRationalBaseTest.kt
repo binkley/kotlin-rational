@@ -1,4 +1,4 @@
-@file:Suppress("NonAsciiCharacters")
+@file:Suppress("NonAsciiCharacters", "JUnit5MalformedNestedClass")
 
 package hm.binkley.math
 
@@ -207,6 +207,7 @@ internal class BigRationalBaseTest {
             val result: String,
         )
 
+        @Suppress("unused")
         fun testData() = listOf(
             // Non-repeating
             Conversion(1, 2, 0, null, "0"),
