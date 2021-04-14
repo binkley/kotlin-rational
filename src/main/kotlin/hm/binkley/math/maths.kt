@@ -19,7 +19,7 @@ internal fun BInt.isEven() = (this % 2.big).isZero()
 
 internal val String.big: BDouble get() = BDouble(this)
 
-/** A sad property.  [BigDecimal.valueOf] does not check for all constants. */
+/** Note that [BigDecimal.valueOf] does not check for all constants. */
 internal val Double.big: BDouble
     get() = when (this) {
         0.0 -> BDouble.ZERO // Unlike BInt, BDouble.valueOf does not handle
@@ -29,14 +29,6 @@ internal val Double.big: BDouble
         else -> BDouble.valueOf(this)
     }
 
-/** A sad property.  [BigInteger.valueOf] does not check for all constants. */
-internal val Long.big: BInt
-    get() = when (this) {
-        // ZERO handled internally by valueOf, unlike the others
-        1L -> BInt.ONE
-        2L -> BInt.TWO
-        10L -> BInt.TEN
-        else -> BInt.valueOf(this)
-    }
-
+/** Note that [BigInteger.valueOf] checks for cached constants. */
+internal val Long.big: BInt get() = BInt.valueOf(this)
 internal val Int.big: BInt get() = toLong().big
