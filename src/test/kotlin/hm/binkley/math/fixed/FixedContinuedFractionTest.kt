@@ -129,12 +129,21 @@ internal class FixedContinuedFractionTest {
             1.big
         (c3.denominator * c2.numerator - c2.denominator * c3.numerator) shouldBe
             -(1.big)
+    }
 
+    @Test
+    fun `should converge faster than requested`() {
+        ONE.toContinuedFraction().convergent(0) shouldBe ONE
+        ONE.toContinuedFraction().convergent(1) shouldBe ONE
+        (3 over 2).toContinuedFraction().convergent(0) shouldBe ONE
+        (3 over 2).toContinuedFraction().convergent(1) shouldBe (3 over 2)
+        (3 over 2).toContinuedFraction().convergent(2) shouldBe (3 over 2)
+    }
+
+    @Test
+    fun `should complain for non-positive convergents`() {
         shouldThrow<IllegalStateException> {
             eulerApproximation.convergent(-1)
-        }
-        shouldThrow<IllegalStateException> {
-            (ONE.toContinuedFraction()).convergent(1)
         }
     }
 
