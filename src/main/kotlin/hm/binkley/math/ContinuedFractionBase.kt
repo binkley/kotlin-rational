@@ -119,7 +119,8 @@ public abstract class ContinuedFractionBase<
 }
 
 /**
- * Returns number of requested convergents.
+ * Returns the convergent up to [n] terms of the continued fraction.  The 0th
+ * convergent is the integer part of the continued fraction.
  *
  * @todo How is caller to know the # of convergents available?!
  */
