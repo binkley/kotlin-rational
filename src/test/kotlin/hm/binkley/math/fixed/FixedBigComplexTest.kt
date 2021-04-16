@@ -8,6 +8,7 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.math.BigDecimal
 
 private val ONE_PLUS_I = BRat.ONE + I
@@ -82,10 +83,6 @@ internal class FixedBigComplexTest {
     fun `should negate`() {
         -ONE_PLUS_I shouldBe NEG_ONE_MINUS_I
     }
-
-    // TODO: How to structure tests for 100% coverage?
-    //       - By binary operation?
-    //       - By type left/right side of operation?
 
     @Test
     fun `should add`() {
@@ -188,6 +185,18 @@ internal class FixedBigComplexTest {
         ONE_PLUS_I.pow(-1) shouldBe half - half.i
         ONE_PLUS_I.pow(2) shouldBe 0 + 2.i
         ONE_PLUS_I.pow(-2) shouldBe 0 - half.i
+    }
+
+    @Test
+    fun `should define by fiat 0^0`() {
+        ZERO `**` 0 shouldBe ONE
+    }
+
+    @Test
+    fun `should complain on inverting zero`() {
+        assertThrows<ArithmeticException> {
+            ZERO `**` -1
+        }
     }
 
     @Test

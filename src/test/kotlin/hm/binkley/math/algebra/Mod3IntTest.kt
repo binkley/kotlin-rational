@@ -22,10 +22,17 @@ internal class Mod3IntTest {
     }
 
     @Test
-    fun `should cycle through values`() {
+    fun `should cycle through values forwards`() {
         var mod = TWO
         for (n in -7..7)
             Mod3Int.valueOf(n) shouldBe mod++
+    }
+
+    @Test
+    fun `should cycle through values backwards`() {
+        var mod = ONE
+        for (n in 7 downTo -7)
+            Mod3Int.valueOf(n) shouldBe mod--
     }
 
     @Test
@@ -40,17 +47,17 @@ internal class Mod3IntTest {
 
     @Test
     fun `should add`() {
-        (Mod3Int.valueOf(4) + Mod3Int.valueOf(3)) shouldBe ONE
+        (Mod3Int.valueOf(2) + Mod3Int.valueOf(3)) shouldBe TWO
     }
 
     @Test
     fun `should subtract`() {
-        (Mod3Int.valueOf(4) - Mod3Int.valueOf(3)) shouldBe ONE
+        (Mod3Int.valueOf(2) - Mod3Int.valueOf(3)) shouldBe TWO
     }
 
     @Test
     fun `should multiply`() {
-        (Mod3Int.valueOf(4) * Mod3Int.valueOf(3)) shouldBe ZERO
+        (Mod3Int.valueOf(2) * Mod3Int.valueOf(3)) shouldBe ZERO
     }
 
     @Test

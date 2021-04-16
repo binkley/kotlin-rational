@@ -247,12 +247,16 @@ public fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
 @Suppress("DANGEROUS_CHARACTERS", "FunctionName")
 public infix fun FixedBigComplex.`**`(n: Int): FixedBigComplex = pow(n)
 
-/** @todo Improve on brute force */
+/**
+ * Note: Following expectations for discrete exponents, `0^0` is defined as `1`.
+ *
+ * @todo Improve on brute force
+ */
 public fun FixedBigComplex.pow(n: Int): FixedBigComplex {
     when (n) {
-        0 -> return ONE // TODO: What is 0^0?
+        0 -> return ONE
         1 -> return this
-        -1 -> return unaryDiv() // TODO: What is 0^-1?
+        -1 -> return unaryDiv()
     }
 
     tailrec fun FixedBigComplex.pow0(

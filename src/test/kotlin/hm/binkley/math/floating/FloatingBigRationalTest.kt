@@ -678,7 +678,7 @@ internal class FloatingBigRationalTest {
         }
 
         @Test
-        fun `should exponentiate`() {
+        fun `should raise`() {
             POSITIVE_INFINITY.pow(2) shouldBe POSITIVE_INFINITY
             POSITIVE_INFINITY.pow(-1) shouldBe ZERO
             NEGATIVE_INFINITY.pow(3) shouldBe NEGATIVE_INFINITY

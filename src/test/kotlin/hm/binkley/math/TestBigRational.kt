@@ -20,8 +20,13 @@ internal class TestBigRational(
         override fun valueOf(
             numerator: BInt,
             denominator: BInt,
-        ): TestBigRational = construct(numerator, denominator) { n, d ->
-            TestBigRational(n, d)
+        ): TestBigRational {
+            if (denominator.isZero())
+                throw ArithmeticException("division by zero")
+
+            return construct(numerator, denominator) { n, d ->
+                TestBigRational(n, d)
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ import java.math.RoundingMode.CEILING
 internal class BigRationalBaseTest {
     @Test
     fun `should detect buggy input`() {
-        shouldThrow<IllegalArgumentException> {
+        shouldThrow<ArithmeticException> {
             (1 over 0)
         }
     }
