@@ -587,6 +587,8 @@ themselves a type hierarchy mirroring hierarchy of types the companions go with.
 - [_Generalized continued
   fraction_](https://en.wikipedia.org/wiki/Generalized_continued_fraction)
 - [_Golden ratio_](https://en.wikipedia.org/wiki/Golden_ratio#Alternative_forms)
+- [_Modulo of Negative
+  Numbers_](https://torstencurdt.com/tech/posts/modulo-of-negative-numbers/)
 - [_Niven's Theorem_](https://mathworld.wolfram.com/NivensTheorem.html)
 - [_Projectively extended real
   line_](https://en.wikipedia.org/wiki/Projectively_extended_real_line) _

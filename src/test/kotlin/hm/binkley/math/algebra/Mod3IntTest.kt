@@ -24,6 +24,8 @@ internal class Mod3IntTest {
     @Test
     fun `should handle negative values`() {
         Mod3Int.valueOf(-1) shouldBe TWO
+        Mod3Int.valueOf(-2) shouldBe ONE
+        Mod3Int.valueOf(-3) shouldBe ZERO
     }
 
     @Test

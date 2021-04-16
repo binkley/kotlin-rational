@@ -2,7 +2,6 @@ package hm.binkley.math.algebra
 
 import lombok.Generated
 import java.util.Objects.hash
-import kotlin.math.absoluteValue
 
 public class Mod3Int private constructor(
     public val value: Int,
@@ -24,11 +23,10 @@ public class Mod3Int private constructor(
     public companion object : RingCompanion<Mod3Int> {
         @JvmStatic
         public fun valueOf(value: Int): Mod3Int {
-            val n =
-                if (0 > value) value.absoluteValue % 3 + 1
-                else value % 3
+            var m = value % 3
+            m = if (m < 0) m + 3 else m
 
-            return when (n) {
+            return when (m) {
                 0 -> ZERO
                 1 -> ONE
                 else -> TWO
@@ -37,6 +35,7 @@ public class Mod3Int private constructor(
 
         override val ZERO: Mod3Int = Mod3Int(0)
         override val ONE: Mod3Int = Mod3Int(1)
+
         @JvmField
         public val TWO: Mod3Int = Mod3Int(2)
     }
