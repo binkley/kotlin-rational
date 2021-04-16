@@ -8,7 +8,6 @@ import lombok.Generated;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 import static hm.binkley.math.BigRationalProgressionKt.downTo;
 import static hm.binkley.math.BigRationalProgressionKt.rangeTo;
@@ -23,13 +22,18 @@ import static hm.binkley.math.floating.FloatingBigRationalKt.over;
 import static hm.binkley.math.floating.FloatingBigRationalKt.toBigRational;
 import static java.lang.System.out;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.StreamSupport.stream;
 
+@Generated // Lie to JaCoCo
 @UtilityClass
 public class JavaMain {
+    private static final FloatingBigRational ZERO = FloatingBigRational.Companion.ZERO;
+    private static final FloatingBigRational ONE = FloatingBigRational.Companion.ONE;
+
     public static void main(final String... args) {
         out.println("==FLOATING BIG RATIONALS");
 
-        out.printf("ZERO is %s%n", FloatingBigRational.Companion.ZERO);
+        out.printf("ZERO is %s%n", ZERO);
         out.printf("NaN is %s%n", NaN);
         out.printf("POSITIVE_INFINITY is %s%n", POSITIVE_INFINITY);
         out.printf("NEGATIVE_INFINITY is %s%n", NEGATIVE_INFINITY);
@@ -48,39 +52,42 @@ public class JavaMain {
         var ratB = over(2, 3);
         out.printf("%s ÷ %s is %s%n", ratA, ratB, ratA.div(ratB));
 
-        var ratC = FloatingBigRational.Companion.ZERO;
+        var ratC = ZERO;
         var ratD = over(7, 3);
         var ratE = over(1, 2);
         out.printf("Progression from %s to %s incrementing by %s:",
                 ratC, ratD, ratE);
-        for (var r : step(rangeTo(ratC, ratD), ratE)) out.print(" " + r);
+        for (var r : step(rangeTo(ratC, ratD), ratE))
+            out.print(" " + r);
         out.println();
         out.printf("Progression from %s to %s decrementing by %s:",
-                ratD, ratC, FloatingBigRational.Companion.ONE);
-        for (var r : downTo(ratD, ratC)) out.print(" " + r);
+                ratD, ratC, ONE);
+        for (var r : downTo(ratD, ratC))
+            out.print(" " + r);
         out.println();
 
         try {
-            for (var r : rangeTo(POSITIVE_INFINITY, NaN)) ;
+            //noinspection StatementWithEmptyBody
+            for (var ignored : rangeTo(POSITIVE_INFINITY, NaN)) ;
         } catch (final IllegalStateException e) {
             out.printf("Expected error for progression containing %s: %s%n", NaN, e);
         }
 
         out.printf("%s greater than %s is %s%n",
-                POSITIVE_INFINITY, FloatingBigRational.Companion.ZERO,
-                0 < POSITIVE_INFINITY.compareTo(FloatingBigRational.Companion.ZERO));
+                POSITIVE_INFINITY, ZERO,
+                0 < POSITIVE_INFINITY.compareTo(ZERO));
         out.printf("%s less than %s is %s%n",
-                NEGATIVE_INFINITY, FloatingBigRational.Companion.ZERO,
-                0 > NEGATIVE_INFINITY.compareTo(FloatingBigRational.Companion.ZERO));
+                NEGATIVE_INFINITY, ZERO,
+                0 > NEGATIVE_INFINITY.compareTo(ZERO));
 
         final var toSort = List.of(
                 POSITIVE_INFINITY,
                 NaN,
-                FloatingBigRational.Companion.ZERO,
+                ZERO,
                 POSITIVE_INFINITY,
                 NaN,
                 NEGATIVE_INFINITY,
-                FloatingBigRational.Companion.ZERO,
+                ZERO,
                 NEGATIVE_INFINITY);
 
         out.printf("%s sorted is %s%n", toSort,
@@ -150,10 +157,11 @@ public class JavaMain {
         out.println();
         out.println("==CANTOR SPIRAL");
 
-        final var x = FloatingBigRational.Companion.cantorSpiral();
-        final Iterable<FloatingBigRational> xx = x::iterator;
-        final var xxx = StreamSupport.stream(xx.spliterator(), false);
-        xxx.limit(10).forEach(out::println);
+        final var cantorSequence = FloatingBigRational.Companion.cantorSpiral();
+        final Iterable<FloatingBigRational> cantorIterable = cantorSequence::iterator;
+        stream(cantorIterable.spliterator(), false)
+                .limit(10)
+                .forEach(out::println);
 
         out.println();
         out.println("==FIXED BIG COMPLEX NUMBERS");
@@ -165,17 +173,15 @@ public class JavaMain {
         out.println();
         out.println("==COMPARING FIXED AND FLOATING BIG RATIONALS");
         out.printf("1 fixed eq? 1 floating? -> %s%n",
-                equivalent(FixedBigRational.Companion.ONE, FloatingBigRational.Companion.ONE));
+                equivalent(FixedBigRational.Companion.ONE, ONE));
     }
 
-    @Generated // Lie to JaCoCo
     private static void dump(final Double d) {
         var rat = toBigRational(d);
 
         out.printf("%s -> %s -> %s%n", d, rat, rat.toDouble());
     }
 
-    @Generated // Lie to JaCoCo
     private static void dump(final Float f) {
         var rat = toBigRational(f);
 
