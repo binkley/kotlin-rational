@@ -24,6 +24,7 @@ public data class FixedBigImaginary(val value: BRat) :
 
     public companion object : GroupCompanion<FixedBigImaginary> {
         override val ZERO: FixedBigImaginary = 0.i
+        @JvmField
         public val I: FixedBigImaginary = 1.i
     }
 }

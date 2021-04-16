@@ -22,6 +22,7 @@ public class Mod3Int private constructor(
     override fun toString(): String = value.toString()
 
     public companion object : RingCompanion<Mod3Int> {
+        @JvmStatic
         public fun valueOf(value: Int): Mod3Int {
             val n =
                 if (0 > value) value.absoluteValue % 3 + 1
@@ -36,6 +37,7 @@ public class Mod3Int private constructor(
 
         override val ZERO: Mod3Int = Mod3Int(0)
         override val ONE: Mod3Int = Mod3Int(1)
+        @JvmField
         public val TWO: Mod3Int = Mod3Int(2)
     }
 }
