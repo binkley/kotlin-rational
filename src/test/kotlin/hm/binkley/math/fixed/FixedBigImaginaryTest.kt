@@ -80,9 +80,13 @@ internal class FixedBigImaginaryTest {
     fun `should divide`() {
         (2.i / I) shouldBe TWO
         (TWO / I) shouldBe (-2).i
+        (2.i / ONE) shouldBe 2.i
         (BInt.TWO / I) shouldBe (-2).i
+        (2.i / 1.big) shouldBe 2.i
         (2L / I) shouldBe (-2).i
+        (2.i / 1L) shouldBe 2.i
         (2 / I) shouldBe (-2).i
+        (2.i / 1) shouldBe 2.i
     }
 
     @Test

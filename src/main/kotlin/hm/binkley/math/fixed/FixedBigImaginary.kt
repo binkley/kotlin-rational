@@ -85,19 +85,19 @@ public operator fun BRat.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: BInt): FixedBigImaginary =
-    this / divisor
+    (value / divisor).toImaginary()
 
 public operator fun BInt.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: Long): FixedBigImaginary =
-    this / divisor
+    (value / divisor).toImaginary()
 
 public operator fun Long.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: Int): FixedBigImaginary =
-    this / divisor
+    (value / divisor).toImaginary()
 
 public operator fun Int.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
