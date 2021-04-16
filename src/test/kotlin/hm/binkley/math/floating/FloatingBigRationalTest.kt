@@ -361,7 +361,6 @@ internal class FloatingBigRationalTest {
 
     @Nested
     inner class ConversionTests {
-        /** @todo Rationalize with following test */
         @Test
         fun `should be a number`() {
             POSITIVE_INFINITY.toDouble() shouldBe Double.POSITIVE_INFINITY

@@ -84,7 +84,6 @@ internal class FixedBigRationalTest {
 
         @Test
         fun `should not convert non-finite doubles`() {
-            // TODO: Decide on ArithmeticException vs IllegalArgumentException
             shouldThrow<ArithmeticException> {
                 valueOf(Double.NaN)
             }

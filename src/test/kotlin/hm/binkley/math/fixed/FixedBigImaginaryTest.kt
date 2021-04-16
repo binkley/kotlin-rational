@@ -65,10 +65,24 @@ internal class FixedBigImaginaryTest {
     @Test
     fun `should multiply`() {
         (2.i * I) shouldBe -TWO
+        (I * 2.i) shouldBe -TWO
         (TWO * I) shouldBe 2.i
+        (I * TWO) shouldBe 2.i
         (BInt.TWO * I) shouldBe 2.i
+        (I * BInt.TWO) shouldBe 2.i
         (2L * I) shouldBe 2.i
+        (I * 2L) shouldBe 2.i
         (2 * I) shouldBe 2.i
+        (I * 2) shouldBe 2.i
+    }
+
+    @Test
+    fun `should divide`() {
+        (2.i / I) shouldBe TWO
+        (TWO / I) shouldBe (-2).i
+        (BInt.TWO / I) shouldBe (-2).i
+        (2L / I) shouldBe (-2).i
+        (2 / I) shouldBe (-2).i
     }
 
     @Test

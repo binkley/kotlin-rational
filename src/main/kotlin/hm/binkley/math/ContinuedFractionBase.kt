@@ -93,8 +93,8 @@ public abstract class ContinuedFractionBase<
         toBigRational().compareTo(other.toBigRational())
 
     /**
-     * @todo Equality of representation or value?  Should [1; 2] equal
-     *      [1; 1, 1]?
+     * @todo Provide `equivalent` so that [1; 2] eq? [1; 1, 1], but is not JVM
+     *       sense of `equals`
      */
     override fun equals(other: Any?): Boolean = this === other ||
         other is ContinuedFractionBase<*, *> &&
@@ -114,7 +114,8 @@ public abstract class ContinuedFractionBase<
      * example, `terms(0)` returns only the _integral part_ of this continued
      * fraction.
      */
-    public fun terms(fractionalTerms: Int): List<T> = subList(0, fractionalTerms + 1)
+    public fun terms(fractionalTerms: Int): List<T> =
+        subList(0, fractionalTerms + 1)
 }
 
 /**
