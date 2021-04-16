@@ -22,10 +22,10 @@ internal class Mod3IntTest {
     }
 
     @Test
-    fun `should handle negative values`() {
-        Mod3Int.valueOf(-1) shouldBe TWO
-        Mod3Int.valueOf(-2) shouldBe ONE
-        Mod3Int.valueOf(-3) shouldBe ZERO
+    fun `should cycle through values`() {
+        var mod = TWO
+        for (n in -7..7)
+            Mod3Int.valueOf(n) shouldBe mod++
     }
 
     @Test

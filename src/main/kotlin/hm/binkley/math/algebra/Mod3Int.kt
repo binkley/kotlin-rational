@@ -15,6 +15,9 @@ public class Mod3Int private constructor(
     override fun times(factor: Mod3Int): Mod3Int =
         valueOf(value * factor.value)
 
+    public operator fun inc(): Mod3Int = valueOf(value + 1)
+    public operator fun dec(): Mod3Int = valueOf(value - 1)
+
     @Generated // Lie to JaCoCo
     override fun equals(other: Any?): Boolean = this === other
     override fun hashCode(): Int = hash(this::class, value)
