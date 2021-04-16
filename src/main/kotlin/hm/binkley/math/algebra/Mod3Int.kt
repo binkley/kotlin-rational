@@ -22,15 +22,10 @@ public class Mod3Int private constructor(
 
     public companion object : RingCompanion<Mod3Int> {
         @JvmStatic
-        public fun valueOf(value: Int): Mod3Int {
-            var m = value % 3
-            m = if (m < 0) m + 3 else m
-
-            return when (m) {
-                0 -> ZERO
-                1 -> ONE
-                else -> TWO
-            }
+        public fun valueOf(value: Int): Mod3Int = when (value.mod(3)) {
+            0 -> ZERO
+            1 -> ONE
+            else -> TWO
         }
 
         override val ZERO: Mod3Int = Mod3Int(0)
