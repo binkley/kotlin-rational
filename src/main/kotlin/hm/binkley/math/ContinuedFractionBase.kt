@@ -7,9 +7,9 @@ import java.util.Collections.nCopies
  *       https://en.wikipedia.org/wiki/Continued_fraction#Semiconvergents
  */
 public abstract class ContinuedFractionBase<
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>,
-    > protected constructor(
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>,
+        > protected constructor(
     private val terms: List<T>,
     public open val companion: ContinuedFractionCompanionBase<T, C>,
 ) : Number(),
@@ -97,9 +97,9 @@ public abstract class ContinuedFractionBase<
      *       sense of `equals`
      */
     override fun equals(other: Any?): Boolean = this === other ||
-        other is ContinuedFractionBase<*, *> &&
-        javaClass == other.javaClass &&
-        terms == other.terms
+            other is ContinuedFractionBase<*, *> &&
+            javaClass == other.javaClass &&
+            terms == other.terms
 
     override fun hashCode(): Int = terms.hashCode()
 
@@ -131,14 +131,13 @@ public fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.convergen
     if (size <= n) error("Not enough terms for convergent: $n")
 
     val c0 = integerPart
-
     if (0 == n) return c0
 
     val term1 = this[1]
     val c1 = (term1 * c0 + 1) / term1
+    if (1 == n) return c1
 
-    return if (1 == n) c1
-    else converge(this, n, 2, c1, c0)
+    return converge(this, n, 2, c1, c0)
 }
 
 private tailrec fun <T : BigRationalBase<T>> converge(
@@ -150,16 +149,16 @@ private tailrec fun <T : BigRationalBase<T>> converge(
 ): T {
     val termI = terms[i]
     val ci = (termI * c_1.numerator + c_2.numerator) /
-        (termI * c_1.denominator + c_2.denominator)
+            (termI * c_1.denominator + c_2.denominator)
 
     return if (n == i) ci
     else converge(terms, n, i + 1, ci, c_1)
 }
 
 public abstract class ContinuedFractionCompanionBase<
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>,
-    >(private val ONE: T) {
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>,
+        >(private val ONE: T) {
     internal abstract fun construct(integerPart: BInt): T
     internal abstract fun construct(terms: List<T>): C
 
@@ -195,9 +194,9 @@ public abstract class ContinuedFractionCompanionBase<
 }
 
 internal fun <
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>,
-    > C.backAgain() = subList(0, size - 1)
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>,
+        > C.backAgain() = subList(0, size - 1)
     .asReversed()
     .fold(last()) { previous, a_ni ->
         previous.unaryDiv() + a_ni
