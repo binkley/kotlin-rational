@@ -5,139 +5,28 @@
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hm.binkley.math</groupId>
-    <artifactId>kotlin-rational-parent</artifactId>
-    <version>2.2.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <parent>
+        <groupId>hm.binkley.math</groupId>
+        <artifactId>kotlin-rational-parent</artifactId>
+        <version>2.2.0-SNAPSHOT</version>
+    </parent>
 
-    <name>Kotlin Rational Parent</name>
+    <artifactId>kotlin-rational-java</artifactId>
 
+    <name>Kotlin Rational Java example</name>
     <description>
-        Parent for building Kotlin Rational
+        Example Java interoperability with Kotlin kotlin-rational
     </description>
-    <modules>
-        <module>kotlin</module>
-        <module>java</module>
-    </modules>
-
-    <url>https://github.com/binkley/kotlin-rational</url>
-    <licenses>
-        <license>
-            <name>Public Domain</name>
-            <url>https://unlicense.org/</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/binkley/kotlin-rational/issues</url>
-    </issueManagement>
-    <scm>
-        <connection>scm:git:git://github.com/binkley/kotlin-rational
-        </connection>
-        <url>https://github.com/binkley/kotlin-rational</url>
-    </scm>
-
-    <properties>
-        <!-- @formatter:off -->
-        <dependency-check-maven.version>6.1.5</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.16.0</detekt-maven-plugin.version>
-        <dokka.version>1.4.20</dokka.version>
-        <jacoco-maven-plugin.version>0.8.7-SNAPSHOT</jacoco-maven-plugin.version>
-        <java.charset>UTF-8</java.charset>
-        <jdk.version>11</jdk.version>
-        <junit.version>5.8.0-M1</junit.version>
-        <kotest.version>4.4.3</kotest.version>
-        <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.5.0-RC</kotlin.version>
-        <ktlint-maven-plugin.version>1.9.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.20</lombok.version>
-        <main.class>hm.binkley.math.KotlinMainKt</main.class>
-        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
-        <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
-        <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
-        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven.test.skip>false</maven.test.skip> <!-- Make linter happy -->
-        <maven.version>3.8.1</maven.version>
-        <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.6.2</pitest-maven.version>
-        <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
-        <system-lambda.version>1.2.0</system-lambda.version>
-        <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
-        <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
-        <!-- @formatter:on -->
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>kotlin-rational</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <!-- TODO: These are not needed, but fix the build -->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-script-runtime</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.kotest</groupId>
-            <artifactId>kotest-runner-junit5-jvm</artifactId>
-            <version>${kotest.version}</version>
-            <scope>test</scope>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>kotlin-rational</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <defaultGoal>verify</defaultGoal>
-
-        <!-- @formatter:off -->
-        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-        <!-- @formatter:on -->
 
         <plugins>
             <plugin>
@@ -168,51 +57,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <version>${kotlin.version}</version>
-                <configuration>
-                    <args>
-                        <arg>-Xexplicit-api=strict</arg>
-                        <arg>-Xuse-ir</arg>
-                        <arg>-Werror</arg>
-                    </args>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>${project.basedir}/src/main/kotlin
-                                </sourceDir>
-                                <sourceDir>${project.basedir}/src/main/java
-                                </sourceDir>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>process-test-sources</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${maven.test.skip}</skip>
-                            <sourceDirs>
-                                <sourceDir>${project.basedir}/src/test/kotlin
-                                </sourceDir>
-                                <sourceDir>${project.basedir}/src/test/java
-                                </sourceDir>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
@@ -221,35 +65,6 @@
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
                 </configuration>
-                <executions>
-                    <!-- Replacing default-compile as it is treated specially by maven -->
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>none</phase>
-                    </execution>
-                    <!-- Replacing default-testCompile as it is treated specially by maven -->
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>java-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>java-test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${maven.test.skip}</skip>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -327,6 +142,8 @@
                     <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
                         <excludedClass>hm.binkley.math.KotlinMainKt
+                        </excludedClass>
+                        <excludedClass>hm.binkley.math.JavaMain
                         </excludedClass>
                     </excludedClasses>
                     <excludedMethods>
@@ -590,17 +407,4 @@
             </plugin>
         </plugins>
     </reporting>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Sonatype SNAPSHOT</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
