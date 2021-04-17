@@ -599,14 +599,4 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
-    <distributionManagement>
-        <repository>
-            <id>bintray-binkley-maven</id>
-            <name>binkley-maven</name>
-            <url>
-                https://api.bintray.com/maven/binkley/maven/kotlin-rational/;publish=1
-            </url>
-        </repository>
-    </distributionManagement>
 </project>
