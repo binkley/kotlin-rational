@@ -602,11 +602,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-binkley-maven</id>
-            <name>binkley-maven</name>
-            <url>
-                https://api.bintray.com/maven/binkley/maven/kotlin-rational/;publish=1
-            </url>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/binkley/kotlin-rational</url>
         </repository>
     </distributionManagement>
 </project>
