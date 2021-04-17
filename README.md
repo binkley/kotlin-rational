@@ -134,6 +134,31 @@ This snippet is an elided `pom.xml`:
 </project>
 ```
 
+### Caveats
+
+Publishing open source projects has become more challenging with the demise of
+JCenter. An alternative like GitHub packages has its
+[own challenges](https://github.community/t/download-from-github-package-registry-without-authentication/14407)
+. For now, JitPack is usable though with drawbacks.
+
+To use JitPack, change the Maven coordinates for this project to:
+`com.github.binkley:kotlin-rational:kotlin-rational-2.1.1`. Note the version is
+a git tab, _not_ the actual version.
+
+And add a repository declaration:
+
+```XML
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+See [`kunits`](https://github.com/binkley/kunits) for a small if whimsical
+example of a library using `kotlin-rational` with the JitPack repository.
+
 ---
 
 ## API
