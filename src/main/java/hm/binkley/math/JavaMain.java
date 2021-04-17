@@ -18,6 +18,8 @@ import static hm.binkley.math.fixed.FixedBigComplexKt.plus;
 import static hm.binkley.math.floating.FloatingBigRational.NEGATIVE_INFINITY;
 import static hm.binkley.math.floating.FloatingBigRational.NaN;
 import static hm.binkley.math.floating.FloatingBigRational.POSITIVE_INFINITY;
+import static hm.binkley.math.floating.FloatingBigRationalKt.ONE;
+import static hm.binkley.math.floating.FloatingBigRationalKt.ZERO;
 import static hm.binkley.math.floating.FloatingBigRationalKt.over;
 import static hm.binkley.math.floating.FloatingBigRationalKt.toBigRational;
 import static java.lang.System.out;
@@ -27,9 +29,6 @@ import static java.util.stream.StreamSupport.stream;
 @Generated // Lie to JaCoCo
 @UtilityClass
 public class JavaMain {
-    private static final FloatingBigRational ZERO = FloatingBigRational.Companion.ZERO;
-    private static final FloatingBigRational ONE = FloatingBigRational.Companion.ONE;
-
     public static void main(final String... args) {
         out.println("==FLOATING BIG RATIONALS");
 

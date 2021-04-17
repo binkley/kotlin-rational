@@ -5,11 +5,19 @@ import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.big
+import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.isZero
 
 internal typealias BRat = FixedBigRational
+
+// Workarounds for Java interop
+@JvmField
+public val ZERO: FixedBigRational = ZERO
+
+@JvmField
+public val ONE: FixedBigRational = ONE
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).

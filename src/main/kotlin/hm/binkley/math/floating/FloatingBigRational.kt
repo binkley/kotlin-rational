@@ -8,12 +8,21 @@ import hm.binkley.math.big
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
+import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingBigRational.Companion.valueOf
 import hm.binkley.math.isZero
 import java.math.BigDecimal
 import java.math.RoundingMode
+
+// Workarounds for Java interop
+
+@JvmField
+public val ZERO: FloatingBigRational = ZERO
+
+@JvmField
+public val ONE: FloatingBigRational = ONE
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).  `BigRational`
