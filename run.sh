@@ -18,20 +18,28 @@ readonly progname="${0##*/}"
 
 function print-help() {
     cat <<EOH
-Usage: $progname [-Xdh] [CLASS] [ARGUMENTS]
-Runs a single-jar Kotlin project.
+Usage: $progname [-dh][-L|--language java|kotlin]
+Runs examples for this library.
 
-With no CLASS, assume the jar is executable.
-
-  -X, --executable  stop processing command line
-  -d, --debug       print script execution to STDERR
-  -h, --help        display this help and exit
+  -L, --language [LANGUAGE]  runs the example for LANGUAGE; languages:
+                                java
+                                kotlin (the default)
+  -d, --debug                print script execution to STDERR
+  -h, --help                 display this help and exit
 
 Examples:
-  $progname            Runs the executable jar with no arguments to main
-  $progname -X an-arg  Runs the executable jar passing "an-arg" to main
-  $progname a-class    Runs the main from "a-class"
+  $progname            Runs the kotlin example
+  $progname -L java    Runs the java example
 EOH
+}
+
+function bad-language() {
+    local language="$1"
+
+    cat <<EOM
+$progname: invalid language -- '$language'
+Try '$progname --help' for more information.
+EOM
 }
 
 function bad-option() {
@@ -69,14 +77,17 @@ function rebuild-if-needed() {
 }
 
 debug=false
-executable=false
-while getopts :Xdh-: opt; do
+language=kotlin
+while getopts :L:d:h-: opt; do
     [[ $opt == - ]] && opt=${OPTARG%%=*} OPTARG=${OPTARG#*=}
     case $opt in
-    X | executable)
-        executable=true
-        break
-        ;;
+    L | language) case "$OPTARG" in
+        kotlin | java) language="$OPTARG" ;;
+        *)
+            bad-language "$OPTARG"
+            exit 2
+            ;;
+        esac ;;
     d | debug) debug=true ;;
     h | help)
         print-help
@@ -91,15 +102,11 @@ done
 shift $((OPTIND - 1))
 
 $debug && set -x
-((0 == $#)) && executable=true
 
-if $executable; then
-    set - -jar "$jar" "$@"
-else
-    readonly class="$(mangle-kotlin-classname "$package.$1")"
-    shift
-    set - -cp "$jar" "$class" "$@"
-fi
+case $language in
+java) set - -cp "$jar" "$package.JavaMain" "$@" ;;
+kotlin) set - -jar "$jar" "$@" ;;
+esac
 
 $debug && set -x # "set - ..." clears the -x flag
 

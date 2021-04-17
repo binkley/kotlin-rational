@@ -90,6 +90,13 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 ## Use
 
+### Examples
+
+See these examples:
+
+- [Java `main`](./src/main/java/hm/binkley/math/JavaMain.java)
+- [Kotlin `main`](./src/main/kotlin/hm/binkley/math/KotlinMain.kt)
+
 ### Gradle
 
 This snippet uses Kotlin syntax for the build script:
@@ -148,6 +155,7 @@ a git tab, _not_ the actual version.
 And add a repository declaration:
 
 ```XML
+
 <repositories>
     <repository>
         <id>jitpack.io</id>

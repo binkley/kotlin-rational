@@ -8,7 +8,7 @@ import static io.kotest.matchers.ShouldKt.shouldBe;
 class JavaMainTest {
     @Test
     void shouldHaveSameOutputForKotlinAndJavaMain() throws Exception {
-        final var kotlinOut = tapSystemOut(MainKt::main);
+        final var kotlinOut = tapSystemOut(KotlinMainKt::main);
         final var javaOut = tapSystemOut(JavaMain::main);
 
         shouldBe(javaOut, kotlinOut);

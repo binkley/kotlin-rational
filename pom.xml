@@ -46,7 +46,7 @@
         <kotlin.version>1.5.0-RC</kotlin.version>
         <ktlint-maven-plugin.version>1.9.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.20</lombok.version>
-        <main.class>hm.binkley.math.MainKt</main.class>
+        <main.class>hm.binkley.math.KotlinMainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
@@ -322,7 +322,7 @@
                     </avoidCallsTo>
                     <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
-                        <excludedClass>hm.binkley.math.MainKt
+                        <excludedClass>hm.binkley.math.KotlinMainKt
                         </excludedClass>
                     </excludedClasses>
                     <excludedMethods>
