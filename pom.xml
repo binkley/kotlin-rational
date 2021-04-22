@@ -10,15 +10,16 @@
     <version>2.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>Kotlin Rational Parent</name>
+
+    <description>
+        Parent for building Kotlin Rational
+    </description>
     <modules>
         <module>kotlin</module>
         <module>java</module>
     </modules>
 
-    <name>Kotlin Rational Parent</name>
-    <description>
-        Parent for building Kotlin Rational
-    </description>
     <url>https://github.com/binkley/kotlin-rational</url>
     <licenses>
         <license>
