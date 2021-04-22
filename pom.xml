@@ -5,21 +5,15 @@
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hm.binkley.math</groupId>
-    <artifactId>kotlin-rational-parent</artifactId>
+    <groupId>hm.binkley</groupId>
+    <artifactId>kotlin-rational</artifactId>
     <version>2.2.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
-    <name>Kotlin Rational Parent</name>
-
+    <name>kotlin-rational</name>
     <description>
-        Parent for building Kotlin Rational
+        Immutable, infinite-precision "BigRational" (ratio, fraction) classes
+        for Kotlin, akin to `BigDecimal` or `BigInteger`
     </description>
-    <modules>
-        <module>kotlin</module>
-        <module>java</module>
-    </modules>
-
     <url>https://github.com/binkley/kotlin-rational</url>
     <licenses>
         <license>
@@ -76,16 +70,6 @@
         <!-- @formatter:on -->
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>kotlin-rational</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -127,6 +111,18 @@
             <groupId>io.kotest</groupId>
             <artifactId>kotest-runner-junit5-jvm</artifactId>
             <version>${kotest.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.kotest</groupId>
+            <artifactId>kotest-assertions-core-jvm</artifactId>
+            <version>${kotest.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.stefanbirkner</groupId>
+            <artifactId>system-lambda</artifactId>
+            <version>${system-lambda.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -48,7 +48,6 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 * [Releases](#releases)
 * [Use](#use)
-* [Project](#project)
 * [API](#api)
 * [Build](#build)
 * [Maintenance](#maintenance)
@@ -95,8 +94,8 @@ This code builds and passes tests and checks on JDK 11, 13, 14, and 15.
 
 See these examples:
 
-- [Java `main`](./java/src/main/java/hm/binkley/math/JavaMain.java)
-- [Kotlin `main`](./kotlin/src/main/kotlin/hm/binkley/math/KotlinMain.kt)
+- [Java `main`](./src/main/java/hm/binkley/math/JavaMain.java)
+- [Kotlin `main`](./src/main/kotlin/hm/binkley/math/KotlinMain.kt)
 
 ### Gradle
 
@@ -167,22 +166,6 @@ And add a repository declaration:
 
 See [`kunits`](https://github.com/binkley/kunits) for a small if whimsical
 example of a library using `kotlin-rational` with the JitPack repository.
-
----
-
-## Project
-
-To keep Java code separate from Kotlin code, and demonstrate interoperability
-for Java calling Kotlin, this project is split into multiple modules:
-
-- [Parent](./pom.xml) &mdash; the top-level build
-- [Kotlin](./kotlin/pom.xml) &mdash; the Kotlin library, the "main" code,
-  including a
-  [Kotlin example](./kotlin/src/main/kotlin/hm/binkley/math/KotlinMain.kt) which
-  exercises the library
-- [Java](./java/pom.xml) &mdash; the
-  [Java example](./java/src/main/java/hm/binkley/math/JavaMain.java)
-  which exercises the library
 
 ---
 
