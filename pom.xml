@@ -36,7 +36,7 @@
         <!-- @formatter:off -->
         <dependency-check-maven.version>6.1.5</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.16.0</detekt-maven-plugin.version>
-        <dokka.version>1.4.20</dokka.version>
+        <dokka.version>1.4.32</dokka.version>
         <jacoco-maven-plugin.version>0.8.7-SNAPSHOT</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>11</jdk.version>
@@ -52,7 +52,7 @@
         <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
+        <maven-jxr-plugin.version>3.1.1</maven-jxr-plugin.version>
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
