@@ -588,4 +588,12 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub binkley Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/binkley/kotlin-rational</url>
+        </repository>
+    </distributionManagement>
 </project>

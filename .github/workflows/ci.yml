@@ -43,3 +43,8 @@ jobs:
 
       - name: Build and test with Maven under Batect
         run: ./batect --permanently-enable-telemetry build
+
+      - name: Publish package to GitHub Packages
+        run: ./mvnw --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
