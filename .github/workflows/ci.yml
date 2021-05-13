@@ -44,7 +44,9 @@ jobs:
       - name: Build and test with Maven under Batect
         run: ./batect --permanently-enable-telemetry build
 
-      - name: Publish package to GitHub Packages
-        run: ./mvnw --batch-mode deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# Disable until public access is resolved:
+# https://github.community/t/download-from-github-package-registry-without-authentication/14407
+#      - name: Publish package to GitHub Packages
+#        run: ./mvnw --batch-mode deploy
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
