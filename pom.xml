@@ -34,7 +34,7 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>6.1.5</dependency-check-maven.version>
+        <dependency-check-maven.version>6.2.1</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.16.0</detekt-maven-plugin.version>
         <dokka.version>1.4.32</dokka.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
