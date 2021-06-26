@@ -30,15 +30,13 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      *
      * Usable directly from Java via `Companion`.
      */
-    @JvmField
-    override val ZERO: T,
+    final override val ZERO: T,
     /**
      * A constant holding value 1. It is equivalent `1 over 1`.
      *
      * Usable directly from Java via `Companion`.
      */
-    @JvmField
-    override val ONE: T,
+    final override val ONE: T,
     /**
      * A constant holding value 2. It is equivalent `2 over 1`.
      *
