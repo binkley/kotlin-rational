@@ -6,25 +6,30 @@ import org.junit.jupiter.api.Test
 
 internal class SeekableSequenceTest {
     @Test
-    fun `should select valid indices`() {
-        TestSeekeableSequence[0] shouldBe "abc"
+    fun `should select first valid index`() {
+        TestSeekableSequence[0] shouldBe "abc"
+    }
+
+    @Test
+    fun `should select second valid index`() {
+        TestSeekableSequence[1] shouldBe "def"
     }
 
     @Test
     fun `should reject negative indices`() {
         shouldThrow<IndexOutOfBoundsException> {
-            TestSeekeableSequence[-1]
+            TestSeekableSequence[-1]
         }
     }
 
     @Test
     fun `should reject excessive indices`() {
         shouldThrow<IndexOutOfBoundsException> {
-            TestSeekeableSequence[1]
+            TestSeekableSequence[2]
         }
     }
 }
 
-private object TestSeekeableSequence :
+private object TestSeekableSequence :
     SeekableSequence<String>,
-    Sequence<String> by sequenceOf("abc")
+    Sequence<String> by sequenceOf("abc", "def")

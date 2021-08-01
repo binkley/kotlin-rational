@@ -3,9 +3,9 @@ package hm.binkley.kotlin
 public interface SeekableSequence<T> : Sequence<T> {
     /**
      * Finds the "nth" element of the sequence.  Sequences are lazy by design,
-     * so this must walk each element the beginning to find the nth element.  No
-     * assumption is made that the sequence is bounded: this could be very
-     * expensive for large indices or hard-to-compute sequences.
+     * so this must walk each element from the beginning to find the nth
+     * element.  No assumption is made that the sequence is bounded: this could
+     * be very expensive for large indices or hard-to-compute sequences.
      *
      * The index must be non-negative, else throws `IndexOutOfBoundsException`.
      *
