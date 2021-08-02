@@ -26,7 +26,12 @@ tasks:
     description: Runs the demo program
     run:
       container: build-env
-      command: ./run.sh main
+      command: ./run.sh -L kotlin main
+  java-run:
+    description: Runs the Java demo program
+    run:
+      container: build-env
+      command: ./run.sh -L java main
   shell:
     description: Opens a shell in the container
     run:
