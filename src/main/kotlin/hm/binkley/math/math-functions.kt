@@ -30,6 +30,8 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
  *
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
+ *
+ * @todo Does sqrt of the division differ from dividing the square roots?
  */
 public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
