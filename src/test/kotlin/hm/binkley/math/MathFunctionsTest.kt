@@ -125,6 +125,22 @@ internal class MathFunctionsTest {
                     10_000_000_000_000_000.big
                 )
         }
+
+        @Test
+        fun `should cube root approximately`() {
+            valueOf(27.big, 125.big).cbrtApproximated() shouldBe
+                valueOf(3.big, 5.big)
+            valueOf(26.big, 125.big).cbrtApproximated() shouldBe
+                valueOf(
+                    5_924_992_136_814_741.big,
+                    10_000_000_000_000_000.big
+                )
+            valueOf(27.big, 126.big).cbrtApproximated() shouldBe
+                valueOf(
+                    2_992_042_402_942_877.big,
+                    5_000_000_000_000_000.big
+                )
+        }
     }
 
     @Nested

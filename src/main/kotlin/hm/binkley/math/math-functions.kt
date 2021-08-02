@@ -1,9 +1,11 @@
 package hm.binkley.math
 
+import java.lang.Math.cbrt
 import java.math.RoundingMode.CEILING
 import java.math.RoundingMode.DOWN
 import java.math.RoundingMode.FLOOR
 import java.math.RoundingMode.HALF_EVEN
+import kotlin.math.sqrt
 
 /**
  * Returns an _exact_ square root (non-complex).  The caller should take
@@ -23,14 +25,33 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
 
 /**
  * Returns the nearest _positive_ (non-complex) rational square root _based
- * on IEEE 754_ floating point values.  The caller should take
+ * on IEEE 754_ double-precision floating-point values.  The caller should take
  * [BigRationalBase.sign] into consideration.
+ *
+ * Note: Approximations are limited to the precision of
+ * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
  */
 public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
 } catch (_: ArithmeticException) {
     companion.valueOf(
-        kotlin.math.sqrt(numerator.toDouble() / denominator.toDouble())
+        sqrt(numerator.toDouble() / denominator.toDouble())
+    )
+}
+
+/**
+ * Returns the nearest _positive_ (non-complex) rational cube root _based
+ * on IEEE 754_ double-precision floating-point values.  The caller should take
+ * [BigRationalBase.sign] into consideration.
+ *
+ * Note: Approximations are limited to the precision of
+ * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
+ */
+public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T = try {
+    sqrt()
+} catch (_: ArithmeticException) {
+    companion.valueOf(
+        cbrt(numerator.toDouble() / denominator.toDouble())
     )
 }
 
