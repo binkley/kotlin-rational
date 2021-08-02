@@ -270,7 +270,7 @@ public class FloatingBigRational private constructor(
                 else -> NEGATIVE_INFINITY
             }
 
-            return construct(numerator, denominator) { n, d ->
+            return reduce(numerator, denominator) { n, d ->
                 FloatingBigRational(n, d)
             }
         }

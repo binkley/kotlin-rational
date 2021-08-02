@@ -24,7 +24,7 @@ internal class TestBigRational(
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")
 
-            return construct(numerator, denominator) { n, d ->
+            return reduce(numerator, denominator) { n, d ->
                 TestBigRational(n, d)
             }
         }

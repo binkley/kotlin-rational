@@ -89,6 +89,11 @@ public fun <T : BigRationalBase<T>> T.fraction(): T =
 /**
  * Returns the greatest common divisor of the absolute values of `this` and
  * [that].  Returns 0 when `this` and [that] are both 0.
+ *
+ * See an example
+ * [tail-recursive version](https://github.com/breandan/kotlingrad/blob/56a6d4d03544db1bcaa93c31ffc7e075bc564e64/core/src/main/kotlin/edu/umontreal/kotlingrad/typelevel/TypeClassing.kt#L192)
+ * Note: this code has recursive calls between [gcd] and [lcm], and Kotlin
+ * `tailrec` does not support mutual recursion.
  */
 public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
     if (isZero()) that else companion.valueOf(

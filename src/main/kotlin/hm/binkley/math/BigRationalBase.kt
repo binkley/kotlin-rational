@@ -14,7 +14,7 @@ import java.util.Objects.hash
  * `FloatingBigRational` is not because of `NaN` and the infinities.
  *
  * *NB* &mdash; To avoid circular references, initialize [ZERO], [ONE], [TWO],
- * and [TEN] directly from constructors, and use neither [construct] nor
+ * and [TEN] directly from constructors, and use neither [reduce] nor
  * [valueOf].
  *
  * @todo Provide`sqrt` via continued fractions, ie,
@@ -133,7 +133,7 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * }
      * ```
      */
-    protected fun construct(
+    protected fun reduce(
         numerator: BInt,
         denominator: BInt,
         ctor: (BInt, BInt) -> T,

@@ -67,7 +67,7 @@ public class FixedBigRational private constructor(
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")
 
-            return construct(numerator, denominator) { n, d ->
+            return reduce(numerator, denominator) { n, d ->
                 FixedBigRational(n, d)
             }
         }
