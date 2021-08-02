@@ -30,8 +30,11 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
  *
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
+ * It is not clear given handling of extrema by IEEE what the best approach is.
  *
- * @todo Does sqrt of the division differ from dividing the square roots?
+ * @todo The algorithm converts to a `Double` for the numerator and denominator
+ *       seemingly unnecessarily rather than directly using `toDouble()`.  This
+ *       avoids an `ArithmeticException`
  */
 public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
@@ -48,14 +51,17 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
  *
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
+ * It is not clear given handling of extrema by IEEE what the best approach is.
+ *
+ * @todo Use `try`/`catch` form as [sqrtApproximated] does
+ * @todo The algorithm converts to a `Double` for the numerator and denominator
+ *       seemingly unnecessarily rather than directly using `toDouble()`.  This
+ *       avoids an `ArithmeticException`
  */
-public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T = try {
-    sqrt()
-} catch (_: ArithmeticException) {
+public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T =
     companion.valueOf(
         cbrt(numerator.toDouble() / denominator.toDouble())
     )
-}
 
 /**
  * Rounds to the nearest whole number towards positive infinity corresponding
