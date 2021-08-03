@@ -29,6 +29,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: Manage Batect telemetry
+        run: ./batect --permanently-enable-telemetry
+
       - name: Restore Maven caches
         uses: actions/cache@master
         env:
@@ -42,7 +45,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Build and test with Maven under Batect
-        run: ./batect --permanently-enable-telemetry build
+        run: ./batect build
 
 # Disable until public access is resolved:
 # https://github.community/t/download-from-github-package-registry-without-authentication/14407
