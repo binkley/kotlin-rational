@@ -170,13 +170,14 @@ public class FloatingBigRational private constructor(
      * Checks that this rational is dyadic, that is, the denominator is a power
      * of 2, or `false` if this number is not finite.
      *
-     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
+     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational">
+     *     <cite>Dyadic rational</cite></a>
      */
     override fun isDyadic(): Boolean = isFinite() && super.isDyadic()
 
     /**
-     * Checks that this rational is _p_-adic, that is, the denominator is a power
-     * of [p], or `false` if this number is not finite.
+     * Checks that this rational is _p_-adic, that is, the denominator is a
+     * power of [p], or `false` if this number is not finite.
      *
      * *NB* &mdash; No check is made that [p] is prime, as required by the
      * definition of _p_-adic numbers.
@@ -226,8 +227,8 @@ public class FloatingBigRational private constructor(
         public val NaN: FloatingBigRational = FloatingBigRational(0.big, 0.big)
 
         /**
-         * A constant holding positive infinity value of type [FloatingBigRational].
-         * It is equivalent `1 over 0`.
+         * A constant holding positive infinity value of type
+         * [FloatingBigRational]. It is equivalent `1 over 0`.
          *
          * Usable directly from Java via `Companion`.
          */
@@ -236,8 +237,8 @@ public class FloatingBigRational private constructor(
             FloatingBigRational(1.big, 0.big)
 
         /**
-         * A constant holding negative infinity value of type [FloatingBigRational].
-         * It is equivalent `-1 over 0`.
+         * A constant holding negative infinity value of type
+         * [FloatingBigRational]. It is equivalent `-1 over 0`.
          *
          * Usable directly from Java via `Companion`.
          */
@@ -651,8 +652,10 @@ public fun Int.toBigRational(): FloatingBigRational = valueOf(this)
  *
  * Non-finite BigRationals produce `[NaN;]`.
  */
+/* ktlint-disable max-line-length */
 public fun FloatingBigRational.toContinuedFraction(): FloatingContinuedFraction =
     FloatingContinuedFraction.valueOf(this)
+/* ktlint-enable max-line-length */
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a

@@ -3,13 +3,12 @@ package hm.binkley.math
 /** Checks if this is an equivalent rational fraction to [other]. */
 public fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.equivalent(
     other: U,
-):
-    Boolean = 0 == this.compareTo(other)
+): Boolean = 0 == this.compareTo(other)
 
 /** Compares this value to [other]. */
-public operator fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.compareTo(
-    other: U,
-): Int =
+public operator fun <
+    T : BigRationalBase<T>,
+    U : BigRationalBase<U>> T.compareTo(other: U): Int =
     (numerator * other.denominator).compareTo(other.numerator * denominator)
 
 /** Compares this value to [other]. */

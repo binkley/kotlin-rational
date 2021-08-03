@@ -44,32 +44,41 @@ public val Int.i: FixedBigImaginary get() = toImaginary()
 
 // Multiplication operator
 
-public operator fun FixedBigImaginary.times(multiplier: FixedBigImaginary): BRat =
-    -(value * multiplier.value)
+public operator fun FixedBigImaginary.times(
+    multiplier: FixedBigImaginary
+): BRat = -(value * multiplier.value)
 
-public operator fun FixedBigImaginary.times(multiplier: BRat): FixedBigImaginary =
-    (value * multiplier).toImaginary()
+public operator fun FixedBigImaginary.times(
+    multiplier: BRat
+): FixedBigImaginary = (value * multiplier).toImaginary()
 
-public operator fun BRat.times(multiplier: FixedBigImaginary): FixedBigImaginary =
-    multiplier * this
+public operator fun BRat.times(
+    multiplier: FixedBigImaginary
+): FixedBigImaginary = multiplier * this
 
-public operator fun FixedBigImaginary.times(multiplier: BInt): FixedBigImaginary =
-    (value * multiplier).toImaginary()
+public operator fun FixedBigImaginary.times(
+    multiplier: BInt
+): FixedBigImaginary = (value * multiplier).toImaginary()
 
-public operator fun BInt.times(multiplier: FixedBigImaginary): FixedBigImaginary =
-    multiplier * this
+public operator fun BInt.times(
+    multiplier: FixedBigImaginary
+): FixedBigImaginary = multiplier * this
 
-public operator fun FixedBigImaginary.times(multiplier: Long): FixedBigImaginary =
-    (value * multiplier).toImaginary()
+public operator fun FixedBigImaginary.times(
+    multiplier: Long
+): FixedBigImaginary = (value * multiplier).toImaginary()
 
-public operator fun Long.times(multiplier: FixedBigImaginary): FixedBigImaginary =
-    multiplier * this
+public operator fun Long.times(
+    multiplier: FixedBigImaginary
+): FixedBigImaginary = multiplier * this
 
-public operator fun FixedBigImaginary.times(multiplier: Int): FixedBigImaginary =
-    (value * multiplier).toImaginary()
+public operator fun FixedBigImaginary.times(
+    multiplier: Int
+): FixedBigImaginary = (value * multiplier).toImaginary()
 
-public operator fun Int.times(multiplier: FixedBigImaginary): FixedBigImaginary =
-    multiplier * this
+public operator fun Int.times(
+    multiplier: FixedBigImaginary
+): FixedBigImaginary = multiplier * this
 
 // Division operator
 

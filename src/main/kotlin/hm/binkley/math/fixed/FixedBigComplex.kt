@@ -49,7 +49,8 @@ public data class FixedBigComplex(
 // Properties
 
 public val FixedBigComplex.conjugate: FixedBigComplex get() = real - imag
-public val FixedBigComplex.det: FixedBigRational get() = real * real - imag * imag
+public val FixedBigComplex.det: FixedBigRational
+    get() = real * real - imag * imag
 public val FixedBigComplex.absoluteValue: FixedBigRational get() = det.sqrt()
 public val FixedBigComplex.reciprocal: FixedBigComplex get() = unaryDiv()
 

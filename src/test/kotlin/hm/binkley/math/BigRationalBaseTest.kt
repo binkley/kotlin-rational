@@ -145,7 +145,7 @@ internal class BigRationalBaseTest {
         }
 
         @Test
-        fun `should convert to and from floating point for finite but extreme values`() {
+        fun `should convert floating point for extreme finite values`() {
             Double.MAX_VALUE.toBigRational().toDouble() shouldBe
                 Double.MAX_VALUE
             Double.MIN_VALUE.toBigRational().toDouble() shouldBe

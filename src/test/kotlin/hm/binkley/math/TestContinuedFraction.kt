@@ -7,13 +7,13 @@ internal class TestContinuedFraction private constructor(
 ) : ContinuedFractionBase<TestBigRational, TestContinuedFraction>(
     terms, TestContinuedFraction
 ) {
-    override fun construct(terms: List<TestBigRational>): TestContinuedFraction =
+    override fun construct(terms: List<TestBigRational>) =
         TestContinuedFraction(terms)
 
     override fun toBigRational(): TestBigRational = backAgain()
 
-    companion object : ContinuedFractionCompanionBase<TestBigRational,
-        TestContinuedFraction>(ONE) {
+    companion object : ContinuedFractionCompanionBase<
+        TestBigRational, TestContinuedFraction>(ONE) {
         override fun construct(integerPart: BInt) =
             TestBigRational.valueOf(integerPart)
 

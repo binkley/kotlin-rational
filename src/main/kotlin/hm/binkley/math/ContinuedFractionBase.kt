@@ -124,9 +124,10 @@ public abstract class ContinuedFractionBase<
  * Returns the convergent up to [n] terms of the continued fraction.  The 0th
  * convergent is the integer part of the continued fraction.
  */
-public fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.convergent(
-    n: Int,
-): T {
+public fun <
+    T : BigRationalBase<T>,
+    C : ContinuedFractionBase<T, C>
+    > C.convergent(n: Int): T {
     if (0 > n) error("Convergents start from the 0th")
 
     val c0 = integerPart
@@ -205,8 +206,10 @@ internal fun <
  * Checks if this continued fraction is _simple_ (has only 1 in all
  * numerators).
  */
-public fun <T : BigRationalBase<T>, C : ContinuedFractionBase<T, C>> C.isSimple(): Boolean =
-    fractionalParts.all { it.numerator.isUnit() }
+public fun <
+    T : BigRationalBase<T>,
+    C : ContinuedFractionBase<T, C>
+    > C.isSimple(): Boolean = fractionalParts.all { it.numerator.isUnit() }
 
 internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
     r: T,

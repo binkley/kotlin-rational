@@ -169,7 +169,9 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     public fun cantorSpiral(): Sequence<T> = CantorSpiral(this)
 }
 
-public abstract class BigRationalBase<T : BigRationalBase<T>> protected constructor(
+public abstract class BigRationalBase<
+    T : BigRationalBase<T>
+    > protected constructor(
     public val numerator: BInt,
     public val denominator: BInt,
 ) : Number(), Comparable<T>, Field<T> {
