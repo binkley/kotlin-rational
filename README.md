@@ -221,8 +221,10 @@ All constructors are intended to be _private_ for users of the API. Please use:
 - `truncateAndFraction()` provides truncation and the remaining fraction;
   `truncate()` rounds towards 0; `fraction()` provides the remaining fraction
 - `diff(other)` finds the absolute difference between values
-- `sqrt()` provides exact rationals or raise an exception; `sqrtApproximately()`
-  and `cbrtApproximately()` provide exact rationals, or IEEE approximations
+- `sqrt()` and `cbrt()` provide exact rationals, or raise an exception; 
+  `sqrtApproximately()` and `cbrtApproximately()` provide exact rationals, 
+  or IEEE approximations.  Use these functions *with caution* if your goal is
+  accuracy _vs_ precision
 
 ### Operators
 

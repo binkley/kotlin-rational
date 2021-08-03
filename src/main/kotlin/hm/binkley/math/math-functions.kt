@@ -11,16 +11,17 @@ import kotlin.math.sqrt
  * Returns an _exact_ square root (non-complex).  The caller should take
  * [BigRationalBase.sign] into consideration
  *
- * @throws ArithmeticException if there is no exact square root
+ * @throws ArithmeticException if there is no exact root
  */
 public fun <T : BigRationalBase<T>> T.sqrt(): T {
-    val p = numerator.sqrt()
-    if (numerator != p * p)
+    val nRoot = numerator.sqrt()
+    if (numerator != nRoot * nRoot)
         throw ArithmeticException("No rational square root: $this")
-    val q = denominator.sqrt()
-    if (denominator != q * q)
+    val dRoot = denominator.sqrt()
+    if (denominator != dRoot * dRoot)
         throw ArithmeticException("No rational square root: $this")
-    return companion.valueOf(p, q)
+
+    return companion.valueOf(nRoot, dRoot)
 }
 
 /**
@@ -45,6 +46,27 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
 }
 
 /**
+ * Returns an _exact_ cube root (non-complex).  The caller should take
+ * [BigRationalBase.sign] into consideration
+ *
+ * @throws ArithmeticException if there is no exact root
+ *
+ * @todo Confirm that corner cases exist for denominator
+ */
+public fun <T : BigRationalBase<T>> T.cbrt(): T = try {
+    val nRoot = cbrt(numerator.toDouble()).toBigDecimal().toBigIntegerExact()
+    if (numerator != (nRoot * nRoot * nRoot))
+        throw ArithmeticException()
+    val dRoot = cbrt(denominator.toDouble()).toBigDecimal().toBigIntegerExact()
+    if (denominator != dRoot * dRoot * dRoot)
+        throw ArithmeticException()
+
+    companion.valueOf(nRoot, dRoot)
+} catch (e: ArithmeticException) {
+    throw ArithmeticException("No rational cube root: $this")
+}
+
+/**
  * Returns the nearest _positive_ (non-complex) rational cube root _based
  * on IEEE 754_ double-precision floating-point values.  The caller should take
  * [BigRationalBase.sign] into consideration.
@@ -53,15 +75,17 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
  * It is not clear given handling of extrema by IEEE what the best approach is.
  *
- * @todo Use `try`/`catch` form as [sqrtApproximated] does
  * @todo The algorithm converts to a `Double` for the numerator and denominator
  *       seemingly unnecessarily rather than directly using `toDouble()`.  This
  *       avoids an `ArithmeticException`
  */
-public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T =
+public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T = try {
+    cbrt()
+} catch (_: ArithmeticException) {
     companion.valueOf(
         cbrt(numerator.toDouble() / denominator.toDouble())
     )
+}
 
 /**
  * Rounds to the nearest whole number towards positive infinity corresponding

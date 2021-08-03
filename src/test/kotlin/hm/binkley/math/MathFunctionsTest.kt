@@ -4,6 +4,7 @@ import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestBigRational.Companion.valueOf
+import hm.binkley.math.fixed.toBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
@@ -124,6 +125,21 @@ internal class MathFunctionsTest {
                     5_883_484_054_145_521.big,
                     10_000_000_000_000_000.big
                 )
+        }
+
+        @Test
+        fun `should cube root`() {
+            valueOf(27.big, 125.big).cbrt() shouldBe valueOf(3.big, 5.big)
+
+            shouldThrow<ArithmeticException> {
+                valueOf(26.big, 125.big).cbrt()
+            }
+            shouldThrow<ArithmeticException> {
+                valueOf(27.big, 126.big).cbrt()
+            }
+            shouldThrow<ArithmeticException> {
+                Double.MAX_VALUE.toBigRational().cbrt()
+            }
         }
 
         @Test
