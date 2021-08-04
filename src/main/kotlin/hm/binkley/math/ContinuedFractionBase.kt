@@ -95,8 +95,9 @@ public abstract class ContinuedFractionBase<
         toBigRational().compareTo(other.toBigRational())
 
     /**
-     * @todo Provide `equivalent` so that [1; 2] eq? [1; 1, 1], but is not JVM
-     *       sense of `equals`
+     * @todo Provide `equivalent` so that `[1; 2] eq? [1; 1, 1]`, but is not JVM
+     *       sense of `equals`.  Alternative: reduce continued fractions to
+     *       "lowest terms"
      */
     override fun equals(other: Any?): Boolean = this === other ||
         other is ContinuedFractionBase<*, *> &&
