@@ -112,6 +112,16 @@ internal class MathFunctionsTest {
         }
 
         @Test
+        fun `should square root with remainder`() {
+            valueOf(9.big, 25.big).sqrtAndRemainder() shouldBe
+                (valueOf(3.big, 5.big) to ZERO)
+            valueOf(8.big, 25.big).sqrtAndRemainder() shouldBe
+                (valueOf(2.big, 5.big) to valueOf(4.big, 25.big))
+            valueOf(9.big, 26.big).sqrtAndRemainder() shouldBe
+                (valueOf(2.big, 5.big) to valueOf(121.big, 650.big))
+        }
+
+        @Test
         fun `should square root approximately`() {
             valueOf(9.big, 25.big).sqrtApproximated() shouldBe
                 valueOf(3.big, 5.big)

@@ -1,6 +1,7 @@
 package hm.binkley.math
 
 import java.lang.Math.cbrt
+import java.math.BigInteger
 import java.math.RoundingMode.CEILING
 import java.math.RoundingMode.DOWN
 import java.math.RoundingMode.FLOOR
@@ -9,8 +10,9 @@ import kotlin.math.sqrt
 
 /**
  * Returns an _exact_ square root (non-complex).  The caller should take
- * [BigRationalBase.sign] into consideration
+ * [BigRationalBase.sign] into consideration.
  *
+ * @throws ArithmeticException if `this` is negative
  * @throws ArithmeticException if there is no exact root
  */
 public fun <T : BigRationalBase<T>> T.sqrt(): T {
@@ -25,6 +27,32 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
 }
 
 /**
+ * Returns an _exact_ square root (non-complex) `root` and a remainder `rem`
+ * such that `this == root * root + remainder`, and `root` is the nearest
+ * integer from beneath to the true square root (`floor(sqrt(n))` with `n` as
+ * an IEEE 754 binary64 number). The caller should take [BigRationalBase.sign]
+ * into consideration.
+ *
+ * Note: It follows from the above definition that root and remainder will
+ * always be non-negative.
+ *
+ * @throws ArithmeticException if `this` is negative
+ *
+ * @todo Cleaner algorithm
+ */
+public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
+    var root = companion.valueOf(numerator.sqrt(), denominator.sqrt())
+    val n = root * root
+    var remainder = this - n
+
+    if (this >= n) return root to remainder
+
+    root = companion.valueOf(root.numerator - BigInteger.ONE, root.denominator)
+    remainder = this - root * root
+    return root to remainder
+}
+
+/**
  * Returns the nearest _positive_ (non-complex) rational square root _based
  * on IEEE 754_ double-precision floating-point values.  The caller should take
  * [BigRationalBase.sign] into consideration.
@@ -32,6 +60,8 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
  * It is not clear given handling of extrema by IEEE what the best approach is.
+ *
+ * @throws ArithmeticException if `this` is negative
  *
  * @todo The algorithm converts to a `Double` for the numerator and denominator
  *       seemingly unnecessarily rather than directly using `toDouble()`.  This
@@ -47,9 +77,10 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
 
 /**
  * Returns an _exact_ cube root (non-complex).  The caller should take
- * [BigRationalBase.sign] into consideration
+ * [BigRationalBase.sign] into consideration.
  *
  * @throws ArithmeticException if there is no exact root
+ * @throws ArithmeticException if `this` is negative
  *
  * @todo Confirm that corner cases exist for denominator
  */
@@ -74,6 +105,8 @@ public fun <T : BigRationalBase<T>> T.cbrt(): T = try {
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
  * It is not clear given handling of extrema by IEEE what the best approach is.
+ *
+ * @throws ArithmeticException if `this` is negative
  *
  * @todo The algorithm converts to a `Double` for the numerator and denominator
  *       seemingly unnecessarily rather than directly using `toDouble()`.  This
