@@ -12,12 +12,8 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-
-// TODO: shouldNotBe is using === comparison before calling equals
-private const val shouldNotBeWorks = false
 
 @Nested
 internal class FixedProgressionTests {
@@ -28,14 +24,8 @@ internal class FixedProgressionTests {
         (ZERO..ONE) shouldBe zeroToOne
         zeroToOne.equals(ZERO).shouldBeFalse()
         (zeroToOne step ONE) shouldBe zeroToOne
-        if (shouldNotBeWorks)
-            (zeroToOne step TWO) shouldNotBe (zeroToOne step ONE)
-        else
-            assertNotEquals(zeroToOne step ONE, zeroToOne step TWO)
-        if (shouldNotBeWorks)
-            (ZERO..TWO) shouldNotBe zeroToOne
-        else
-            assertNotEquals(zeroToOne, ZERO..TWO)
+        (zeroToOne step TWO) shouldNotBe (zeroToOne step ONE)
+        (ZERO..TWO) shouldNotBe zeroToOne
         (zeroToOne step (1 over 2)).hashCode() shouldBe
             (zeroToOne step (1 over 2)).hashCode()
     }

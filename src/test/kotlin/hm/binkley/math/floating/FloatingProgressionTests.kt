@@ -12,11 +12,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
-
-// TODO: shouldNotBe is using === comparison before calling equals
-private const val shouldNotBeWorks = false
 
 internal class FloatingProgressionTests {
     @Suppress("ReplaceCallWithBinaryOperator")
@@ -26,16 +22,10 @@ internal class FloatingProgressionTests {
         (zeroToOne) shouldBe zeroToOne
         (ZERO..ONE) shouldBe zeroToOne
         (zeroToOne step ONE) shouldBe zeroToOne
-        if (shouldNotBeWorks)
-            (zeroToOne step TWO) shouldNotBe (zeroToOne step ONE)
-        else
-            assertNotEquals(zeroToOne step ONE, zeroToOne step TWO)
-        if (shouldNotBeWorks)
-            (ZERO..TWO) shouldNotBe zeroToOne
-        else
-            assertNotEquals(zeroToOne, ZERO..TWO)
+        (zeroToOne step TWO) shouldNotBe (zeroToOne step ONE)
+        (ZERO..TWO) shouldNotBe zeroToOne
         (zeroToOne step (1 over 2)).hashCode() shouldBe
-            (zeroToOne step (1 over 2)).hashCode()
+                (zeroToOne step (1 over 2)).hashCode()
     }
 
     @Test
@@ -51,7 +41,7 @@ internal class FloatingProgressionTests {
         (ZERO..(-ONE)).isEmpty().shouldBeTrue()
         (ZERO..TWO).contains(ONE).shouldBeTrue()
         ((1 over 1)..(5 over 2)).toList() shouldBe
-            listOf(ONE, (2 over 1))
+                listOf(ONE, (2 over 1))
         val three = 3 over 1
         (1.0.big..three step 2).toList() shouldBe listOf(ONE, three)
         (ONE..3.0.big step 2).toList() shouldBe listOf(ONE, three)
@@ -66,7 +56,7 @@ internal class FloatingProgressionTests {
         (1..three step (2 over 1)).toList() shouldBe listOf(ONE, three)
         (ONE..3 step (2 over 1)).toList() shouldBe listOf(ONE, three)
         ((2 over 1) downTo (1 over 2) step -(1.big)).toList() shouldBe
-            listOf((2 over 1), ONE)
+                listOf((2 over 1), ONE)
     }
 
     @Suppress("ControlFlowWithEmptyBody")
