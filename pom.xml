@@ -304,8 +304,7 @@
                         <avoidCallsTo>java.util.logging</avoidCallsTo>
                         <avoidCallsTo>org.apache.log4j</avoidCallsTo>
                         <avoidCallsTo>org.slf4j</avoidCallsTo>
-                        <avoidCallsTo>org.apache.commons.logging
-                        </avoidCallsTo>
+                        <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
                     </avoidCallsTo>
                     <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
@@ -321,7 +320,7 @@
                         <excludedMethod>shortValue</excludedMethod>
                     </excludedMethods>
                     <!-- TODO: How to make mutation testing happier? -->
-                    <mutationThreshold>87</mutationThreshold>
+                    <mutationThreshold>90</mutationThreshold>
                     <targetClasses>
                         <param>hm.binkley*</param>
                     </targetClasses>
