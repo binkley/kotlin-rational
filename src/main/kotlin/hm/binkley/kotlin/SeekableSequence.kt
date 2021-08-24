@@ -13,7 +13,6 @@ public interface SeekableSequence<T> : Sequence<T> {
      * assumes the sequence is restartable.
      */
     public operator fun get(index: Int): T {
-        // NB -- check up front: A sequence could be infinite length
         if (0 > index) throw IndexOutOfBoundsException("$index: Negative index")
         withIndex().forEach { (i, it) ->
             if (index == i) return it

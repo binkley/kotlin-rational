@@ -5,6 +5,8 @@ import java.util.Collections.nCopies
 /**
  * @todo Consider providing semiconvergents, eg,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Semiconvergents
+ * @todo Recast into a lazily-computed sequence, or provide an alternate form
+ *       suitable for coroutines
  */
 public abstract class ContinuedFractionBase<
     T : BigRationalBase<T>,
