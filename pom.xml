@@ -45,7 +45,7 @@
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.5.30</kotlin.version>
-        <ktlint-maven-plugin.version>1.9.0</ktlint-maven-plugin.version>
+        <ktlint-maven-plugin.version>1.10.2</ktlint-maven-plugin.version>
         <lombok.version>1.18.20</lombok.version>
         <main.class>hm.binkley.math.KotlinMainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
