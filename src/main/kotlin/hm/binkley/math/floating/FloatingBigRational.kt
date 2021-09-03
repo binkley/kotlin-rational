@@ -155,8 +155,8 @@ public class FloatingBigRational private constructor(
     override fun mediant(that: FloatingBigRational): FloatingBigRational =
         when {
             isNaN() || that.isNaN() -> NaN
-            (isPositiveInfinity() && that.isNegativeInfinity())
-                || (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
+            (isPositiveInfinity() && that.isNegativeInfinity()) ||
+                (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
             else -> super.mediant(that)
         }
 

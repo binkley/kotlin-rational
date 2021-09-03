@@ -35,7 +35,7 @@
     <properties>
         <!-- @formatter:off -->
         <dependency-check-maven.version>6.2.2</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.17.1</detekt-maven-plugin.version>
+        <detekt-maven-plugin.version>1.18.1.1</detekt-maven-plugin.version>
         <dokka.version>1.5.0</dokka.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
@@ -45,7 +45,7 @@
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.5.30</kotlin.version>
-        <ktlint-maven-plugin.version>1.9.0</ktlint-maven-plugin.version>
+        <ktlint-maven-plugin.version>1.10.2</ktlint-maven-plugin.version>
         <lombok.version>1.18.20</lombok.version>
         <main.class>hm.binkley.math.KotlinMainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
@@ -64,7 +64,7 @@
         <maven.version>3.8.1</maven.version>
         <owasp.skip>false</owasp.skip>
         <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.6.8</pitest-maven.version>
+        <pitest-maven.version>1.7.0</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <system-lambda.version>1.2.0</system-lambda.version>
