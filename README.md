@@ -61,6 +61,9 @@ This code builds and passes tests and checks on JDK 11, 13, 14, 15, and 16.
 
 ## Releases
 
+**NB** &mdash; public releases are on hold pending selection and setup of a
+public repository.
+
 * [2.2.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.2.0)
   &mdash; IN PROGRESS
     - Explicit API mode
