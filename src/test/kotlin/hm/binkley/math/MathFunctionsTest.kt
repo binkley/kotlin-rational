@@ -140,6 +140,7 @@ internal class MathFunctionsTest {
         @Test
         fun `should cube root`() {
             valueOf(27.big, 125.big).cbrt() shouldBe valueOf(3.big, 5.big)
+            (-ONE).cbrt() shouldBe -ONE
 
             shouldThrow<ArithmeticException> {
                 valueOf(26.big, 125.big).cbrt()
