@@ -80,7 +80,6 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
  * [BigRationalBase.sign] into consideration.
  *
  * @throws ArithmeticException if there is no exact root
- * @throws ArithmeticException if `this` is negative
  *
  * @todo Confirm that corner cases exist for denominator
  */
@@ -105,8 +104,6 @@ public fun <T : BigRationalBase<T>> T.cbrt(): T = try {
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
  * It is not clear given handling of extrema by IEEE what the best approach is.
- *
- * @throws ArithmeticException if `this` is negative
  *
  * @todo The algorithm converts to a `Double` for the numerator and denominator
  *       seemingly unnecessarily rather than directly using `toDouble()`.  This
