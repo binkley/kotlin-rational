@@ -1,7 +1,5 @@
 package hm.binkley.math
 
-import java.util.Collections.nCopies
-
 /**
  * @todo Consider providing semiconvergents, eg,
  *       https://en.wikipedia.org/wiki/Continued_fraction#Semiconvergents
@@ -27,8 +25,7 @@ public abstract class ContinuedFractionBase<
 
     /** The fractional parts of this continued fraction. */
     public val fractionalParts: List<T>
-        get() =
-            if (isEmpty()) emptyList() else subList(1, lastIndex + 1)
+        get() = if (isEmpty()) emptyList() else subList(1, lastIndex + 1)
 
     /**
      * The multiplicative inverse of this continued fraction.
@@ -192,7 +189,7 @@ public abstract class ContinuedFractionCompanionBase<
      * - The approximation is rather slow
      */
     public fun phi(n: Int): C =
-        if (0 < n) construct(nCopies(n, ONE))
+        if (0 < n) construct(List(n) { ONE })
         else error("Not enough digits to approximate φ: $n")
 }
 
