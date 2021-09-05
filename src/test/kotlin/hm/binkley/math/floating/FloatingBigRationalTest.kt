@@ -686,8 +686,9 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should signum`() {
-            (NEGATIVE_INFINITY.sign) shouldBe -ONE
-            (POSITIVE_INFINITY.sign) shouldBe ONE
+            ZERO.sign shouldBe ZERO
+            NEGATIVE_INFINITY.sign shouldBe -ONE
+            POSITIVE_INFINITY.sign shouldBe ONE
             NaN.sign.isNaN().shouldBeTrue()
         }
 

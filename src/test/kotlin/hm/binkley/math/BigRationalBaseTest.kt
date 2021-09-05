@@ -278,6 +278,13 @@ internal class BigRationalBaseTest {
         }
 
         @Test
+        fun `should signum`() {
+            (3 over 5).signum() shouldBe 1
+            (0 over 5).signum() shouldBe 0
+            (-3 over 5).signum() shouldBe -1
+        }
+
+        @Test
         fun `should sign`() {
             (3 over 5).sign shouldBe ONE
             (0 over 5).sign shouldBe ZERO
@@ -297,6 +304,20 @@ internal class BigRationalBaseTest {
         fun `should be one`() {
             ONE.isUnit().shouldBeTrue()
             ZERO.isUnit().shouldBeFalse()
+        }
+
+        @Test
+        fun `should be positive`() {
+            ONE.isPositive().shouldBeTrue()
+            ZERO.isPositive().shouldBeFalse()
+            (-ONE).isPositive().shouldBeFalse()
+        }
+
+        @Test
+        fun `should be negative`() {
+            ONE.isNegative().shouldBeFalse()
+            ZERO.isNegative().shouldBeFalse()
+            (-ONE).isNegative().shouldBeTrue()
         }
 
         @Test

@@ -210,6 +210,7 @@ All constructors are intended to be _private_ for users of the API. Please use:
   `equals (other)` is a better choice unless mixing the two.  See also
   `FixedBigRational.toFloatingBigRational()` and
   `FloatingBigRational.toFixedBigRational()`
+- `signum()` behaves like `BigInteger.signum()`
 - `isNaN()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`. Note than `NaN` is neither finite nor infinite
 - `isInteger()`, `isDyadic()` (See
@@ -221,8 +222,10 @@ All constructors are intended to be _private_ for users of the API. Please use:
 - `toContinuedFraction()`
 - `pow(exponent)`
 - `divideAndRemainder(other)`
-- `floor()` rounds upwards; `ceil()` rounds downwards; `round()` rounds towards
-  the nearest even whole number; `round(roundingMode)` rounds as you ask
+- `ceil()` rounds upwards; `floor()` rounds downwards; `round()` rounds towards
+  the nearest even whole number; `roundIn()` rounds towards zero; `roundOut()`
+  rounds towards infinities depending on sign; `roundTowards(goal)`
+  `round(roundingMode)` rounds as you ask
 - `truncateAndFraction()` provides truncation and the remaining fraction;
   `truncate()` rounds towards 0; `fraction()` provides the remaining fraction
 - `diff(other)` finds the absolute difference between values
@@ -640,6 +643,7 @@ themselves a type hierarchy mirroring hierarchy of types the companions go with.
   line_](https://en.wikipedia.org/wiki/Extended_real_number_line)
 - [_Rational Spiral_](https://mathworld.wolfram.com/RationalSpiral.html)
 - [_Repeating decimal_](https://en.wikipedia.org/wiki/Repeating_decimal)
+- [_Rounding_](https://en.wikipedia.org/wiki/Rounding)
 - [_What's So Great about Continued
   Fractions?_](https://blogs.scientificamerican.com/roots-of-unity/what-8217-s-so-great-about-continued-fractions/)
 - [_Wheel of

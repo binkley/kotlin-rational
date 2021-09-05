@@ -132,6 +132,32 @@ public fun <T : BigRationalBase<T>> T.ceil(): T = round(CEILING)
  */
 public fun <T : BigRationalBase<T>> T.floor(): T = round(FLOOR)
 
+/** Rounds to the nearest _even_ whole number corresponding to [HALF_EVEN]. */
+public fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
+
+/**
+ * Rounds to the nearest whole number towards zero.  This is equivalent to
+ * MATLAB's [`fix`](https://www.mathworks.com/help/matlab/ref/fix.html).
+ */
+public fun <T : BigRationalBase<T>> T.roundIn(): T = roundTowards(companion.ZERO)
+
+/**
+ * Rounds to the nearest whole number towards the nearest infinity.  Zero
+ * remains zero.
+ */
+public fun <T : BigRationalBase<T>> T.roundOut(): T =
+    if (companion.ZERO < this) ceil() else floor()
+
+/**
+ * Rounds to the nearest whole number towards [goal].  The bound remains
+ * itself.
+ */
+public fun <T : BigRationalBase<T>> T.roundTowards(goal: T): T = when {
+    goal == this -> this
+    goal < this -> floor()
+    else -> ceil()
+}
+
 /**
  * Truncates to the nearest whole number towards 0 corresponding to
  * rounding mode [DOWN], returning the truncation and remaining fraction.
@@ -157,9 +183,6 @@ public fun <T : BigRationalBase<T>> T.truncate(): T {
     val (numerator, _) = truncateAndFraction()
     return numerator
 }
-
-/** Rounds to the nearest _even_ whole number corresponding to [HALF_EVEN]. */
-public fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
 
 /**
  * Provides the signed fractional remainder after [truncation][truncate].

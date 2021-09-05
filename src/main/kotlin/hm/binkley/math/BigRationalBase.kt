@@ -193,10 +193,16 @@ public abstract class BigRationalBase<
     public val reciprocal: T get() = companion.valueOf(denominator, numerator)
 
     /**
-     * The signum of this value: -1 for negative, 0 for zero, or 1 for
-     * positive.
+     * The signum of this value as an integer: -1 for negative, 0 for zero, or 1
+     * for positive.
      */
-    public open val sign: T get() = companion.valueOf(numerator.signum())
+    public fun signum(): Int = numerator.signum()
+
+    /**
+     * The signum of this value as a big rational type: `-ONE` for negative,
+     * `ZERO` for zero, or `ONE` for positive.
+     */
+    public open val sign: T get() = companion.valueOf(signum())
 
     /**
      * Returns this as a [BigDecimal] corresponding to [toDouble] following the
@@ -436,6 +442,12 @@ public fun <T : BigRationalBase<T>> T.isZero(): Boolean =
 
 /** Checks that this rational is 1. */
 public fun <T : BigRationalBase<T>> T.isUnit(): Boolean = companion.ONE === this
+
+/** Checks that this rational is greater than zero. */
+public fun <T : BigRationalBase<T>> T.isPositive(): Boolean = 1 == signum()
+
+/** Checks that this rational is less than zero. */
+public fun <T : BigRationalBase<T>> T.isNegative(): Boolean = -1 == signum()
 
 /**
  * Checks that this rational has an even denominator.  The odds of a random
