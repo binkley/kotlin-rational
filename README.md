@@ -207,7 +207,9 @@ All constructors are intended to be _private_ for users of the API. Please use:
 ### Methods
 
 - `equivalent(other)` checks fixed and floating big rationals &mdash;
-  `equals (other)` is a better choice unless mixing the two
+  `equals (other)` is a better choice unless mixing the two.  See also
+  `FixedBigRational.toFloatingBigRational()` and
+  `FloatingBigRational.toFixedBigRational()`
 - `isNaN()`, `isPositiveInfinity()`, `isNegativeInfinity()`
 - `isFinite()`, `isInfinite()`. Note than `NaN` is neither finite nor infinite
 - `isInteger()`, `isDyadic()` (See

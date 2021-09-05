@@ -6,6 +6,8 @@ import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.big
 import hm.binkley.math.divideAndRemainder
+import hm.binkley.math.equivalent
+import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
@@ -656,6 +658,17 @@ public fun Int.toBigRational(): FloatingBigRational = valueOf(this)
 public fun FloatingBigRational.toContinuedFraction(): FloatingContinuedFraction =
     FloatingContinuedFraction.valueOf(this)
 /* ktlint-enable max-line-length */
+
+/**
+ * Converts this _floating_ big rational to a _fixed_ equivalent.
+ *
+ * @see [equivalent]
+ *
+ * @throws ArithmeticException if this is `NaN`, `POSITIVE_INFINITY`, or
+ * `NEGATIVE_INFINITY`
+ */
+public fun FloatingBigRational.toFixedBigRational(): FixedBigRational =
+    FixedBigRational.valueOf(numerator, denominator)
 
 /**
  * Checks that this rational is infinite, positive or negative.  "Not a

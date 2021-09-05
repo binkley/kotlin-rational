@@ -254,6 +254,11 @@ internal class FixedBigRationalTest {
                 it.toFloat()
             } shouldBe floats
         }
+
+        @Test
+        fun `should convert to floating equivalent`() {
+            ONE.toFloatingBigRational() shouldBe FloatingBigRational.ONE
+        }
     }
 
     @Nested

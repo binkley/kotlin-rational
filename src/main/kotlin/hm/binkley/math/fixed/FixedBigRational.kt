@@ -5,9 +5,11 @@ import hm.binkley.math.BInt
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.big
+import hm.binkley.math.equivalent
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
+import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.isZero
 
 internal typealias BRat = FixedBigRational
@@ -426,3 +428,11 @@ public fun Int.toBigRational(): FixedBigRational = valueOf(this)
 /** Returns the finite continued fraction of this `FiniteBigRational`. */
 public fun FixedBigRational.toContinuedFraction(): FixedContinuedFraction =
     FixedContinuedFraction.valueOf(this)
+
+/**
+ * Converts this _fixed_ big rational to a _floating_ equivalent.
+ *
+ * @see [equivalent]
+ */
+public fun FixedBigRational.toFloatingBigRational(): FloatingBigRational =
+    FloatingBigRational.valueOf(numerator, denominator)

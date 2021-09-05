@@ -608,6 +608,21 @@ internal class FloatingBigRationalTest {
                 it.toFloat()
             } shouldBe floats
         }
+
+        @Test
+        fun `should convert to fixed equivalent or complain`() {
+            ONE.toFixedBigRational() shouldBe FixedBigRational.ONE
+
+            shouldThrow<ArithmeticException> {
+                NaN.toFixedBigRational()
+            }
+            shouldThrow<ArithmeticException> {
+                POSITIVE_INFINITY.toFixedBigRational()
+            }
+            shouldThrow<ArithmeticException> {
+                NEGATIVE_INFINITY.toFixedBigRational()
+            }
+        }
     }
 
     @Nested
