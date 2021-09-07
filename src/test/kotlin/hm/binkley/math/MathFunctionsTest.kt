@@ -59,6 +59,30 @@ internal class MathFunctionsTest {
         }
 
         @Test
+        fun `should round towards an infinity`() {
+            ZERO.roundOut() shouldBe ZERO
+            ONE.roundOut() shouldBe ONE
+            (-ONE).roundOut() shouldBe -ONE
+            valueOf(3.big, 2.big).roundOut() shouldBe TWO
+            valueOf(1.big, 2.big).roundOut() shouldBe ONE
+            valueOf((-1).big, 2.big).roundOut() shouldBe -ONE
+            valueOf((-3).big, 2.big).roundOut() shouldBe -TWO
+        }
+
+        @Test
+        fun `should round towards an a goal`() {
+            fun TestBigRational.roundToOne() = roundTowards(ONE)
+
+            ZERO.roundToOne() shouldBe ZERO
+            ONE.roundToOne() shouldBe ONE
+            (-ONE).roundToOne() shouldBe -ONE
+            valueOf(3.big, 2.big).roundToOne() shouldBe ONE
+            valueOf(1.big, 2.big).roundToOne() shouldBe ONE
+            valueOf((-1).big, 2.big).roundToOne() shouldBe ZERO
+            valueOf((-3).big, 2.big).roundToOne() shouldBe -ONE
+        }
+
+        @Test
         fun `should round as instructed`() {
             ZERO.round(UNNECESSARY) shouldBe ZERO
 
@@ -139,14 +163,17 @@ internal class MathFunctionsTest {
 
         @Test
         fun `should cube root`() {
-            valueOf(27.big, 125.big).cbrt() shouldBe valueOf(3.big, 5.big)
+            val exactNumerator = (3 * 3 * 3).toBigInteger()
+            val exactDenominator = (5 * 5 * 5).toBigInteger()
+
+            valueOf(exactNumerator, exactDenominator).cbrt() shouldBe (3 over 5)
             (-ONE).cbrt() shouldBe -ONE
 
             shouldThrow<ArithmeticException> {
-                valueOf(26.big, 125.big).cbrt()
+                valueOf(exactNumerator + BInt.ONE, exactDenominator).cbrt()
             }
             shouldThrow<ArithmeticException> {
-                valueOf(27.big, 126.big).cbrt()
+                valueOf(exactNumerator, exactDenominator + BInt.ONE).cbrt()
             }
             shouldThrow<ArithmeticException> {
                 Double.MAX_VALUE.toBigRational().cbrt()

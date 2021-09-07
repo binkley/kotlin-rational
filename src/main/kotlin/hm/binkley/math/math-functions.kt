@@ -82,18 +82,17 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
  * @throws ArithmeticException if there is no exact root
  *
  * @todo Confirm that corner cases exist for denominator
+ * @todo Nicer algorithm
  */
-public fun <T : BigRationalBase<T>> T.cbrt(): T = try {
+public fun <T : BigRationalBase<T>> T.cbrt(): T {
     val nRoot = cbrt(numerator.toDouble()).toBigDecimal().toBigIntegerExact()
-    if (numerator != (nRoot * nRoot * nRoot))
-        throw ArithmeticException()
     val dRoot = cbrt(denominator.toDouble()).toBigDecimal().toBigIntegerExact()
-    if (denominator != dRoot * dRoot * dRoot)
-        throw ArithmeticException()
+    val cbrt = companion.valueOf(nRoot, dRoot)
 
-    companion.valueOf(nRoot, dRoot)
-} catch (e: ArithmeticException) {
-    throw ArithmeticException("No rational cube root: $this")
+    if (this != cbrt * cbrt * cbrt)
+        throw ArithmeticException("No rational cube root: $this")
+
+    return cbrt
 }
 
 /**
@@ -133,14 +132,10 @@ public fun <T : BigRationalBase<T>> T.floor(): T = round(FLOOR)
 public fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
 
 /**
- * Rounds to the nearest whole number towards zero.  This is equivalent to
- * MATLAB's [`fix`](https://www.mathworks.com/help/matlab/ref/fix.html).
- */
-public fun <T : BigRationalBase<T>> T.roundIn(): T = roundTowards(companion.ZERO)
-
-/**
  * Rounds to the nearest whole number towards the nearest infinity.  Zero
  * remains zero.
+ *
+ * @todo A better verb that is opposite of [truncate]
  */
 public fun <T : BigRationalBase<T>> T.roundOut(): T =
     if (companion.ZERO < this) ceil() else floor()
@@ -148,6 +143,10 @@ public fun <T : BigRationalBase<T>> T.roundOut(): T =
 /**
  * Rounds to the nearest whole number towards [goal].  The bound remains
  * itself.
+ *
+ * Current limitation: [goal] is assumed an integer
+ *
+ * @todo A more general algorithm that does not assume [goal] an integer
  */
 public fun <T : BigRationalBase<T>> T.roundTowards(goal: T): T = when {
     goal == this -> this

@@ -320,7 +320,7 @@
                         <excludedMethod>shortValue</excludedMethod>
                     </excludedMethods>
                     <!-- TODO: How to make mutation testing happier? -->
-                    <mutationThreshold>90</mutationThreshold>
+                    <mutationThreshold>89</mutationThreshold>
                     <targetClasses>
                         <param>hm.binkley*</param>
                     </targetClasses>

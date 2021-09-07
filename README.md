@@ -223,7 +223,7 @@ All constructors are intended to be _private_ for users of the API. Please use:
 - `pow(exponent)`
 - `divideAndRemainder(other)`
 - `ceil()` rounds upwards; `floor()` rounds downwards; `round()` rounds towards
-  the nearest even whole number; `roundIn()` rounds towards zero; `roundOut()`
+  the nearest even whole number; `truncate()` rounds towards zero; `roundOut()`
   rounds towards infinities depending on sign; `roundTowards(goal)`
   `round(roundingMode)` rounds as you ask
 - `truncateAndFraction()` provides truncation and the remaining fraction;
@@ -423,8 +423,8 @@ to represent approaching zero from different directions.
 `FixedBigRational` and `FloatingBigRational` are a `kotlin.Number` to implement
 Kotlin handling of numeric types. However, in this the Kotlin stdlib API errs:
 it requires a conversion to `Char` unlike
-[the Java equivalent](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Number.html)
-. One consequence: This code raises `UnsupportedOperationException` for
+[the Java equivalent](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Number.html).
+One consequence: This code raises `UnsupportedOperationException` for
 conversion to and from `Character` in all cases. This conversion seemed
 perverse, _eg_, to what language character should `3/5` convert?
 
