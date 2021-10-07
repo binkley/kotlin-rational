@@ -224,7 +224,7 @@ All constructors are intended to be _private_ for users of the API. Please use:
 - `divideAndRemainder(other)`
 - `ceil()` rounds upwards; `floor()` rounds downwards; `round()` rounds towards
   the nearest even whole number; `truncate()` rounds towards zero; `roundOut()`
-  rounds towards infinities depending on sign; `roundTowards(goal)`
+  rounds towards infinities depending on sign; `roundTowards(goal)` and
   `round(roundingMode)` rounds as you ask
 - `truncateAndFraction()` provides truncation and the remaining fraction;
   `truncate()` rounds towards 0; `fraction()` provides the remaining fraction
