@@ -285,6 +285,7 @@
                                 <rule>
                                     <limits>
                                         <limit>
+                                            <!-- TODO: Fix JaCoCo -->
                                             <minimum>99%</minimum>
                                         </limit>
                                     </limits>
