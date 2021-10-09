@@ -2,6 +2,7 @@ package hm.binkley.math.floating
 
 import hm.binkley.math.big
 import hm.binkley.math.convergent
+import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
@@ -29,6 +30,15 @@ internal class FloatingContinuedFractionTest {
     fun `should hash separately`() {
         cf(1, 2).hashCode() shouldBe cf(1, 2).hashCode()
         cf(2, 2).hashCode() shouldNotBe cf(1, 2).hashCode()
+    }
+
+    @Test
+    fun `should know fractional parts`() {
+        NaN.toContinuedFraction().fractionalParts shouldBe emptyList()
+        POSITIVE_INFINITY.toContinuedFraction()
+            .fractionalParts shouldBe emptyList()
+        NEGATIVE_INFINITY.toContinuedFraction()
+            .fractionalParts shouldBe emptyList()
     }
 
     @Test

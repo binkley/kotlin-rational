@@ -24,8 +24,7 @@ public abstract class ContinuedFractionBase<
     public val integerPart: T get() = first()
 
     /** The fractional parts of this continued fraction. */
-    public val fractionalParts: List<T>
-        get() = if (isEmpty()) emptyList() else subList(1, lastIndex + 1)
+    public val fractionalParts: List<T> get() = subList(1, lastIndex + 1)
 
     /**
      * The multiplicative inverse of this continued fraction.

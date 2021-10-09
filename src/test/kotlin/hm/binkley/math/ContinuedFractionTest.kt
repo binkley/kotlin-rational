@@ -4,8 +4,6 @@ import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestContinuedFraction.Companion.valueOf
-import hm.binkley.math.floating.FloatingBigRational
-import hm.binkley.math.floating.toContinuedFraction
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -24,8 +22,7 @@ internal class ContinuedFractionTest {
 
     @Test
     fun `should know fractional parts`() {
-        FloatingBigRational.NaN.toContinuedFraction()
-            .fractionalParts shouldBe emptyList()
+        valueOf(ZERO).fractionalParts shouldBe emptyList()
         valueOf(TWO).fractionalParts shouldBe emptyList()
         valueOf(3 over 2).fractionalParts shouldBe listOf(TWO)
     }
