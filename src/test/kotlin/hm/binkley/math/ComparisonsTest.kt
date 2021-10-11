@@ -4,6 +4,8 @@ import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.floating.FloatingBigRational
+import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
+import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -80,5 +82,9 @@ internal class ComparisonsTest {
         FixedBigRational.ZERO.compareTo(FloatingBigRational.ZERO) shouldBe 0
         FixedBigRational.ZERO.compareTo(FloatingBigRational.ONE) shouldBe -1
         FixedBigRational.ONE.compareTo(FloatingBigRational.ZERO) shouldBe 1
+        FixedBigRational.ZERO.compareTo(POSITIVE_INFINITY) shouldBe -1
+        FixedBigRational.ONE.compareTo(POSITIVE_INFINITY) shouldBe -1
+        FixedBigRational.ZERO.compareTo(NEGATIVE_INFINITY) shouldBe 1
+        FixedBigRational.ONE.compareTo(NEGATIVE_INFINITY) shouldBe 1
     }
 }
