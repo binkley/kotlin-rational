@@ -64,7 +64,7 @@
         <maven.version>3.8.1</maven.version>
         <owasp.skip>false</owasp.skip>
         <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.7.1</pitest-maven.version>
+        <pitest-maven.version>1.7.2</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <system-lambda.version>1.2.0</system-lambda.version>
