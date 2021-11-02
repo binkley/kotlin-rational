@@ -23,7 +23,7 @@ public val ONE: FixedBigRational = ONE
 
 /**
  * Immutable arbitrary-precision rationals (finite fractions).
- * `FiniteBigRational` provides analogues to all of Kotlin's [Long] operators
+ * `FixedBigRational` provides analogues to all of Kotlin's [Long] operators
  * where appropriate. Additionally, `FiniteBigRational` provides operations
  * for GCD and LCM calculation.
  *
@@ -50,12 +50,11 @@ public class FixedBigRational private constructor(
         TEN = FixedBigRational(10.big, 1.big),
     ) {
         /**
-         * Returns a `FiniteBigRational` whose value is equal to that of the
+         * Returns a `FixedBigRational` whose value is equal to that of the
          * specified ratio, `numerator / denominator`.
          *
-         * This factory method is in preference to an explicit constructor
-         * allowing for reuse of frequently used FiniteBigRationals.  In
-         * particular:
+         * This factory method is in preference to an explicit constructor, and
+         * allows for reuse of frequently used values.  In particular:
          *
          * * ZERO
          * * ONE
@@ -84,7 +83,7 @@ public class FixedBigRational private constructor(
 }
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -93,7 +92,7 @@ public infix fun BDouble.over(denominator: BDouble): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -102,7 +101,7 @@ public infix fun BDouble.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -111,7 +110,7 @@ public infix fun BDouble.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -120,7 +119,7 @@ public infix fun BDouble.over(denominator: BInt): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -129,7 +128,7 @@ public infix fun BDouble.over(denominator: Long): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -138,7 +137,7 @@ public infix fun BDouble.over(denominator: Int): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -147,7 +146,7 @@ public infix fun Double.over(denominator: BDouble): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -156,7 +155,7 @@ public infix fun Double.over(denominator: BInt): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -165,7 +164,7 @@ public infix fun Double.over(denominator: Long): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -174,7 +173,7 @@ public infix fun Double.over(denominator: Int): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -183,7 +182,7 @@ public infix fun Double.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -192,7 +191,7 @@ public infix fun Double.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -201,7 +200,7 @@ public infix fun Float.over(denominator: BDouble): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -210,7 +209,7 @@ public infix fun Float.over(denominator: BInt): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -219,7 +218,7 @@ public infix fun Float.over(denominator: Long): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -228,7 +227,7 @@ public infix fun Float.over(denominator: Int): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -237,7 +236,7 @@ public infix fun Float.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -246,7 +245,7 @@ public infix fun Float.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -255,7 +254,7 @@ public infix fun BInt.over(denominator: BDouble): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -264,7 +263,7 @@ public infix fun BInt.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -273,7 +272,7 @@ public infix fun BInt.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -282,7 +281,7 @@ public infix fun BInt.over(denominator: BInt): FixedBigRational =
     valueOf(this, denominator)
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -291,7 +290,7 @@ public infix fun BInt.over(denominator: Long): FixedBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -300,7 +299,7 @@ public infix fun BInt.over(denominator: Int): FixedBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -309,7 +308,7 @@ public infix fun Long.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -318,7 +317,7 @@ public infix fun Long.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -327,7 +326,7 @@ public infix fun Long.over(denominator: BDouble): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -336,7 +335,7 @@ public infix fun Long.over(denominator: BInt): FixedBigRational =
     valueOf(toBigInteger(), denominator)
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -345,7 +344,7 @@ public infix fun Long.over(denominator: Long): FixedBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -354,7 +353,7 @@ public infix fun Long.over(denominator: Int): FixedBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -363,7 +362,7 @@ public infix fun Int.over(denominator: BDouble): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -372,7 +371,7 @@ public infix fun Int.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -381,7 +380,7 @@ public infix fun Int.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -390,7 +389,7 @@ public infix fun Int.over(denominator: BInt): FixedBigRational =
     valueOf(toBigInteger(), denominator)
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -399,7 +398,7 @@ public infix fun Int.over(denominator: Long): FixedBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /**
- * Returns a `FiniteBigRational` whose value is equal to that of the
+ * Returns a `FixedBigRational` whose value is equal to that of the
  * specified ratio, `numerator / denominator`.
  *
  * @see valueOf
@@ -407,25 +406,25 @@ public infix fun Int.over(denominator: Long): FixedBigRational =
 public infix fun Int.over(denominator: Int): FixedBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
-/** Returns the value of this number as a `FiniteBigRational`. */
+/** Returns the value of this number as a `FixedBigRational`. */
 public fun BDouble.toBigRational(): FixedBigRational = valueOf(this)
 
-/** Returns the value of this number as a `FiniteBigRational`. */
+/** Returns the value of this number as a `FixedBigRational`. */
 public fun Double.toBigRational(): FixedBigRational = valueOf(this)
 
-/** Returns the value of this number as a `FiniteBigRational`. */
+/** Returns the value of this number as a `FixedBigRational`. */
 public fun Float.toBigRational(): FixedBigRational = valueOf(this)
 
-/** Returns the value of this number as a `FiniteBigRational`. */
+/** Returns the value of this number as a `FixedBigRational`. */
 public fun BInt.toBigRational(): FixedBigRational = valueOf(this)
 
-/** Returns the value of this number as a `FiniteBigRational`. */
+/** Returns the value of this number as a `FixedBigRational`. */
 public fun Long.toBigRational(): FixedBigRational = valueOf(this)
 
-/** Returns the value of this number as a `FiniteBigRational`. */
+/** Returns the value of this number as a `FixedBigRational`. */
 public fun Int.toBigRational(): FixedBigRational = valueOf(this)
 
-/** Returns the finite continued fraction of this `FiniteBigRational`. */
+/** Returns the finite continued fraction of this `FixedBigRational`. */
 public fun FixedBigRational.toContinuedFraction(): FixedContinuedFraction =
     FixedContinuedFraction.valueOf(this)
 

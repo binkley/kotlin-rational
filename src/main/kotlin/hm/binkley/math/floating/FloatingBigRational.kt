@@ -145,7 +145,7 @@ public class FloatingBigRational private constructor(
     }
 
     /**
-     * Returns the Farey value between this FiniteBigRational and [that], the
+     * Returns the Farey value between this FixedBigRational and [that], the
      * same value when equal.  If either value is [NaN], returns [NaN]. [ZERO]
      * is between the two infinities, and the infinities are between
      * themselves.
@@ -249,11 +249,11 @@ public class FloatingBigRational private constructor(
             FloatingBigRational(1.big.negate(), 0.big)
 
         /**
-         * Returns a `BigRational` whose value is equal to that of the
+         * Returns a [FloatingBigRational] whose value is equal to that of the
          * specified ratio, `numerator / denominator`.
          *
-         * This factory method is in preference to an explicit constructor
-         * allowing for reuse of frequently used BigRationals.  In particular:
+         * This factory method is in preference to an explicit constructor, and
+         * allows for reuse of frequently used values.  In particular:
          *
          * * NaN
          * * POSITIVE_INFINITY

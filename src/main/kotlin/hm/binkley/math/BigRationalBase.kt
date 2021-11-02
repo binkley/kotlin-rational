@@ -368,7 +368,7 @@ public abstract class BigRationalBase<
     }
 
     /**
-     * Returns the Farey value between this FiniteBigRational and [that], or
+     * Returns the Farey value between this big rational and [that], or
      * the same value when equal.
      *
      * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d`, then
