@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test
 private val eulerApproximation =
     (271_828_182_845 over 100_000_000_000).toContinuedFraction()
 
+@Suppress("RedundantInnerClassModifier")
 internal class FixedContinuedFractionTest {
     @Test
     fun `should hash separately`() {

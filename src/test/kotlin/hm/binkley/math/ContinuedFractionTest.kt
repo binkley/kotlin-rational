@@ -15,7 +15,8 @@ internal class ContinuedFractionTest {
     fun `should be or not be itself`() {
         val cf = valueOf(TWO)
 
-        cf.equals(cf).shouldBeTrue()
+        @Suppress("KotlinConstantConditions")
+        (cf == cf).shouldBeTrue()
         cf shouldNotBe 2
         cf shouldNotBe valueOf(ONE)
     }

@@ -24,6 +24,7 @@ import java.math.BigInteger
 import java.math.RoundingMode
 import java.math.RoundingMode.CEILING
 
+@Suppress("RedundantInnerClassModifier")
 internal class BigRationalBaseTest {
     @Test
     fun `should detect buggy input`() {

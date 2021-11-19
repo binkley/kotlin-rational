@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.math.RoundingMode.UNNECESSARY
 
+@Suppress("RedundantInnerClassModifier")
 internal class MathFunctionsTest {
     @Nested
     inner class Rounding {

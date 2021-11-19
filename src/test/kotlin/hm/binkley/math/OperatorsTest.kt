@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
+@Suppress("RedundantInnerClassModifier")
 internal class OperatorsTest {
     @Nested
     inner class Group {

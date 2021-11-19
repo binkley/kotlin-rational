@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test
  * NB -- the tests use a mixture of constructors while testing functionality.
  * This is intentional, and raises coverage.
  */
+@Suppress("RedundantInnerClassModifier")
 internal class FixedBigRationalTest {
     @Test
     fun `should not divide by 0 when constructing`() {

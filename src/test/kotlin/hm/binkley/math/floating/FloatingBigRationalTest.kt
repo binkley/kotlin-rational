@@ -324,6 +324,7 @@ internal class FloatingBigRationalTest {
             POSITIVE_INFINITY shouldBe POSITIVE_INFINITY
             NEGATIVE_INFINITY shouldBe NEGATIVE_INFINITY
             // Cannot use shouldNotBe: It short-circuits for === objects
+            @Suppress("KotlinConstantConditions")
             (NaN == NaN).shouldBeFalse()
         }
     }
@@ -663,6 +664,7 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should not order NaN values`() {
+            @Suppress("KotlinConstantConditions")
             (NaN == NaN).shouldBeFalse()
             (NaN > NaN).shouldBeFalse()
             (NaN < NaN).shouldBeFalse()

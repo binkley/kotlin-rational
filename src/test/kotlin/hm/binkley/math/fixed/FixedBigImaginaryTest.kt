@@ -94,6 +94,7 @@ internal class FixedBigImaginaryTest {
         (I < 2.i).shouldBeTrue()
         (I <= 2.i).shouldBeTrue()
         (I <= I).shouldBeTrue()
+        @Suppress("KotlinConstantConditions")
         (I == I).shouldBeTrue()
         (I >= I).shouldBeTrue()
         (I >= ZERO).shouldBeTrue()
