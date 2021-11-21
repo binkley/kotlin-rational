@@ -3,7 +3,6 @@ package hm.binkley.math.floating
 import hm.binkley.math.BInt
 import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
-import hm.binkley.math.backAgain
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.fractionateInPlace

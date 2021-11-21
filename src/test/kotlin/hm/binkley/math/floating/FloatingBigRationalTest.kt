@@ -3,7 +3,6 @@
 package hm.binkley.math.floating
 
 import hm.binkley.math.BInt
-import hm.binkley.math.backAgain
 import hm.binkley.math.big
 import hm.binkley.math.ceil
 import hm.binkley.math.compareTo
@@ -748,15 +747,15 @@ internal class FloatingBigRationalTest {
 
             val cfNaN = NaN.toContinuedFraction()
             cfNaN.isFinite().shouldBeFalse()
-            cfNaN.backAgain().isNaN().shouldBeTrue()
+            cfNaN.toBigRational().isNaN().shouldBeTrue()
             cfNaN.integerPart.isNaN().shouldBeTrue()
             val cfPosInf = POSITIVE_INFINITY.toContinuedFraction()
             cfPosInf.isFinite().shouldBeFalse()
-            cfPosInf.backAgain().isNaN().shouldBeTrue()
+            cfPosInf.toBigRational().isNaN().shouldBeTrue()
             cfPosInf.integerPart.isNaN().shouldBeTrue()
             val cfNegInf = NEGATIVE_INFINITY.toContinuedFraction()
             cfNegInf.isFinite().shouldBeFalse()
-            cfNegInf.backAgain().isNaN().shouldBeTrue()
+            cfNegInf.toBigRational().isNaN().shouldBeTrue()
             cfNegInf.integerPart.isNaN().shouldBeTrue()
         }
     }

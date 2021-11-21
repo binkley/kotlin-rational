@@ -117,6 +117,13 @@ public abstract class ContinuedFractionBase<
      */
     public fun terms(fractionalTerms: Int): List<T> =
         subList(0, fractionalTerms + 1)
+
+    /** Helper for conversion to [T]. */
+    protected fun backAgain(): T = subList(0, size - 1)
+        .asReversed()
+        .fold(last()) { previous, a_ni ->
+            previous.unaryDiv() + a_ni
+        }
 }
 
 /**
@@ -191,15 +198,6 @@ public abstract class ContinuedFractionCompanionBase<
         if (0 < n) construct(List(n) { ONE })
         else error("Not enough digits to approximate φ: $n")
 }
-
-internal fun <
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>,
-    > C.backAgain() = subList(0, size - 1)
-    .asReversed()
-    .fold(last()) { previous, a_ni ->
-        previous.unaryDiv() + a_ni
-    }
 
 /**
  * Checks if this continued fraction is _simple_ (has only 1 in all
