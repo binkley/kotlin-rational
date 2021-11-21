@@ -2,6 +2,7 @@ package hm.binkley.math
 
 import hm.binkley.math.TestBigRational.Companion.ONE
 
+/** @todo IntelliJ inspection is confused */
 internal class TestContinuedFraction private constructor(
     terms: List<TestBigRational>,
 ) : ContinuedFractionBase<TestBigRational, TestContinuedFraction>(
@@ -14,9 +15,7 @@ internal class TestContinuedFraction private constructor(
 
     companion object : ContinuedFractionCompanionBase<
         TestBigRational, TestContinuedFraction>(ONE) {
-        override fun constructTerm(term: BInt) =
-            TestBigRational.valueOf(term)
-
+        override fun constructTerm(term: BInt) = TestBigRational.valueOf(term)
         override fun construct(terms: List<TestBigRational>) =
             TestContinuedFraction(terms)
     }

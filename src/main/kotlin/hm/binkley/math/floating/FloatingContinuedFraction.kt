@@ -28,8 +28,7 @@ public class FloatingContinuedFraction private constructor(
 ) {
     override fun construct(
         terms: List<FloatingBigRational>,
-    ): FloatingContinuedFraction =
-        FloatingContinuedFraction(terms)
+    ): FloatingContinuedFraction = FloatingContinuedFraction(terms)
 
     override fun toBigRational(): FloatingBigRational =
         if (!isFinite()) NaN

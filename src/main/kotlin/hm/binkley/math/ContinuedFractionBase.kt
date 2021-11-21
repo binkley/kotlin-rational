@@ -11,7 +11,7 @@ public abstract class ContinuedFractionBase<
     C : ContinuedFractionBase<T, C>,
     > protected constructor(
     private val terms: List<T>,
-    public open val companion: ContinuedFractionCompanionBase<T, C>,
+    private val companion: ContinuedFractionCompanionBase<T, C>,
 ) : Number(),
     List<T> by terms,
     Comparable<ContinuedFractionBase<T, C>> {
