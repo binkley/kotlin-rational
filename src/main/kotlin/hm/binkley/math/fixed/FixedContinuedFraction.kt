@@ -32,8 +32,8 @@ public class FixedContinuedFraction private constructor(
 
     public companion object : ContinuedFractionCompanionBase<BRat,
         FixedContinuedFraction>(ONE) {
-        override fun construct(integerPart: BInt) =
-            BRat.valueOf(integerPart)
+        override fun constructTerm(term: BInt) =
+            BRat.valueOf(term)
 
         override fun construct(terms: List<BRat>) =
             FixedContinuedFraction(terms)

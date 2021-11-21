@@ -158,7 +158,7 @@ public abstract class ContinuedFractionCompanionBase<
     T : BigRationalBase<T>,
     C : ContinuedFractionBase<T, C>,
     >(private val ONE: T) {
-    internal abstract fun construct(integerPart: BInt): T
+    internal abstract fun constructTerm(term: BInt): T
     internal abstract fun construct(terms: List<T>): C
 
     /**
@@ -176,8 +176,8 @@ public abstract class ContinuedFractionCompanionBase<
         integerPart: BInt,
         vararg fractionalParts: BInt,
     ): C {
-        val terms = mutableListOf(construct(integerPart))
-        terms += fractionalParts.map { construct(it) }
+        val terms = mutableListOf(constructTerm(integerPart))
+        terms += fractionalParts.map { constructTerm(it) }
         return construct(terms)
     }
 
