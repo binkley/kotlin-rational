@@ -4,6 +4,7 @@
 readonly package=hm.binkley.math
 readonly artifactId=kotlin-rational
 readonly version=2.2.0-SNAPSHOT
+readonly -a jvm_flags=(--add-opens java.base/java.lang=ALL-UNNAMED)
 
 # No editable parts below here
 
@@ -112,4 +113,4 @@ $debug && set -x # "set - ..." clears the -x flag
 
 rebuild-if-needed
 
-exec java "$@"
+exec java "${jvm_flags[@]}" "$@"

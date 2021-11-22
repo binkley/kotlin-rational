@@ -47,6 +47,9 @@ jobs:
       - name: Build and test with Maven under Batect
         run: ./batect build
 
+      - name: Execute run script
+        run: ./batect run
+
 # Disable until public access is resolved:
 # https://github.community/t/download-from-github-package-registry-without-authentication/14407
 #      - name: Publish package to GitHub Packages
