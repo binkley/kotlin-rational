@@ -36,7 +36,7 @@
         <!-- @formatter:off -->
         <dependency-check-maven.version>6.5.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.18.1.1</detekt-maven-plugin.version>
-        <dokka.version>1.5.31</dokka.version>
+        <dokka.version>1.6.0</dokka.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>17</jdk.version>
@@ -414,18 +414,28 @@
                 <version>${dokka.version}</version>
                 <configuration>
                     <jdkVersion>${jdk.version}</jdkVersion>
+                    <noJdkLink>false</noJdkLink>
+                    <noStdlibLink>false</noStdlibLink>
+                    <reportUndocumented>true</reportUndocumented>
+                    <outputDir>${project.build.directory}/site/dokka</outputDir>
                     <sourceLinks>
                         <link>
+                            <path>${project.basedir}</path>
+                            <url>${project.scm.url}/blob/master</url>
                             <lineSuffix>#L</lineSuffix>
-                            <path>${project.build.sourceDirectory}</path>
-                            <url>
-                                ${project.scm.url}/blob/master/src/main/kotlin
-                            </url>
                         </link>
                     </sourceLinks>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>javadocJar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>dokka-site</id>
                         <phase>pre-site</phase>
                         <goals>
                             <goal>dokka</goal>
@@ -440,7 +450,7 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>

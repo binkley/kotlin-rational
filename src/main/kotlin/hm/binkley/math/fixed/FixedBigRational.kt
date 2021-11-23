@@ -24,7 +24,7 @@ public val ONE: FixedBigRational = ONE
 /**
  * Immutable arbitrary-precision rationals (finite fractions).
  * `FixedBigRational` provides analogues to all of Kotlin's [Long] operators
- * where appropriate. Additionally, `FiniteBigRational` provides operations
+ * where appropriate. Additionally, `FixedBigRational` provides operations
  * for GCD and LCM calculation.
  *
  * Comparison operations perform signed comparisons, analogous to those
