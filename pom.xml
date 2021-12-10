@@ -35,13 +35,13 @@
     <properties>
         <!-- @formatter:off -->
         <dependency-check-maven.version>6.5.0</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.19.0</detekt-maven-plugin.version>
+        <detekt-maven-plugin.version>1.19.1</detekt-maven-plugin.version>
         <dokka.version>1.6.0</dokka.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>17</jdk.version>
         <junit.version>5.8.2</junit.version>
-        <kotest.version>5.0.1</kotest.version>
+        <kotest.version>5.0.2</kotest.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.6.0</kotlin.version>
