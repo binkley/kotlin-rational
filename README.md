@@ -9,25 +9,33 @@
 [![vulnerabilities](https://snyk.io/test/github/binkley/kotlin-rational/badge.svg)](https://snyk.io/test/github/binkley/kotlin-rational)
 [![license](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 
-An immutable, infinite-precision `FixedBigRational` and `FloatingBigRational`
-(ratio, fraction) class for Kotlin.
+Immutable, infinite-precision `FixedBigRational` and `FloatingBigRational`
+(ratio, fraction) classes for Kotlin, that is ℚ, akin to `BigInteger` (ℤ) and
+`BigDecimal` (ℝ) in the JDK.
 
 *DISCLAIMER* This code has not been vetted by a mathematician in the way that
-the JDK's `BigDecimal` has been. It is a pleasure project, not a reviewed
-scientific library.
+the JDK's `BigDecimal` or `BigDecimal` have been. It is a pleasure project, not
+a reviewed library.
 
-There are two versions, `FixedBigRational` and `FloatingBigRational`, providing
-purely finite and pseudo-IEEE 754 versions, respectively.
+The build is obsessive. The author uses this library to try better ways for
+building locally, and building in CI with GitHub: the goal of the build is to 
+discover issues before they impact others; the goal of the code is to represent 
+rationals on the JVM in a sensible manner.
 
-This code is a "finger exercise", largely demonstrating Kotlin operator
-overloading and extension methods, and writing clean, clear, concise Kotlin. It
-also explores the impact of `NaN` (on the `FloatingBigRational` version , which
-is extensive), rather than raising an error on division by zero (as the
-`FixedBigRational` version does). In general, this code prefers expressiveness
-to performance.
+The library has two main forms of expressing rational numbers on the JDK,
+`FixedBigRational` and `FloatingBigRational`, providing finite and pseudo-IEEE
+754 versions, respectively.
+
+This code is a "finger exercise", trying out Kotlin operator overloading and
+extension methods, and writing clean, clear, concise Kotlin. (If you find the
+Kotlin API unclear, please file a PR. What is clear to the author may not be
+clear to others.) It also explores the impact of `NaN` as a value for
+`FloatingBigRational` (`FixedBigRational` treats these circumstances by raising
+exceptions). In general, this code prefers expressiveness to performance.
 
 A secondary goal is to model the Kotlin standard library, and Java's
-`BigDecimal` and `BigInteger` types, as well as `Number`.
+`BigDecimal` and `BigInteger` types, as well as `Number` (an implementation 
+base class in the JDK for numeric types).
 
 ## Build and try
 
