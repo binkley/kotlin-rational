@@ -20,7 +20,7 @@ a reviewed library.
 The build is obsessive. The author uses this library to try better ways for
 building locally, and building in CI with GitHub: the goal of the build is to 
 discover issues before they impact others; the goal of the code is to represent 
-rationals on the JVM in a sensible manner.
+rationals on the JVM in a sensible fashion.
 
 The library has two main forms of expressing rational numbers on the JDK,
 `FixedBigRational` and `FloatingBigRational`, providing finite and pseudo-IEEE
