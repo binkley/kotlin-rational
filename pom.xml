@@ -417,7 +417,6 @@
                     <noJdkLink>false</noJdkLink>
                     <noStdlibLink>false</noStdlibLink>
                     <reportUndocumented>true</reportUndocumented>
-                    <outputDir>${project.build.directory}/site/dokka</outputDir>
                     <sourceLinks>
                         <link>
                             <path>${project.basedir}</path>
