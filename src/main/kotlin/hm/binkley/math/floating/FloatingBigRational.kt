@@ -286,6 +286,7 @@ public class FloatingBigRational private constructor(
                 else -> super.valueOf(floatingPoint)
             }
 
+        /** @todo Call the `double` override, avoid duplication */
         override fun valueOf(floatingPoint: Float): FloatingBigRational =
             when {
                 floatingPoint.isNaN() -> NaN
