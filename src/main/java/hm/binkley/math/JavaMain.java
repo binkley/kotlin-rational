@@ -2,10 +2,9 @@ package hm.binkley.math;
 
 import hm.binkley.math.algebra.Mod3Int;
 import hm.binkley.math.fixed.FixedBigImaginary;
-import hm.binkley.math.fixed.FixedBigRational;
+import hm.binkley.math.fixed.FixedBigRationalKt;
 import hm.binkley.math.floating.FloatingBigRational;
 import lombok.Generated;
-import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
@@ -27,8 +26,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
 
 @Generated // Lie to JaCoCo
-@UtilityClass
-public class JavaMain {
+public final class JavaMain {
     public static void main(final String... args) {
         out.println("==FLOATING BIG RATIONALS");
 
@@ -165,14 +163,15 @@ public class JavaMain {
         out.println();
         out.println("==FIXED BIG COMPLEX NUMBERS");
 
-        final var onePlusI = plus(FixedBigRational.Companion.ONE, FixedBigImaginary.I);
+        final var onePlusI = plus(FixedBigRationalKt.ONE,
+                FixedBigImaginary.I);
         out.println(onePlusI);
         out.println(onePlusI.times(getConjugate(onePlusI)));
 
         out.println();
         out.println("==COMPARING FIXED AND FLOATING BIG RATIONALS");
         out.printf("1 fixed eq? 1 floating? -> %s%n",
-                equivalent(FixedBigRational.Companion.ONE, ONE));
+                equivalent(FixedBigRationalKt.ONE, ONE));
     }
 
     private static void dump(final Double d) {

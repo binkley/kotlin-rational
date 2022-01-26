@@ -22,19 +22,20 @@ import java.util.Objects.hash
  *       [BigInteger.sqrtAndRemainder]
  * @todo Explore other ways to share code between fixed and floating flavors;
  *       `BigRationalBase` only exists to provide implementation inheritance
+ * @todo `FieldCompanion` prevents ZERO and ONE from being JVM fields
  */
 @Suppress("PropertyName")
 public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     /**
      * A constant holding value 0 equivalent to `0 over 1`.
      *
-     * Usable directly from Java via `Companion`.
+     * Usable directly from Java via getter in `Companion`.
      */
     final override val ZERO: T,
     /**
      * A constant holding value 1 equivalent to `1 over 1`.
      *
-     * Usable directly from Java via `Companion`.
+     * Usable directly from Java via getter in `Companion`.
      */
     final override val ONE: T,
     /**
@@ -171,8 +172,8 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
 }
 
 public abstract class BigRationalBase<
-    T : BigRationalBase<T>
-    > protected constructor(
+        T : BigRationalBase<T>
+        > protected constructor(
     public val numerator: BInt,
     public val denominator: BInt,
 ) : Number(), Comparable<T>, Field<T> {
@@ -415,10 +416,10 @@ public abstract class BigRationalBase<
     public open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-        other is BigRationalBase<*> &&
-        javaClass == other.javaClass &&
-        numerator == other.numerator &&
-        denominator == other.denominator
+            other is BigRationalBase<*> &&
+            javaClass == other.javaClass &&
+            numerator == other.numerator &&
+            denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 

@@ -10,8 +10,8 @@ import static hm.binkley.math.TestBigRational.Companion;
 import static io.kotest.matchers.ShouldKt.shouldBe;
 
 class BigRationalJavaTest {
-    private static final TestBigRational ZERO = Companion.ZERO;
-    private static final TestBigRational ONE = Companion.ONE;
+    private static final TestBigRational ZERO = Companion.getZERO();
+    private static final TestBigRational ONE = Companion.getONE();
     private static final TestBigRational TWO = Companion.TWO;
     private static final TestBigRational TEN = Companion.TEN;
     private static final FloatingBigRational NaN = FloatingBigRational.NaN;
