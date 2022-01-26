@@ -545,6 +545,7 @@ internal class FloatingBigRationalTest {
             Double.POSITIVE_INFINITY.toBigRational()
                 .isPositiveInfinity().shouldBeTrue()
             Double.NaN.toBigRational().isNaN().shouldBeTrue()
+            (-0.0).toBigRational() shouldBe ZERO
 
             doubles.map {
                 it.toBigRational()
@@ -599,6 +600,7 @@ internal class FloatingBigRationalTest {
             Float.POSITIVE_INFINITY.toBigRational()
                 .isPositiveInfinity().shouldBeTrue()
             Float.NaN.toBigRational().isNaN().shouldBeTrue()
+            (-0.0f).toBigRational() shouldBe ZERO
 
             floats.map {
                 it.toBigRational()

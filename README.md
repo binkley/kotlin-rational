@@ -345,6 +345,8 @@ This code provides `FixedBigRational` and `FloatingBigRational`. They differ by:
 </dd>
 </dl>
 
+Note that floating point negative zero is mapped to rational unsigned zero.
+
 ### Direct references
 
 These were great help:
