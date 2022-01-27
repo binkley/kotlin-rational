@@ -6,10 +6,15 @@ import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestBigRational.Companion.valueOf
 import hm.binkley.math.fixed.toBigRational
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.lang.Math.ulp
+import java.math.RoundingMode.CEILING
+import java.math.RoundingMode.FLOOR
+import java.math.RoundingMode.HALF_DOWN
+import java.math.RoundingMode.HALF_EVEN
+import java.math.RoundingMode.HALF_UP
 import java.math.RoundingMode.UNNECESSARY
 
 @Suppress("RedundantInnerClassModifier")
@@ -85,11 +90,22 @@ internal class MathFunctionsTest {
         }
 
         @Test
-        fun `should round as instructed`() {
-            ZERO.round(UNNECESSARY) shouldBe ZERO
+        fun `should round as half-up mode by default`() {
+            (1 over 2).round() shouldBe ZERO
+            (3 over 2).round() shouldBe TWO
+        }
 
+        @Test
+        fun `should round as instructed`() {
+            (1 over 2).round(CEILING) shouldBe ONE
+            (1 over 2).round(FLOOR) shouldBe ZERO
+            (1 over 2).round(HALF_DOWN) shouldBe ZERO
+            (1 over 2).round(HALF_UP) shouldBe ONE
+            (1 over 2).round(HALF_EVEN) shouldBe ZERO
+
+            ZERO.round(UNNECESSARY) shouldBe ZERO
             shouldThrow<ArithmeticException> {
-                valueOf(1.big, 2.big).round(UNNECESSARY) shouldBe ZERO
+                (1 over 2).round(UNNECESSARY)
             }
         }
 
@@ -99,11 +115,11 @@ internal class MathFunctionsTest {
                 ZERO,
                 ONE,
                 -ONE,
-                valueOf(3.big, 2.big),
-                valueOf(1.big, 2.big),
-                valueOf((-1).big, 2.big),
-                valueOf((-3).big, 2.big),
-            ).forEach {
+                (3 over 2),
+                (1 over 2),
+                (-1 over 2),
+                (-3 over 2),
+            ).forAll {
                 val (truncation, fraction) = it.truncateAndFraction()
                 (truncation + fraction) shouldBe it
             }
@@ -117,9 +133,9 @@ internal class MathFunctionsTest {
             valueOf(3.big, 2.big).fraction() shouldBe valueOf(1.big, 2.big)
             valueOf(1.big, 2.big).fraction() shouldBe valueOf(1.big, 2.big)
             valueOf((-1).big, 2.big).fraction() shouldBe
-                valueOf((-1).big, 2.big)
+                    valueOf((-1).big, 2.big)
             valueOf((-3).big, 2.big).fraction() shouldBe
-                valueOf((-1).big, 2.big)
+                    valueOf((-1).big, 2.big)
         }
     }
 
@@ -141,10 +157,10 @@ internal class MathFunctionsTest {
         fun `should square root with remainder`() {
             // Too big
             valueOf(11.big, 25.big).sqrtAndRemainder() shouldBe
-                (valueOf(3.big, 5.big) to valueOf(2.big, 25.big))
+                    (valueOf(3.big, 5.big) to valueOf(2.big, 25.big))
             // Too small
             valueOf(8.big, 25.big).sqrtAndRemainder() shouldBe
-                (valueOf(2.big, 5.big) to valueOf(4.big, 25.big))
+                    (valueOf(2.big, 5.big) to valueOf(4.big, 25.big))
             // Just right
             valueOf(9.big, 25.big).sqrtAndRemainder() shouldBe
                     (valueOf(3.big, 5.big) to ZERO)
@@ -163,17 +179,17 @@ internal class MathFunctionsTest {
         @Test
         fun `should square root approximately`() {
             valueOf(9.big, 25.big).sqrtApproximated() shouldBe
-                valueOf(3.big, 5.big)
+                    valueOf(3.big, 5.big)
             valueOf(8.big, 25.big).sqrtApproximated() shouldBe
-                valueOf(
-                    282_842_712_474_619.big,
-                    500_000_000_000_000.big
-                )
+                    valueOf(
+                        282_842_712_474_619.big,
+                        500_000_000_000_000.big
+                    )
             valueOf(9.big, 26.big).sqrtApproximated() shouldBe
-                valueOf(
-                    5_883_484_054_145_521.big,
-                    10_000_000_000_000_000.big
-                )
+                    valueOf(
+                        5_883_484_054_145_521.big,
+                        10_000_000_000_000_000.big
+                    )
         }
 
         @Test
@@ -197,18 +213,22 @@ internal class MathFunctionsTest {
 
         @Test
         fun `should cube root approximately`() {
-            valueOf(27.big, 125.big).cbrtApproximated() shouldBe
-                valueOf(3.big, 5.big)
+            // Too big
+            valueOf(28.big, 125.big).cbrtApproximated() shouldBe
+                    valueOf(
+                        3_036_588_971_875_663.big,
+                        5_000_000_000_000_000.big
+                    )
+            // Too small
             valueOf(26.big, 125.big).cbrtApproximated() shouldBe
-                valueOf(
-                    5_924_992_136_814_741.big,
-                    10_000_000_000_000_000.big
-                )
-            valueOf(27.big, 126.big).cbrtApproximated() shouldBe
-                valueOf(
-                    2_992_042_402_942_877.big,
-                    5_000_000_000_000_000.big
-                )
+                    valueOf(
+                        // 5924992136814741⁄10000000000000000
+                        5_924_992_136_814_741.big,
+                        10_000_000_000_000_000.big
+                    )
+            // Just right
+            valueOf(27.big, 125.big).cbrtApproximated() shouldBe
+                    valueOf(3.big, 5.big)
         }
     }
 
@@ -217,13 +237,13 @@ internal class MathFunctionsTest {
         @Test
         fun `should find GCD (HCF)`() {
             valueOf(2.big, 9.big).gcd(valueOf(6.big, 21.big)) shouldBe
-                valueOf(2.big, 63.big)
+                    valueOf(2.big, 63.big)
             valueOf((-2).big, 9.big).gcd(valueOf(6.big, 21.big)) shouldBe
-                valueOf(2.big, 63.big)
+                    valueOf(2.big, 63.big)
             valueOf(2.big, 9.big).gcd(valueOf((-6).big, 21.big)) shouldBe
-                valueOf(2.big, 63.big)
+                    valueOf(2.big, 63.big)
             valueOf((-2).big, 9.big).gcd(valueOf((-6).big, 21.big)) shouldBe
-                valueOf(2.big, 63.big)
+                    valueOf(2.big, 63.big)
             ZERO.gcd(valueOf(2.big, 9.big)) shouldBe valueOf(2.big, 9.big)
             ZERO.gcd(ZERO) shouldBe ZERO
         }
@@ -231,13 +251,13 @@ internal class MathFunctionsTest {
         @Test
         fun `should find LCM (LCD)`() {
             valueOf(2.big, 9.big).lcm(valueOf(6.big, 21.big)) shouldBe
-                valueOf(2.big, 1.big)
+                    valueOf(2.big, 1.big)
             valueOf((-2).big, 9.big).lcm(valueOf(6.big, 21.big)) shouldBe
-                valueOf(2.big, 1.big)
+                    valueOf(2.big, 1.big)
             valueOf(2.big, 9.big).lcm(valueOf((-6).big, 21.big)) shouldBe
-                valueOf(2.big, 1.big)
+                    valueOf(2.big, 1.big)
             valueOf((-2).big, 9.big).lcm(valueOf((-6).big, 21.big)) shouldBe
-                valueOf(2.big, 1.big)
+                    valueOf(2.big, 1.big)
             ZERO.lcm(valueOf(6.big, 21.big)) shouldBe ZERO
             ZERO.lcm(ZERO) shouldBe ZERO
         }
