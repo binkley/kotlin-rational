@@ -92,10 +92,9 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * Note that [BigDecimal] has a constructor for `Double` but not for `Float`
      * and that leads to awkward handling for NaN and the infinities.
      */
-    public open fun valueOf(floatingPoint: Float): T = try {
-        valueOf(floatingPoint.toBigDecimal())
-    } catch (e: NumberFormatException) {
-        throw ArithmeticException("$floatingPoint: ${e.message}")
+    public open fun valueOf(floatingPoint: Float): T = when {
+        floatingPoint.isFinite() -> valueOf(floatingPoint.toBigDecimal())
+        else -> throw ArithmeticException("$floatingPoint: Not representable")
     }
 
     public fun valueOf(wholeNumber: BInt): T = valueOf(wholeNumber, 1.big)
@@ -359,6 +358,14 @@ public abstract class BigRationalBase<
     /**
      * Returns a the value `(this^exponent)`. Note that [exponent] is an
      * integer rather than a big rational.
+     *
+     * Note that for floating big rationals, extra rules apply:
+     * - NaN to any power is NaN
+     * - Either infinity to the 0th power is NaN
+     * - Either infinity to a negative power is 0
+     * - Positive infinity to a positive power is positive infinity
+     * - Negative infinity to an odd positive power is negative infinity
+     * - Negative infinity to an even positive power is positive infinity
      */
     public open fun pow(exponent: Int): T = when {
         0 > exponent -> unaryDiv().pow(-exponent)

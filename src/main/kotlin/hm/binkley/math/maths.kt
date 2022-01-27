@@ -32,3 +32,5 @@ internal val Double.big: BDouble
 /** Note that [BigInteger.valueOf] checks for cached constants. */
 internal val Long.big: BInt get() = BInt.valueOf(this)
 internal val Int.big: BInt get() = toLong().big
+
+internal fun Float.isFinite() = !isInfinite() && !isNaN()
