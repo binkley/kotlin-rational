@@ -13,9 +13,9 @@ Immutable, infinite-precision `FixedBigRational` and `FloatingBigRational`
 (ratio, fraction) classes for Kotlin, that is ℚ, akin to `BigInteger` (ℤ) and
 `BigDecimal` (ℝ) in the JDK.
 
-*DISCLAIMER* This code has not been vetted by a mathematician in the way that
-the JDK's `BigDecimal` or `BigDecimal` have been. It is a pleasure project, not
-a reviewed library.
+*DISCLAIMER* This code has not been vetted by a numerical analyst in the ways
+that the JDK's `BigDecimal` or `BigDecimal` have been. For example, `sqrt`
+behaves poorly for extrema. It is a pleasure project, not a reviewed library.
 
 The build is obsessive. The author uses this library to try better ways for
 building locally, and building in CI with GitHub: the goal of the build is to 

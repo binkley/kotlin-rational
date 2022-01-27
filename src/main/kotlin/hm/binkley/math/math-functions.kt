@@ -41,13 +41,14 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
  */
 public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
     var root = companion.valueOf(numerator.sqrt(), denominator.sqrt())
-    val n = root * root
-    var remainder = this - n
+    val square = root * root
+    var remainder = this - square
 
-    if (this >= n) return root to remainder
+    if (this >= square) return root to remainder
 
     root = companion.valueOf(root.numerator - BInt.ONE, root.denominator)
     remainder = this - root * root
+
     return root to remainder
 }
 

@@ -9,6 +9,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.lang.Math.ulp
 import java.math.RoundingMode.UNNECESSARY
 
 @Suppress("RedundantInnerClassModifier")
@@ -147,9 +148,16 @@ internal class MathFunctionsTest {
             // Just right
             valueOf(9.big, 25.big).sqrtAndRemainder() shouldBe
                     (valueOf(3.big, 5.big) to ZERO)
-            // Queer
-            valueOf(9.big, 26.big).sqrtAndRemainder() shouldBe
-                (valueOf(2.big, 5.big) to valueOf(121.big, 650.big))
+            // Ginormous
+            // TODO: How to find a "near Double.MAX_VALUE" who's sqrt produces a
+            //  remainder?
+            //  valueOf(Double.MAX_VALUE - ulp(Double.MAX_VALUE)).sqrtAndRemainder() shouldBe
+            //  (valueOf(2.big, 5.big) to valueOf(121.big, 650.big))
+            // Teensy weensy
+            // TODO: What is math correct here?  I expected the sqrt of
+            //  Double.MIN_VALUE to still be min value as sqrt is smaller
+            //  valueOf(Double.MIN_VALUE).sqrtAndRemainder() shouldBe
+            //  (valueOf(Double.MIN_VALUE) to ZERO)
         }
 
         @Test
