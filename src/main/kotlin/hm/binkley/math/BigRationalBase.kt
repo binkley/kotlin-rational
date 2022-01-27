@@ -89,8 +89,8 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * Since the conversion to a rational is _exact_, converting the resulting
      * rational back to a [Float] produces the original value.
      *
-     * @todo Why does `Float` need try/catch, but `Double` does not?  Document
-     *       this quirk when root cause found
+     * Note that [BigDecimal] has a constructor for `Double` but not for `Float`
+     * and that leads to awkward handling for NaN and the infinities.
      */
     public open fun valueOf(floatingPoint: Float): T = try {
         valueOf(floatingPoint.toBigDecimal())
