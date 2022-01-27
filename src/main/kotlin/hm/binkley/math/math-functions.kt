@@ -16,11 +16,11 @@ import kotlin.math.sqrt
  * @throws ArithmeticException if there is no exact root
  */
 public fun <T : BigRationalBase<T>> T.sqrt(): T {
-    val nRoot = numerator.sqrt()
-    if (numerator != nRoot * nRoot)
+    val (nRoot, nRemainder) = numerator.sqrtAndRemainder()
+    if (!nRemainder.isZero())
         throw ArithmeticException("No rational square root: $this")
-    val dRoot = denominator.sqrt()
-    if (denominator != dRoot * dRoot)
+    val (dRoot, dRemainder) = denominator.sqrtAndRemainder()
+    if (!dRemainder.isZero())
         throw ArithmeticException("No rational square root: $this")
 
     return companion.valueOf(nRoot, dRoot)
