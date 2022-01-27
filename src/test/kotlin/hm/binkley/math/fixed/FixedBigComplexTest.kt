@@ -1,5 +1,6 @@
 package hm.binkley.math.fixed
 
+import hm.binkley.math.BDouble
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigComplex.Companion.ONE
 import hm.binkley.math.fixed.FixedBigComplex.Companion.ZERO
@@ -9,7 +10,6 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.math.BigDecimal
 
 private val ONE_PLUS_I = BRat.ONE + I
 private val ONE_MINUS_I = BRat.ONE - I
@@ -54,16 +54,14 @@ internal class FixedBigComplexTest {
     @Test
     fun `should absolve approximately`() {
         (8 + 25.i).modulusApproximated() shouldBe
-            (
-                BigDecimal("410137648387709") over
-                    BigDecimal("15625000000000")
-                )
+                (BDouble("410137648387709") over
+                        BDouble("15625000000000"))
 
-        val jvmValue = BigDecimal("410137648387709")
-            .divideAndRemainder(BigDecimal("15625000000000"))
+        val jvmValue = BDouble("410137648387709")
+            .divideAndRemainder(BDouble("15625000000000"))
         jvmValue shouldBe listOf(
-            BigDecimal.valueOf(26),
-            BigDecimal("3887648387709")
+            BDouble.valueOf(26),
+            BDouble("3887648387709")
         )
     }
 

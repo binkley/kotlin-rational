@@ -19,8 +19,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import java.math.BigDecimal
-import java.math.BigInteger
 import java.math.RoundingMode
 import java.math.RoundingMode.CEILING
 
@@ -130,7 +128,7 @@ internal class BigRationalBaseTest {
         @Test
         fun `should convert to big decimal`() {
             // This adheres to the API for conversion to BigDecimal from double
-            ONE.toBigDecimal() shouldBe BigDecimal("1.0")
+            ONE.toBigDecimal() shouldBe BDouble("1.0")
         }
 
         @Test
@@ -164,9 +162,9 @@ internal class BigRationalBaseTest {
 
         @Test
         fun `should convert to big integer`() {
-            ONE.toBigInteger() shouldBe BigInteger.ONE
-            (1 over 2).toBigInteger() shouldBe BigInteger.ZERO
-            (3 over 2).toBigInteger() shouldBe BigInteger.ONE
+            ONE.toBigInteger() shouldBe BInt.ONE
+            (1 over 2).toBigInteger() shouldBe BInt.ZERO
+            (3 over 2).toBigInteger() shouldBe BInt.ONE
         }
 
         @Test

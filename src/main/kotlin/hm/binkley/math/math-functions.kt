@@ -1,7 +1,6 @@
 package hm.binkley.math
 
 import java.lang.Math.cbrt
-import java.math.BigInteger
 import java.math.RoundingMode.CEILING
 import java.math.RoundingMode.DOWN
 import java.math.RoundingMode.FLOOR
@@ -47,7 +46,7 @@ public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
 
     if (this >= n) return root to remainder
 
-    root = companion.valueOf(root.numerator - BigInteger.ONE, root.denominator)
+    root = companion.valueOf(root.numerator - BInt.ONE, root.denominator)
     remainder = this - root * root
     return root to remainder
 }

@@ -138,10 +138,16 @@ internal class MathFunctionsTest {
 
         @Test
         fun `should square root with remainder`() {
-            valueOf(9.big, 25.big).sqrtAndRemainder() shouldBe
-                (valueOf(3.big, 5.big) to ZERO)
+            // Too big
+            valueOf(11.big, 25.big).sqrtAndRemainder() shouldBe
+                (valueOf(3.big, 5.big) to valueOf(2.big, 25.big))
+            // Too small
             valueOf(8.big, 25.big).sqrtAndRemainder() shouldBe
                 (valueOf(2.big, 5.big) to valueOf(4.big, 25.big))
+            // Just right
+            valueOf(9.big, 25.big).sqrtAndRemainder() shouldBe
+                    (valueOf(3.big, 5.big) to ZERO)
+            // Queer
             valueOf(9.big, 26.big).sqrtAndRemainder() shouldBe
                 (valueOf(2.big, 5.big) to valueOf(121.big, 650.big))
         }
