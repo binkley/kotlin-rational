@@ -66,6 +66,7 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     public open fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
         0.0.big -> ZERO
         1.0.big -> ONE
+        2.0.big -> TWO
         10.0.big -> TEN
         else -> {
             val scale = floatingPoint.scale()

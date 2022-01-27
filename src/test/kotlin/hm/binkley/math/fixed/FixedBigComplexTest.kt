@@ -181,10 +181,10 @@ internal class FixedBigComplexTest {
     fun `should raise`() {
         val half = 1 over 2
         ONE_PLUS_I `**` 0 shouldBe 1 + 0.i
-        ONE_PLUS_I.pow(1) shouldBe ONE_PLUS_I
-        ONE_PLUS_I.pow(-1) shouldBe half - half.i
-        ONE_PLUS_I.pow(2) shouldBe 0 + 2.i
-        ONE_PLUS_I.pow(-2) shouldBe 0 - half.i
+        ONE_PLUS_I `**` 1 shouldBe ONE_PLUS_I
+        ONE_PLUS_I `**` -1 shouldBe half - half.i
+        ONE_PLUS_I `**` 2 shouldBe 0 + 2.i
+        ONE_PLUS_I `**` -2 shouldBe 0 - half.i
     }
 
     @Test

@@ -245,7 +245,7 @@ public fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
     return gamma + delta.i
 }
 
-@Suppress("DANGEROUS_CHARACTERS", "FunctionName", "unused")
+@Suppress("DANGEROUS_CHARACTERS", "FunctionName")
 public infix fun FixedBigComplex.`**`(n: Int): FixedBigComplex = pow(n)
 
 /**
