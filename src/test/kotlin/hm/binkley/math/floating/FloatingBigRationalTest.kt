@@ -15,6 +15,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
+import hm.binkley.math.`**`
 import hm.binkley.math.floor
 import hm.binkley.math.fraction
 import hm.binkley.math.rangeTo
@@ -697,11 +698,13 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should raise`() {
-            POSITIVE_INFINITY.pow(2) shouldBe POSITIVE_INFINITY
-            POSITIVE_INFINITY.pow(-1) shouldBe ZERO
-            NEGATIVE_INFINITY.pow(3) shouldBe NEGATIVE_INFINITY
-            NEGATIVE_INFINITY.pow(2) shouldBe POSITIVE_INFINITY
-            NEGATIVE_INFINITY.pow(-1) shouldBe ZERO
+            POSITIVE_INFINITY `**` 2 shouldBe POSITIVE_INFINITY
+            POSITIVE_INFINITY `**` -1 shouldBe ZERO
+
+            NEGATIVE_INFINITY `**` 3 shouldBe NEGATIVE_INFINITY
+            NEGATIVE_INFINITY `**` 2 shouldBe POSITIVE_INFINITY
+            NEGATIVE_INFINITY `**` -1 shouldBe ZERO
+
             NaN.pow(2).isNaN().shouldBeTrue()
             POSITIVE_INFINITY.pow(0).isNaN().shouldBeTrue()
             NEGATIVE_INFINITY.pow(0).isNaN().shouldBeTrue()
