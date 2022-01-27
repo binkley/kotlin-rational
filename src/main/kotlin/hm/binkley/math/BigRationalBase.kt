@@ -356,8 +356,8 @@ public abstract class BigRationalBase<
     }
 
     /**
-     * Returns a the value `(this^exponent)`. Note that [exponent] is an
-     * integer rather than a big rational.
+     * Returns the value `(this^exponent)`. Note that [exponent] is an integer
+     * rather than a big rational.
      *
      * Note that for floating big rationals, extra rules apply:
      * - NaN to any power is NaN
