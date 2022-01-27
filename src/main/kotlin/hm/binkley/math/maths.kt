@@ -12,8 +12,8 @@ internal fun BInt.isZero() = 0.big == this
 internal fun BInt.isUnit() = 1.big == this
 internal fun BInt.isTwo() = 2.big == this
 internal fun BInt.isTen() = 10.big == this
-internal fun BInt.isDyadic() = (isUnit() || (this % 2.big).isZero())
 internal fun BInt.isPAdic(p: Long) = (isUnit() || (this % p.big).isZero())
+internal fun BInt.isDyadic() = isPAdic(2)
 internal fun BInt.lcm(other: BInt) = (this * (other / gcd(other))).abs()
 internal fun BInt.isEven() = (this % 2.big).isZero()
 
