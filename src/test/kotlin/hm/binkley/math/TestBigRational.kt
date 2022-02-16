@@ -2,7 +2,10 @@ package hm.binkley.math
 
 import hm.binkley.math.TestBigRational.Companion.valueOf
 
-internal infix fun Int.over(denominator: Int) = valueOf(big, denominator.big)
+internal infix fun BInt.over(denominator: BInt) = valueOf(this, denominator)
+internal infix fun Long.over(denominator: Long) = big over denominator.big
+internal infix fun Int.over(denominator: Long) = big over denominator.big
+internal infix fun Int.over(denominator: Int) = big over denominator.big
 
 internal class TestBigRational(
     numerator: BInt,
@@ -29,31 +32,6 @@ internal class TestBigRational(
             return reduce(numerator, denominator) { n, d ->
                 TestBigRational(n, d)
             }
-        }
-    }
-}
-
-internal class BuggyTestBigRational(
-    numerator: BInt,
-    denominator: BInt,
-) : BigRationalBase<BuggyTestBigRational>(
-    numerator,
-    denominator,
-) {
-    override val companion: Companion get() = Companion
-
-    companion object : BigRationalCompanion<BuggyTestBigRational>(
-        ZERO = BuggyTestBigRational(BInt.ZERO, BInt.ONE),
-        ONE = BuggyTestBigRational(BInt.ONE, BInt.ONE),
-        TWO = BuggyTestBigRational(BInt.TWO, BInt.ONE),
-        TEN = BuggyTestBigRational(BInt.TEN, BInt.ONE),
-    ) {
-        override fun valueOf(
-            numerator: BInt,
-            denominator: BInt,
-        ) = reduce(numerator, denominator) { n, d ->
-            // Skip check for zero denominator to trigger assertion
-            BuggyTestBigRational(n, d)
         }
     }
 }

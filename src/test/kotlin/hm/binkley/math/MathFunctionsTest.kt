@@ -3,7 +3,6 @@ package hm.binkley.math
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
-import hm.binkley.math.TestBigRational.Companion.valueOf
 import hm.binkley.math.fixed.toBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.forAll
@@ -26,10 +25,10 @@ internal class MathFunctionsTest {
             ZERO.ceil() shouldBe ZERO
             ONE.ceil() shouldBe ONE
             (-ONE).ceil() shouldBe -ONE
-            valueOf(3.big, 2.big).ceil() shouldBe TWO
-            valueOf(1.big, 2.big).ceil() shouldBe ONE
-            valueOf((-1).big, 2.big).ceil() shouldBe ZERO
-            valueOf((-3).big, 2.big).ceil() shouldBe -ONE
+            (3 over 2).ceil() shouldBe TWO
+            (1 over 2).ceil() shouldBe ONE
+            (-1 over 2).ceil() shouldBe ZERO
+            (-3 over 2).ceil() shouldBe -ONE
         }
 
         @Test
@@ -37,10 +36,10 @@ internal class MathFunctionsTest {
             ZERO.floor() shouldBe ZERO
             ONE.floor() shouldBe ONE
             (-ONE).floor() shouldBe -ONE
-            valueOf(3.big, 2.big).floor() shouldBe ONE
-            valueOf(1.big, 2.big).floor() shouldBe ZERO
-            valueOf((-1).big, 2.big).floor() shouldBe -ONE
-            valueOf((-3).big, 2.big).floor() shouldBe -TWO
+            (3 over 2).floor() shouldBe ONE
+            (1 over 2).floor() shouldBe ZERO
+            (-1 over 2).floor() shouldBe -ONE
+            (-3 over 2).floor() shouldBe -TWO
         }
 
         @Test
@@ -48,10 +47,10 @@ internal class MathFunctionsTest {
             ZERO.round() shouldBe ZERO
             ONE.round() shouldBe ONE
             (-ONE).round() shouldBe -ONE
-            valueOf(3.big, 2.big).round() shouldBe TWO
-            valueOf(1.big, 2.big).round() shouldBe ZERO
-            valueOf((-1).big, 2.big).round() shouldBe ZERO
-            valueOf((-3).big, 2.big).round() shouldBe -TWO
+            (3 over 2).round() shouldBe TWO
+            (1 over 2).round() shouldBe ZERO
+            (-1 over 2).round() shouldBe ZERO
+            (-3 over 2).round() shouldBe -TWO
         }
 
         @Test
@@ -59,10 +58,10 @@ internal class MathFunctionsTest {
             ZERO.truncate() shouldBe ZERO
             ONE.truncate() shouldBe ONE
             (-ONE).truncate() shouldBe -ONE
-            valueOf(3.big, 2.big).truncate() shouldBe ONE
-            valueOf(1.big, 2.big).truncate() shouldBe ZERO
-            valueOf((-1).big, 2.big).truncate() shouldBe ZERO
-            valueOf((-3).big, 2.big).truncate() shouldBe -ONE
+            (3 over 2).truncate() shouldBe ONE
+            (1 over 2).truncate() shouldBe ZERO
+            (-1 over 2).truncate() shouldBe ZERO
+            (-3 over 2).truncate() shouldBe -ONE
         }
 
         @Test
@@ -70,10 +69,10 @@ internal class MathFunctionsTest {
             ZERO.roundOut() shouldBe ZERO
             ONE.roundOut() shouldBe ONE
             (-ONE).roundOut() shouldBe -ONE
-            valueOf(3.big, 2.big).roundOut() shouldBe TWO
-            valueOf(1.big, 2.big).roundOut() shouldBe ONE
-            valueOf((-1).big, 2.big).roundOut() shouldBe -ONE
-            valueOf((-3).big, 2.big).roundOut() shouldBe -TWO
+            (3 over 2).roundOut() shouldBe TWO
+            (1 over 2).roundOut() shouldBe ONE
+            (-1 over 2).roundOut() shouldBe -ONE
+            (-3 over 2).roundOut() shouldBe -TWO
         }
 
         @Test
@@ -83,10 +82,10 @@ internal class MathFunctionsTest {
             ZERO.roundToOne() shouldBe ZERO
             ONE.roundToOne() shouldBe ONE
             (-ONE).roundToOne() shouldBe -ONE
-            valueOf(3.big, 2.big).roundToOne() shouldBe ONE
-            valueOf(1.big, 2.big).roundToOne() shouldBe ONE
-            valueOf((-1).big, 2.big).roundToOne() shouldBe ZERO
-            valueOf((-3).big, 2.big).roundToOne() shouldBe -ONE
+            (3 over 2).roundToOne() shouldBe ONE
+            (1 over 2).roundToOne() shouldBe ONE
+            (-1 over 2).roundToOne() shouldBe ZERO
+            (-3 over 2).roundToOne() shouldBe -ONE
         }
 
         @Test
@@ -124,51 +123,38 @@ internal class MathFunctionsTest {
                 (truncation + fraction) shouldBe it
             }
         }
-
-        @Test
-        fun `should fractionate`() {
-            ZERO.fraction() shouldBe ZERO
-            ONE.fraction() shouldBe ZERO
-            (-ONE).fraction() shouldBe ZERO
-            valueOf(3.big, 2.big).fraction() shouldBe valueOf(1.big, 2.big)
-            valueOf(1.big, 2.big).fraction() shouldBe valueOf(1.big, 2.big)
-            valueOf((-1).big, 2.big).fraction() shouldBe
-                    valueOf((-1).big, 2.big)
-            valueOf((-3).big, 2.big).fraction() shouldBe
-                    valueOf((-1).big, 2.big)
-        }
     }
 
     @Nested
     inner class Roots {
         @Test
         fun `should square root`() {
-            valueOf(9.big, 25.big).sqrt() shouldBe valueOf(3.big, 5.big)
+            (9 over 25).sqrt() shouldBe (3 over 5)
 
             shouldThrow<ArithmeticException> {
-                valueOf(8.big, 25.big).sqrt()
+                (8 over 25).sqrt()
             }
             shouldThrow<ArithmeticException> {
-                valueOf(9.big, 26.big).sqrt()
+                (9 over 26).sqrt()
             }
         }
 
         @Test
         fun `should square root with remainder`() {
             // Too big
-            valueOf(11.big, 25.big).sqrtAndRemainder() shouldBe
-                    (valueOf(3.big, 5.big) to valueOf(2.big, 25.big))
+            (11 over 25).sqrtAndRemainder() shouldBe
+                    ((3 over 5) to (2 over 25))
             // Too small
-            valueOf(8.big, 25.big).sqrtAndRemainder() shouldBe
-                    (valueOf(2.big, 5.big) to valueOf(4.big, 25.big))
+            (8 over 25).sqrtAndRemainder() shouldBe
+                    ((2 over 5) to (4 over 25))
             // Just right
-            valueOf(9.big, 25.big).sqrtAndRemainder() shouldBe
-                    (valueOf(3.big, 5.big) to ZERO)
+            (9 over 25).sqrtAndRemainder() shouldBe
+                    ((3 over 5) to ZERO)
             // Ginormous
             // TODO: How to find a "near Double.MAX_VALUE" who's sqrt produces a
             //  remainder?
             //  valueOf(Double.MAX_VALUE - ulp(Double.MAX_VALUE)).sqrtAndRemainder() shouldBe
-            //  (valueOf(2.big, 5.big) to valueOf(121.big, 650.big))
+            //  ((2 over 5) to (121 over 650))
             // Teensy weensy
             // TODO: What is math correct here?  I expected the sqrt of
             //  Double.MIN_VALUE to still be min value as sqrt is smaller
@@ -178,18 +164,12 @@ internal class MathFunctionsTest {
 
         @Test
         fun `should square root approximately`() {
-            valueOf(9.big, 25.big).sqrtApproximated() shouldBe
-                    valueOf(3.big, 5.big)
-            valueOf(8.big, 25.big).sqrtApproximated() shouldBe
-                    valueOf(
-                        282_842_712_474_619.big,
-                        500_000_000_000_000.big
-                    )
-            valueOf(9.big, 26.big).sqrtApproximated() shouldBe
-                    valueOf(
-                        5_883_484_054_145_521.big,
-                        10_000_000_000_000_000.big
-                    )
+            (9 over 25).sqrtApproximated() shouldBe
+                    (3 over 5)
+            (8 over 25).sqrtApproximated() shouldBe
+                    (282_842_712_474_619 over 500_000_000_000_000)
+            (9 over 26).sqrtApproximated() shouldBe
+                    (5_883_484_054_145_521 over 10_000_000_000_000_000)
         }
 
         @Test
@@ -197,14 +177,14 @@ internal class MathFunctionsTest {
             val exactNumerator = (3 * 3 * 3).toBigInteger()
             val exactDenominator = (5 * 5 * 5).toBigInteger()
 
-            valueOf(exactNumerator, exactDenominator).cbrt() shouldBe (3 over 5)
+            (exactNumerator over exactDenominator).cbrt() shouldBe (3 over 5)
             (-ONE).cbrt() shouldBe -ONE
 
             shouldThrow<ArithmeticException> {
-                valueOf(exactNumerator + BInt.ONE, exactDenominator).cbrt()
+                ((exactNumerator + BInt.ONE) over exactDenominator).cbrt()
             }
             shouldThrow<ArithmeticException> {
-                valueOf(exactNumerator, exactDenominator + BInt.ONE).cbrt()
+                (exactNumerator over (exactDenominator + BInt.ONE)).cbrt()
             }
             shouldThrow<ArithmeticException> {
                 Double.MAX_VALUE.toBigRational().cbrt()
@@ -214,21 +194,13 @@ internal class MathFunctionsTest {
         @Test
         fun `should cube root approximately`() {
             // Too big
-            valueOf(28.big, 125.big).cbrtApproximated() shouldBe
-                    valueOf(
-                        3_036_588_971_875_663.big,
-                        5_000_000_000_000_000.big
-                    )
+            (28 over 125).cbrtApproximated() shouldBe
+                    (3_036_588_971_875_663 over 5_000_000_000_000_000)
             // Too small
-            valueOf(26.big, 125.big).cbrtApproximated() shouldBe
-                    valueOf(
-                        // 5924992136814741⁄10000000000000000
-                        5_924_992_136_814_741.big,
-                        10_000_000_000_000_000.big
-                    )
+            (26 over 125).cbrtApproximated() shouldBe
+                    (5_924_992_136_814_741 over 10_000_000_000_000_000)
             // Just right
-            valueOf(27.big, 125.big).cbrtApproximated() shouldBe
-                    valueOf(3.big, 5.big)
+            (27 over 125).cbrtApproximated() shouldBe (3 over 5)
         }
     }
 
@@ -236,36 +208,36 @@ internal class MathFunctionsTest {
     inner class Measures {
         @Test
         fun `should find GCD (HCF)`() {
-            valueOf(2.big, 9.big).gcd(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
-            valueOf((-2).big, 9.big).gcd(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
-            valueOf(2.big, 9.big).gcd(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
-            valueOf((-2).big, 9.big).gcd(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 63.big)
-            ZERO.gcd(valueOf(2.big, 9.big)) shouldBe valueOf(2.big, 9.big)
             ZERO.gcd(ZERO) shouldBe ZERO
+            (2 over 9).gcd((6 over 21)) shouldBe
+                    (2 over 63)
+            (-2 over 9).gcd((6 over 21)) shouldBe
+                    (2 over 63)
+            (2 over 9).gcd((-6 over 21)) shouldBe
+                    (2 over 63)
+            (-2 over 9).gcd((-6 over 21)) shouldBe
+                    (2 over 63)
+            ZERO.gcd((2 over 9)) shouldBe (2 over 9)
         }
 
         @Test
         fun `should find LCM (LCD)`() {
-            valueOf(2.big, 9.big).lcm(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
-            valueOf((-2).big, 9.big).lcm(valueOf(6.big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
-            valueOf(2.big, 9.big).lcm(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
-            valueOf((-2).big, 9.big).lcm(valueOf((-6).big, 21.big)) shouldBe
-                    valueOf(2.big, 1.big)
-            ZERO.lcm(valueOf(6.big, 21.big)) shouldBe ZERO
             ZERO.lcm(ZERO) shouldBe ZERO
+            (2 over 9).lcm((6 over 21)) shouldBe
+                    (2 over 1)
+            (-2 over 9).lcm((6 over 21)) shouldBe
+                    (2 over 1)
+            (2 over 9).lcm((-6 over 21)) shouldBe
+                    (2 over 1)
+            (-2 over 9).lcm((-6 over 21)) shouldBe
+                    (2 over 1)
+            ZERO.lcm((6 over 21)) shouldBe ZERO
         }
 
         @Test
         fun `should find between`() {
             ZERO.mediant(ZERO) shouldBe ZERO
-            ONE.mediant(TWO) shouldBe valueOf(3.big, 2.big)
+            ONE.mediant(TWO) shouldBe (3 over 2)
         }
     }
 }

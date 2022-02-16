@@ -25,9 +25,9 @@ import java.math.RoundingMode.CEILING
 @Suppress("RedundantInnerClassModifier")
 internal class BigRationalBaseTest {
     @Test
-    fun `should detect buggy input`() {
-        shouldThrow<IllegalArgumentException> {
-            BuggyTestBigRational.valueOf(1.big, 0.big)
+    fun `should forbid division by zero`() {
+        shouldThrow<ArithmeticException> {
+            1 over 0
         }
     }
 
@@ -81,15 +81,15 @@ internal class BigRationalBaseTest {
         @Test
         fun `should simplify fractions`() {
             (4 over 2) shouldBe (2 over 1)
-            valueOf(4.big, 8L.big) shouldBe (1 over 2)
-            valueOf(4L.big, 8.big).denominator shouldBe 2.big
+            (4 over 8L) shouldBe (1 over 2)
+            (4L over 8).denominator shouldBe 2.big
         }
 
         @Test
         fun `should maintain positive denominator`() {
-            valueOf(4.big, (-4L).big).denominator shouldBe 1.big
-            valueOf((-4).big, 4L.big).denominator shouldBe 1.big
-            valueOf((-4).big, (-4).big).denominator shouldBe 1.big
+            (4 over (-4L)).denominator shouldBe 1.big
+            ((-4) over 4L).denominator shouldBe 1.big
+            ((-4) over (-4)).denominator shouldBe 1.big
         }
 
         @Test
@@ -146,13 +146,13 @@ internal class BigRationalBaseTest {
         @Test
         fun `should convert floating point for extreme finite values`() {
             Double.MAX_VALUE.toBigRational().toDouble() shouldBe
-                Double.MAX_VALUE
+                    Double.MAX_VALUE
             Double.MIN_VALUE.toBigRational().toDouble() shouldBe
-                Double.MIN_VALUE
+                    Double.MIN_VALUE
             Float.MAX_VALUE.toBigRational().toFloat() shouldBe
-                Float.MAX_VALUE
+                    Float.MAX_VALUE
             Float.MIN_VALUE.toBigRational().toFloat() shouldBe
-                Float.MIN_VALUE
+                    Float.MIN_VALUE
         }
 
         @Test
@@ -171,32 +171,32 @@ internal class BigRationalBaseTest {
         fun `should convert to long`() {
             (11 over 10).toLong() shouldBe 1L
             (valueOf(Long.MAX_VALUE) + 1).toLong() shouldBe
-                Long.MIN_VALUE
+                    Long.MIN_VALUE
         }
 
         @Test
         fun `should convert to int`() {
             (11 over 10).toInt() shouldBe 1
             (valueOf(Int.MAX_VALUE) + 1).toInt() shouldBe
-                Int.MIN_VALUE
+                    Int.MIN_VALUE
         }
 
         @Test
         fun `should convert to short`() {
             (11 over 10).toShort() shouldBe 1.toShort()
             (valueOf(Short.MAX_VALUE.toInt()) + 1).toShort() shouldBe
-                Short.MIN_VALUE
+                    Short.MIN_VALUE
         }
 
         @Test
         fun `should convert to byte`() {
             (11 over 10).toByte() shouldBe 1.toByte()
             (valueOf(Byte.MAX_VALUE.toInt()) + 1).toByte() shouldBe
-                Byte.MIN_VALUE
+                    Byte.MIN_VALUE
         }
 
         @Test
-        fun `should not be a character`() {
+        fun `should not convert to character`() {
             shouldThrow<UnsupportedOperationException> {
                 ONE.toChar()
             }

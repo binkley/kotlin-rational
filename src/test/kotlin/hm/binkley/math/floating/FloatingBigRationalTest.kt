@@ -17,7 +17,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.`**`
 import hm.binkley.math.floor
-import hm.binkley.math.fraction
 import hm.binkley.math.rangeTo
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
@@ -65,10 +64,10 @@ internal class FloatingBigRationalTest {
     @Test
     fun `should not be a floating big rational`() {
         FixedBigRational.valueOf(1.big, 1.big).hashCode() shouldNotBe
-            (1 over 1).hashCode()
+                (1 over 1).hashCode()
         (FixedBigRational.ONE..FixedBigRational.TWO) shouldNotBe ONE..TWO
         (FixedBigRational.ONE..FixedBigRational.TWO).hashCode() shouldNotBe
-            (ONE..TWO).hashCode()
+                (ONE..TWO).hashCode()
     }
 
     @Test
@@ -219,13 +218,6 @@ internal class FloatingBigRationalTest {
             NEGATIVE_INFINITY.truncate().isNegativeInfinity().shouldBeTrue()
             NaN.truncate().isNaN().shouldBeTrue()
         }
-
-        @Test
-        fun `should fractionate`() {
-            POSITIVE_INFINITY.fraction().isNaN().shouldBeTrue()
-            NEGATIVE_INFINITY.fraction().isNaN().shouldBeTrue()
-            NaN.fraction().isNaN().shouldBeTrue()
-        }
     }
 
     @Nested
@@ -233,15 +225,15 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should round trip NaN and infinities`() {
             POSITIVE_INFINITY.toDouble().toBigRational() shouldBe
-                POSITIVE_INFINITY
+                    POSITIVE_INFINITY
             NEGATIVE_INFINITY.toDouble().toBigRational() shouldBe
-                NEGATIVE_INFINITY
+                    NEGATIVE_INFINITY
             NaN.toDouble().toBigRational() shouldBe NaN
 
             POSITIVE_INFINITY.toFloat().toBigRational() shouldBe
-                POSITIVE_INFINITY
+                    POSITIVE_INFINITY
             NEGATIVE_INFINITY.toFloat().toBigRational() shouldBe
-                NEGATIVE_INFINITY
+                    NEGATIVE_INFINITY
             NaN.toFloat().toBigRational() shouldBe NaN
         }
 
@@ -355,9 +347,9 @@ internal class FloatingBigRationalTest {
     @Test
     fun `should not be a fixed big rational range`() {
         (ONE..TEN) shouldNotBe
-            FixedBigRational.ONE..FixedBigRational.TEN
+                FixedBigRational.ONE..FixedBigRational.TEN
         (ONE..TEN).hashCode() shouldNotBe
-            (FixedBigRational.ONE..FixedBigRational.TEN).hashCode()
+                (FixedBigRational.ONE..FixedBigRational.TEN).hashCode()
     }
 
     @Nested

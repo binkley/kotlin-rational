@@ -132,8 +132,7 @@ public fun <T : BigRationalBase<T>> T.floor(): T = round(FLOOR)
 public fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
 
 /**
- * Rounds to the nearest whole number towards the nearest infinity.  Zero
- * remains zero.
+ * Rounds to the nearest whole number towards the nearest infinity.
  *
  * @todo A better verb that is opposite of [truncate]
  */
@@ -179,17 +178,6 @@ public fun <T : BigRationalBase<T>> T.truncate(): T {
     val (numerator, _) = truncateAndFraction()
     return numerator
 }
-
-/**
- * Provides the signed fractional remainder after [truncation][truncate].
- *
- * For `FloatingBigRational`, `NaN`, and positive and negative infinities
- * produce `NaN`.
- *
- * @see truncateAndFraction
- */
-public fun <T : BigRationalBase<T>> T.fraction(): T =
-    truncateAndFraction().second
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and

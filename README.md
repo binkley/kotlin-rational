@@ -201,11 +201,17 @@ in strict mode.
 
 ### Constructors
 
-All constructors are intended to be _private_ for users of the API. Please use:
+All constructors are _private_ in the API. Please use:
 
-- `over` infix operators, _eg_, `2 over 1`
-- `valueOf` companion methods, _eg_,
-  `BigRational.valueOf(BigInteger.TWO, BigInteger.ONE)`
+- (preferred) `over` infix operators, _eg_, `2 over 1`
+- `valueOf` companion methods are mostly used to convert single arguments
+
+After experiments with alternative infix operators, for example, "2 `⁄` 1" with
+the [UNICODE fraction slash](https://graphemica.com/%E2%81%84), or the various
+UNICODE forms of
+[the solidus](https://en.wikipedia.org/wiki/Slash_(punctuation)#Mathematics),
+most helpful is to use the English way to pronounce fractions, _ie_, "two over
+one".
 
 ### Properties
 
@@ -235,7 +241,7 @@ All constructors are intended to be _private_ for users of the API. Please use:
   rounds towards infinities depending on sign; `roundTowards(goal)` and
   `round(roundingMode)` rounds as you ask
 - `truncateAndFraction()` provides truncation and the remaining fraction;
-  `truncate()` rounds towards 0; `fraction()` provides the remaining fraction
+  `truncate()` truncates towards 0 discarding the remaining fraction
 - `diff(other)` finds the absolute difference between values
 - `sqrt()` and `cbrt()` provide exact rationals, or raise an exception;
   `sqrtAndRemainder()` is similar to `BigInteger.sqrtAndRemainder()`;
