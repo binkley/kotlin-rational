@@ -340,6 +340,7 @@
                     <targetTests>
                         <param>hm.binkley*</param>
                     </targetTests>
+                    <withHistory>true</withHistory>
                     <timestampedReports>false</timestampedReports>
                 </configuration>
                 <executions>
