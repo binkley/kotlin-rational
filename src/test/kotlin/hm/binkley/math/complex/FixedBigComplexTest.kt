@@ -1,11 +1,13 @@
-package hm.binkley.math.fixed
+package hm.binkley.math.complex
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.big
-import hm.binkley.math.fixed.FixedBigComplex.Companion.ONE
-import hm.binkley.math.fixed.FixedBigComplex.Companion.ZERO
-import hm.binkley.math.fixed.FixedBigImaginary.Companion.I
+import hm.binkley.math.complex.FixedBigComplex.Companion.ONE
+import hm.binkley.math.complex.FixedBigComplex.Companion.ZERO
+import hm.binkley.math.complex.FixedBigImaginary.Companion.I
+import hm.binkley.math.fixed.BRat
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
+import hm.binkley.math.fixed.over
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

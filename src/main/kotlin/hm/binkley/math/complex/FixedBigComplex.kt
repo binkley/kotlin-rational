@@ -1,12 +1,15 @@
-package hm.binkley.math.fixed
+package hm.binkley.math.complex
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BImag
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Field
 import hm.binkley.math.algebra.FieldCompanion
-import hm.binkley.math.fixed.FixedBigComplex.Companion.ONE
+import hm.binkley.math.complex.FixedBigComplex.Companion.ONE
+import hm.binkley.math.fixed.BRat
+import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
+import hm.binkley.math.fixed.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
@@ -30,7 +33,7 @@ public data class FixedBigComplex(
 
     override operator fun times(factor: FixedBigComplex): FixedBigComplex =
         (real * factor.real + imag * factor.imag) +
-            (real * factor.imag + imag * factor.real)
+                (real * factor.imag + imag * factor.real)
 
     override operator fun div(divisor: FixedBigComplex): FixedBigComplex =
         this * divisor.unaryDiv()
@@ -241,7 +244,7 @@ public fun FixedBigComplex.modulusApproximated(): FixedBigRational =
 public fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
     val gamma = ((real + modulusApproximated()) / TWO).sqrtApproximated()
     val delta = imag.value.sign *
-        ((-real + modulusApproximated()) / TWO).sqrtApproximated()
+            ((-real + modulusApproximated()) / TWO).sqrtApproximated()
     return gamma + delta.i
 }
 

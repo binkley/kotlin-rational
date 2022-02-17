@@ -1,6 +1,6 @@
 package hm.binkley.math
 
-import hm.binkley.math.fixed.FixedBigImaginary
+import hm.binkley.math.complex.FixedBigImaginary
 import java.math.BigDecimal
 import java.math.BigInteger
 

@@ -1,9 +1,11 @@
-package hm.binkley.math.fixed
+package hm.binkley.math.complex
 
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.algebra.GroupCompanion
 import hm.binkley.math.div
+import hm.binkley.math.fixed.BRat
+import hm.binkley.math.fixed.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.times
 
