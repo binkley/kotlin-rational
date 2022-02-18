@@ -5,7 +5,7 @@ import hm.binkley.math.big
 import hm.binkley.math.complex.FixedBigComplex.Companion.ONE
 import hm.binkley.math.complex.FixedBigComplex.Companion.ZERO
 import hm.binkley.math.complex.FixedBigImaginary.Companion.I
-import hm.binkley.math.fixed.BRat
+import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.over
 import io.kotest.assertions.throwables.shouldThrow
@@ -13,10 +13,10 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-private val ONE_PLUS_I = BRat.ONE + I
-private val ONE_MINUS_I = BRat.ONE - I
-private val NEG_ONE_PLUS_I = -BRat.ONE + I
-private val NEG_ONE_MINUS_I = -BRat.ONE - I
+private val ONE_PLUS_I = FixedBigRational.ONE + I
+private val ONE_MINUS_I = FixedBigRational.ONE - I
+private val NEG_ONE_PLUS_I = -FixedBigRational.ONE + I
+private val NEG_ONE_MINUS_I = -FixedBigRational.ONE - I
 
 internal class FixedBigComplexTest {
     @Test
@@ -86,8 +86,8 @@ internal class FixedBigComplexTest {
 
     @Test
     fun `should add`() {
-        (BRat.ONE + I) shouldBe ONE_PLUS_I
-        (I + BRat.ONE) shouldBe ONE_PLUS_I
+        (FixedBigRational.ONE + I) shouldBe ONE_PLUS_I
+        (I + FixedBigRational.ONE) shouldBe ONE_PLUS_I
         (1.0.big + 1.i) shouldBe ONE_PLUS_I
         (1.i + 1.0.big) shouldBe ONE_PLUS_I
         (I + 1.big) shouldBe ONE_PLUS_I
@@ -96,8 +96,8 @@ internal class FixedBigComplexTest {
         (1 + I) shouldBe ONE_PLUS_I
         (I + 1) shouldBe ONE_PLUS_I
         (ONE_PLUS_I + ONE_PLUS_I) shouldBe 2 + 2.i
-        (ONE_PLUS_I + BRat.ONE) shouldBe 2 + 1.i
-        (BRat.ONE + ONE_PLUS_I) shouldBe 2 + 1.i
+        (ONE_PLUS_I + FixedBigRational.ONE) shouldBe 2 + 1.i
+        (FixedBigRational.ONE + ONE_PLUS_I) shouldBe 2 + 1.i
         (ONE_PLUS_I + 1.big) shouldBe 2 + 1.i
         (1.big + ONE_PLUS_I) shouldBe 2 + 1.i
         (ONE_PLUS_I + 1L) shouldBe 2 + 1.i
@@ -110,7 +110,7 @@ internal class FixedBigComplexTest {
 
     @Test
     fun `should subtract`() {
-        (I - BRat.ONE) shouldBe NEG_ONE_PLUS_I
+        (I - FixedBigRational.ONE) shouldBe NEG_ONE_PLUS_I
         (1.big - I) shouldBe ONE_MINUS_I
         (I - 1.big) shouldBe NEG_ONE_PLUS_I
         (1L - I) shouldBe ONE_MINUS_I
@@ -118,8 +118,8 @@ internal class FixedBigComplexTest {
         (1 - I) shouldBe ONE_MINUS_I
         (I - 1) shouldBe NEG_ONE_PLUS_I
         (ONE_PLUS_I - ONE_PLUS_I) shouldBe 0 + 0.i
-        (ONE_PLUS_I - BRat.ONE) shouldBe 0 + I
-        (BRat.ONE - ONE_MINUS_I) shouldBe 0 + I
+        (ONE_PLUS_I - FixedBigRational.ONE) shouldBe 0 + I
+        (FixedBigRational.ONE - ONE_MINUS_I) shouldBe 0 + I
         (ONE_PLUS_I - 1.big) shouldBe 0 + I
         (1.big - ONE_MINUS_I) shouldBe 0 + I
         (ONE_PLUS_I - 1L) shouldBe 0 + I
@@ -164,7 +164,7 @@ internal class FixedBigComplexTest {
     @Test
     fun `should convert`() {
         val one = ONE + 0.i
-        one.toBigRational() shouldBe BRat.ONE
+        one.toBigRational() shouldBe FixedBigRational.ONE
         one.toBigInteger() shouldBe 1.big
         one.toLong() shouldBe 1L
         one.toInt() shouldBe 1

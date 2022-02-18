@@ -13,28 +13,29 @@ import java.math.BigInteger
  * of 0.  Subsequent fraction parts use their natural index, starting at 1.
  * All numerators are 1.
  *
- * Elements are [BRat] (rather than [BigInteger]) to express
- * continued fractions of non-finite [BRat]s.
+ * Elements are [FixedBigRational] (rather than [BigInteger]) to express
+ * continued fractions of non-finite [FixedBigRational]s.
  *
  * This class does not support infinite continued fractions; all represented
- * values are convertible to [BRat].
+ * values are convertible to [FixedBigRational].
  */
 public class FixedContinuedFraction private constructor(
-    terms: List<BRat>,
-) : ContinuedFractionBase<BRat, FixedContinuedFraction>(
+    terms: List<FixedBigRational>,
+) : ContinuedFractionBase<FixedBigRational, FixedContinuedFraction>(
     terms, FixedContinuedFraction
 ) {
-    override fun construct(terms: List<BRat>): FixedContinuedFraction =
+    override fun construct(terms: List<FixedBigRational>): FixedContinuedFraction =
         FixedContinuedFraction(terms)
 
-    override fun toBigRational(): BRat = backAgain()
+    override fun toBigRational(): FixedBigRational =
+        backAgain()
 
-    public companion object : ContinuedFractionCompanionBase<BRat,
-        FixedContinuedFraction>(ONE) {
+    public companion object : ContinuedFractionCompanionBase<FixedBigRational,
+            FixedContinuedFraction>(ONE) {
         override fun constructTerm(term: BInt) =
-            BRat.valueOf(term)
+            FixedBigRational.valueOf(term)
 
-        override fun construct(terms: List<BRat>) =
+        override fun construct(terms: List<FixedBigRational>) =
             FixedContinuedFraction(terms)
     }
 }

@@ -4,9 +4,8 @@ import hm.binkley.math.complex.FixedBigImaginary
 import java.math.BigDecimal
 import java.math.BigInteger
 
-internal typealias BImag = FixedBigImaginary
-internal typealias BInt = BigInteger
 internal typealias BDouble = BigDecimal
+internal typealias BInt = BigInteger
 
 internal fun BInt.isZero() = 0.big == this
 internal fun BInt.isUnit() = 1.big == this

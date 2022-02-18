@@ -4,12 +4,12 @@ import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.algebra.GroupCompanion
 import hm.binkley.math.div
-import hm.binkley.math.fixed.BRat
+import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.times
 
-public data class FixedBigImaginary(val value: BRat) :
+public data class FixedBigImaginary(val value: FixedBigRational) :
     Group<FixedBigImaginary>,
     Comparable<FixedBigImaginary> {
     // Not covered in tests -- API ensures 0 and 1 are defined
@@ -35,8 +35,10 @@ public data class FixedBigImaginary(val value: BRat) :
 
 // Constructors
 
-public fun BRat.toImaginary(): FixedBigImaginary = FixedBigImaginary(this)
-public val BRat.i: FixedBigImaginary get() = toImaginary()
+public fun FixedBigRational.toImaginary(): FixedBigImaginary =
+    FixedBigImaginary(this)
+
+public val FixedBigRational.i: FixedBigImaginary get() = toImaginary()
 public fun BInt.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
 public val BInt.i: FixedBigImaginary get() = toImaginary()
 public fun Long.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
@@ -48,13 +50,13 @@ public val Int.i: FixedBigImaginary get() = toImaginary()
 
 public operator fun FixedBigImaginary.times(
     multiplier: FixedBigImaginary
-): BRat = -(value * multiplier.value)
+): FixedBigRational = -(value * multiplier.value)
 
 public operator fun FixedBigImaginary.times(
-    multiplier: BRat
+    multiplier: FixedBigRational
 ): FixedBigImaginary = (value * multiplier).toImaginary()
 
-public operator fun BRat.times(
+public operator fun FixedBigRational.times(
     multiplier: FixedBigImaginary
 ): FixedBigImaginary = multiplier * this
 
@@ -86,13 +88,13 @@ public operator fun Int.times(
 
 public fun FixedBigImaginary.unaryDiv(): FixedBigImaginary = -value.unaryDiv().i
 
-public operator fun FixedBigImaginary.div(divisor: FixedBigImaginary): BRat =
+public operator fun FixedBigImaginary.div(divisor: FixedBigImaginary): FixedBigRational =
     this * divisor.unaryDiv()
 
-public operator fun FixedBigImaginary.div(divisor: BRat): FixedBigImaginary =
+public operator fun FixedBigImaginary.div(divisor: FixedBigRational): FixedBigImaginary =
     this * divisor.unaryDiv()
 
-public operator fun BRat.div(divisor: FixedBigImaginary): FixedBigImaginary =
+public operator fun FixedBigRational.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: BInt): FixedBigImaginary =

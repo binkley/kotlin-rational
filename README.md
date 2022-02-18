@@ -301,12 +301,8 @@ by Batect.
 
 ### Type aliases
 
-Use type aliases when possible:
+Use type aliases when sensible:
 
-- `BComplex` is `FixedBigComplex`
-- `BImag` is `FixedBigImaginary`
-- `BRat` is either `FixedBigRational` or `FloatingBigRational`, depending on
-  context
 - `BDouble` is `BigDecimal`
 - `BInt` is `BigInteger`
 
@@ -323,13 +319,10 @@ fun ArgumentType.func(receiver: ReceiverType)
 When providing function overloads, please include these types as applicable, and
 keep them together in this order (using type aliases):
 
-- `BComplex`
-- `BImag`
-- `BRat`
-- `BDouble`
+- `BDouble` -- `BigDecimal` (an alias for readability)
 - `Double`
 - `Float`
-- `BInt`
+- `BInt` -- `BigInteger` (an alias for readability)
 - `Long`
 - `Int`
 

@@ -1,12 +1,10 @@
 package hm.binkley.math.complex
 
 import hm.binkley.math.BDouble
-import hm.binkley.math.BImag
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Field
 import hm.binkley.math.algebra.FieldCompanion
 import hm.binkley.math.complex.FixedBigComplex.Companion.ONE
-import hm.binkley.math.fixed.BRat
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.toBigRational
@@ -17,8 +15,8 @@ import java.math.BigInteger
 import kotlin.math.absoluteValue
 
 public data class FixedBigComplex(
-    val real: BRat,
-    val imag: BImag,
+    val real: FixedBigRational,
+    val imag: FixedBigImaginary,
 ) : Field<FixedBigComplex> {
     // Not covered in tests -- API ensures 0 and 1 are defined
     override val companion: Companion get() = FixedBigComplex
@@ -39,13 +37,13 @@ public data class FixedBigComplex(
         this * divisor.unaryDiv()
 
     override fun toString(): String =
-        if (BRat.ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
+        if (FixedBigRational.ZERO > imag.value) "$real-${-imag}" else "$real+$imag"
 
     public companion object : FieldCompanion<FixedBigComplex> {
         override val ZERO: FixedBigComplex =
-            FixedBigComplex(BRat.ZERO, BRat.ZERO.i)
+            FixedBigComplex(FixedBigRational.ZERO, FixedBigRational.ZERO.i)
         override val ONE: FixedBigComplex =
-            FixedBigComplex(BRat.ONE, BRat.ZERO.i)
+            FixedBigComplex(FixedBigRational.ONE, FixedBigRational.ZERO.i)
     }
 }
 
@@ -59,79 +57,104 @@ public val FixedBigComplex.reciprocal: FixedBigComplex get() = unaryDiv()
 
 // Constructors -- including improper order, eg, 1.i + 1.big
 
-public operator fun BImag.plus(real: BRat): FixedBigComplex = real + this
-public operator fun BRat.plus(imag: BImag): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: FixedBigRational): FixedBigComplex =
+    real + this
+
+public operator fun FixedBigRational.plus(imag: FixedBigImaginary): FixedBigComplex =
     FixedBigComplex(this, imag)
 
-public operator fun BImag.plus(real: BDouble): FixedBigComplex = real + this
-public operator fun BDouble.plus(imag: BImag): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: BDouble): FixedBigComplex =
+    real + this
+
+public operator fun BDouble.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun BImag.plus(real: BInt): FixedBigComplex = real + this
-public operator fun BInt.plus(imag: BImag): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: BInt): FixedBigComplex =
+    real + this
+
+public operator fun BInt.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun BImag.plus(real: Long): FixedBigComplex = real + this
-public operator fun Long.plus(imag: BImag): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: Long): FixedBigComplex =
+    real + this
+
+public operator fun Long.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun BImag.plus(real: Int): FixedBigComplex = real + this
-public operator fun Int.plus(imag: BImag): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: Int): FixedBigComplex =
+    real + this
+
+public operator fun Int.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun BImag.minus(real: BRat): FixedBigComplex = -real + this
-public operator fun BRat.minus(imag: BImag): FixedBigComplex = this + -imag
-public operator fun BImag.minus(real: BInt): FixedBigComplex = -real + this
-public operator fun BInt.minus(imag: BImag): FixedBigComplex = this + -imag
-public operator fun BImag.minus(real: Long): FixedBigComplex = -real + this
-public operator fun Long.minus(imag: BImag): FixedBigComplex = this + -imag
-public operator fun BImag.minus(real: Int): FixedBigComplex = -real + this
-public operator fun Int.minus(imag: BImag): FixedBigComplex = this + -imag
+public operator fun FixedBigImaginary.minus(real: FixedBigRational): FixedBigComplex =
+    -real + this
+
+public operator fun FixedBigRational.minus(imag: FixedBigImaginary): FixedBigComplex =
+    this + -imag
+
+public operator fun FixedBigImaginary.minus(real: BInt): FixedBigComplex =
+    -real + this
+
+public operator fun BInt.minus(imag: FixedBigImaginary): FixedBigComplex =
+    this + -imag
+
+public operator fun FixedBigImaginary.minus(real: Long): FixedBigComplex =
+    -real + this
+
+public operator fun Long.minus(imag: FixedBigImaginary): FixedBigComplex =
+    this + -imag
+
+public operator fun FixedBigImaginary.minus(real: Int): FixedBigComplex =
+    -real + this
+
+public operator fun Int.minus(imag: FixedBigImaginary): FixedBigComplex =
+    this + -imag
 
 // Addition operator
 
-public operator fun FixedBigComplex.plus(addend: BImag): FixedBigComplex =
-    this + (BRat.ZERO + addend)
+public operator fun FixedBigComplex.plus(addend: FixedBigImaginary): FixedBigComplex =
+    this + (FixedBigRational.ZERO + addend)
 
-public operator fun BImag.plus(addend: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
-public operator fun FixedBigComplex.plus(addend: BRat): FixedBigComplex =
-    this + (addend + BRat.ZERO.i)
+public operator fun FixedBigComplex.plus(addend: FixedBigRational): FixedBigComplex =
+    this + (addend + FixedBigRational.ZERO.i)
 
-public operator fun BRat.plus(addend: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigRational.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
 public operator fun FixedBigComplex.plus(addend: BInt): FixedBigComplex =
-    this + (addend + BRat.ZERO.i)
+    this + (addend + FixedBigRational.ZERO.i)
 
 public operator fun BInt.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
 public operator fun FixedBigComplex.plus(addend: Long): FixedBigComplex =
-    this + (addend + BRat.ZERO.i)
+    this + (addend + FixedBigRational.ZERO.i)
 
 public operator fun Long.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
 public operator fun FixedBigComplex.plus(addend: Int): FixedBigComplex =
-    this + (addend + BRat.ZERO.i)
+    this + (addend + FixedBigRational.ZERO.i)
 
 public operator fun Int.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
 // Subtraction operator
 
-public operator fun FixedBigComplex.minus(subtrahend: BImag): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: FixedBigImaginary): FixedBigComplex =
     this + -subtrahend
 
-public operator fun BImag.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigImaginary.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-public operator fun FixedBigComplex.minus(subtrahend: BRat): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: FixedBigRational): FixedBigComplex =
     this + -subtrahend
 
-public operator fun BRat.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigRational.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
 public operator fun FixedBigComplex.minus(subtrahend: BInt): FixedBigComplex =
@@ -154,48 +177,48 @@ public operator fun Int.minus(subtrahend: FixedBigComplex): FixedBigComplex =
 
 // Multiplication operator
 
-public operator fun FixedBigComplex.times(multiplier: BImag): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: FixedBigImaginary): FixedBigComplex =
     this * (FixedBigComplex.ZERO + multiplier)
 
-public operator fun BImag.times(multiplier: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigImaginary.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-public operator fun FixedBigComplex.times(multiplier: BRat): FixedBigComplex =
-    this * (multiplier + BRat.ZERO.i)
+public operator fun FixedBigComplex.times(multiplier: FixedBigRational): FixedBigComplex =
+    this * (multiplier + FixedBigRational.ZERO.i)
 
-public operator fun BRat.times(multiplier: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigRational.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
 public operator fun FixedBigComplex.times(multiplier: BInt): FixedBigComplex =
-    this * (multiplier + BRat.ZERO.i)
+    this * (multiplier + FixedBigRational.ZERO.i)
 
 public operator fun BInt.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
 public operator fun FixedBigComplex.times(multiplier: Long): FixedBigComplex =
-    this * (multiplier + BRat.ZERO.i)
+    this * (multiplier + FixedBigRational.ZERO.i)
 
 public operator fun Long.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
 public operator fun FixedBigComplex.times(multiplier: Int): FixedBigComplex =
-    this * (multiplier + BRat.ZERO.i)
+    this * (multiplier + FixedBigRational.ZERO.i)
 
 public operator fun Int.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
 // Division operator
 
-public operator fun FixedBigComplex.div(divisor: BImag): FixedBigComplex =
+public operator fun FixedBigComplex.div(divisor: FixedBigImaginary): FixedBigComplex =
     this / (FixedBigComplex.ZERO + divisor)
 
-public operator fun BImag.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigImaginary.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
-public operator fun FixedBigComplex.div(divisor: BRat): FixedBigComplex =
+public operator fun FixedBigComplex.div(divisor: FixedBigRational): FixedBigComplex =
     real / divisor + (imag.value / divisor).i
 
-public operator fun BRat.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun FixedBigRational.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
 public operator fun FixedBigComplex.div(divisor: BInt): FixedBigComplex =
@@ -218,11 +241,11 @@ public operator fun Int.div(divisor: FixedBigComplex): FixedBigComplex =
 
 // Functions
 
-public fun FixedBigComplex.toImaginary(): BImag =
+public fun FixedBigComplex.toImaginary(): FixedBigImaginary =
     if (real.isZero()) imag
     else throw ArithmeticException("Not imaginary: $this")
 
-public fun FixedBigComplex.toBigRational(): BRat =
+public fun FixedBigComplex.toBigRational(): FixedBigRational =
     if (imag.isZero()) real
     else throw ArithmeticException("Not real: $this")
 

@@ -12,8 +12,6 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.isZero
 
-internal typealias BRat = FixedBigRational
-
 // Workarounds for Java interop
 @JvmField
 public val ZERO: FixedBigRational = ZERO
