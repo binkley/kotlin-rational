@@ -34,7 +34,7 @@ public data class FloatingBigImaginary(val value: FloatingBigRational) :
     }
 }
 
-// Constructors
+// Factories
 
 public fun FloatingBigRational.toImaginary(): FloatingBigImaginary =
     FloatingBigImaginary(this)
@@ -71,16 +71,12 @@ public operator fun FloatingBigImaginary.times(
     multiplier: FloatingBigImaginary
 ): FloatingBigRational = -(value * multiplier.value)
 
-public operator fun FloatingBigImaginary.times(
-    multiplier: FloatingBigRational
-): FloatingBigImaginary = (value * multiplier).toImaginary()
-
 public operator fun FloatingBigRational.times(
     multiplier: FloatingBigImaginary
 ): FloatingBigImaginary = multiplier * this
 
 public operator fun FloatingBigImaginary.times(
-    multiplier: BFixed
+    multiplier: FloatingBigRational
 ): FloatingBigImaginary = (value * multiplier).toImaginary()
 
 public operator fun BFixed.times(
@@ -88,7 +84,7 @@ public operator fun BFixed.times(
 ): FloatingBigImaginary = multiplier * this
 
 public operator fun FloatingBigImaginary.times(
-    multiplier: Long
+    multiplier: BFixed
 ): FloatingBigImaginary = (value * multiplier).toImaginary()
 
 public operator fun Long.times(
@@ -96,12 +92,16 @@ public operator fun Long.times(
 ): FloatingBigImaginary = multiplier * this
 
 public operator fun FloatingBigImaginary.times(
-    multiplier: Int
+    multiplier: Long
 ): FloatingBigImaginary = (value * multiplier).toImaginary()
 
 public operator fun Int.times(
     multiplier: FloatingBigImaginary
 ): FloatingBigImaginary = multiplier * this
+
+public operator fun FloatingBigImaginary.times(
+    multiplier: Int
+): FloatingBigImaginary = (value * multiplier).toImaginary()
 
 // Division operator
 
@@ -111,29 +111,29 @@ public fun FloatingBigImaginary.unaryDiv(): FloatingBigImaginary =
 public operator fun FloatingBigImaginary.div(divisor: FloatingBigImaginary): FloatingBigRational =
     this * divisor.unaryDiv()
 
+public operator fun FloatingBigRational.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
+    this * divisor.unaryDiv()
+
 public operator fun FloatingBigImaginary.div(divisor: FloatingBigRational): FloatingBigImaginary =
     this * divisor.unaryDiv()
 
-public operator fun FloatingBigRational.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
+public operator fun BFixed.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FloatingBigImaginary.div(divisor: BFixed): FloatingBigImaginary =
     (value / divisor).toImaginary()
 
-public operator fun BFixed.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
+public operator fun Long.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FloatingBigImaginary.div(divisor: Long): FloatingBigImaginary =
     (value / divisor).toImaginary()
 
-public operator fun Long.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
+public operator fun Int.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FloatingBigImaginary.div(divisor: Int): FloatingBigImaginary =
     (value / divisor).toImaginary()
-
-public operator fun Int.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
-    this * divisor.unaryDiv()
 
 // Other
 

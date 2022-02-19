@@ -55,37 +55,37 @@ public val FixedBigComplex.det: FixedBigRational
 public val FixedBigComplex.absoluteValue: FixedBigRational get() = det.sqrt()
 public val FixedBigComplex.reciprocal: FixedBigComplex get() = unaryDiv()
 
-// Constructors -- including improper order, eg, 1.i + 1.big
-
-public operator fun FixedBigImaginary.plus(real: FixedBigRational): FixedBigComplex =
-    real + this
+// Factories, plus and minus real+imag (include improper order like "i+1")
 
 public operator fun FixedBigRational.plus(imag: FixedBigImaginary): FixedBigComplex =
     FixedBigComplex(this, imag)
 
-public operator fun FixedBigImaginary.plus(real: BFloating): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: FixedBigRational): FixedBigComplex =
     real + this
 
 public operator fun BFloating.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun FixedBigImaginary.plus(real: BFixed): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: BFloating): FixedBigComplex =
     real + this
 
 public operator fun BFixed.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun FixedBigImaginary.plus(real: Long): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: BFixed): FixedBigComplex =
     real + this
 
 public operator fun Long.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun FixedBigImaginary.plus(real: Int): FixedBigComplex =
+public operator fun FixedBigImaginary.plus(real: Long): FixedBigComplex =
     real + this
 
 public operator fun Int.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
+
+public operator fun FixedBigImaginary.plus(real: Int): FixedBigComplex =
+    real + this
 
 public operator fun FixedBigImaginary.minus(real: FixedBigRational): FixedBigComplex =
     -real + this
@@ -119,29 +119,29 @@ public operator fun FixedBigComplex.plus(addend: FixedBigImaginary): FixedBigCom
 public operator fun FixedBigImaginary.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
-public operator fun FixedBigComplex.plus(addend: FixedBigRational): FixedBigComplex =
-    this + (addend + FixedBigRational.ZERO.i)
-
 public operator fun FixedBigRational.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
-public operator fun FixedBigComplex.plus(addend: BFixed): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: FixedBigRational): FixedBigComplex =
     this + (addend + FixedBigRational.ZERO.i)
 
 public operator fun BFixed.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
-public operator fun FixedBigComplex.plus(addend: Long): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: BFixed): FixedBigComplex =
     this + (addend + FixedBigRational.ZERO.i)
 
 public operator fun Long.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
 
-public operator fun FixedBigComplex.plus(addend: Int): FixedBigComplex =
+public operator fun FixedBigComplex.plus(addend: Long): FixedBigComplex =
     this + (addend + FixedBigRational.ZERO.i)
 
 public operator fun Int.plus(addend: FixedBigComplex): FixedBigComplex =
     addend + this
+
+public operator fun FixedBigComplex.plus(addend: Int): FixedBigComplex =
+    this + (addend + FixedBigRational.ZERO.i)
 
 // Subtraction operator
 
@@ -151,28 +151,28 @@ public operator fun FixedBigComplex.minus(subtrahend: FixedBigImaginary): FixedB
 public operator fun FixedBigImaginary.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-public operator fun FixedBigComplex.minus(subtrahend: FixedBigRational): FixedBigComplex =
-    this + -subtrahend
-
 public operator fun FixedBigRational.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-public operator fun FixedBigComplex.minus(subtrahend: BFixed): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: FixedBigRational): FixedBigComplex =
     this + -subtrahend
 
 public operator fun BFixed.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-public operator fun FixedBigComplex.minus(subtrahend: Long): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: BFixed): FixedBigComplex =
     this + -subtrahend
 
 public operator fun Long.minus(subtrahend: FixedBigComplex): FixedBigComplex =
     this + -subtrahend
 
-public operator fun FixedBigComplex.minus(subtrahend: Int): FixedBigComplex =
+public operator fun FixedBigComplex.minus(subtrahend: Long): FixedBigComplex =
     this + -subtrahend
 
 public operator fun Int.minus(subtrahend: FixedBigComplex): FixedBigComplex =
+    this + -subtrahend
+
+public operator fun FixedBigComplex.minus(subtrahend: Int): FixedBigComplex =
     this + -subtrahend
 
 // Multiplication operator
@@ -183,29 +183,29 @@ public operator fun FixedBigComplex.times(multiplier: FixedBigImaginary): FixedB
 public operator fun FixedBigImaginary.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-public operator fun FixedBigComplex.times(multiplier: FixedBigRational): FixedBigComplex =
-    this * (multiplier + FixedBigRational.ZERO.i)
-
 public operator fun FixedBigRational.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-public operator fun FixedBigComplex.times(multiplier: BFixed): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: FixedBigRational): FixedBigComplex =
     this * (multiplier + FixedBigRational.ZERO.i)
 
 public operator fun BFixed.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-public operator fun FixedBigComplex.times(multiplier: Long): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: BFixed): FixedBigComplex =
     this * (multiplier + FixedBigRational.ZERO.i)
 
 public operator fun Long.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
 
-public operator fun FixedBigComplex.times(multiplier: Int): FixedBigComplex =
+public operator fun FixedBigComplex.times(multiplier: Long): FixedBigComplex =
     this * (multiplier + FixedBigRational.ZERO.i)
 
 public operator fun Int.times(multiplier: FixedBigComplex): FixedBigComplex =
     multiplier * this
+
+public operator fun FixedBigComplex.times(multiplier: Int): FixedBigComplex =
+    this * (multiplier + FixedBigRational.ZERO.i)
 
 // Division operator
 
@@ -215,29 +215,29 @@ public operator fun FixedBigComplex.div(divisor: FixedBigImaginary): FixedBigCom
 public operator fun FixedBigImaginary.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
+public operator fun FixedBigRational.div(divisor: FixedBigComplex): FixedBigComplex =
+    divisor / this
+
 public operator fun FixedBigComplex.div(divisor: FixedBigRational): FixedBigComplex =
     real / divisor + (imag.value / divisor).i
 
-public operator fun FixedBigRational.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun BFixed.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
 public operator fun FixedBigComplex.div(divisor: BFixed): FixedBigComplex =
     this / divisor.toBigRational()
 
-public operator fun BFixed.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun Long.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
 public operator fun FixedBigComplex.div(divisor: Long): FixedBigComplex =
     this / divisor.toBigRational()
 
-public operator fun Long.div(divisor: FixedBigComplex): FixedBigComplex =
+public operator fun Int.div(divisor: FixedBigComplex): FixedBigComplex =
     divisor / this
 
 public operator fun FixedBigComplex.div(divisor: Int): FixedBigComplex =
     this / divisor.toBigRational()
-
-public operator fun Int.div(divisor: FixedBigComplex): FixedBigComplex =
-    divisor / this
 
 // Functions
 

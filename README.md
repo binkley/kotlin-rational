@@ -199,7 +199,7 @@ Public functions and types follow [Kotlin's _explicit
 API_](https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md)
 in strict mode.
 
-### Constructors
+### Constructors and factories
 
 All constructors are _private_ in the API. Please use:
 
@@ -317,7 +317,7 @@ fun ArgumentType.func(receiver: ReceiverType)
 ```
 
 When providing function overloads, please include these types as applicable, and
-keep them together in this order (using type aliases):
+keep them together in this order:
 
 - `BFloating` -- `BigDecimal` (an alias for readability)
 - `Double`
@@ -325,6 +325,29 @@ keep them together in this order (using type aliases):
 - `BFixed` -- `BigInteger` (an alias for readability)
 - `Long`
 - `Int`
+
+When providing function overloads for complex or imaginary types, please include
+these types as applicable, and keep them together in this order:
+
+- REAL and IMAG/COMPLEX values
+- IMAG/COMPLEX and REAL values
+
+Standard notation is "2+3i" (`2+3.i`) rather than "3i+2" (`3.i+2`). Example:
+extension functions for the `plus` operator in this order ("real" comes first):
+
+```kotlin
+public operator fun Int.plus(imag: FixedBigImaginary): FixedBigComplex =
+    toBigRational() + imag
+
+public operator fun FixedBigImaginary.plus(real: Int): FixedBigComplex =
+    real + this
+```
+
+Improper ordering is supported for calculations such as "a + b" where either "a"
+or "b" could be pure imaginary numbers. There is no proper order for adding real
+numbers to complex numbers. For consistency, code should provide the real value
+first in extension functions (the "this" receiver) followed by inverting "this"
+and the non-real function parameter.
 
 ---
 

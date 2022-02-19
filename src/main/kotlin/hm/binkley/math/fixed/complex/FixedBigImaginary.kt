@@ -33,7 +33,7 @@ public data class FixedBigImaginary(val value: FixedBigRational) :
     }
 }
 
-// Constructors
+// Factories
 
 public fun FixedBigRational.toImaginary(): FixedBigImaginary =
     FixedBigImaginary(this)
@@ -54,16 +54,12 @@ public operator fun FixedBigImaginary.times(
     multiplier: FixedBigImaginary
 ): FixedBigRational = -(value * multiplier.value)
 
-public operator fun FixedBigImaginary.times(
-    multiplier: FixedBigRational
-): FixedBigImaginary = (value * multiplier).toImaginary()
-
 public operator fun FixedBigRational.times(
     multiplier: FixedBigImaginary
 ): FixedBigImaginary = multiplier * this
 
 public operator fun FixedBigImaginary.times(
-    multiplier: BFixed
+    multiplier: FixedBigRational
 ): FixedBigImaginary = (value * multiplier).toImaginary()
 
 public operator fun BFixed.times(
@@ -71,7 +67,7 @@ public operator fun BFixed.times(
 ): FixedBigImaginary = multiplier * this
 
 public operator fun FixedBigImaginary.times(
-    multiplier: Long
+    multiplier: BFixed
 ): FixedBigImaginary = (value * multiplier).toImaginary()
 
 public operator fun Long.times(
@@ -79,12 +75,16 @@ public operator fun Long.times(
 ): FixedBigImaginary = multiplier * this
 
 public operator fun FixedBigImaginary.times(
-    multiplier: Int
+    multiplier: Long
 ): FixedBigImaginary = (value * multiplier).toImaginary()
 
 public operator fun Int.times(
     multiplier: FixedBigImaginary
 ): FixedBigImaginary = multiplier * this
+
+public operator fun FixedBigImaginary.times(
+    multiplier: Int
+): FixedBigImaginary = (value * multiplier).toImaginary()
 
 // Division operator
 
@@ -93,29 +93,29 @@ public fun FixedBigImaginary.unaryDiv(): FixedBigImaginary = -value.unaryDiv().i
 public operator fun FixedBigImaginary.div(divisor: FixedBigImaginary): FixedBigRational =
     this * divisor.unaryDiv()
 
+public operator fun FixedBigRational.div(divisor: FixedBigImaginary): FixedBigImaginary =
+    this * divisor.unaryDiv()
+
 public operator fun FixedBigImaginary.div(divisor: FixedBigRational): FixedBigImaginary =
     this * divisor.unaryDiv()
 
-public operator fun FixedBigRational.div(divisor: FixedBigImaginary): FixedBigImaginary =
+public operator fun BFixed.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: BFixed): FixedBigImaginary =
     (value / divisor).toImaginary()
 
-public operator fun BFixed.div(divisor: FixedBigImaginary): FixedBigImaginary =
+public operator fun Long.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: Long): FixedBigImaginary =
     (value / divisor).toImaginary()
 
-public operator fun Long.div(divisor: FixedBigImaginary): FixedBigImaginary =
+public operator fun Int.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: Int): FixedBigImaginary =
     (value / divisor).toImaginary()
-
-public operator fun Int.div(divisor: FixedBigImaginary): FixedBigImaginary =
-    this * divisor.unaryDiv()
 
 // Other
 
