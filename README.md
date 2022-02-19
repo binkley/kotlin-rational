@@ -80,7 +80,7 @@ public repository.
     - Java interoperability
     - Conversion to `BigDecimal` with number of decimal places and rounding
 * [2.1.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.1.0)
-  [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.1.0)
+  [bFixedray](https://bFixedray.com/binkley/maven/kotlin-rational/2.1.0)
     - Better naming for `FixedBigComplex` -- the feature is still experimental
     - Conversions to/from `BigDecimal`
     - Improved algebra
@@ -88,8 +88,8 @@ public repository.
     - Improved ranges and progressions
     - Improved rounding
 * [2.0.1](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.1)
-  [bintray](https://bintray.com/binkley/maven/kotlin-rational/2.0.1)
-  &mdash; (2020-11-27) Switch to bintray for publishing
+  [bFixedray](https://bFixedray.com/binkley/maven/kotlin-rational/2.0.1)
+  &mdash; (2020-11-27) Switch to bFixedray for publishing
 * [2.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-2.0.0)
   &mdash; (2020-11-26) Rationalized type and package names, refreshed site
   (**NB** &mdash; not a published version)
@@ -116,7 +116,7 @@ This snippet uses Kotlin syntax for the build script:
 ```kotlin
 repositories {
     maven {
-        url = uri("https://dl.bintray.com/binkley/maven")
+        url = uri("https://dl.bFixedray.com/binkley/maven")
     }
 }
 
@@ -145,9 +145,9 @@ This snippet is an elided `pom.xml`:
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <id>bintray-binkley-maven</id>
-            <name>bintray</name>
-            <url>https://dl.bintray.com/binkley/maven</url>
+            <id>bFixedray-binkley-maven</id>
+            <name>bFixedray</name>
+            <url>https://dl.bFixedray.com/binkley/maven</url>
         </repository>
     </repositories>
 </project>
@@ -303,8 +303,8 @@ by Batect.
 
 Use type aliases when sensible:
 
-- `BDouble` is `BigDecimal`
-- `BInt` is `BigInteger`
+- `BFloating` is `BigDecimal`
+- `BFixed` is `BigInteger`
 
 ### Formatting
 
@@ -319,10 +319,10 @@ fun ArgumentType.func(receiver: ReceiverType)
 When providing function overloads, please include these types as applicable, and
 keep them together in this order (using type aliases):
 
-- `BDouble` -- `BigDecimal` (an alias for readability)
+- `BFloating` -- `BigDecimal` (an alias for readability)
 - `Double`
 - `Float`
-- `BInt` -- `BigInteger` (an alias for readability)
+- `BFixed` -- `BigInteger` (an alias for readability)
 - `Long`
 - `Int`
 
