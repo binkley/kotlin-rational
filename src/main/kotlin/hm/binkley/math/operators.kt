@@ -1,11 +1,11 @@
 package hm.binkley.math
 
 /** Adds [addend] to this value. */
-public operator fun <T : BigRationalBase<T>> T.plus(addend: BDouble): T =
+public operator fun <T : BigRationalBase<T>> T.plus(addend: BFloating): T =
     this + companion.valueOf(addend)
 
 /** Adds [addend] to this value. */
-public operator fun <T : BigRationalBase<T>> BDouble.plus(addend: T): T =
+public operator fun <T : BigRationalBase<T>> BFloating.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds [addend] to this value. */
@@ -25,11 +25,11 @@ public operator fun <T : BigRationalBase<T>> Float.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds [addend] to this value. */
-public operator fun <T : BigRationalBase<T>> T.plus(addend: BInt): T =
+public operator fun <T : BigRationalBase<T>> T.plus(addend: BFixed): T =
     this + companion.valueOf(addend)
 
 /** Adds [addend] to this value. */
-public operator fun <T : BigRationalBase<T>> BInt.plus(addend: T): T =
+public operator fun <T : BigRationalBase<T>> BFixed.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Adds [addend] to this value. */
@@ -49,11 +49,11 @@ public operator fun <T : BigRationalBase<T>> Int.plus(addend: T): T =
     addend.companion.valueOf(this) + addend
 
 /** Subtracts [subtrahend] from this value. */
-public operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BDouble): T =
+public operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BFloating): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts [subtrahend] from this value. */
-public operator fun <T : BigRationalBase<T>> BDouble.minus(subtrahend: T): T =
+public operator fun <T : BigRationalBase<T>> BFloating.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts [subtrahend] from this value. */
@@ -73,11 +73,11 @@ public operator fun <T : BigRationalBase<T>> Float.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts [subtrahend] from this value. */
-public operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BInt): T =
+public operator fun <T : BigRationalBase<T>> T.minus(subtrahend: BFixed): T =
     this - companion.valueOf(subtrahend)
 
 /** Subtracts [subtrahend] from this value. */
-public operator fun <T : BigRationalBase<T>> BInt.minus(subtrahend: T): T =
+public operator fun <T : BigRationalBase<T>> BFixed.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Subtracts [subtrahend] from this value. */
@@ -97,11 +97,11 @@ public operator fun <T : BigRationalBase<T>> Int.minus(subtrahend: T): T =
     subtrahend.companion.valueOf(this) - subtrahend
 
 /** Multiplies this value by [multiplier]. */
-public operator fun <T : BigRationalBase<T>> T.times(multiplier: BDouble): T =
+public operator fun <T : BigRationalBase<T>> T.times(multiplier: BFloating): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by [multiplier]. */
-public operator fun <T : BigRationalBase<T>> BDouble.times(multiplier: T): T =
+public operator fun <T : BigRationalBase<T>> BFloating.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by [multiplier]. */
@@ -121,11 +121,11 @@ public operator fun <T : BigRationalBase<T>> Float.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by [multiplier]. */
-public operator fun <T : BigRationalBase<T>> T.times(multiplier: BInt): T =
+public operator fun <T : BigRationalBase<T>> T.times(multiplier: BFixed): T =
     this * companion.valueOf(multiplier)
 
 /** Multiplies this value by [multiplier]. */
-public operator fun <T : BigRationalBase<T>> BInt.times(multiplier: T): T =
+public operator fun <T : BigRationalBase<T>> BFixed.times(multiplier: T): T =
     multiplier.companion.valueOf(this) * multiplier
 
 /** Multiplies this value by [multiplier]. */
@@ -149,7 +149,7 @@ public operator fun <T : BigRationalBase<T>> Int.times(multiplier: T): T =
  *
  * @see [divideAndRemainder]
  */
-public operator fun <T : BigRationalBase<T>> T.div(divisor: BDouble): T =
+public operator fun <T : BigRationalBase<T>> T.div(divisor: BFloating): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -157,7 +157,7 @@ public operator fun <T : BigRationalBase<T>> T.div(divisor: BDouble): T =
  *
  * @see [divideAndRemainder]
  */
-public operator fun <T : BigRationalBase<T>> BDouble.div(divisor: T): T =
+public operator fun <T : BigRationalBase<T>> BFloating.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -197,7 +197,7 @@ public operator fun <T : BigRationalBase<T>> Float.div(divisor: T): T =
  *
  * @see [divideAndRemainder]
  */
-public operator fun <T : BigRationalBase<T>> T.div(divisor: BInt): T =
+public operator fun <T : BigRationalBase<T>> T.div(divisor: BFixed): T =
     this / companion.valueOf(divisor)
 
 /**
@@ -205,7 +205,7 @@ public operator fun <T : BigRationalBase<T>> T.div(divisor: BInt): T =
  *
  * @see [divideAndRemainder]
  */
-public operator fun <T : BigRationalBase<T>> BInt.div(divisor: T): T =
+public operator fun <T : BigRationalBase<T>> BFixed.div(divisor: T): T =
     divisor.companion.valueOf(this) / divisor
 
 /**
@@ -245,7 +245,7 @@ public operator fun <T : BigRationalBase<T>> Int.div(divisor: T): T =
  *
  * @see [divideAndRemainder]
  */
-public operator fun <T : BigRationalBase<T>> T.rem(divisor: BDouble): T =
+public operator fun <T : BigRationalBase<T>> T.rem(divisor: BFloating): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -254,7 +254,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: BDouble): T =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-public operator fun <T : BigRationalBase<T>> BDouble.rem(divisor: T): T =
+public operator fun <T : BigRationalBase<T>> BFloating.rem(divisor: T): T =
     divisor.companion.valueOf(this) % divisor
 
 /**
@@ -297,7 +297,7 @@ public operator fun <T : BigRationalBase<T>> Float.rem(divisor: T): T =
  *
  * @see [divideAndRemainder]
  */
-public operator fun <T : BigRationalBase<T>> T.rem(divisor: BInt): T =
+public operator fun <T : BigRationalBase<T>> T.rem(divisor: BFixed): T =
     this % companion.valueOf(divisor)
 
 /**
@@ -307,7 +307,7 @@ public operator fun <T : BigRationalBase<T>> T.rem(divisor: BInt): T =
  * @see [divideAndRemainder]
  */
 @Suppress("UNUSED_PARAMETER")
-public operator fun <T : BigRationalBase<T>> BInt.rem(divisor: T): T =
+public operator fun <T : BigRationalBase<T>> BFixed.rem(divisor: T): T =
     divisor.companion.valueOf(this) % divisor
 
 /**
@@ -359,7 +359,7 @@ public operator fun <T : BigRationalBase<T>> Int.rem(divisor: T): T =
  * @see [div]
  */
 public fun <T : BigRationalBase<T>> T.divideAndRemainder(divisor: T):
-    Pair<T, T> {
+        Pair<T, T> {
     val quotient = (this / divisor).truncate()
     val remainder = this - divisor * quotient
 

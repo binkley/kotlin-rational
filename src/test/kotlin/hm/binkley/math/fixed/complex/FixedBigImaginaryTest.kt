@@ -1,12 +1,12 @@
 package hm.binkley.math.fixed.complex
 
-import hm.binkley.math.BInt
+import hm.binkley.math.BFixed
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.big
-import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
-import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
+import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
+import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.ZERO
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -68,8 +68,8 @@ internal class FixedBigImaginaryTest {
         (I * 2.i) shouldBe -TWO
         (TWO * I) shouldBe 2.i
         (I * TWO) shouldBe 2.i
-        (BInt.TWO * I) shouldBe 2.i
-        (I * BInt.TWO) shouldBe 2.i
+        (BFixed.TWO * I) shouldBe 2.i
+        (I * BFixed.TWO) shouldBe 2.i
         (2L * I) shouldBe 2.i
         (I * 2L) shouldBe 2.i
         (2 * I) shouldBe 2.i
@@ -81,7 +81,7 @@ internal class FixedBigImaginaryTest {
         (2.i / I) shouldBe TWO
         (TWO / I) shouldBe (-2).i
         (2.i / ONE) shouldBe 2.i
-        (BInt.TWO / I) shouldBe (-2).i
+        (BFixed.TWO / I) shouldBe (-2).i
         (2.i / 1.big) shouldBe 2.i
         (2L / I) shouldBe (-2).i
         (2.i / 1L) shouldBe 2.i

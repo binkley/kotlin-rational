@@ -63,5 +63,5 @@ internal class ContinuedFractionTest {
     }
 }
 
-private fun bRat(numerator: BInt, denominator: BInt) =
+private fun bRat(numerator: BFixed, denominator: BFixed) =
     TestBigRational.valueOf(numerator, denominator)

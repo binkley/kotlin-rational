@@ -181,10 +181,10 @@ internal class MathFunctionsTest {
             (-ONE).cbrt() shouldBe -ONE
 
             shouldThrow<ArithmeticException> {
-                ((exactNumerator + BInt.ONE) over exactDenominator).cbrt()
+                ((exactNumerator + BFixed.ONE) over exactDenominator).cbrt()
             }
             shouldThrow<ArithmeticException> {
-                (exactNumerator over (exactDenominator + BInt.ONE)).cbrt()
+                (exactNumerator over (exactDenominator + BFixed.ONE)).cbrt()
             }
             shouldThrow<ArithmeticException> {
                 Double.MAX_VALUE.toBigRational().cbrt()

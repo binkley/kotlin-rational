@@ -1,6 +1,6 @@
 package hm.binkley.math.fixed
 
-import hm.binkley.math.BInt
+import hm.binkley.math.BFixed
 import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
@@ -32,7 +32,7 @@ public class FixedContinuedFraction private constructor(
 
     public companion object : ContinuedFractionCompanionBase<FixedBigRational,
             FixedContinuedFraction>(ONE) {
-        override fun constructTerm(term: BInt) =
+        override fun constructTerm(term: BFixed) =
             FixedBigRational.valueOf(term)
 
         override fun construct(terms: List<FixedBigRational>) =

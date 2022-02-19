@@ -1,6 +1,7 @@
 package hm.binkley.math.fixed
 
-import hm.binkley.math.BInt
+import hm.binkley.math.BFixed
+import hm.binkley.math.BFloating
 import hm.binkley.math.big
 import hm.binkley.math.compareTo
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
@@ -31,9 +32,9 @@ internal class FixedBigRationalTest {
     @Test
     fun `should not be a floating big rational range`() {
         (ONE..TEN) shouldNotBe
-            FloatingBigRational.ONE..FloatingBigRational.TEN
+                FloatingBigRational.ONE..FloatingBigRational.TEN
         (ONE..TEN).hashCode() shouldNotBe
-            (FloatingBigRational.ONE..FloatingBigRational.TEN).hashCode()
+                (FloatingBigRational.ONE..FloatingBigRational.TEN).hashCode()
     }
 
     @Nested
@@ -43,8 +44,8 @@ internal class FixedBigRationalTest {
             0.0.big.toBigRational() shouldBe ZERO
             30.0.big.toBigRational() shouldBe (30 over 1)
             3.0.big.toBigRational() shouldBe (3 over 1)
-            "0.3".big.toBigRational() shouldBe (3 over 10)
-            "7.70".big.toBigRational() shouldBe (77 over 10)
+            BFloating("0.3").toBigRational() shouldBe (3 over 10)
+            BFloating("7.70").toBigRational() shouldBe (77 over 10)
             (1.0.big over 1.0.big) shouldBe ONE
             (1.big over 1.0.big) shouldBe ONE
             (1L over 1.0.big) shouldBe ONE
@@ -58,7 +59,7 @@ internal class FixedBigRationalTest {
         @Test
         fun `should convert BigInteger in infix constructor`() {
             0.big.toBigRational() shouldBe ZERO
-            BInt.valueOf(30L).toBigRational() shouldBe (30 over 1)
+            BFixed.valueOf(30L).toBigRational() shouldBe (30 over 1)
             3.big.toBigRational() shouldBe (3 over 1)
             (1.big over 1.big) shouldBe ONE
             (1.0.big over 1.big) shouldBe ONE

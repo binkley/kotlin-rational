@@ -2,7 +2,9 @@
 
 package hm.binkley.math.floating
 
-import hm.binkley.math.BInt
+import hm.binkley.math.`**`
+import hm.binkley.math.BFixed
+import hm.binkley.math.BFloating
 import hm.binkley.math.big
 import hm.binkley.math.ceil
 import hm.binkley.math.compareTo
@@ -15,7 +17,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
-import hm.binkley.math.`**`
 import hm.binkley.math.floor
 import hm.binkley.math.rangeTo
 import hm.binkley.math.sqrt
@@ -367,9 +368,10 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should not convert extrema to big decimal`() {
-            // Note JDK rules for BigDecimal->Double->BigDecimal
-            ONE.toBigDecimal() shouldBe "1.0".big
-            ONE.toBigDecimal(1) shouldBe "1.0".big
+            // Note JDK rules for BigDecimal->Double->BigDecimal, and handling
+            // of string _vs_ double/long inputs
+            ONE.toBigDecimal() shouldBe BFloating("1.0")
+            ONE.toBigDecimal(1) shouldBe BFloating("1.0")
 
             shouldThrow<ArithmeticException> {
                 POSITIVE_INFINITY.toBigDecimal()
@@ -393,7 +395,7 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should not convert extrema to big integer`() {
-            ONE.toBigInteger() shouldBe BInt.ONE
+            ONE.toBigInteger() shouldBe BFixed.ONE
 
             shouldThrow<ArithmeticException> {
                 POSITIVE_INFINITY.toBigInteger()
@@ -437,8 +439,8 @@ internal class FloatingBigRationalTest {
             0.0.big.toBigRational() shouldBe ZERO
             30.0.big.toBigRational() shouldBe (30 over 1)
             3.0.big.toBigRational() shouldBe (3 over 1)
-            "0.3".big.toBigRational() shouldBe (3 over 10)
-            "7.70".big.toBigRational() shouldBe (77 over 10)
+            BFloating("0.3").toBigRational() shouldBe (3 over 10)
+            BFloating("7.70").toBigRational() shouldBe (77 over 10)
             (1.0.big over 1.0.big) shouldBe ONE
             (1.big over 1.0.big) shouldBe ONE
             (1L over 1.0.big) shouldBe ONE
@@ -453,7 +455,7 @@ internal class FloatingBigRationalTest {
         @Test
         fun `should convert big integer in infix constructor`() {
             0.big.toBigRational() shouldBe ZERO
-            BInt.valueOf(30L).toBigRational() shouldBe (30 over 1)
+            BFixed.valueOf(30L).toBigRational() shouldBe (30 over 1)
             3.big.toBigRational() shouldBe (3 over 1)
             (1.big over 1.big) shouldBe ONE
             (1.0.big over 1.big) shouldBe ONE

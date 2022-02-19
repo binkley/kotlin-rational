@@ -46,7 +46,7 @@ public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
 
     if (this >= square) return root to remainder
 
-    root = companion.valueOf(root.numerator - BInt.ONE, root.denominator)
+    root = companion.valueOf(root.numerator - BFixed.ONE, root.denominator)
     remainder = this - root * root
 
     return root to remainder

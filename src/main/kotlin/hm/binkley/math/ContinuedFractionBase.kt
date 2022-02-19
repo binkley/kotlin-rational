@@ -7,9 +7,9 @@ package hm.binkley.math
  *       suitable for coroutines
  */
 public abstract class ContinuedFractionBase<
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>,
-    > protected constructor(
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>,
+        > protected constructor(
     private val terms: List<T>,
     private val companion: ContinuedFractionCompanionBase<T, C>,
 ) : Number(),
@@ -98,9 +98,9 @@ public abstract class ContinuedFractionBase<
      *       "lowest terms"
      */
     override fun equals(other: Any?): Boolean = this === other ||
-        other is ContinuedFractionBase<*, *> &&
-        javaClass == other.javaClass &&
-        terms == other.terms
+            other is ContinuedFractionBase<*, *> &&
+            javaClass == other.javaClass &&
+            terms == other.terms
 
     override fun hashCode(): Int = terms.hashCode()
 
@@ -131,9 +131,9 @@ public abstract class ContinuedFractionBase<
  * convergent is the integer part of the continued fraction.
  */
 public fun <
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>
-    > C.convergent(n: Int): T {
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>
+        > C.convergent(n: Int): T {
     if (0 > n) error("Convergents start from the 0th")
 
     val c0 = integerPart
@@ -155,17 +155,17 @@ private tailrec fun <T : BigRationalBase<T>> converge(
 ): T {
     val termI = terms[i]
     val ci = (termI * c_1.numerator + c_2.numerator) /
-        (termI * c_1.denominator + c_2.denominator)
+            (termI * c_1.denominator + c_2.denominator)
 
     return if (n == i) ci
     else converge(terms, n, i + 1, ci, c_1)
 }
 
 public abstract class ContinuedFractionCompanionBase<
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>,
-    >(private val ONE: T) {
-    internal abstract fun constructTerm(term: BInt): T
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>,
+        >(private val ONE: T) {
+    internal abstract fun constructTerm(term: BFixed): T
     internal abstract fun construct(terms: List<T>): C
 
     /**
@@ -180,8 +180,8 @@ public abstract class ContinuedFractionCompanionBase<
 
     /** Creates a continued fraction from the given decomposed elements. */
     public fun valueOf(
-        integerPart: BInt,
-        vararg fractionalParts: BInt,
+        integerPart: BFixed,
+        vararg fractionalParts: BFixed,
     ): C {
         val terms = mutableListOf(constructTerm(integerPart))
         terms += fractionalParts.map { constructTerm(it) }
@@ -204,9 +204,9 @@ public abstract class ContinuedFractionCompanionBase<
  * numerators).
  */
 public fun <
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>
-    > C.isSimple(): Boolean = fractionalParts.all { it.numerator.isUnit() }
+        T : BigRationalBase<T>,
+        C : ContinuedFractionBase<T, C>
+        > C.isSimple(): Boolean = fractionalParts.all { it.numerator.isUnit() }
 
 internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
     r: T,

@@ -1,6 +1,6 @@
 package hm.binkley.math.fixed.complex
 
-import hm.binkley.math.BInt
+import hm.binkley.math.BFixed
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.algebra.GroupCompanion
 import hm.binkley.math.div
@@ -39,8 +39,10 @@ public fun FixedBigRational.toImaginary(): FixedBigImaginary =
     FixedBigImaginary(this)
 
 public val FixedBigRational.i: FixedBigImaginary get() = toImaginary()
-public fun BInt.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
-public val BInt.i: FixedBigImaginary get() = toImaginary()
+public fun BFixed.toImaginary(): FixedBigImaginary =
+    toBigRational().toImaginary()
+
+public val BFixed.i: FixedBigImaginary get() = toImaginary()
 public fun Long.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
 public val Long.i: FixedBigImaginary get() = toImaginary()
 public fun Int.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
@@ -61,10 +63,10 @@ public operator fun FixedBigRational.times(
 ): FixedBigImaginary = multiplier * this
 
 public operator fun FixedBigImaginary.times(
-    multiplier: BInt
+    multiplier: BFixed
 ): FixedBigImaginary = (value * multiplier).toImaginary()
 
-public operator fun BInt.times(
+public operator fun BFixed.times(
     multiplier: FixedBigImaginary
 ): FixedBigImaginary = multiplier * this
 
@@ -97,10 +99,10 @@ public operator fun FixedBigImaginary.div(divisor: FixedBigRational): FixedBigIm
 public operator fun FixedBigRational.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
-public operator fun FixedBigImaginary.div(divisor: BInt): FixedBigImaginary =
+public operator fun FixedBigImaginary.div(divisor: BFixed): FixedBigImaginary =
     (value / divisor).toImaginary()
 
-public operator fun BInt.div(divisor: FixedBigImaginary): FixedBigImaginary =
+public operator fun BFixed.div(divisor: FixedBigImaginary): FixedBigImaginary =
     this * divisor.unaryDiv()
 
 public operator fun FixedBigImaginary.div(divisor: Long): FixedBigImaginary =

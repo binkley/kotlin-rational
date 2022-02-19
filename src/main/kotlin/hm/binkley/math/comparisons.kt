@@ -7,16 +7,16 @@ public fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.equivalent(
 
 /** Compares this value to [other]. */
 public operator fun <
-    T : BigRationalBase<T>,
-    U : BigRationalBase<U>> T.compareTo(other: U): Int =
+        T : BigRationalBase<T>,
+        U : BigRationalBase<U>> T.compareTo(other: U): Int =
     (numerator * other.denominator).compareTo(other.numerator * denominator)
 
 /** Compares this value to [other]. */
-public operator fun <T : BigRationalBase<T>> T.compareTo(other: BDouble): Int =
+public operator fun <T : BigRationalBase<T>> T.compareTo(other: BFloating): Int =
     compareTo(companion.valueOf(other))
 
 /** Compares this value to [other]. */
-public operator fun <T : BigRationalBase<T>> BDouble.compareTo(other: T): Int =
+public operator fun <T : BigRationalBase<T>> BFloating.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /** Compares this value to [other]. */
@@ -36,11 +36,11 @@ public operator fun <T : BigRationalBase<T>> Float.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /** Compares this value to [other]. */
-public operator fun <T : BigRationalBase<T>> T.compareTo(other: BInt): Int =
+public operator fun <T : BigRationalBase<T>> T.compareTo(other: BFixed): Int =
     compareTo(companion.valueOf(other))
 
 /** Compares this value to [other]. */
-public operator fun <T : BigRationalBase<T>> BInt.compareTo(other: T): Int =
+public operator fun <T : BigRationalBase<T>> BFixed.compareTo(other: T): Int =
     other.companion.valueOf(this).compareTo(other)
 
 /** Compares this value to [other]. */

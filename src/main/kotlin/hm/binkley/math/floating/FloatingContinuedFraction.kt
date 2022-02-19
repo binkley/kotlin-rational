@@ -1,6 +1,6 @@
 package hm.binkley.math.floating
 
-import hm.binkley.math.BInt
+import hm.binkley.math.BFixed
 import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
@@ -36,8 +36,8 @@ public class FloatingContinuedFraction private constructor(
 
     public companion object :
         ContinuedFractionCompanionBase<FloatingBigRational,
-            FloatingContinuedFraction>(ONE) {
-        override fun constructTerm(term: BInt) =
+                FloatingContinuedFraction>(ONE) {
+        override fun constructTerm(term: BFixed) =
             FloatingBigRational.valueOf(term)
 
         override fun construct(terms: List<FloatingBigRational>) =

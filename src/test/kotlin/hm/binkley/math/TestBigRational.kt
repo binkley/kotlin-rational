@@ -2,14 +2,14 @@ package hm.binkley.math
 
 import hm.binkley.math.TestBigRational.Companion.valueOf
 
-internal infix fun BInt.over(denominator: BInt) = valueOf(this, denominator)
+internal infix fun BFixed.over(denominator: BFixed) = valueOf(this, denominator)
 internal infix fun Long.over(denominator: Long) = big over denominator.big
 internal infix fun Int.over(denominator: Long) = big over denominator.big
 internal infix fun Int.over(denominator: Int) = big over denominator.big
 
 internal class TestBigRational(
-    numerator: BInt,
-    denominator: BInt,
+    numerator: BFixed,
+    denominator: BFixed,
 ) : BigRationalBase<TestBigRational>(
     numerator,
     denominator,
@@ -17,14 +17,14 @@ internal class TestBigRational(
     override val companion: Companion get() = Companion
 
     companion object : BigRationalCompanion<TestBigRational>(
-        ZERO = TestBigRational(BInt.ZERO, BInt.ONE),
-        ONE = TestBigRational(BInt.ONE, BInt.ONE),
-        TWO = TestBigRational(BInt.TWO, BInt.ONE),
-        TEN = TestBigRational(BInt.TEN, BInt.ONE),
+        ZERO = TestBigRational(BFixed.ZERO, BFixed.ONE),
+        ONE = TestBigRational(BFixed.ONE, BFixed.ONE),
+        TWO = TestBigRational(BFixed.TWO, BFixed.ONE),
+        TEN = TestBigRational(BFixed.TEN, BFixed.ONE),
     ) {
         override fun valueOf(
-            numerator: BInt,
-            denominator: BInt,
+            numerator: BFixed,
+            denominator: BFixed,
         ): TestBigRational {
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")

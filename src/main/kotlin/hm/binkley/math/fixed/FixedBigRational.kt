@@ -1,7 +1,7 @@
 package hm.binkley.math.fixed
 
-import hm.binkley.math.BDouble
-import hm.binkley.math.BInt
+import hm.binkley.math.BFixed
+import hm.binkley.math.BFloating
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.big
@@ -33,8 +33,8 @@ public val ONE: FixedBigRational = ONE
  * Ranges increment by 1 unless otherwise specified.
  */
 public class FixedBigRational private constructor(
-    numerator: BInt,
-    denominator: BInt,
+    numerator: BFixed,
+    denominator: BFixed,
 ) : BigRationalBase<FixedBigRational>(
     numerator,
     denominator,
@@ -60,8 +60,8 @@ public class FixedBigRational private constructor(
          * * TEN
          */
         override fun valueOf(
-            numerator: BInt,
-            denominator: BInt,
+            numerator: BFixed,
+            denominator: BFixed,
         ): FixedBigRational {
             if (denominator.isZero())
                 throw ArithmeticException("division by zero")
@@ -86,7 +86,7 @@ public class FixedBigRational private constructor(
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: BDouble): FixedBigRational =
+public infix fun BFloating.over(denominator: BFloating): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -95,7 +95,7 @@ public infix fun BDouble.over(denominator: BDouble): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Double): FixedBigRational =
+public infix fun BFloating.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -104,7 +104,7 @@ public infix fun BDouble.over(denominator: Double): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Float): FixedBigRational =
+public infix fun BFloating.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -113,7 +113,7 @@ public infix fun BDouble.over(denominator: Float): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: BInt): FixedBigRational =
+public infix fun BFloating.over(denominator: BFixed): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -122,7 +122,7 @@ public infix fun BDouble.over(denominator: BInt): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Long): FixedBigRational =
+public infix fun BFloating.over(denominator: Long): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -131,7 +131,7 @@ public infix fun BDouble.over(denominator: Long): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Int): FixedBigRational =
+public infix fun BFloating.over(denominator: Int): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -140,7 +140,7 @@ public infix fun BDouble.over(denominator: Int): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Double.over(denominator: BDouble): FixedBigRational =
+public infix fun Double.over(denominator: BFloating): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -149,7 +149,7 @@ public infix fun Double.over(denominator: BDouble): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Double.over(denominator: BInt): FixedBigRational =
+public infix fun Double.over(denominator: BFixed): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -194,7 +194,7 @@ public infix fun Double.over(denominator: Float): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Float.over(denominator: BDouble): FixedBigRational =
+public infix fun Float.over(denominator: BFloating): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -203,7 +203,7 @@ public infix fun Float.over(denominator: BDouble): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Float.over(denominator: BInt): FixedBigRational =
+public infix fun Float.over(denominator: BFixed): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -248,7 +248,7 @@ public infix fun Float.over(denominator: Float): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: BDouble): FixedBigRational =
+public infix fun BFixed.over(denominator: BFloating): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -257,7 +257,7 @@ public infix fun BInt.over(denominator: BDouble): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Double): FixedBigRational =
+public infix fun BFixed.over(denominator: Double): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -266,7 +266,7 @@ public infix fun BInt.over(denominator: Double): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Float): FixedBigRational =
+public infix fun BFixed.over(denominator: Float): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -275,7 +275,7 @@ public infix fun BInt.over(denominator: Float): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: BInt): FixedBigRational =
+public infix fun BFixed.over(denominator: BFixed): FixedBigRational =
     valueOf(this, denominator)
 
 /**
@@ -284,7 +284,7 @@ public infix fun BInt.over(denominator: BInt): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Long): FixedBigRational =
+public infix fun BFixed.over(denominator: Long): FixedBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
@@ -293,7 +293,7 @@ public infix fun BInt.over(denominator: Long): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Int): FixedBigRational =
+public infix fun BFixed.over(denominator: Int): FixedBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
@@ -320,7 +320,7 @@ public infix fun Long.over(denominator: Float): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Long.over(denominator: BDouble): FixedBigRational =
+public infix fun Long.over(denominator: BFloating): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -329,7 +329,7 @@ public infix fun Long.over(denominator: BDouble): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Long.over(denominator: BInt): FixedBigRational =
+public infix fun Long.over(denominator: BFixed): FixedBigRational =
     valueOf(toBigInteger(), denominator)
 
 /**
@@ -356,7 +356,7 @@ public infix fun Long.over(denominator: Int): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Int.over(denominator: BDouble): FixedBigRational =
+public infix fun Int.over(denominator: BFloating): FixedBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -383,7 +383,7 @@ public infix fun Int.over(denominator: Float): FixedBigRational =
  *
  * @see valueOf
  */
-public infix fun Int.over(denominator: BInt): FixedBigRational =
+public infix fun Int.over(denominator: BFixed): FixedBigRational =
     valueOf(toBigInteger(), denominator)
 
 /**
@@ -405,7 +405,7 @@ public infix fun Int.over(denominator: Int): FixedBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /** Returns the value of this number as a `FixedBigRational`. */
-public fun BDouble.toBigRational(): FixedBigRational = valueOf(this)
+public fun BFloating.toBigRational(): FixedBigRational = valueOf(this)
 
 /** Returns the value of this number as a `FixedBigRational`. */
 public fun Double.toBigRational(): FixedBigRational = valueOf(this)
@@ -414,7 +414,7 @@ public fun Double.toBigRational(): FixedBigRational = valueOf(this)
 public fun Float.toBigRational(): FixedBigRational = valueOf(this)
 
 /** Returns the value of this number as a `FixedBigRational`. */
-public fun BInt.toBigRational(): FixedBigRational = valueOf(this)
+public fun BFixed.toBigRational(): FixedBigRational = valueOf(this)
 
 /** Returns the value of this number as a `FixedBigRational`. */
 public fun Long.toBigRational(): FixedBigRational = valueOf(this)

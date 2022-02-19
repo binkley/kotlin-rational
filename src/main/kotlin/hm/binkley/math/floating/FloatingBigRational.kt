@@ -1,7 +1,7 @@
 package hm.binkley.math.floating
 
-import hm.binkley.math.BDouble
-import hm.binkley.math.BInt
+import hm.binkley.math.BFixed
+import hm.binkley.math.BFloating
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.big
@@ -43,8 +43,8 @@ public val ONE: FloatingBigRational = ONE
  */
 @Suppress("EqualsOrHashCode")
 public class FloatingBigRational private constructor(
-    numerator: BInt,
-    denominator: BInt,
+    numerator: BFixed,
+    denominator: BFixed,
 ) : BigRationalBase<FloatingBigRational>(
     numerator,
     denominator,
@@ -264,8 +264,8 @@ public class FloatingBigRational private constructor(
          * * TEN
          */
         override fun valueOf(
-            numerator: BInt,
-            denominator: BInt,
+            numerator: BFixed,
+            denominator: BFixed,
         ): FloatingBigRational {
             if (denominator.isZero()) return when {
                 numerator.isZero() -> NaN
@@ -313,7 +313,7 @@ public class FloatingBigRational private constructor(
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: BDouble): FloatingBigRational =
+public infix fun BFloating.over(denominator: BFloating): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -322,7 +322,7 @@ public infix fun BDouble.over(denominator: BDouble): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Double): FloatingBigRational =
+public infix fun BFloating.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -331,7 +331,7 @@ public infix fun BDouble.over(denominator: Double): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Float): FloatingBigRational =
+public infix fun BFloating.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -340,7 +340,7 @@ public infix fun BDouble.over(denominator: Float): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: BInt): FloatingBigRational =
+public infix fun BFloating.over(denominator: BFixed): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -349,7 +349,7 @@ public infix fun BDouble.over(denominator: BInt): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Long): FloatingBigRational =
+public infix fun BFloating.over(denominator: Long): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -358,7 +358,7 @@ public infix fun BDouble.over(denominator: Long): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BDouble.over(denominator: Int): FloatingBigRational =
+public infix fun BFloating.over(denominator: Int): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -367,7 +367,7 @@ public infix fun BDouble.over(denominator: Int): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Double.over(denominator: BDouble): FloatingBigRational =
+public infix fun Double.over(denominator: BFloating): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -376,7 +376,7 @@ public infix fun Double.over(denominator: BDouble): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Double.over(denominator: BInt): FloatingBigRational =
+public infix fun Double.over(denominator: BFixed): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -421,7 +421,7 @@ public infix fun Double.over(denominator: Float): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Float.over(denominator: BDouble): FloatingBigRational =
+public infix fun Float.over(denominator: BFloating): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -430,7 +430,7 @@ public infix fun Float.over(denominator: BDouble): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Float.over(denominator: BInt): FloatingBigRational =
+public infix fun Float.over(denominator: BFixed): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -475,7 +475,7 @@ public infix fun Float.over(denominator: Float): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: BDouble): FloatingBigRational =
+public infix fun BFixed.over(denominator: BFloating): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -484,7 +484,7 @@ public infix fun BInt.over(denominator: BDouble): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Double): FloatingBigRational =
+public infix fun BFixed.over(denominator: Double): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -493,7 +493,7 @@ public infix fun BInt.over(denominator: Double): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Float): FloatingBigRational =
+public infix fun BFixed.over(denominator: Float): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -502,7 +502,7 @@ public infix fun BInt.over(denominator: Float): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: BInt): FloatingBigRational =
+public infix fun BFixed.over(denominator: BFixed): FloatingBigRational =
     valueOf(this, denominator)
 
 /**
@@ -511,7 +511,7 @@ public infix fun BInt.over(denominator: BInt): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Long): FloatingBigRational =
+public infix fun BFixed.over(denominator: Long): FloatingBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
@@ -520,7 +520,7 @@ public infix fun BInt.over(denominator: Long): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun BInt.over(denominator: Int): FloatingBigRational =
+public infix fun BFixed.over(denominator: Int): FloatingBigRational =
     valueOf(this, denominator.toBigInteger())
 
 /**
@@ -547,7 +547,7 @@ public infix fun Long.over(denominator: Float): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Long.over(denominator: BDouble): FloatingBigRational =
+public infix fun Long.over(denominator: BFloating): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -556,7 +556,7 @@ public infix fun Long.over(denominator: BDouble): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Long.over(denominator: BInt): FloatingBigRational =
+public infix fun Long.over(denominator: BFixed): FloatingBigRational =
     valueOf(toBigInteger(), denominator)
 
 /**
@@ -583,7 +583,7 @@ public infix fun Long.over(denominator: Int): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Int.over(denominator: BDouble): FloatingBigRational =
+public infix fun Int.over(denominator: BFloating): FloatingBigRational =
     toBigRational() / denominator.toBigRational()
 
 /**
@@ -610,7 +610,7 @@ public infix fun Int.over(denominator: Float): FloatingBigRational =
  *
  * @see valueOf
  */
-public infix fun Int.over(denominator: BInt): FloatingBigRational =
+public infix fun Int.over(denominator: BFixed): FloatingBigRational =
     valueOf(toBigInteger(), denominator)
 
 /**
@@ -632,7 +632,7 @@ public infix fun Int.over(denominator: Int): FloatingBigRational =
     valueOf(toBigInteger(), denominator.toBigInteger())
 
 /** Returns the value of this number as a `BigRational`. */
-public fun BDouble.toBigRational(): FloatingBigRational = valueOf(this)
+public fun BFloating.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
 public fun Double.toBigRational(): FloatingBigRational = valueOf(this)
@@ -641,7 +641,7 @@ public fun Double.toBigRational(): FloatingBigRational = valueOf(this)
 public fun Float.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
-public fun BInt.toBigRational(): FloatingBigRational = valueOf(this)
+public fun BFixed.toBigRational(): FloatingBigRational = valueOf(this)
 
 /** Returns the value of this number as a `BigRational`. */
 public fun Long.toBigRational(): FloatingBigRational = valueOf(this)

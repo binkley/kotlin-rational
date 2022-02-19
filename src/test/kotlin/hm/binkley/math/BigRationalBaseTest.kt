@@ -128,7 +128,7 @@ internal class BigRationalBaseTest {
         @Test
         fun `should convert to big decimal`() {
             // This adheres to the API for conversion to BigDecimal from double
-            ONE.toBigDecimal() shouldBe BDouble("1.0")
+            ONE.toBigDecimal() shouldBe BFloating("1.0")
         }
 
         @Test
@@ -162,9 +162,9 @@ internal class BigRationalBaseTest {
 
         @Test
         fun `should convert to big integer`() {
-            ONE.toBigInteger() shouldBe BInt.ONE
-            (1 over 2).toBigInteger() shouldBe BInt.ZERO
-            (3 over 2).toBigInteger() shouldBe BInt.ONE
+            ONE.toBigInteger() shouldBe BFixed.ONE
+            (1 over 2).toBigInteger() shouldBe BFixed.ZERO
+            (3 over 2).toBigInteger() shouldBe BFixed.ONE
         }
 
         @Test
@@ -256,7 +256,7 @@ internal class BigRationalBaseTest {
             val actual =
                 if (null == c.roundingMode) rat.toBigDecimal(c.limitPlaces)
                 else rat.toBigDecimal(c.limitPlaces, c.roundingMode)
-            val expected = c.result.big
+            val expected = BFloating(c.result)
 
             actual shouldBe expected
         }

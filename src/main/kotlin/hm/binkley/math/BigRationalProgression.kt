@@ -67,11 +67,11 @@ private class BigRationalProgression<T : BigRationalBase<T>>(
             IncrementingBigRationalIterator(start, endInclusive, step)
 
     override fun equals(other: Any?) = this === other ||
-        other is BigRationalProgression<*> &&
-        javaClass == other.javaClass &&
-        start == other.start &&
-        endInclusive == other.endInclusive &&
-        step == other.step
+            other is BigRationalProgression<*> &&
+            javaClass == other.javaClass &&
+            start == other.start &&
+            endInclusive == other.endInclusive &&
+            step == other.step
 
     override fun hashCode() = hash(javaClass, start, endInclusive, step)
 
@@ -88,11 +88,11 @@ public operator fun <T : BigRationalBase<T>> T.rangeTo(
 
 /** Creates a range from this value to [endInclusive]. */
 public operator fun <T : BigRationalBase<T>> T.rangeTo(
-    endInclusive: BDouble,
+    endInclusive: BFloating,
 ): BigRationalRange<T> = this..companion.valueOf(endInclusive)
 
 /** Creates a range from this value to [endInclusive]. */
-public operator fun <T : BigRationalBase<T>> BDouble.rangeTo(
+public operator fun <T : BigRationalBase<T>> BFloating.rangeTo(
     endInclusive: T,
 ): BigRationalRange<T> =
     endInclusive.companion.valueOf(this)..endInclusive
@@ -121,11 +121,11 @@ public operator fun <T : BigRationalBase<T>> Float.rangeTo(
 
 /** Creates a range from this value to [endInclusive]. */
 public operator fun <T : BigRationalBase<T>> T.rangeTo(
-    endInclusive: BInt,
+    endInclusive: BFixed,
 ): BigRationalRange<T> = this..companion.valueOf(endInclusive)
 
 /** Creates a range from this value to [endInclusive]. */
-public operator fun <T : BigRationalBase<T>> BInt.rangeTo(
+public operator fun <T : BigRationalBase<T>> BFixed.rangeTo(
     endInclusive: T,
 ): BigRationalRange<T> =
     endInclusive.companion.valueOf(this)..endInclusive
@@ -160,12 +160,12 @@ public infix fun <T : BigRationalBase<T>> T.downTo(
 
 /** Creates a range from this value _down_ to [endInclusive]. */
 public infix fun <T : BigRationalBase<T>> T.downTo(
-    endInclusive: BDouble,
+    endInclusive: BFloating,
 ): BigRationalRange<T> =
     this downTo companion.valueOf(endInclusive)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BigRationalBase<T>> BDouble.downTo(
+public infix fun <T : BigRationalBase<T>> BFloating.downTo(
     endInclusive: T,
 ): BigRationalRange<T> =
     endInclusive.companion.valueOf(this) downTo endInclusive
@@ -196,12 +196,12 @@ public infix fun <T : BigRationalBase<T>> Float.downTo(
 
 /** Creates a range from this value _down_ to [endInclusive]. */
 public infix fun <T : BigRationalBase<T>> T.downTo(
-    endInclusive: BInt,
+    endInclusive: BFixed,
 ): BigRationalRange<T> =
     this downTo companion.valueOf(endInclusive)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BigRationalBase<T>> BInt.downTo(
+public infix fun <T : BigRationalBase<T>> BFixed.downTo(
     endInclusive: T,
 ): BigRationalRange<T> =
     endInclusive.companion.valueOf(this) downTo endInclusive
@@ -235,7 +235,7 @@ public infix fun <T : BigRationalBase<T>> BigRationalRange<T>.step(
 ): BigRationalRange<T> = BigRationalProgression(start, endInclusive, step)
 
 public infix fun <T : BigRationalBase<T>> BigRationalRange<T>.step(
-    step: BDouble,
+    step: BFloating,
 ): BigRationalRange<T> =
     BigRationalProgression(start, endInclusive, start.companion.valueOf(step))
 
@@ -250,7 +250,7 @@ public infix fun <T : BigRationalBase<T>> BigRationalRange<T>.step(
     BigRationalProgression(start, endInclusive, start.companion.valueOf(step))
 
 public infix fun <T : BigRationalBase<T>> BigRationalRange<T>.step(
-    step: BInt,
+    step: BFixed,
 ): BigRationalRange<T> =
     BigRationalProgression(start, endInclusive, start.companion.valueOf(step))
 

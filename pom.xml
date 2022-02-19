@@ -340,7 +340,8 @@
                     <targetTests>
                         <param>hm.binkley*</param>
                     </targetTests>
-                    <withHistory>true</withHistory>
+                    <!-- TODO: Experiment with 'true' -->
+                    <withHistory>false</withHistory>
                     <timestampedReports>false</timestampedReports>
                 </configuration>
                 <executions>

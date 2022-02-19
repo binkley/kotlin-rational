@@ -1,12 +1,12 @@
 package hm.binkley.math.fixed.complex
 
-import hm.binkley.math.BDouble
+import hm.binkley.math.BFloating
 import hm.binkley.math.big
+import hm.binkley.math.fixed.FixedBigRational
+import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ONE
 import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ZERO
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
-import hm.binkley.math.fixed.FixedBigRational
-import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.over
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -56,14 +56,14 @@ internal class FixedBigComplexTest {
     @Test
     fun `should absolve approximately`() {
         (8 + 25.i).modulusApproximated() shouldBe
-                (BDouble("410137648387709") over
-                        BDouble("15625000000000"))
+                (BFloating("410137648387709") over
+                        BFloating("15625000000000"))
 
-        val jvmValue = BDouble("410137648387709")
-            .divideAndRemainder(BDouble("15625000000000"))
+        val jvmValue = BFloating("410137648387709")
+            .divideAndRemainder(BFloating("15625000000000"))
         jvmValue shouldBe listOf(
-            BDouble.valueOf(26),
-            BDouble("3887648387709")
+            BFloating.valueOf(26),
+            BFloating("3887648387709")
         )
     }
 

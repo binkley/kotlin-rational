@@ -14,8 +14,8 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
 ) : SeekableSequence<T> {
     override fun iterator() = object : Iterator<T> {
         private val seen = mutableSetOf<T>() // cache previously computed values
-        private var p = BInt.ZERO
-        private var q = BInt.ZERO
+        private var p = BFixed.ZERO
+        private var q = BFixed.ZERO
         private var dir = N
 
         /**
@@ -35,7 +35,7 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
             } while (true)
         }
 
-        private fun walk(): Pair<BInt, BInt> {
+        private fun walk(): Pair<BFixed, BFixed> {
             when (dir) {
                 N -> {
                     ++q; if (q == p.abs() + 1.big) dir = E

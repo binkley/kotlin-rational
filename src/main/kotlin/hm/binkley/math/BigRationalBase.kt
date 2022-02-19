@@ -53,7 +53,7 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
     @JvmField
     public val TEN: T,
 ) : FieldCompanion<T> {
-    public abstract fun valueOf(numerator: BInt, denominator: BInt): T
+    public abstract fun valueOf(numerator: BFixed, denominator: BFixed): T
 
     /**
      * Since the conversion to a rational is _exact_, converting the resulting
@@ -63,21 +63,22 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * just as converting BigDecimal -> Double -> BigDecimal does not preserve
      * them.
      */
-    public open fun valueOf(floatingPoint: BDouble): T = when (floatingPoint) {
-        0.0.big -> ZERO
-        1.0.big -> ONE
-        2.0.big -> TWO
-        10.0.big -> TEN
-        else -> {
-            val scale = floatingPoint.scale()
-            val unscaledValue = floatingPoint.unscaledValue()
-            when {
-                0 == scale -> valueOf(unscaledValue)
-                0 > scale -> valueOf(unscaledValue * BInt.TEN.pow(-scale))
-                else -> valueOf(unscaledValue, BInt.TEN.pow(scale))
+    public open fun valueOf(floatingPoint: BFloating): T =
+        when (floatingPoint) {
+            0.0.big -> ZERO
+            1.0.big -> ONE
+            2.0.big -> TWO
+            10.0.big -> TEN
+            else -> {
+                val scale = floatingPoint.scale()
+                val unscaledValue = floatingPoint.unscaledValue()
+                when {
+                    0 == scale -> valueOf(unscaledValue)
+                    0 > scale -> valueOf(unscaledValue * BFixed.TEN.pow(-scale))
+                    else -> valueOf(unscaledValue, BFixed.TEN.pow(scale))
+                }
             }
         }
-    }
 
     /**
      * Since the conversion to a rational is _exact_, converting the resulting
@@ -98,7 +99,7 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
         else -> throw ArithmeticException("$floatingPoint: Not representable")
     }
 
-    public fun valueOf(wholeNumber: BInt): T = valueOf(wholeNumber, 1.big)
+    public fun valueOf(wholeNumber: BFixed): T = valueOf(wholeNumber, 1.big)
     public fun valueOf(wholeNumber: Long): T =
         valueOf(wholeNumber.toBigInteger())
 
@@ -136,9 +137,9 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
      * ```
      */
     protected fun reduce(
-        numerator: BInt,
-        denominator: BInt,
-        ctor: (BInt, BInt) -> T,
+        numerator: BFixed,
+        denominator: BFixed,
+        ctor: (BFixed, BFixed) -> T,
     ): T {
         require(!denominator.isZero()) {
             "BUG: Internal division by zero"
@@ -174,8 +175,8 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
 public abstract class BigRationalBase<
         T : BigRationalBase<T>
         > protected constructor(
-    public val numerator: BInt,
-    public val denominator: BInt,
+    public val numerator: BFixed,
+    public val denominator: BFixed,
 ) : Number(), Comparable<T>, Field<T> {
     public abstract override val companion: BigRationalCompanion<T>
 
@@ -244,8 +245,8 @@ public abstract class BigRationalBase<
     public fun toBigDecimal(
         limitPlaces: Int,
         roundingMode: RoundingMode = FLOOR,
-    ): BigDecimal = BDouble(numerator, limitPlaces)
-        .divide(BDouble(denominator, limitPlaces), roundingMode)
+    ): BigDecimal = BFloating(numerator, limitPlaces)
+        .divide(BFloating(denominator, limitPlaces), roundingMode)
 
     /**
      * Returns this as a [BigInteger] which may involve rounding

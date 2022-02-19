@@ -25,7 +25,7 @@ internal class FloatingProgressionTests {
         (zeroToOne step TWO) shouldNotBe (zeroToOne step ONE)
         (ZERO..TWO) shouldNotBe zeroToOne
         (zeroToOne step (1 over 2)).hashCode() shouldBe
-            (zeroToOne step (1 over 2)).hashCode()
+                (zeroToOne step (1 over 2)).hashCode()
     }
 
     @Test
@@ -41,7 +41,7 @@ internal class FloatingProgressionTests {
         (ZERO..(-ONE)).isEmpty().shouldBeTrue()
         (ZERO..TWO).contains(ONE).shouldBeTrue()
         ((1 over 1)..(5 over 2)).toList() shouldBe
-            listOf(ONE, (2 over 1))
+                listOf(ONE, (2 over 1))
         val three = 3 over 1
         (1.0.big..three step 2).toList() shouldBe listOf(ONE, three)
         (ONE..3.0.big step 2).toList() shouldBe listOf(ONE, three)
@@ -56,7 +56,7 @@ internal class FloatingProgressionTests {
         (1..three step (2 over 1)).toList() shouldBe listOf(ONE, three)
         (ONE..3 step (2 over 1)).toList() shouldBe listOf(ONE, three)
         ((2 over 1) downTo (1 over 2) step -(1.big)).toList() shouldBe
-            listOf((2 over 1), ONE)
+                listOf((2 over 1), ONE)
     }
 
     @Suppress("ControlFlowWithEmptyBody")

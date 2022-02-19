@@ -1,10 +1,10 @@
 package hm.binkley.math
 
 import hm.binkley.math.algebra.Mod3Int
+import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.complex.conjugate
 import hm.binkley.math.fixed.complex.plus
-import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE

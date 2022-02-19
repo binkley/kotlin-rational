@@ -1,8 +1,8 @@
 package hm.binkley.math;
 
 import hm.binkley.math.algebra.Mod3Int;
-import hm.binkley.math.fixed.complex.FixedBigImaginary;
 import hm.binkley.math.fixed.FixedBigRationalKt;
+import hm.binkley.math.fixed.complex.FixedBigImaginary;
 import hm.binkley.math.floating.FloatingBigRational;
 import lombok.Generated;
 
