@@ -1,6 +1,5 @@
 package hm.binkley.math.fixed.complex
 
-import hm.binkley.math.BFloating
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
@@ -56,15 +55,7 @@ internal class FixedBigComplexTest {
     @Test
     fun `should absolve approximately`() {
         (8 + 25.i).modulusApproximated() shouldBe
-                (BFloating("410137648387709") over
-                        BFloating("15625000000000"))
-
-        val jvmValue = BFloating("410137648387709")
-            .divideAndRemainder(BFloating("15625000000000"))
-        jvmValue shouldBe listOf(
-            BFloating.valueOf(26),
-            BFloating("3887648387709")
-        )
+                (410137648387709L.big over 15625000000000L.big)
     }
 
     @Test
@@ -88,8 +79,6 @@ internal class FixedBigComplexTest {
     fun `should add`() {
         (FixedBigRational.ONE + I) shouldBe ONE_PLUS_I
         (I + FixedBigRational.ONE) shouldBe ONE_PLUS_I
-        (1.0.big + 1.i) shouldBe ONE_PLUS_I
-        (1.i + 1.0.big) shouldBe ONE_PLUS_I
         (I + 1.big) shouldBe ONE_PLUS_I
         (1L + I) shouldBe ONE_PLUS_I
         (I + 1L) shouldBe ONE_PLUS_I

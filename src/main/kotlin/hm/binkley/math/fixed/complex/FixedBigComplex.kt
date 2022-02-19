@@ -1,7 +1,6 @@
 package hm.binkley.math.fixed.complex
 
 import hm.binkley.math.BFixed
-import hm.binkley.math.BFloating
 import hm.binkley.math.algebra.Field
 import hm.binkley.math.algebra.FieldCompanion
 import hm.binkley.math.fixed.FixedBigRational
@@ -61,12 +60,6 @@ public operator fun FixedBigRational.plus(imag: FixedBigImaginary): FixedBigComp
     FixedBigComplex(this, imag)
 
 public operator fun FixedBigImaginary.plus(real: FixedBigRational): FixedBigComplex =
-    real + this
-
-public operator fun BFloating.plus(imag: FixedBigImaginary): FixedBigComplex =
-    toBigRational() + imag
-
-public operator fun FixedBigImaginary.plus(real: BFloating): FixedBigComplex =
     real + this
 
 public operator fun BFixed.plus(imag: FixedBigImaginary): FixedBigComplex =
