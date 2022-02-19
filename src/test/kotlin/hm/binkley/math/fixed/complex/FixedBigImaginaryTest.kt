@@ -1,10 +1,10 @@
-package hm.binkley.math.complex
+package hm.binkley.math.fixed.complex
 
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.big
-import hm.binkley.math.complex.FixedBigImaginary.Companion.I
-import hm.binkley.math.complex.FixedBigImaginary.Companion.ZERO
+import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
+import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import io.kotest.matchers.booleans.shouldBeTrue

@@ -1,10 +1,10 @@
-package hm.binkley.math.complex
+package hm.binkley.math.fixed.complex
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.big
-import hm.binkley.math.complex.FixedBigComplex.Companion.ONE
-import hm.binkley.math.complex.FixedBigComplex.Companion.ZERO
-import hm.binkley.math.complex.FixedBigImaginary.Companion.I
+import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ONE
+import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ZERO
+import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.over

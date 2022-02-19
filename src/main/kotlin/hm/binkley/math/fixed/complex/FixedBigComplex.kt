@@ -1,10 +1,10 @@
-package hm.binkley.math.complex
+package hm.binkley.math.fixed.complex
 
 import hm.binkley.math.BDouble
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Field
 import hm.binkley.math.algebra.FieldCompanion
-import hm.binkley.math.complex.FixedBigComplex.Companion.ONE
+import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.toBigRational

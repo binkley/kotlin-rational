@@ -1,7 +1,7 @@
 package hm.binkley.math;
 
 import hm.binkley.math.algebra.Mod3Int;
-import hm.binkley.math.complex.FixedBigImaginary;
+import hm.binkley.math.fixed.complex.FixedBigImaginary;
 import hm.binkley.math.fixed.FixedBigRationalKt;
 import hm.binkley.math.floating.FloatingBigRational;
 import lombok.Generated;
@@ -12,8 +12,8 @@ import static hm.binkley.math.BigRationalProgressionKt.downTo;
 import static hm.binkley.math.BigRationalProgressionKt.rangeTo;
 import static hm.binkley.math.BigRationalProgressionKt.step;
 import static hm.binkley.math.ComparisonsKt.equivalent;
-import static hm.binkley.math.complex.FixedBigComplexKt.getConjugate;
-import static hm.binkley.math.complex.FixedBigComplexKt.plus;
+import static hm.binkley.math.fixed.complex.FixedBigComplexKt.getConjugate;
+import static hm.binkley.math.fixed.complex.FixedBigComplexKt.plus;
 import static hm.binkley.math.floating.FloatingBigRational.NEGATIVE_INFINITY;
 import static hm.binkley.math.floating.FloatingBigRational.NaN;
 import static hm.binkley.math.floating.FloatingBigRational.POSITIVE_INFINITY;

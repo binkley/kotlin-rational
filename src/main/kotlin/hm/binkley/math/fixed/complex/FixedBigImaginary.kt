@@ -1,4 +1,4 @@
-package hm.binkley.math.complex
+package hm.binkley.math.fixed.complex
 
 import hm.binkley.math.BInt
 import hm.binkley.math.algebra.Group
