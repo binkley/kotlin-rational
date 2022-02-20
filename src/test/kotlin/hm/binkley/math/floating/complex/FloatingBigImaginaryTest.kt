@@ -50,6 +50,10 @@ internal class FloatingBigImaginaryTest {
         "${(-1).i}" shouldBe "-1i"
     }
 
+    @Test
+    fun `should convert`() {
+        1.0.big.toImaginary() shouldBe I
+    }
 
     @Test
     fun `should check for zero`() {
@@ -93,8 +97,9 @@ internal class FloatingBigImaginaryTest {
 
     @Test
     fun `should divide`() {
-        (2.big * I) shouldBe 2.i
-        (I * 2.big) shouldBe 2.i
+        (2.big.i / I) shouldBe TWO
+        (2.big / I) shouldBe (-2).i
+        (2.0.i / 1.big) shouldBe 2.0.i
         (2.0.i / I) shouldBe TWO
         (TWO / I) shouldBe (-2).i
         (2.0.i / ONE) shouldBe 2.0.i

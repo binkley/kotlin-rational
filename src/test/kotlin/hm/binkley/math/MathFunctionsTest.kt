@@ -142,22 +142,22 @@ internal class MathFunctionsTest {
         @Test
         fun `should square root with remainder`() {
             // Too big
-            (11 over 25).sqrtAndRemainder() shouldBe
-                    ((3 over 5) to (2 over 25))
+            (11 over 25).sqrtAndRemainder() shouldBe ((3 over 5) to (2 over 25))
             // Too small
-            (8 over 25).sqrtAndRemainder() shouldBe
-                    ((2 over 5) to (4 over 25))
+            (8 over 25).sqrtAndRemainder() shouldBe ((2 over 5) to (4 over 25))
             // Just right
-            (9 over 25).sqrtAndRemainder() shouldBe
-                    ((3 over 5) to ZERO)
+            (9 over 25).sqrtAndRemainder() shouldBe ((3 over 5) to ZERO)
+
             // Ginormous
             // TODO: How to find a "near Double.MAX_VALUE" who's sqrt produces a
             //  remainder?
-            //  valueOf(Double.MAX_VALUE - ulp(Double.MAX_VALUE)).sqrtAndRemainder() shouldBe
+            //  valueOf(Double.MAX_VALUE -
+            //  ulp(Double.MAX_VALUE)).sqrtAndRemainder() shouldBe
             //  ((2 over 5) to (121 over 650))
+
             // Teensy weensy
-            // TODO: What is math correct here?  I expected the sqrt of
-            //  Double.MIN_VALUE to still be min value as sqrt is smaller
+            // TODO: What math correct here?  The sqrt of Double.MIN_VALUE to
+            //  still be min value as sqrt is smaller
             //  valueOf(Double.MIN_VALUE).sqrtAndRemainder() shouldBe
             //  (valueOf(Double.MIN_VALUE) to ZERO)
         }
