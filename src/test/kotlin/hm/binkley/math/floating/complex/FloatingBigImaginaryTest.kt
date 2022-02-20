@@ -6,6 +6,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.complex.FloatingBigImaginary.Companion.I
 import hm.binkley.math.floating.complex.FloatingBigImaginary.Companion.ZERO
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -49,6 +50,13 @@ internal class FloatingBigImaginaryTest {
         "${(-1).i}" shouldBe "-1i"
     }
 
+
+    @Test
+    fun `should check for zero`() {
+        I.isZero().shouldBeFalse()
+        0.i.isZero().shouldBeTrue()
+    }
+
     @Test
     fun `should posite`() {
         +I shouldBe 1.0.i
@@ -71,6 +79,8 @@ internal class FloatingBigImaginaryTest {
 
     @Test
     fun `should multiply`() {
+        (2.0.big.i * I) shouldBe -TWO
+        (I * 2.0.big.i) shouldBe -TWO
         (2.0.i * I) shouldBe -TWO
         (I * 2.0.i) shouldBe -TWO
         (TWO * I) shouldBe 2.0.i
@@ -83,6 +93,8 @@ internal class FloatingBigImaginaryTest {
 
     @Test
     fun `should divide`() {
+        (2.big * I) shouldBe 2.i
+        (I * 2.big) shouldBe 2.i
         (2.0.i / I) shouldBe TWO
         (TWO / I) shouldBe (-2).i
         (2.0.i / ONE) shouldBe 2.0.i
@@ -95,6 +107,8 @@ internal class FloatingBigImaginaryTest {
 
     @Test
     fun `should compare`() {
+        (I < 2.0.big.i).shouldBeTrue()
+        (I <= 2.0.big.i).shouldBeTrue()
         (I < 2.0.i).shouldBeTrue()
         (I <= 2.0.i).shouldBeTrue()
         (I <= I).shouldBeTrue()

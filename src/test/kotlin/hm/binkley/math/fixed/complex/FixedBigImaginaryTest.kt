@@ -7,6 +7,7 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.ZERO
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -41,6 +42,12 @@ internal class FixedBigImaginaryTest {
         "${(-1L).i}" shouldBe "-1i"
         "${1.i}" shouldBe "1i"
         "${(-1).i}" shouldBe "-1i"
+    }
+
+    @Test
+    fun `should check for zero`() {
+        I.isZero().shouldBeFalse()
+        0.i.isZero().shouldBeTrue()
     }
 
     @Test
