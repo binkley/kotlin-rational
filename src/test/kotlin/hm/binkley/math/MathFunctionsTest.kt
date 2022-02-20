@@ -4,11 +4,14 @@ import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.fixed.toBigRational
+import hm.binkley.math.floating.FloatingBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.Conversions.toLong
 import java.math.RoundingMode.CEILING
 import java.math.RoundingMode.FLOOR
 import java.math.RoundingMode.HALF_DOWN
@@ -139,6 +142,7 @@ internal class MathFunctionsTest {
             }
         }
 
+        /** @todo Tests for floating point that match JDK */
         @Test
         fun `should square root with remainder`() {
             // Too big
@@ -147,6 +151,18 @@ internal class MathFunctionsTest {
             (8 over 25).sqrtAndRemainder() shouldBe ((2 over 5) to (4 over 25))
             // Just right
             (9 over 25).sqrtAndRemainder() shouldBe ((3 over 5) to ZERO)
+            // Impossible without complex numbers
+            assertThrows<ArithmeticException> {
+                (-8 over 25).sqrtAndRemainder()
+            }
+
+            // Check boundary conditions
+            val fixedRootAndRemainder = (Long.MAX_VALUE over 1).sqrtAndRemainder()
+            fixedRootAndRemainder.first.toLong() shouldBe 3037000499L
+            fixedRootAndRemainder.second.toLong() shouldBe 5928526806L
+            val floatingRootAndRemainder = (FloatingBigRational.valueOf(Double.MAX_VALUE)).sqrtAndRemainder()
+            floatingRootAndRemainder.first.toDouble() shouldBe 1.3407807929942596E154
+            floatingRootAndRemainder.second.toDouble() shouldBe 1.0959147000981383E153
 
             // Ginormous
             // TODO: How to find a "near Double.MAX_VALUE" who's sqrt produces a

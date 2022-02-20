@@ -45,7 +45,7 @@ public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
     var remainder = this - square
 
     if (this >= square) return root to remainder
-
+    // SQRT*SQRT is bigger, so use the numerator one lower
     root = companion.valueOf(root.numerator - BFixed.ONE, root.denominator)
     remainder = this - root * root
 
