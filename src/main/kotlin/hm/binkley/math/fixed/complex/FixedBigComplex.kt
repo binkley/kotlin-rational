@@ -265,7 +265,7 @@ public fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
 }
 
 @Suppress("DANGEROUS_CHARACTERS", "FunctionName")
-public infix fun FixedBigComplex.`**`(n: Int): FixedBigComplex = pow(n)
+public infix fun FixedBigComplex.`^`(n: Int): FixedBigComplex = pow(n)
 
 /**
  * Note: Following expectations for discrete exponents, `0^0` is defined as `1`.

@@ -168,20 +168,20 @@ internal class OperatorsTest {
 
         @Test
         fun `should raise`() {
-            valueOf(3.big, 5.big) `**` 0 shouldBe ONE
-            valueOf(3.big, 5.big) `**` 2 shouldBe valueOf(9.big, 25.big)
-            valueOf(3.big, 5.big) `**` -2 shouldBe valueOf(25.big, 9.big)
+            valueOf(3.big, 5.big) `^` 0 shouldBe ONE
+            valueOf(3.big, 5.big) `^` 2 shouldBe valueOf(9.big, 25.big)
+            valueOf(3.big, 5.big) `^` -2 shouldBe valueOf(25.big, 9.big)
         }
 
         @Test
         fun `should define by fiat 0^0`() {
-            ZERO `**` 0 shouldBe ONE
+            ZERO `^` 0 shouldBe ONE
         }
 
         @Test
         fun `should complain on inverting zero`() {
             assertThrows<ArithmeticException> {
-                ZERO `**` -1
+                ZERO `^` -1
             }
         }
     }

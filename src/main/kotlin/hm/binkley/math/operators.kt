@@ -371,5 +371,5 @@ public fun <T : BigRationalBase<T>> T.divideAndRemainder(divisor: T):
  * power of [exponent].
  */
 @Suppress("DANGEROUS_CHARACTERS", "FunctionName", "Unused")
-public infix fun <T : BigRationalBase<T>> T.`**`(exponent: Int): T =
+public infix fun <T : BigRationalBase<T>> T.`^`(exponent: Int): T =
     pow(exponent)

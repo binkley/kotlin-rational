@@ -257,6 +257,8 @@ one".
   with no remainder)
 - Ranges and progressions
 - See also `divideAndRemainder`
+- `^` is provided as an exponentiation operator; however, Kotlin does not have
+  that operator, so it needs quoting (backticks) 
 
 ### Types
 

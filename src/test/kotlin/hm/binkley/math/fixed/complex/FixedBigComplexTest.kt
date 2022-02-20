@@ -169,22 +169,22 @@ internal class FixedBigComplexTest {
     @Test
     fun `should raise`() {
         val half = 1 over 2
-        ONE_PLUS_I `**` 0 shouldBe 1 + 0.i
-        ONE_PLUS_I `**` 1 shouldBe ONE_PLUS_I
-        ONE_PLUS_I `**` -1 shouldBe half - half.i
-        ONE_PLUS_I `**` 2 shouldBe 0 + 2.i
-        ONE_PLUS_I `**` -2 shouldBe 0 - half.i
+        ONE_PLUS_I `^` 0 shouldBe 1 + 0.i
+        ONE_PLUS_I `^` 1 shouldBe ONE_PLUS_I
+        ONE_PLUS_I `^` -1 shouldBe half - half.i
+        ONE_PLUS_I `^` 2 shouldBe 0 + 2.i
+        ONE_PLUS_I `^` -2 shouldBe 0 - half.i
     }
 
     @Test
     fun `should define by fiat 0^0`() {
-        ZERO `**` 0 shouldBe ONE
+        ZERO `^` 0 shouldBe ONE
     }
 
     @Test
     fun `should complain on inverting zero`() {
         assertThrows<ArithmeticException> {
-            ZERO `**` -1
+            ZERO `^` -1
         }
     }
 

@@ -2,7 +2,7 @@
 
 package hm.binkley.math.floating
 
-import hm.binkley.math.`**`
+import hm.binkley.math.`^`
 import hm.binkley.math.BFixed
 import hm.binkley.math.BFloating
 import hm.binkley.math.big
@@ -692,12 +692,12 @@ internal class FloatingBigRationalTest {
 
         @Test
         fun `should raise`() {
-            POSITIVE_INFINITY `**` 2 shouldBe POSITIVE_INFINITY
-            POSITIVE_INFINITY `**` -1 shouldBe ZERO
+            POSITIVE_INFINITY `^` 2 shouldBe POSITIVE_INFINITY
+            POSITIVE_INFINITY `^` -1 shouldBe ZERO
 
-            NEGATIVE_INFINITY `**` 3 shouldBe NEGATIVE_INFINITY
-            NEGATIVE_INFINITY `**` 2 shouldBe POSITIVE_INFINITY
-            NEGATIVE_INFINITY `**` -1 shouldBe ZERO
+            NEGATIVE_INFINITY `^` 3 shouldBe NEGATIVE_INFINITY
+            NEGATIVE_INFINITY `^` 2 shouldBe POSITIVE_INFINITY
+            NEGATIVE_INFINITY `^` -1 shouldBe ZERO
 
             NaN.pow(2).isNaN().shouldBeTrue()
             POSITIVE_INFINITY.pow(0).isNaN().shouldBeTrue()
