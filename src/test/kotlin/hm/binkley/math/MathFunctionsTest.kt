@@ -11,7 +11,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.Conversions.toLong
 import java.math.RoundingMode.CEILING
 import java.math.RoundingMode.FLOOR
 import java.math.RoundingMode.HALF_DOWN
@@ -157,10 +156,12 @@ internal class MathFunctionsTest {
             }
 
             // Check boundary conditions
-            val fixedRootAndRemainder = (Long.MAX_VALUE over 1).sqrtAndRemainder()
+            val fixedRootAndRemainder =
+                (Long.MAX_VALUE over 1).sqrtAndRemainder()
             fixedRootAndRemainder.first.toLong() shouldBe 3037000499L
             fixedRootAndRemainder.second.toLong() shouldBe 5928526806L
-            val floatingRootAndRemainder = (FloatingBigRational.valueOf(Double.MAX_VALUE)).sqrtAndRemainder()
+            val floatingRootAndRemainder =
+                (FloatingBigRational.valueOf(Double.MAX_VALUE)).sqrtAndRemainder()
             floatingRootAndRemainder.first.toDouble() shouldBe 1.3407807929942596E154
             floatingRootAndRemainder.second.toDouble() shouldBe 1.0959147000981383E153
 
