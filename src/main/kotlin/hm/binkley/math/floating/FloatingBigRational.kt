@@ -140,7 +140,7 @@ public class FloatingBigRational private constructor(
 
     override fun pow(exponent: Int): FloatingBigRational = when {
         isNaN() -> NaN
-        isInfinite() && 0 == exponent -> NaN
+        isInfinite() && exponent.isZero() -> NaN
         else -> super.pow(exponent)
     }
 
