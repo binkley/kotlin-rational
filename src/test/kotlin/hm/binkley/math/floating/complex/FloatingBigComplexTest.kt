@@ -78,9 +78,26 @@ internal class FloatingBigComplexTest {
 
     @Test
     fun `should add`() {
-        val complex = 1 + I
+        val complex = 1 + 1.i
         val left = 2 + I // complex + one
         val right = 2 + I // one + complex
+
+        (I + complex) shouldBe (1 + 2.i)
+        (complex + I) shouldBe (1 + 2.i)
+        (I + FloatingBigRational.ONE) shouldBe complex
+        (FloatingBigRational.ONE + I) shouldBe complex
+        (I + BFloating.ONE) shouldBe complex
+        (BFloating.ONE + I) shouldBe complex
+        (I + 1.0) shouldBe complex
+        (1.0 + I) shouldBe complex
+        (I + 1.0f) shouldBe complex
+        (1.0f + I) shouldBe complex
+        (I + BFixed.ONE) shouldBe complex
+        (BFixed.ONE + I) shouldBe complex
+        (I + 1L) shouldBe complex
+        (1L + I) shouldBe complex
+        (I + 1) shouldBe complex
+        (1 + I) shouldBe complex
 
         (complex + complex) shouldBe 2 + 2.i
         (complex + FloatingBigRational.ONE) shouldBe left
@@ -101,9 +118,26 @@ internal class FloatingBigComplexTest {
 
     @Test
     fun `should subtract`() {
-        val complex = 1 + I
+        val complex = 1 + 1.i
         val left = 0 + I // complex - one
         val right = 0 + -I // one - complex
+
+        (I - complex) shouldBe (-1 + 0.i)
+        (complex - I) shouldBe (1 + 0.i)
+        (I - FloatingBigRational.ONE) shouldBe (-1 + 1.i)
+        (FloatingBigRational.ONE - I) shouldBe (1 - 1.i)
+        (I - BFloating.ONE) shouldBe (-1 + 1.i)
+        (BFloating.ONE - I) shouldBe (1 - 1.i)
+        (I - 1.0) shouldBe (-1 + 1.i)
+        (1.0 - I) shouldBe (1 - 1.i)
+        (I - 1.0f) shouldBe (-1 + 1.i)
+        (1.0f - I) shouldBe (1 - 1.i)
+        (I - BFixed.ONE) shouldBe (-1 + 1.i)
+        (BFixed.ONE - I) shouldBe (1 - 1.i)
+        (I - 1L) shouldBe (-1 + 1.i)
+        (1L - I) shouldBe (1 - 1.i)
+        (I - 1) shouldBe (-1 + 1.i)
+        (1 - I) shouldBe (1 - 1.i)
 
         (complex - complex) shouldBe ZERO
         (complex - FloatingBigRational.ONE) shouldBe left
@@ -124,9 +158,12 @@ internal class FloatingBigComplexTest {
 
     @Test
     fun `should multiply`() {
-        val complex = 1 + I
+        val complex = 1 + 1.i
         val left = 2 + 2.i // complex * two
         val right = 2 + 2.i // two * complex
+
+        (I * complex) shouldBe (-1 + 1.i)
+        (complex * I) shouldBe (-1 + 1.i)
 
         (complex * complex) shouldBe (0 + 2.i)
         (complex * FloatingBigRational.TWO) shouldBe left
@@ -147,9 +184,12 @@ internal class FloatingBigComplexTest {
 
     @Test
     fun `should divide`() {
-        val complex = 1 + I
+        val complex = 1 + 1.i
         val left = (1 over 2) + (1 over 2).i // complex / two
         val right = (1 over 2) + (1 over 2).i // two / complex
+
+        (I / complex) shouldBe (1 - 1.i)
+        (complex / I) shouldBe (1 - 1.i)
 
         (complex / complex) shouldBe ONE
         (complex / FloatingBigRational.TWO) shouldBe left

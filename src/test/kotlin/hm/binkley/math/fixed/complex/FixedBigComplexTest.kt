@@ -1,11 +1,13 @@
 package hm.binkley.math.fixed.complex
 
+import hm.binkley.math.BFixed
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ONE
 import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ZERO
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.over
+import hm.binkley.math.floating.FloatingBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -79,6 +81,17 @@ internal class FixedBigComplexTest {
         val left = 2 + I // complex + one
         val right = 2 + I // one + complex
 
+        (I + complex) shouldBe (1 + 2.i)
+        (complex + I) shouldBe (1 + 2.i)
+        (I + FixedBigRational.ONE) shouldBe complex
+        (FixedBigRational.ONE + I) shouldBe complex
+        (I + BFixed.ONE) shouldBe complex
+        (BFixed.ONE + I) shouldBe complex
+        (I + 1L) shouldBe complex
+        (1L + I) shouldBe complex
+        (I + 1) shouldBe complex
+        (1 + I) shouldBe complex
+
         (complex + complex) shouldBe (2 + 2.i)
         (complex + FixedBigRational.ONE) shouldBe left
         (FixedBigRational.ONE + complex) shouldBe right
@@ -95,6 +108,17 @@ internal class FixedBigComplexTest {
         val complex = 1 + I
         val left = 0 + I // complex - one
         val right = 0 + -I // one - complex
+
+        (I - complex) shouldBe (-1 + 0.i)
+        (complex - I) shouldBe (1 + 0.i)
+        (I - FixedBigRational.ONE) shouldBe (-1 + 1.i)
+        (FixedBigRational.ONE - I) shouldBe (1 - 1.i)
+        (I - BFixed.ONE) shouldBe (-1 + 1.i)
+        (BFixed.ONE - I) shouldBe (1 - 1.i)
+        (I - 1L) shouldBe (-1 + 1.i)
+        (1L - I) shouldBe (1 - 1.i)
+        (I - 1) shouldBe (-1 + 1.i)
+        (1 - I) shouldBe (1 - 1.i)
 
         (complex - complex) shouldBe ZERO
         (complex - FixedBigRational.ONE) shouldBe left
@@ -113,6 +137,9 @@ internal class FixedBigComplexTest {
         val left = 2 + 2.i // complex * two
         val right = 2 + 2.i // two * complex
 
+        (I * complex) shouldBe (-1 + 1.i)
+        (complex * I) shouldBe (-1 + 1.i)
+
         (complex * complex) shouldBe (0 + 2.i)
         (complex * FixedBigRational.TWO) shouldBe left
         (FixedBigRational.TWO * complex) shouldBe right
@@ -129,6 +156,9 @@ internal class FixedBigComplexTest {
         val complex = 1 + I
         val left = (1 over 2) + (1 over 2).i // complex / two
         val right = (1 over 2) + (1 over 2).i // two / complex
+
+        (I / complex) shouldBe (1 - 1.i)
+        (complex / I) shouldBe (1 - 1.i)
 
         (complex / complex) shouldBe ONE
         (complex / FixedBigRational.TWO) shouldBe left
