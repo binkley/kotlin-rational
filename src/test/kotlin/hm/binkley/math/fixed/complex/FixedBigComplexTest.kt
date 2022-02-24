@@ -2,7 +2,6 @@ package hm.binkley.math.fixed.complex
 
 import hm.binkley.math.big
 import hm.binkley.math.fixed.FixedBigRational
-import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ONE
 import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ZERO
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.assertThrows
 
 private val ONE_PLUS_I = FixedBigRational.ONE + I
 private val ONE_MINUS_I = FixedBigRational.ONE - I
-private val NEG_ONE_PLUS_I = -FixedBigRational.ONE + I
 private val NEG_ONE_MINUS_I = -FixedBigRational.ONE - I
 
 internal class FixedBigComplexTest {
@@ -77,77 +75,70 @@ internal class FixedBigComplexTest {
 
     @Test
     fun `should add`() {
-        (FixedBigRational.ONE + I) shouldBe ONE_PLUS_I
-        (I + FixedBigRational.ONE) shouldBe ONE_PLUS_I
-        (I + 1.big) shouldBe ONE_PLUS_I
-        (1L + I) shouldBe ONE_PLUS_I
-        (I + 1L) shouldBe ONE_PLUS_I
-        (1 + I) shouldBe ONE_PLUS_I
-        (I + 1) shouldBe ONE_PLUS_I
-        (ONE_PLUS_I + ONE_PLUS_I) shouldBe 2 + 2.i
-        (ONE_PLUS_I + FixedBigRational.ONE) shouldBe 2 + 1.i
-        (FixedBigRational.ONE + ONE_PLUS_I) shouldBe 2 + 1.i
-        (ONE_PLUS_I + 1.big) shouldBe 2 + 1.i
-        (1.big + ONE_PLUS_I) shouldBe 2 + 1.i
-        (ONE_PLUS_I + 1L) shouldBe 2 + 1.i
-        (1L + ONE_PLUS_I) shouldBe 2 + 1.i
-        (ONE_PLUS_I + 1) shouldBe 2 + 1.i
-        (1 + ONE_PLUS_I) shouldBe 2 + 1.i
-        (ONE_PLUS_I + I) shouldBe 1 + 2.i
-        (I + ONE_PLUS_I) shouldBe 1 + 2.i
+        val complex = 1 + I
+        val left = 2 + I // complex + one
+        val right = 2 + I // one + complex
+
+        (complex + complex) shouldBe (2 + 2.i)
+        (complex + FixedBigRational.ONE) shouldBe left
+        (FixedBigRational.ONE + complex) shouldBe right
+        (complex + 1.big) shouldBe left
+        (1.big + complex) shouldBe right
+        (complex + 1L) shouldBe left
+        (1L + complex) shouldBe right
+        (complex + 1) shouldBe left
+        (1 + complex) shouldBe right
     }
 
     @Test
     fun `should subtract`() {
-        (I - FixedBigRational.ONE) shouldBe NEG_ONE_PLUS_I
-        (1.big - I) shouldBe ONE_MINUS_I
-        (I - 1.big) shouldBe NEG_ONE_PLUS_I
-        (1L - I) shouldBe ONE_MINUS_I
-        (I - 1L) shouldBe NEG_ONE_PLUS_I
-        (1 - I) shouldBe ONE_MINUS_I
-        (I - 1) shouldBe NEG_ONE_PLUS_I
-        (ONE_PLUS_I - ONE_PLUS_I) shouldBe 0 + 0.i
-        (ONE_PLUS_I - FixedBigRational.ONE) shouldBe 0 + I
-        (FixedBigRational.ONE - ONE_MINUS_I) shouldBe 0 + I
-        (ONE_PLUS_I - 1.big) shouldBe 0 + I
-        (1.big - ONE_MINUS_I) shouldBe 0 + I
-        (ONE_PLUS_I - 1L) shouldBe 0 + I
-        (1L - ONE_MINUS_I) shouldBe 0 + I
-        (ONE_PLUS_I - 1) shouldBe 0 + I
-        (1 - ONE_MINUS_I) shouldBe 0 + I
-        (ONE_PLUS_I - I) shouldBe 1 + 0.i
-        (I - ONE_PLUS_I) shouldBe -1 + 0.i
+        val complex = 1 + I
+        val left = 0 + I // complex - one
+        val right = 0 + -I // one - complex
+
+        (complex - complex) shouldBe ZERO
+        (complex - FixedBigRational.ONE) shouldBe left
+        (FixedBigRational.ONE - complex) shouldBe right
+        (complex - 1.big) shouldBe left
+        (1.big - complex) shouldBe right
+        (complex - 1L) shouldBe left
+        (1L - complex) shouldBe right
+        (complex - 1) shouldBe left
+        (1 - complex) shouldBe right
     }
 
     @Test
     fun `should multiply`() {
-        (ONE_PLUS_I * ONE_PLUS_I) shouldBe 0 + 2.i
-        (TWO * ONE_PLUS_I) shouldBe 2 + 2.i
-        (ONE_PLUS_I * TWO) shouldBe 2 + 2.i
-        (2.big * ONE_PLUS_I) shouldBe 2 + 2.i
-        (ONE_PLUS_I * 2.big) shouldBe 2 + 2.i
-        (2L * ONE_PLUS_I) shouldBe 2 + 2.i
-        (ONE_PLUS_I * 2L) shouldBe 2 + 2.i
-        (2 * ONE_PLUS_I) shouldBe 2 + 2.i
-        (ONE_PLUS_I * 2) shouldBe 2 + 2.i
-        (ONE_PLUS_I * 2.i) shouldBe -2 + 2.i
-        (2.i * ONE_PLUS_I) shouldBe -2 + 2.i
+        val complex = 1 + I
+        val left = 2 + 2.i // complex * two
+        val right = 2 + 2.i // two * complex
+
+        (complex * complex) shouldBe (0 + 2.i)
+        (complex * FixedBigRational.TWO) shouldBe left
+        (FixedBigRational.TWO * complex) shouldBe right
+        (complex * 2.big) shouldBe left
+        (2.big * complex) shouldBe right
+        (complex * 2L) shouldBe left
+        (2L * complex) shouldBe right
+        (complex * 2) shouldBe left
+        (2 * complex) shouldBe right
     }
 
     @Test
     fun `should divide`() {
-        val half = 1 over 2
-        (ONE_PLUS_I / ONE_PLUS_I) shouldBe 1 + 0.i
-        (TWO / ONE_PLUS_I) shouldBe half + half.i
-        (ONE_PLUS_I / TWO) shouldBe half + half.i
-        (2.big / ONE_PLUS_I) shouldBe half + half.i
-        (ONE_PLUS_I / 2.big) shouldBe half + half.i
-        (2L / ONE_PLUS_I) shouldBe half + half.i
-        (ONE_PLUS_I / 2L) shouldBe half + half.i
-        (2 / ONE_PLUS_I) shouldBe half + half.i
-        (ONE_PLUS_I / 2) shouldBe half + half.i
-        (ONE_PLUS_I / 2.i) shouldBe half - half.i
-        (2.i / ONE_PLUS_I) shouldBe half - half.i
+        val complex = 1 + I
+        val left = (1 over 2) + (1 over 2).i // complex / two
+        val right = (1 over 2) + (1 over 2).i // two / complex
+
+        (complex / complex) shouldBe ONE
+        (complex / FixedBigRational.TWO) shouldBe left
+        (FixedBigRational.TWO / complex) shouldBe right
+        (complex / 2.big) shouldBe left
+        (2.big / complex) shouldBe right
+        (complex / 2L) shouldBe left
+        (2L / complex) shouldBe right
+        (complex / 2) shouldBe left
+        (2 / complex) shouldBe right
     }
 
     @Test
