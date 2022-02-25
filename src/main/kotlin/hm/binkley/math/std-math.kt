@@ -1,5 +1,6 @@
 package hm.binkley.math
 
+import lombok.Generated
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -29,8 +30,9 @@ internal fun BFixed.isUnit() = BFixed.ONE == this
 internal fun BFixed.isTwo() = BFixed.TWO == this
 internal fun BFixed.isTen() = BFixed.TEN == this
 internal fun BFixed.isPAdic(p: Long) = (isUnit() || (this % p.big).isZero())
-internal fun BFixed.lcm(other: BFixed) = (this * (other / gcd(other))).abs()
 internal fun BFixed.isEven() = (this % 2.big).isZero()
+internal fun BFixed.isNegative() = -1 == signum()
+internal fun BFixed.lcm(other: BFixed) = (this * (other / gcd(other))).abs()
 
 /** Note that [BigInteger.valueOf] checks for cached constants. */
 internal val Long.big: BFixed get() = BFixed.valueOf(this)

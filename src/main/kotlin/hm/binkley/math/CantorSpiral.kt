@@ -15,38 +15,45 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
     private val companion: BigRationalCompanion<T>,
 ) : SeekableSequence<T> {
     override fun iterator() = object : Iterator<T> {
-        // Reducing fractions produces duplicates
-        private val seen = mutableSetOf<T>()
         private var x = ZERO
         private var y = ZERO
         private var dir = N
 
         /**
          * The spiral has no stopping point: it is infinite until caller grows
-         * tired of new values.
+         * tired of new values.  It walks clockwise.
          */
         override fun hasNext() = true
 
         override fun next(): T {
             do {
-                val (numerator, denominator) = walk()
-                // Skip over walks along the X and Y axes
-                if (denominator.isZero()) continue
-                val rat = companion.valueOf(numerator, denominator)
-                if (seen.add(rat)) return rat
+                val (x, y) = walk()
+
+                // Skip the Y axis, but include 0/1 (zero)
+                if (x.isZero() && !y.isUnit()) continue
+                // Skip the X axis
+                if (y.isZero()) continue
+                // Skip bottom side after, but include SE corner
+                if (W == dir && y.isNegative() && x != -y) continue
+                // Skip lower left side, but include NW corner
+                if (N == dir && x.isNegative()) continue
+                // Skip reducible ratios, but include whole numbers
+                if (!y.isUnit() && !x.gcd(y).isUnit()) continue
+
+                return companion.valueOf(x, y)
             } while (true)
         }
 
         private fun walk(): Pair<BFixed, BFixed> {
             when (dir) { // TODO: JaCoCo claims missing branch
                 N -> {
-                    ++y; if (y == x.abs() + ONE) dir = E
+                    ++y; if (y - ONE == -x) dir = E
                 }
                 E -> {
                     ++x; if (x == y) dir = S
                 }
                 S -> {
-                    --y; if (y.abs() == x) dir = W
+                    --y; if (y == -x) dir = W
                 }
                 W -> {
                     --x; if (x == y) dir = N

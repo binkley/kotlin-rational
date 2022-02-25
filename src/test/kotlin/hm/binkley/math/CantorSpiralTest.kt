@@ -1,7 +1,6 @@
 package hm.binkley.math
 
 import hm.binkley.math.TestBigRational.Companion.ONE
-import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -10,18 +9,25 @@ import org.junit.jupiter.api.Test
 internal class CantorSpiralTest {
     @Test
     fun `should find Cantor spiral`() {
-        CantorSpiral(TestBigRational).take(10).toList() shouldBe
+        CantorSpiral(TestBigRational).take(17).toList() shouldBe
                 listOf(
-                    ZERO,
-                    ONE,
-                    -ONE,
+                    0 over 1,
+                    1 over 1,
+                    1 over -1,
                     -1 over 2,
                     1 over 2,
-                    TWO,
-                    -TWO,
+                    2 over 1,
+                    2 over -1,
                     -2 over 3,
                     -1 over 3,
                     1 over 3,
+                    2 over 3,
+                    3 over 2,
+                    3 over 1,
+                    3 over -1,
+                    3 over -2,
+                    -3 over 4,
+                    -1 over 4,
                 )
     }
 

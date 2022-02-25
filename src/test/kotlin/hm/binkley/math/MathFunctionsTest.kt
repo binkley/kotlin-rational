@@ -7,6 +7,8 @@ import hm.binkley.math.fixed.toBigRational
 import hm.binkley.math.floating.FloatingBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -264,5 +266,12 @@ internal class MathFunctionsTest {
             ZERO.mediant(ZERO) shouldBe ZERO
             ONE.mediant(TWO) shouldBe (3 over 2)
         }
+    }
+
+    @Test
+    fun `should note negative BigIntegers`() {
+        (-BFixed.ONE).isNegative().shouldBeTrue()
+        BFixed.ZERO.isNegative().shouldBeFalse()
+        BFixed.ONE.isNegative().shouldBeFalse()
     }
 }
