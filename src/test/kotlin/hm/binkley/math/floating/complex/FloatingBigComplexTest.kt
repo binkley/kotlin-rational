@@ -12,6 +12,7 @@ import hm.binkley.math.floating.over
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.jupiter.api.Test
 
 private val ONE_PLUS_I = FloatingBigRational.ONE + I
@@ -21,6 +22,7 @@ private val NEG_ONE_MINUS_I = -FloatingBigRational.ONE - I
 internal class FloatingBigComplexTest {
     @Test
     fun `should have constants`() {
+        ONE.companion shouldBeSameInstanceAs FloatingBigComplex.Companion
         ZERO shouldBe 0 + 0.i
         ONE shouldBe 1 + 0.i
     }

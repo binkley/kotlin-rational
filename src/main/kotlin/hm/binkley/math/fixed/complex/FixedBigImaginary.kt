@@ -12,8 +12,7 @@ import hm.binkley.math.times
 public data class FixedBigImaginary(val value: FixedBigRational) :
     Group<FixedBigImaginary>,
     Comparable<FixedBigImaginary> {
-    // Not covered in tests -- API ensures 0 and 1 are defined
-    override val companion: Companion get() = FixedBigImaginary
+    override val companion: Companion get() = Companion
 
     override fun unaryMinus(): FixedBigImaginary = (-value).toImaginary()
 

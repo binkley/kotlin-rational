@@ -13,8 +13,7 @@ import hm.binkley.math.times
 public data class FloatingBigImaginary(val value: FloatingBigRational) :
     Group<FloatingBigImaginary>,
     Comparable<FloatingBigImaginary> {
-    // Not covered in tests -- API ensures 0 and 1 are defined
-    override val companion: Companion get() = FloatingBigImaginary
+    override val companion: Companion get() = Companion
 
     override fun unaryMinus(): FloatingBigImaginary = (-value).toImaginary()
 

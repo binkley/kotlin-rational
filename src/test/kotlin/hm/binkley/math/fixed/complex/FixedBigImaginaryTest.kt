@@ -11,12 +11,14 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.jupiter.api.Test
 
 internal class FixedBigImaginaryTest {
     @Test
     fun `should be a group`() {
         I.shouldBeInstanceOf<Group<FixedBigImaginary>>()
+        I.companion shouldBeSameInstanceAs FixedBigImaginary.Companion
     }
 
     @Test

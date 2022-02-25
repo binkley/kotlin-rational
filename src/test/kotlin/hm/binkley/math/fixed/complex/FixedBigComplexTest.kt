@@ -7,9 +7,9 @@ import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ONE
 import hm.binkley.math.fixed.complex.FixedBigComplex.Companion.ZERO
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.over
-import hm.binkley.math.floating.FloatingBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -20,6 +20,7 @@ private val NEG_ONE_MINUS_I = -FixedBigRational.ONE - I
 internal class FixedBigComplexTest {
     @Test
     fun `should have constants`() {
+        ONE.companion shouldBeSameInstanceAs FixedBigComplex.Companion
         ZERO shouldBe 0 + 0.i
         ONE shouldBe 1 + 0.i
     }
