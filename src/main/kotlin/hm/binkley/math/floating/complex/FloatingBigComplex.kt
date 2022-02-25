@@ -64,288 +64,288 @@ public val FloatingBigComplex.reciprocal: FloatingBigComplex
 // Factories, plus and minus real+imag (include improper order like "i+1")
 
 public operator fun FloatingBigRational.plus(imag: FloatingBigImaginary)
-: FloatingBigComplex = FloatingBigComplex(this, imag)
+    : FloatingBigComplex = FloatingBigComplex(this, imag)
 
 public operator fun FloatingBigImaginary.plus(real: FloatingBigRational)
-: FloatingBigComplex = real + this
+    : FloatingBigComplex = real + this
 
 public operator fun BFloating.plus(imag: FloatingBigImaginary)
-: FloatingBigComplex = toBigRational() + imag
+    : FloatingBigComplex = toBigRational() + imag
 
 public operator fun FloatingBigImaginary.plus(real: BFloating)
-: FloatingBigComplex = real + this
+    : FloatingBigComplex = real + this
 
 public operator fun Double.plus(imag: FloatingBigImaginary)
-: FloatingBigComplex = toBigRational() + imag
+    : FloatingBigComplex = toBigRational() + imag
 
 public operator fun FloatingBigImaginary.plus(real: Double)
-: FloatingBigComplex = real + this
+    : FloatingBigComplex = real + this
 
 public operator fun Float.plus(imag: FloatingBigImaginary)
-: FloatingBigComplex = toBigRational() + imag
+    : FloatingBigComplex = toBigRational() + imag
 
 public operator fun FloatingBigImaginary.plus(real: Float)
-: FloatingBigComplex = real + this
+    : FloatingBigComplex = real + this
 
 public operator fun BFixed.plus(imag: FloatingBigImaginary)
-: FloatingBigComplex = toBigRational() + imag
+    : FloatingBigComplex = toBigRational() + imag
 
 public operator fun FloatingBigImaginary.plus(real: BFixed)
-: FloatingBigComplex = real + this
+    : FloatingBigComplex = real + this
 
 public operator fun Long.plus(imag: FloatingBigImaginary)
-: FloatingBigComplex = toBigRational() + imag
+    : FloatingBigComplex = toBigRational() + imag
 
 public operator fun FloatingBigImaginary.plus(real: Long)
-: FloatingBigComplex = real + this
+    : FloatingBigComplex = real + this
 
 public operator fun Int.plus(imag: FloatingBigImaginary)
-: FloatingBigComplex = toBigRational() + imag
+    : FloatingBigComplex = toBigRational() + imag
 
 public operator fun FloatingBigImaginary.plus(real: Int)
-: FloatingBigComplex = real + this
+    : FloatingBigComplex = real + this
 
 public operator fun FloatingBigImaginary.minus(real: FloatingBigRational)
-: FloatingBigComplex = -real + this
+    : FloatingBigComplex = -real + this
 
 public operator fun FloatingBigRational.minus(imag: FloatingBigImaginary)
-: FloatingBigComplex = this + -imag
+    : FloatingBigComplex = this + -imag
 
 public operator fun FloatingBigImaginary.minus(real: BFloating)
-: FloatingBigComplex = -real + this
+    : FloatingBigComplex = -real + this
 
 public operator fun BFloating.minus(imag: FloatingBigImaginary)
-: FloatingBigComplex = this + -imag
+    : FloatingBigComplex = this + -imag
 
 public operator fun FloatingBigImaginary.minus(real: Double)
-: FloatingBigComplex = -real + this
+    : FloatingBigComplex = -real + this
 
 public operator fun Double.minus(imag: FloatingBigImaginary)
-: FloatingBigComplex = this + -imag
+    : FloatingBigComplex = this + -imag
 
 public operator fun FloatingBigImaginary.minus(real: Float)
-: FloatingBigComplex = -real + this
+    : FloatingBigComplex = -real + this
 
 public operator fun Float.minus(imag: FloatingBigImaginary)
-: FloatingBigComplex = this + -imag
+    : FloatingBigComplex = this + -imag
 
 public operator fun FloatingBigImaginary.minus(real: BFixed)
-: FloatingBigComplex = -real + this
+    : FloatingBigComplex = -real + this
 
 public operator fun BFixed.minus(imag: FloatingBigImaginary)
-: FloatingBigComplex = this + -imag
+    : FloatingBigComplex = this + -imag
 
 public operator fun FloatingBigImaginary.minus(real: Long)
-: FloatingBigComplex = -real + this
+    : FloatingBigComplex = -real + this
 
 public operator fun Long.minus(imag: FloatingBigImaginary)
-: FloatingBigComplex = this + -imag
+    : FloatingBigComplex = this + -imag
 
 public operator fun FloatingBigImaginary.minus(real: Int)
-: FloatingBigComplex = -real + this
+    : FloatingBigComplex = -real + this
 
 public operator fun Int.minus(imag: FloatingBigImaginary)
-: FloatingBigComplex = this + -imag
+    : FloatingBigComplex = this + -imag
 
 // Addition operator
 
 public operator fun FloatingBigComplex.plus(addend: FloatingBigImaginary)
-: FloatingBigComplex = this + (FloatingBigRational.ZERO + addend)
+    : FloatingBigComplex = this + (FloatingBigRational.ZERO + addend)
 
 public operator fun FloatingBigImaginary.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigRational.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigComplex.plus(addend: FloatingBigRational)
-: FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
 
 public operator fun BFloating.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigComplex.plus(addend: BFloating)
-: FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
 
 public operator fun Double.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigComplex.plus(addend: Double)
-: FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
 
 public operator fun Float.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigComplex.plus(addend: Float)
-: FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
 
 public operator fun BFixed.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigComplex.plus(addend: BFixed)
-: FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
 
 public operator fun Long.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigComplex.plus(addend: Long)
-: FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
 
 public operator fun Int.plus(addend: FloatingBigComplex)
-: FloatingBigComplex = addend + this
+    : FloatingBigComplex = addend + this
 
 public operator fun FloatingBigComplex.plus(addend: Int)
-: FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this + (addend + FloatingBigRational.ZERO.i)
 
 // Subtraction operator
 
 public operator fun FloatingBigComplex.minus(subtrahend: FloatingBigImaginary)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigImaginary.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigRational.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigComplex.minus(subtrahend: FloatingBigRational)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun BFloating.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigComplex.minus(subtrahend: BFloating)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun Double.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigComplex.minus(subtrahend: Double)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun Float.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigComplex.minus(subtrahend: Float)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun BFixed.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigComplex.minus(subtrahend: BFixed)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun Long.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigComplex.minus(subtrahend: Long)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun Int.minus(subtrahend: FloatingBigComplex)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 public operator fun FloatingBigComplex.minus(subtrahend: Int)
-: FloatingBigComplex = this + -subtrahend
+    : FloatingBigComplex = this + -subtrahend
 
 // Multiplication operator
 
 public operator fun FloatingBigComplex.times(multiplier: FloatingBigImaginary)
-: FloatingBigComplex = this * (FloatingBigComplex.ZERO + multiplier)
+    : FloatingBigComplex = this * (FloatingBigComplex.ZERO + multiplier)
 
 public operator fun FloatingBigImaginary.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigRational.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigComplex.times(multiplier: FloatingBigRational)
-: FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
 
 public operator fun BFloating.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigComplex.times(multiplier: BFloating)
-: FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
 
 public operator fun Double.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigComplex.times(multiplier: Double)
-: FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
 
 public operator fun Float.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigComplex.times(multiplier: Float)
-: FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
 
 public operator fun BFixed.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigComplex.times(multiplier: BFixed)
-: FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
 
 public operator fun Long.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigComplex.times(multiplier: Long)
-: FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
 
 public operator fun Int.times(multiplier: FloatingBigComplex)
-: FloatingBigComplex = multiplier * this
+    : FloatingBigComplex = multiplier * this
 
 public operator fun FloatingBigComplex.times(multiplier: Int)
-: FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
+    : FloatingBigComplex = this * (multiplier + FloatingBigRational.ZERO.i)
 
 // Division operator
 
 public operator fun FloatingBigComplex.div(divisor: FloatingBigImaginary)
-: FloatingBigComplex = this / (FloatingBigComplex.ZERO + divisor)
+    : FloatingBigComplex = this / (FloatingBigComplex.ZERO + divisor)
 
 public operator fun FloatingBigImaginary.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigRational.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigComplex.div(divisor: FloatingBigRational)
-: FloatingBigComplex = real / divisor + (imag.value / divisor).i
+    : FloatingBigComplex = real / divisor + (imag.value / divisor).i
 
 public operator fun BFloating.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigComplex.div(divisor: BFloating)
-: FloatingBigComplex = this / divisor.toBigRational()
+    : FloatingBigComplex = this / divisor.toBigRational()
 
 public operator fun Double.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigComplex.div(divisor: Double)
-: FloatingBigComplex = this / divisor.toBigRational()
+    : FloatingBigComplex = this / divisor.toBigRational()
 
 public operator fun Float.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigComplex.div(divisor: Float)
-: FloatingBigComplex = this / divisor.toBigRational()
+    : FloatingBigComplex = this / divisor.toBigRational()
 
 public operator fun BFixed.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigComplex.div(divisor: BFixed)
-: FloatingBigComplex = this / divisor.toBigRational()
+    : FloatingBigComplex = this / divisor.toBigRational()
 
 public operator fun Long.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigComplex.div(divisor: Long)
-: FloatingBigComplex = this / divisor.toBigRational()
+    : FloatingBigComplex = this / divisor.toBigRational()
 
 public operator fun Int.div(divisor: FloatingBigComplex)
-: FloatingBigComplex = divisor / this
+    : FloatingBigComplex = divisor / this
 
 public operator fun FloatingBigComplex.div(divisor: Int)
-: FloatingBigComplex = this / divisor.toBigRational()
+    : FloatingBigComplex = this / divisor.toBigRational()
 
 // Functions
 

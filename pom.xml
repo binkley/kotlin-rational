@@ -384,8 +384,8 @@
                         <goals>
                             <!-- TODO: Re-enable when it works again
                             <goal>format</goal>
-                            -->
                             <goal>check</goal>
+                            -->
                         </goals>
                     </execution>
                 </executions>
