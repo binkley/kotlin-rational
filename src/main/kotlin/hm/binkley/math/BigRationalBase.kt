@@ -74,8 +74,8 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
                 val unscaledValue = floatingPoint.unscaledValue()
                 when {
                     0 == scale -> valueOf(unscaledValue)
-                    0 > scale -> valueOf(unscaledValue * BFixed.TEN.pow(-scale))
-                    else -> valueOf(unscaledValue, BFixed.TEN.pow(scale))
+                    0 > scale -> valueOf(unscaledValue * (BFixed.TEN `^` -scale))
+                    else -> valueOf(unscaledValue, BFixed.TEN `^` scale)
                 }
             }
         }
@@ -370,10 +370,10 @@ public abstract class BigRationalBase<
      * - Negative infinity to an even positive power is positive infinity
      */
     public open fun pow(exponent: Int): T = when {
-        0 > exponent -> unaryDiv().pow(-exponent)
+        0 > exponent -> unaryDiv() `^` -exponent
         else -> companion.valueOf(
-            numerator.pow(exponent),
-            denominator.pow(exponent)
+            numerator `^` exponent,
+            denominator `^` exponent
         )
     }
 
