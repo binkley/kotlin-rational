@@ -17,8 +17,7 @@ public data class FixedBigComplex(
     val real: FixedBigRational,
     val imag: FixedBigImaginary,
 ) : Field<FixedBigComplex> {
-    // Not covered in tests -- API ensures 0 and 1 are defined
-    override val companion: Companion get() = FixedBigComplex
+    override val companion: Companion get() = Companion
 
     override operator fun unaryMinus(): FixedBigComplex = -real + -imag
 

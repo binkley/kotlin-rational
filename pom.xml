@@ -372,7 +372,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- TODO: Re-enable when it works again
             <plugin>
                 <groupId>com.github.gantsign.maven</groupId>
                 <artifactId>ktlint-maven-plugin</artifactId>
@@ -383,7 +382,9 @@
                 <executions>
                     <execution>
                         <goals>
+                            <!-- TODO: Re-enable when it works again
                             <goal>format</goal>
+                            -->
                             <goal>check</goal>
                         </goals>
                     </execution>
@@ -396,7 +397,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            -->
             <plugin>
                 <groupId>com.github.ozsie</groupId>
                 <artifactId>detekt-maven-plugin</artifactId>

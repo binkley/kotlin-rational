@@ -19,8 +19,7 @@ public data class FloatingBigComplex(
     val real: FloatingBigRational,
     val imag: FloatingBigImaginary,
 ) : Field<FloatingBigComplex> {
-    // Not covered in tests -- API ensures 0 and 1 are defined
-    override val companion: Companion get() = FloatingBigComplex
+    override val companion: Companion get() = Companion
 
     override operator fun unaryMinus(): FloatingBigComplex = -real + -imag
 
