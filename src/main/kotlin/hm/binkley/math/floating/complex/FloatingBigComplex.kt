@@ -327,26 +327,26 @@ public operator fun FloatingBigComplex.div(divisor: Double)
 public operator fun Float.div(divisor: FloatingBigComplex)
 : FloatingBigComplex = divisor / this
 
-public operator fun FloatingBigComplex.div(divisor: Float): FloatingBigComplex =
-    this / divisor.toBigRational()
+public operator fun FloatingBigComplex.div(divisor: Float)
+: FloatingBigComplex = this / divisor.toBigRational()
 
-public operator fun BFixed.div(divisor: FloatingBigComplex): FloatingBigComplex =
-    divisor / this
+public operator fun BFixed.div(divisor: FloatingBigComplex)
+: FloatingBigComplex = divisor / this
 
-public operator fun FloatingBigComplex.div(divisor: BFixed): FloatingBigComplex =
-    this / divisor.toBigRational()
+public operator fun FloatingBigComplex.div(divisor: BFixed)
+: FloatingBigComplex = this / divisor.toBigRational()
 
-public operator fun Long.div(divisor: FloatingBigComplex): FloatingBigComplex =
-    divisor / this
+public operator fun Long.div(divisor: FloatingBigComplex)
+: FloatingBigComplex = divisor / this
 
-public operator fun FloatingBigComplex.div(divisor: Long): FloatingBigComplex =
-    this / divisor.toBigRational()
+public operator fun FloatingBigComplex.div(divisor: Long)
+: FloatingBigComplex = this / divisor.toBigRational()
 
-public operator fun Int.div(divisor: FloatingBigComplex): FloatingBigComplex =
-    divisor / this
+public operator fun Int.div(divisor: FloatingBigComplex)
+: FloatingBigComplex = divisor / this
 
-public operator fun FloatingBigComplex.div(divisor: Int): FloatingBigComplex =
-    this / divisor.toBigRational()
+public operator fun FloatingBigComplex.div(divisor: Int)
+: FloatingBigComplex = this / divisor.toBigRational()
 
 // Functions
 
