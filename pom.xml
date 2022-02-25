@@ -302,8 +302,7 @@
                                 <rule>
                                     <limits>
                                         <limit>
-                                            <!-- TODO: Fix JaCoCo -->
-                                            <minimum>99%</minimum>
+                                            <minimum>100%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -324,8 +323,7 @@
                         <avoidCallsTo>org.slf4j</avoidCallsTo>
                         <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
                     </avoidCallsTo>
-                    <!-- TODO: Adding back Java dropped this from 100% -->
-                    <coverageThreshold>99</coverageThreshold>
+                    <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
                         <excludedClass>hm.binkley.math.KotlinMainKt
                         </excludedClass>
