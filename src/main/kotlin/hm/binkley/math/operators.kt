@@ -375,9 +375,5 @@ public infix fun <T : BigRationalBase<T>> T.`^`(exponent: Int): T =
     pow(exponent)
 
 @Suppress("DANGEROUS_CHARACTERS", "FunctionName", "Unused")
-public infix fun BFloating.`^`(exponent: Int) : BFloating =
-    pow(exponent)
-
-@Suppress("DANGEROUS_CHARACTERS", "FunctionName", "Unused")
-public infix fun BFixed.`^`(exponent: Int) : BFixed =
+public infix fun BFixed.`^`(exponent: Int): BFixed =
     pow(exponent)
