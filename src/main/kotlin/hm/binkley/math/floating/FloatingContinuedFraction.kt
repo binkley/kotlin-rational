@@ -1,7 +1,6 @@
 package hm.binkley.math.floating
 
 import hm.binkley.math.BFixed
-import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
@@ -22,36 +21,28 @@ import java.math.BigInteger
  * none are calculated to their limit; all convert to [NaN].
  */
 public class FloatingContinuedFraction private constructor(
-    terms: List<FloatingBigRational>,
-) : ContinuedFractionBase<FloatingBigRational, FloatingContinuedFraction>(
+    terms: List<BRat>,
+) : CFracBase<BRat, FloatingContinuedFraction>(
     terms, FloatingContinuedFraction
 ) {
-    override fun construct(
-        terms: List<FloatingBigRational>,
-    ): FloatingContinuedFraction = FloatingContinuedFraction(terms)
+    override fun construct(terms: List<BRat>): CFrac = CFrac(terms)
 
-    override fun toBigRational(): FloatingBigRational =
+    override fun toBigRational(): BRat =
         if (!isFinite()) NaN
         else backAgain()
 
-    public companion object :
-        ContinuedFractionCompanionBase<FloatingBigRational,
-            FloatingContinuedFraction>(ONE) {
-        override fun constructTerm(term: BFixed) =
-            FloatingBigRational.valueOf(term)
+    public companion object : ContinuedFractionCompanionBase<BRat, CFrac>(ONE) {
+        override fun constructTerm(term: BFixed) = BRat.valueOf(term)
 
-        override fun construct(terms: List<FloatingBigRational>) =
-            FloatingContinuedFraction(terms)
+        override fun construct(terms: List<BRat>) = CFrac(terms)
 
-        override fun valueOf(
-            r: FloatingBigRational,
-        ): FloatingContinuedFraction {
-            val terms = mutableListOf<FloatingBigRational>()
+        override fun valueOf(r: BRat): CFrac {
+            val terms = mutableListOf<BRat>()
             when {
                 !r.isFinite() -> terms += NaN
                 else -> fractionateInPlace(r, terms)
             }
-            return FloatingContinuedFraction(terms)
+            return CFrac(terms)
         }
     }
 }
@@ -61,5 +52,4 @@ public class FloatingContinuedFraction private constructor(
  * BigRationals produce a finite continued fraction; all non-finite
  * BigRationals produce a non-finite continued fraction.
  */
-public fun FloatingContinuedFraction.isFinite(): Boolean =
-    integerPart.isFinite()
+public fun CFrac.isFinite(): Boolean = integerPart.isFinite()

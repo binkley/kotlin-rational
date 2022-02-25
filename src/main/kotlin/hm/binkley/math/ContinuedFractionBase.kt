@@ -7,14 +7,12 @@ package hm.binkley.math
  *       suitable for coroutines
  */
 public abstract class ContinuedFractionBase<
-    T : BigRationalBase<T>,
+    T : BRatBase<T>,
     C : ContinuedFractionBase<T, C>,
     > protected constructor(
     private val terms: List<T>,
     private val companion: ContinuedFractionCompanionBase<T, C>,
-) : Number(),
-    List<T> by terms,
-    Comparable<ContinuedFractionBase<T, C>> {
+) : Number(), List<T> by terms, Comparable<CFracBase<T, C>> {
     protected abstract fun construct(terms: List<T>): C
 
     /** Returns the big rational for the continued fraction. */
@@ -89,7 +87,7 @@ public abstract class ContinuedFractionBase<
     override fun toLong(): Long = toBigRational().toLong()
     override fun toShort(): Short = toBigRational().toShort()
 
-    override fun compareTo(other: ContinuedFractionBase<T, C>): Int =
+    override fun compareTo(other: CFracBase<T, C>): Int =
         toBigRational().compareTo(other.toBigRational())
 
     /**
@@ -98,7 +96,7 @@ public abstract class ContinuedFractionBase<
      *       "lowest terms"
      */
     override fun equals(other: Any?): Boolean = this === other ||
-        other is ContinuedFractionBase<*, *> &&
+        other is CFracBase<*, *> &&
         terms == other.terms
 
     override fun hashCode(): Int = terms.hashCode()
@@ -129,10 +127,7 @@ public abstract class ContinuedFractionBase<
  * Returns the convergent up to [n] terms of the continued fraction.  The 0th
  * convergent is the integer part of the continued fraction.
  */
-public fun <
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>
-    > C.convergent(n: Int): T {
+public fun <T : BRatBase<T>, C : CFracBase<T, C>> C.convergent(n: Int): T {
     if (0 > n) error("Convergents start from the 0th")
 
     val c0 = integerPart
@@ -145,7 +140,7 @@ public fun <
     return converge(this, n, 2, c1, c0)
 }
 
-private tailrec fun <T : BigRationalBase<T>> converge(
+private tailrec fun <T : BRatBase<T>> converge(
     terms: List<T>,
     n: Int, // limiting case
     i: Int, // current case
@@ -161,8 +156,8 @@ private tailrec fun <T : BigRationalBase<T>> converge(
 }
 
 public abstract class ContinuedFractionCompanionBase<
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>,
+    T : BRatBase<T>,
+    C : CFracBase<T, C>,
     >(private val ONE: T) {
     internal abstract fun constructTerm(term: BFixed): T
     internal abstract fun construct(terms: List<T>): C
@@ -202,12 +197,10 @@ public abstract class ContinuedFractionCompanionBase<
  * Checks if this continued fraction is _simple_ (has only 1 in all
  * numerators).
  */
-public fun <
-    T : BigRationalBase<T>,
-    C : ContinuedFractionBase<T, C>
-    > C.isSimple(): Boolean = fractionalParts.all { it.numerator.isUnit() }
+public fun <T : BRatBase<T>, C : CFracBase<T, C>> C.isSimple(): Boolean =
+    fractionalParts.all { it.numerator.isUnit() }
 
-internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
+internal tailrec fun <T : BRatBase<T>> fractionateInPlace(
     r: T,
     sequence: MutableList<T>,
 ): List<T> {
@@ -217,7 +210,7 @@ internal tailrec fun <T : BigRationalBase<T>> fractionateInPlace(
     else fractionateInPlace(f.unaryDiv(), sequence)
 }
 
-private fun <T : BigRationalBase<T>> T.toParts(): Pair<T, T> {
+private fun <T : BRatBase<T>> T.toParts(): Pair<T, T> {
     val i = floor()
     return i to (this - i)
 }
