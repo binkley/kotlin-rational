@@ -4,118 +4,96 @@ import hm.binkley.math.BFixed
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.algebra.GroupCompanion
 import hm.binkley.math.div
-import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.times
 
-public data class FixedBigImaginary(val value: FixedBigRational) :
+public data class FixedBigImaginary(val value: BRat) :
     Group<FixedBigImaginary>,
     Comparable<FixedBigImaginary> {
     override val companion: Companion get() = Companion
 
-    override fun unaryMinus(): FixedBigImaginary = (-value).toImaginary()
+    override fun unaryMinus(): BImag = (-value).toImaginary()
 
-    override fun plus(addend: FixedBigImaginary): FixedBigImaginary =
+    override fun plus(addend: BImag): BImag =
         (value + addend.value).toImaginary()
 
-    override fun compareTo(other: FixedBigImaginary): Int =
-        value.compareTo(other.value)
+    override fun compareTo(other: BImag): Int = value.compareTo(other.value)
 
     override fun toString(): String = "${value}i"
 
-    public companion object : GroupCompanion<FixedBigImaginary> {
-        override val ZERO: FixedBigImaginary = 0.i
+    public companion object : GroupCompanion<BImag> {
+        override val ZERO: BImag = 0.i
 
         @JvmField
-        public val I: FixedBigImaginary = 1.i
+        public val I: BImag = 1.i
     }
 }
 
 // Factories
 
-public fun FixedBigRational.toImaginary(): FixedBigImaginary =
-    FixedBigImaginary(this)
+public fun BRat.toImaginary(): BImag = BImag(this)
 
-public val FixedBigRational.i: FixedBigImaginary get() = toImaginary()
-public fun BFixed.toImaginary(): FixedBigImaginary =
-    toBigRational().toImaginary()
+public val BRat.i: BImag get() = toImaginary()
+public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
 
-public val BFixed.i: FixedBigImaginary get() = toImaginary()
-public fun Long.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
-public val Long.i: FixedBigImaginary get() = toImaginary()
-public fun Int.toImaginary(): FixedBigImaginary = toBigRational().toImaginary()
-public val Int.i: FixedBigImaginary get() = toImaginary()
+public val BFixed.i: BImag get() = toImaginary()
+public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
+public val Long.i: BImag get() = toImaginary()
+public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
+public val Int.i: BImag get() = toImaginary()
 
 // Multiplication operator
 
-public operator fun FixedBigImaginary.times(
-    multiplier: FixedBigImaginary
-): FixedBigRational = -(value * multiplier.value)
+public operator fun BImag.times(multiplier: BImag): BRat =
+    -(value * multiplier.value)
 
-public operator fun FixedBigRational.times(
-    multiplier: FixedBigImaginary
-): FixedBigImaginary = multiplier * this
+public operator fun BRat.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FixedBigImaginary.times(
-    multiplier: FixedBigRational
-): FixedBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: BRat): BImag =
+    (value * multiplier).toImaginary()
 
-public operator fun BFixed.times(
-    multiplier: FixedBigImaginary
-): FixedBigImaginary = multiplier * this
+public operator fun BFixed.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FixedBigImaginary.times(
-    multiplier: BFixed
-): FixedBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: BFixed): BImag =
+    (value * multiplier).toImaginary()
 
-public operator fun Long.times(
-    multiplier: FixedBigImaginary
-): FixedBigImaginary = multiplier * this
+public operator fun Long.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FixedBigImaginary.times(
-    multiplier: Long
-): FixedBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: Long): BImag =
+    (value * multiplier).toImaginary()
 
-public operator fun Int.times(
-    multiplier: FixedBigImaginary
-): FixedBigImaginary = multiplier * this
+public operator fun Int.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FixedBigImaginary.times(
-    multiplier: Int
-): FixedBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: Int): BImag =
+    (value * multiplier).toImaginary()
 
 // Division operator
 
-public fun FixedBigImaginary.unaryDiv(): FixedBigImaginary = -value.unaryDiv().i
+public fun BImag.unaryDiv(): BImag = -value.unaryDiv().i
 
-public operator fun FixedBigImaginary.div(divisor: FixedBigImaginary): FixedBigRational =
+public operator fun BImag.div(divisor: BImag): BRat = this * divisor.unaryDiv()
+
+public operator fun BRat.div(divisor: BImag): BImag = this * divisor.unaryDiv()
+
+public operator fun BImag.div(divisor: BRat): BImag = this * divisor.unaryDiv()
+
+public operator fun BFixed.div(divisor: BImag): BImag =
     this * divisor.unaryDiv()
 
-public operator fun FixedBigRational.div(divisor: FixedBigImaginary): FixedBigImaginary =
-    this * divisor.unaryDiv()
-
-public operator fun FixedBigImaginary.div(divisor: FixedBigRational): FixedBigImaginary =
-    this * divisor.unaryDiv()
-
-public operator fun BFixed.div(divisor: FixedBigImaginary): FixedBigImaginary =
-    this * divisor.unaryDiv()
-
-public operator fun FixedBigImaginary.div(divisor: BFixed): FixedBigImaginary =
+public operator fun BImag.div(divisor: BFixed): BImag =
     (value / divisor).toImaginary()
 
-public operator fun Long.div(divisor: FixedBigImaginary): FixedBigImaginary =
-    this * divisor.unaryDiv()
+public operator fun Long.div(divisor: BImag): BImag = this * divisor.unaryDiv()
 
-public operator fun FixedBigImaginary.div(divisor: Long): FixedBigImaginary =
+public operator fun BImag.div(divisor: Long): BImag =
     (value / divisor).toImaginary()
 
-public operator fun Int.div(divisor: FixedBigImaginary): FixedBigImaginary =
-    this * divisor.unaryDiv()
+public operator fun Int.div(divisor: BImag): BImag = this * divisor.unaryDiv()
 
-public operator fun FixedBigImaginary.div(divisor: Int): FixedBigImaginary =
+public operator fun BImag.div(divisor: Int): BImag =
     (value / divisor).toImaginary()
 
 // Other
 
-public fun FixedBigImaginary.isZero(): Boolean = value.isZero()
+public fun BImag.isZero(): Boolean = value.isZero()

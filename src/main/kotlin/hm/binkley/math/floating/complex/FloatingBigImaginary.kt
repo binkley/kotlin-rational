@@ -5,135 +5,106 @@ import hm.binkley.math.BFloating
 import hm.binkley.math.algebra.Group
 import hm.binkley.math.algebra.GroupCompanion
 import hm.binkley.math.div
-import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floating.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.times
 
-public data class FloatingBigImaginary(val value: FloatingBigRational) :
-    Group<FloatingBigImaginary>,
-    Comparable<FloatingBigImaginary> {
+public data class FloatingBigImaginary(val value: BRat) :
+    Group<FloatingBigImaginary>, Comparable<FloatingBigImaginary> {
     override val companion: Companion get() = Companion
 
-    override fun unaryMinus(): FloatingBigImaginary = (-value).toImaginary()
+    override fun unaryMinus(): BImag = (-value).toImaginary()
 
-    override fun plus(addend: FloatingBigImaginary): FloatingBigImaginary =
+    override fun plus(addend: BImag): BImag =
         (value + addend.value).toImaginary()
 
-    override fun compareTo(other: FloatingBigImaginary): Int =
-        value.compareTo(other.value)
+    override fun compareTo(other: BImag): Int = value.compareTo(other.value)
 
     override fun toString(): String = "${value}i"
 
-    public companion object : GroupCompanion<FloatingBigImaginary> {
-        override val ZERO: FloatingBigImaginary = 0.0.i
+    public companion object : GroupCompanion<BImag> {
+        override val ZERO: BImag = 0.0.i
 
         @JvmField
-        public val I: FloatingBigImaginary = 1.0.i
+        public val I: BImag = 1.0.i
     }
 }
 
 // Factories
 
-public fun FloatingBigRational.toImaginary(): FloatingBigImaginary =
-    FloatingBigImaginary(this)
+public fun BRat.toImaginary(): BImag = BImag(this)
 
-public val FloatingBigRational.i: FloatingBigImaginary get() = toImaginary()
-public fun BFloating.toImaginary(): FloatingBigImaginary =
-    toBigRational().toImaginary()
+public val BRat.i: BImag get() = toImaginary()
+public fun BFloating.toImaginary(): BImag = toBigRational().toImaginary()
 
-public val BFloating.i: FloatingBigImaginary get() = toBigRational().toImaginary()
-public fun Double.toImaginary(): FloatingBigImaginary =
-    toBigRational().toImaginary()
+public val BFloating.i: BImag get() = toBigRational().toImaginary()
+public fun Double.toImaginary(): BImag = toBigRational().toImaginary()
 
-public val Double.i: FloatingBigImaginary get() = toImaginary()
-public fun Float.toImaginary(): FloatingBigImaginary =
-    toBigRational().toImaginary()
+public val Double.i: BImag get() = toImaginary()
+public fun Float.toImaginary(): BImag = toBigRational().toImaginary()
 
-public val Float.i: FloatingBigImaginary get() = toImaginary()
-public fun BFixed.toImaginary(): FloatingBigImaginary =
-    toBigRational().toImaginary()
+public val Float.i: BImag get() = toImaginary()
+public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
 
-public val BFixed.i: FloatingBigImaginary get() = toImaginary()
-public fun Long.toImaginary(): FloatingBigImaginary =
-    toBigRational().toImaginary()
+public val BFixed.i: BImag get() = toImaginary()
+public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
 
-public val Long.i: FloatingBigImaginary get() = toImaginary()
-public fun Int.toImaginary(): FloatingBigImaginary =
-    toBigRational().toImaginary()
+public val Long.i: BImag get() = toImaginary()
+public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
 
-public val Int.i: FloatingBigImaginary get() = toImaginary()
+public val Int.i: BImag get() = toImaginary()
 
 // Multiplication operator
 
-public operator fun FloatingBigImaginary.times(
-    multiplier: FloatingBigImaginary
-): FloatingBigRational = -(value * multiplier.value)
+public operator fun BImag.times(multiplier: BImag): BRat =
+    -(value * multiplier.value)
 
-public operator fun FloatingBigRational.times(
-    multiplier: FloatingBigImaginary
-): FloatingBigImaginary = multiplier * this
+public operator fun BRat.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FloatingBigImaginary.times(
-    multiplier: FloatingBigRational
-): FloatingBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: BRat): BImag =
+    (value * multiplier).toImaginary()
 
-public operator fun BFixed.times(
-    multiplier: FloatingBigImaginary
-): FloatingBigImaginary = multiplier * this
+public operator fun BFixed.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FloatingBigImaginary.times(
-    multiplier: BFixed
-): FloatingBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: BFixed): BImag =
+    (value * multiplier).toImaginary()
 
-public operator fun Long.times(
-    multiplier: FloatingBigImaginary
-): FloatingBigImaginary = multiplier * this
+public operator fun Long.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FloatingBigImaginary.times(
-    multiplier: Long
-): FloatingBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: Long): BImag =
+    (value * multiplier).toImaginary()
 
-public operator fun Int.times(
-    multiplier: FloatingBigImaginary
-): FloatingBigImaginary = multiplier * this
+public operator fun Int.times(multiplier: BImag): BImag = multiplier * this
 
-public operator fun FloatingBigImaginary.times(
-    multiplier: Int
-): FloatingBigImaginary = (value * multiplier).toImaginary()
+public operator fun BImag.times(multiplier: Int): BImag =
+    (value * multiplier).toImaginary()
 
 // Division operator
 
-public fun FloatingBigImaginary.unaryDiv(): FloatingBigImaginary =
-    -value.unaryDiv().i
+public fun BImag.unaryDiv(): BImag = -value.unaryDiv().i
 
-public operator fun FloatingBigImaginary.div(divisor: FloatingBigImaginary): FloatingBigRational =
+public operator fun BImag.div(divisor: BImag): BRat = this * divisor.unaryDiv()
+
+public operator fun BRat.div(divisor: BImag): BImag = this * divisor.unaryDiv()
+
+public operator fun BImag.div(divisor: BRat): BImag = this * divisor.unaryDiv()
+
+public operator fun BFixed.div(divisor: BImag): BImag =
     this * divisor.unaryDiv()
 
-public operator fun FloatingBigRational.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
-    this * divisor.unaryDiv()
-
-public operator fun FloatingBigImaginary.div(divisor: FloatingBigRational): FloatingBigImaginary =
-    this * divisor.unaryDiv()
-
-public operator fun BFixed.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
-    this * divisor.unaryDiv()
-
-public operator fun FloatingBigImaginary.div(divisor: BFixed): FloatingBigImaginary =
+public operator fun BImag.div(divisor: BFixed): BImag =
     (value / divisor).toImaginary()
 
-public operator fun Long.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
-    this * divisor.unaryDiv()
+public operator fun Long.div(divisor: BImag): BImag = this * divisor.unaryDiv()
 
-public operator fun FloatingBigImaginary.div(divisor: Long): FloatingBigImaginary =
+public operator fun BImag.div(divisor: Long): BImag =
     (value / divisor).toImaginary()
 
-public operator fun Int.div(divisor: FloatingBigImaginary): FloatingBigImaginary =
-    this * divisor.unaryDiv()
+public operator fun Int.div(divisor: BImag): BImag = this * divisor.unaryDiv()
 
-public operator fun FloatingBigImaginary.div(divisor: Int): FloatingBigImaginary =
+public operator fun BImag.div(divisor: Int): BImag =
     (value / divisor).toImaginary()
 
 // Other
 
-public fun FloatingBigImaginary.isZero(): Boolean = value.isZero()
+public fun BImag.isZero(): Boolean = value.isZero()

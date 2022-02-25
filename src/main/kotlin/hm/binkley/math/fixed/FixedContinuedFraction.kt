@@ -7,6 +7,8 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational
 import java.math.BigInteger
 
+private typealias CFrac = FixedContinuedFraction
+
 /**
  * `ContinuedFraction` represents a [FloatingBigRational] as a finite
  * continued fraction sequence with the integer part at the natural index
@@ -24,18 +26,18 @@ public class FixedContinuedFraction private constructor(
 ) : ContinuedFractionBase<FixedBigRational, FixedContinuedFraction>(
     terms, FixedContinuedFraction
 ) {
-    override fun construct(terms: List<FixedBigRational>): FixedContinuedFraction =
-        FixedContinuedFraction(terms)
+    override fun construct(terms: List<FixedBigRational>): CFrac =
+        CFrac(terms)
 
     override fun toBigRational(): FixedBigRational =
         backAgain()
 
     public companion object : ContinuedFractionCompanionBase<FixedBigRational,
-        FixedContinuedFraction>(ONE) {
+        CFrac>(ONE) {
         override fun constructTerm(term: BFixed) =
             FixedBigRational.valueOf(term)
 
         override fun construct(terms: List<FixedBigRational>) =
-            FixedContinuedFraction(terms)
+            CFrac(terms)
     }
 }

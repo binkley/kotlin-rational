@@ -25,7 +25,7 @@ import java.util.Objects.hash
  * @todo `FieldCompanion` prevents ZERO and ONE from being JVM fields
  */
 @Suppress("PropertyName")
-public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
+public abstract class BigRationalCompanion<T : BRatBase<T>>(
     /**
      * A constant holding value 0 equivalent to `0 over 1`.
      *
@@ -74,7 +74,9 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
                 val unscaledValue = floatingPoint.unscaledValue()
                 when {
                     0 == scale -> valueOf(unscaledValue)
-                    0 > scale -> valueOf(unscaledValue * (BFixed.TEN `^` -scale))
+                    0 > scale -> valueOf(
+                        unscaledValue * (BFixed.TEN `^` -scale)
+                    )
                     else -> valueOf(unscaledValue, BFixed.TEN `^` scale)
                 }
             }
@@ -175,7 +177,7 @@ public abstract class BigRationalBase<
     public val numerator: BFixed,
     public val denominator: BFixed,
 ) : Number(), Comparable<T>, Field<T> {
-    public abstract override val companion: BigRationalCompanion<T>
+    public abstract override val companion: BRatCompanion<T>
 
     /** Returns the absolute value. */
     @Suppress("UNCHECKED_CAST")
@@ -283,7 +285,7 @@ public abstract class BigRationalBase<
      * for [BigDecimal.toDouble].
      *
      * @see [BigDecimal.toDouble]
-     * @see [BigRationalCompanion.valueOf(Double)]
+     * @see [BRatCompanion.valueOf(Double)]
      */
     override fun toDouble(): Double =
         numerator.toBigDecimal().divide(denominator.toBigDecimal()).toDouble()
@@ -322,7 +324,10 @@ public abstract class BigRationalBase<
     /** Adds the other value to this value. */
     override operator fun plus(addend: T): T =
         if (denominator == addend.denominator)
-            companion.valueOf(numerator + addend.numerator, denominator)
+            companion.valueOf(
+                numerator + addend.numerator,
+                denominator
+            )
         else companion.valueOf(
             numerator * addend.denominator + addend.numerator * denominator,
             denominator * addend.denominator
@@ -414,7 +419,7 @@ public abstract class BigRationalBase<
     public open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-        other is BigRationalBase<*> &&
+        other is BRatBase<*> &&
         javaClass == other.javaClass &&
         numerator == other.numerator &&
         denominator == other.denominator
@@ -432,21 +437,21 @@ public abstract class BigRationalBase<
 }
 
 /** Finds the absolute difference between values. */
-public fun <T : BigRationalBase<T>> T.diff(other: T): T =
+public fun <T : BRatBase<T>> T.diff(other: T): T =
     (this - other).absoluteValue
 
 /** Checks that this rational is 0. */
-public fun <T : BigRationalBase<T>> T.isZero(): Boolean =
+public fun <T : BRatBase<T>> T.isZero(): Boolean =
     companion.ZERO === this
 
 /** Checks that this rational is 1. */
-public fun <T : BigRationalBase<T>> T.isUnit(): Boolean = companion.ONE === this
+public fun <T : BRatBase<T>> T.isUnit(): Boolean = companion.ONE === this
 
 /** Checks that this rational is greater than zero. */
-public fun <T : BigRationalBase<T>> T.isPositive(): Boolean = 1 == signum()
+public fun <T : BRatBase<T>> T.isPositive(): Boolean = 1 == signum()
 
 /** Checks that this rational is less than zero. */
-public fun <T : BigRationalBase<T>> T.isNegative(): Boolean = -1 == signum()
+public fun <T : BRatBase<T>> T.isNegative(): Boolean = -1 == signum()
 
 /**
  * Checks that this rational has an even denominator.  The odds of a random
@@ -455,7 +460,7 @@ public fun <T : BigRationalBase<T>> T.isNegative(): Boolean = -1 == signum()
  *
  * See [HAKMEM](https://en.wikipedia.org/wiki/HAKMEM).
  */
-public fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
+public fun <T : BRatBase<T>> T.isDenominatorEven(): Boolean =
     denominator.isEven()
 
 /**
@@ -464,4 +469,4 @@ public fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
  *
  * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
  */
-public fun <T : BigRationalBase<T>> T.isDyadic(): Boolean = isPAdic(2)
+public fun <T : BRatBase<T>> T.isDyadic(): Boolean = isPAdic(2)
