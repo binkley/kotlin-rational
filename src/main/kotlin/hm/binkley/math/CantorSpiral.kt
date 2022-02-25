@@ -5,6 +5,8 @@ import hm.binkley.math.Direction.E
 import hm.binkley.math.Direction.N
 import hm.binkley.math.Direction.S
 import hm.binkley.math.Direction.W
+import java.math.BigInteger.ONE
+import java.math.BigInteger.ZERO
 
 private enum class Direction { N, S, E, W }
 
@@ -13,9 +15,10 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
     private val companion: BigRationalCompanion<T>,
 ) : SeekableSequence<T> {
     override fun iterator() = object : Iterator<T> {
-        private val seen = mutableSetOf<T>() // cache previously computed values
-        private var p = BFixed.ZERO
-        private var q = BFixed.ZERO
+        // Reducing fractions produces duplicates
+        private val seen = mutableSetOf<T>()
+        private var x = ZERO
+        private var y = ZERO
         private var dir = N
 
         /**
@@ -27,8 +30,7 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
         override fun next(): T {
             do {
                 val (numerator, denominator) = walk()
-                // Explicitly check for zero denominators so usable by fixed
-                // big rational, which would otherwise raise an exception
+                // Skip over walks along the X and Y axes
                 if (denominator.isZero()) continue
                 val rat = companion.valueOf(numerator, denominator)
                 if (seen.add(rat)) return rat
@@ -38,19 +40,19 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
         private fun walk(): Pair<BFixed, BFixed> {
             when (dir) { // TODO: JaCoCo claims missing branch
                 N -> {
-                    ++q; if (q == p.abs() + 1.big) dir = E
+                    ++y; if (y == x.abs() + ONE) dir = E
                 }
                 E -> {
-                    ++p; if (p == q) dir = S
+                    ++x; if (x == y) dir = S
                 }
                 S -> {
-                    --q; if (q.abs() == p) dir = W
+                    --y; if (y.abs() == x) dir = W
                 }
                 W -> {
-                    --p; if (p == q) dir = N
+                    --x; if (x == y) dir = N
                 }
             }
-            return p to q
+            return x to y
         }
     }
 }
