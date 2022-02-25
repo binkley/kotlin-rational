@@ -10,25 +10,25 @@ internal class CantorSpiralTest {
     @Test
     fun `should find Cantor spiral`() {
         CantorSpiral(TestBigRational).take(17).toList() shouldBe
-                listOf(
-                    0 over 1,
-                    1 over 1,
-                    1 over -1,
-                    -1 over 2,
-                    1 over 2,
-                    2 over 1,
-                    2 over -1,
-                    -2 over 3,
-                    -1 over 3,
-                    1 over 3,
-                    2 over 3,
-                    3 over 2,
-                    3 over 1,
-                    3 over -1,
-                    3 over -2,
-                    -3 over 4,
-                    -1 over 4,
-                )
+            listOf(
+                0 over 1,
+                1 over 1,
+                1 over -1,
+                -1 over 2,
+                1 over 2,
+                2 over 1,
+                2 over -1,
+                -2 over 3,
+                -1 over 3,
+                1 over 3,
+                2 over 3,
+                3 over 2,
+                3 over 1,
+                3 over -1,
+                3 over -2,
+                -3 over 4,
+                -1 over 4,
+            )
     }
 
     @Test

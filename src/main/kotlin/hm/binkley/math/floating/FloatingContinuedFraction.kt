@@ -36,7 +36,7 @@ public class FloatingContinuedFraction private constructor(
 
     public companion object :
         ContinuedFractionCompanionBase<FloatingBigRational,
-                FloatingContinuedFraction>(ONE) {
+            FloatingContinuedFraction>(ONE) {
         override fun constructTerm(term: BFixed) =
             FloatingBigRational.valueOf(term)
 

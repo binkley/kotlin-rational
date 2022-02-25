@@ -170,8 +170,8 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
 }
 
 public abstract class BigRationalBase<
-        T : BigRationalBase<T>
-        > protected constructor(
+    T : BigRationalBase<T>
+    > protected constructor(
     public val numerator: BFixed,
     public val denominator: BFixed,
 ) : Number(), Comparable<T>, Field<T> {
@@ -414,10 +414,10 @@ public abstract class BigRationalBase<
     public open fun isPAdic(p: Long): Boolean = denominator.isPAdic(p)
 
     override fun equals(other: Any?): Boolean = this === other ||
-            other is BigRationalBase<*> &&
-            javaClass == other.javaClass &&
-            numerator == other.numerator &&
-            denominator == other.denominator
+        other is BigRationalBase<*> &&
+        javaClass == other.javaClass &&
+        numerator == other.numerator &&
+        denominator == other.denominator
 
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 

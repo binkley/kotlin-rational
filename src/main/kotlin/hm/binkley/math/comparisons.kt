@@ -7,8 +7,8 @@ public fun <T : BigRationalBase<T>, U : BigRationalBase<U>> T.equivalent(
 
 /** Compares this value to [other]. */
 public operator fun <
-        T : BigRationalBase<T>,
-        U : BigRationalBase<U>> T.compareTo(other: U): Int =
+    T : BigRationalBase<T>,
+    U : BigRationalBase<U>> T.compareTo(other: U): Int =
     (numerator * other.denominator).compareTo(other.numerator * denominator)
 
 /** Compares this value to [other]. */

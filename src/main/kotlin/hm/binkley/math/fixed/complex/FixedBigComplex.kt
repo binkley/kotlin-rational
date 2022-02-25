@@ -30,7 +30,7 @@ public data class FixedBigComplex(
 
     override operator fun times(factor: FixedBigComplex): FixedBigComplex =
         (real * factor.real + imag * factor.imag) +
-                (real * factor.imag + imag * factor.real)
+            (real * factor.imag + imag * factor.real)
 
     override operator fun div(divisor: FixedBigComplex): FixedBigComplex =
         this * divisor.unaryDiv()
@@ -260,7 +260,7 @@ public fun FixedBigComplex.modulusApproximated(): FixedBigRational =
 public fun FixedBigComplex.sqrtApproximated(): FixedBigComplex {
     val gamma = ((real + modulusApproximated()) / TWO).sqrtApproximated()
     val delta = imag.value.sign *
-            ((-real + modulusApproximated()) / TWO).sqrtApproximated()
+        ((-real + modulusApproximated()) / TWO).sqrtApproximated()
     return gamma + delta.i
 }
 

@@ -152,7 +152,8 @@ internal class MathFunctionsTest {
             // Too small
             (8 over 25).sqrtAndRemainder() shouldBe ((2 over 5) to (4 over 25))
             ((2 over 5) * (2 over 5) + (4 over 25)) shouldBe (8 over 25)
-            (9 over 26).sqrtAndRemainder() shouldBe ((2 over 5) to (121 over 650))
+            (9 over 26).sqrtAndRemainder() shouldBe
+                ((2 over 5) to (121 over 650))
             ((2 over 5) * (2 over 5) + (121 over 650)) shouldBe (9 over 26)
             // Just right
             (9 over 25).sqrtAndRemainder() shouldBe ((3 over 5) to ZERO)
@@ -169,9 +170,12 @@ internal class MathFunctionsTest {
             fixedRootAndRemainder.first.toLong() shouldBe 3037000499L
             fixedRootAndRemainder.second.toLong() shouldBe 5928526806L
             val floatingRootAndRemainder =
-                (FloatingBigRational.valueOf(Double.MAX_VALUE)).sqrtAndRemainder()
-            floatingRootAndRemainder.first.toDouble() shouldBe 1.3407807929942596E154
-            floatingRootAndRemainder.second.toDouble() shouldBe 1.0959147000981383E153
+                (FloatingBigRational.valueOf(Double.MAX_VALUE))
+                    .sqrtAndRemainder()
+            floatingRootAndRemainder.first.toDouble() shouldBe
+                1.3407807929942596E154
+            floatingRootAndRemainder.second.toDouble() shouldBe
+                1.0959147000981383E153
 
             // Ginormous
             // TODO: How to find a "near Double.MAX_VALUE" who's sqrt produces a
@@ -190,11 +194,11 @@ internal class MathFunctionsTest {
         @Test
         fun `should square root approximately`() {
             (9 over 25).sqrtApproximated() shouldBe
-                    (3 over 5)
+                (3 over 5)
             (8 over 25).sqrtApproximated() shouldBe
-                    (282_842_712_474_619 over 500_000_000_000_000)
+                (282_842_712_474_619 over 500_000_000_000_000)
             (9 over 26).sqrtApproximated() shouldBe
-                    (5_883_484_054_145_521 over 10_000_000_000_000_000)
+                (5_883_484_054_145_521 over 10_000_000_000_000_000)
         }
 
         @Test
@@ -220,10 +224,10 @@ internal class MathFunctionsTest {
         fun `should cube root approximately`() {
             // Too big
             (28 over 125).cbrtApproximated() shouldBe
-                    (3_036_588_971_875_663 over 5_000_000_000_000_000)
+                (3_036_588_971_875_663 over 5_000_000_000_000_000)
             // Too small
             (26 over 125).cbrtApproximated() shouldBe
-                    (5_924_992_136_814_741 over 10_000_000_000_000_000)
+                (5_924_992_136_814_741 over 10_000_000_000_000_000)
             // Just right
             (27 over 125).cbrtApproximated() shouldBe (3 over 5)
         }
@@ -235,13 +239,13 @@ internal class MathFunctionsTest {
         fun `should find GCD (HCF)`() {
             ZERO.gcd(ZERO) shouldBe ZERO
             (2 over 9).gcd((6 over 21)) shouldBe
-                    (2 over 63)
+                (2 over 63)
             (-2 over 9).gcd((6 over 21)) shouldBe
-                    (2 over 63)
+                (2 over 63)
             (2 over 9).gcd((-6 over 21)) shouldBe
-                    (2 over 63)
+                (2 over 63)
             (-2 over 9).gcd((-6 over 21)) shouldBe
-                    (2 over 63)
+                (2 over 63)
             ZERO.gcd((2 over 9)) shouldBe (2 over 9)
         }
 
@@ -249,13 +253,13 @@ internal class MathFunctionsTest {
         fun `should find LCM (LCD)`() {
             ZERO.lcm(ZERO) shouldBe ZERO
             (2 over 9).lcm((6 over 21)) shouldBe
-                    (2 over 1)
+                (2 over 1)
             (-2 over 9).lcm((6 over 21)) shouldBe
-                    (2 over 1)
+                (2 over 1)
             (2 over 9).lcm((-6 over 21)) shouldBe
-                    (2 over 1)
+                (2 over 1)
             (-2 over 9).lcm((-6 over 21)) shouldBe
-                    (2 over 1)
+                (2 over 1)
             ZERO.lcm((6 over 21)) shouldBe ZERO
         }
 

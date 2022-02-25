@@ -359,7 +359,7 @@ public operator fun <T : BigRationalBase<T>> Int.rem(divisor: T): T =
  * @see [div]
  */
 public fun <T : BigRationalBase<T>> T.divideAndRemainder(divisor: T):
-        Pair<T, T> {
+    Pair<T, T> {
     val quotient = (this / divisor).truncate()
     val remainder = this - divisor * quotient
 

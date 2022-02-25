@@ -36,9 +36,9 @@ internal class FixedBigRationalTest {
         fun `should equate`() {
             (ONE..TEN).equals(this).shouldBeFalse()
             (ONE..TEN) shouldNotBe
-                    FloatingBigRational.ONE..FloatingBigRational.TEN
+                FloatingBigRational.ONE..FloatingBigRational.TEN
             (ONE..TEN).hashCode() shouldNotBe
-                    (FloatingBigRational.ONE..FloatingBigRational.TEN).hashCode()
+                (FloatingBigRational.ONE..FloatingBigRational.TEN).hashCode()
         }
     }
 

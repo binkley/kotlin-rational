@@ -58,7 +58,7 @@ internal class FloatingBigComplexTest {
     @Test
     fun `should absolve approximately`() {
         (8 + 25.i).modulusApproximated() shouldBe
-                (410137648387709L.big over 15625000000000L.big)
+            (410137648387709L.big over 15625000000000L.big)
     }
 
     @Test

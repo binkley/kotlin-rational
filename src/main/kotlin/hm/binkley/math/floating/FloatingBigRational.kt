@@ -160,7 +160,7 @@ public class FloatingBigRational private constructor(
         when {
             isNaN() || that.isNaN() -> NaN
             (isPositiveInfinity() && that.isNegativeInfinity()) ||
-                    (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
+                (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
             else -> super.mediant(that)
         }
 

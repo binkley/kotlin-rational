@@ -150,13 +150,13 @@ internal class BigRationalBaseTest {
         @Test
         fun `should convert floating point for extreme finite values`() {
             Double.MAX_VALUE.toBigRational().toDouble() shouldBe
-                    Double.MAX_VALUE
+                Double.MAX_VALUE
             Double.MIN_VALUE.toBigRational().toDouble() shouldBe
-                    Double.MIN_VALUE
+                Double.MIN_VALUE
             Float.MAX_VALUE.toBigRational().toFloat() shouldBe
-                    Float.MAX_VALUE
+                Float.MAX_VALUE
             Float.MIN_VALUE.toBigRational().toFloat() shouldBe
-                    Float.MIN_VALUE
+                Float.MIN_VALUE
         }
 
         @Test
@@ -175,28 +175,28 @@ internal class BigRationalBaseTest {
         fun `should convert to long`() {
             (11 over 10).toLong() shouldBe 1L
             (valueOf(Long.MAX_VALUE) + 1).toLong() shouldBe
-                    Long.MIN_VALUE
+                Long.MIN_VALUE
         }
 
         @Test
         fun `should convert to int`() {
             (11 over 10).toInt() shouldBe 1
             (valueOf(Int.MAX_VALUE) + 1).toInt() shouldBe
-                    Int.MIN_VALUE
+                Int.MIN_VALUE
         }
 
         @Test
         fun `should convert to short`() {
             (11 over 10).toShort() shouldBe 1.toShort()
             (valueOf(Short.MAX_VALUE.toInt()) + 1).toShort() shouldBe
-                    Short.MIN_VALUE
+                Short.MIN_VALUE
         }
 
         @Test
         fun `should convert to byte`() {
             (11 over 10).toByte() shouldBe 1.toByte()
             (valueOf(Byte.MAX_VALUE.toInt()) + 1).toByte() shouldBe
-                    Byte.MIN_VALUE
+                Byte.MIN_VALUE
         }
 
         @Test

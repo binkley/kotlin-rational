@@ -46,7 +46,7 @@ internal class FloatingContinuedFractionTest {
     fun `should be a list`() {
         ZERO.toContinuedFraction() shouldBe listOf(ZERO)
         (145 over 7).toContinuedFraction() shouldBe
-                listOf(20 over 1, ONE, TWO, TWO)
+            listOf(20 over 1, ONE, TWO, TWO)
     }
 
     @Test
@@ -70,24 +70,24 @@ internal class FloatingContinuedFractionTest {
     fun `should continue`() {
         eulerApproximation.terms(0) shouldBe listOf(2 over 1)
         eulerApproximation.terms(14) shouldBe
-                listOf(
-                    2 over 1,
-                    ONE,
-                    2 over 1,
-                    ONE,
-                    ONE,
-                    4 over 1,
-                    ONE,
-                    ONE,
-                    6 over 1,
-                    ONE,
-                    ONE,
-                    8 over 1,
-                    ONE,
-                    ONE,
-                    10 over 1
+            listOf(
+                2 over 1,
+                ONE,
+                2 over 1,
+                ONE,
+                ONE,
+                4 over 1,
+                ONE,
+                ONE,
+                6 over 1,
+                ONE,
+                ONE,
+                8 over 1,
+                ONE,
+                ONE,
+                10 over 1
 // truncated from here
-                )
+            )
     }
 
     @Test
@@ -97,9 +97,9 @@ internal class FloatingContinuedFractionTest {
     @Test
     fun `should invert`() {
         (2 over 1).toContinuedFraction().unaryDiv() shouldBe
-                listOf(ZERO, 2 over 1)
+            listOf(ZERO, 2 over 1)
         (1 over 2).toContinuedFraction().reciprocal shouldBe
-                listOf(2 over 1)
+            listOf(2 over 1)
     }
 
     @Test
@@ -135,15 +135,15 @@ internal class FloatingContinuedFractionTest {
         eulerApproximation.convergent(3) shouldBe (11 over 4)
         eulerApproximation.convergent(4) shouldBe (19 over 7)
         eulerApproximation.convergent(eulerApproximation.size - 1) shouldBe
-                eulerApproximation.toBigRational()
+            eulerApproximation.toBigRational()
 
         val c1 = eulerApproximation.convergent(1)
         val c2 = eulerApproximation.convergent(2)
         val c3 = eulerApproximation.convergent(3)
         (c2.denominator * c1.numerator - c1.denominator * c2.numerator) shouldBe
-                1.big
+            1.big
         (c3.denominator * c2.numerator - c2.denominator * c3.numerator) shouldBe
-                -(1.big)
+            -(1.big)
     }
 
     @Test
@@ -195,27 +195,27 @@ internal class FloatingContinuedFractionTest {
 
         @Test
         fun `should add`() = (
-                aFraction.toContinuedFraction() +
-                        oneHalf.toContinuedFraction()
-                ) shouldBe cf(3, 1, 2)
+            aFraction.toContinuedFraction() +
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(3, 1, 2)
 
         @Test
         fun `should subtract`() = (
-                aFraction.toContinuedFraction() -
-                        oneHalf.toContinuedFraction()
-                ) shouldBe cf(2, 1, 2)
+            aFraction.toContinuedFraction() -
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(2, 1, 2)
 
         @Test
         fun `should multiply`() = (
-                aFraction.toContinuedFraction() *
-                        oneHalf.toContinuedFraction()
-                ) shouldBe cf(1, 1, 1, 2, 2)
+            aFraction.toContinuedFraction() *
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(1, 1, 1, 2, 2)
 
         @Test
         fun `should divide`() = (
-                aFraction.toContinuedFraction() /
-                        oneHalf.toContinuedFraction()
-                ) shouldBe cf(6, 3)
+            aFraction.toContinuedFraction() /
+                oneHalf.toContinuedFraction()
+            ) shouldBe cf(6, 3)
     }
 }
 

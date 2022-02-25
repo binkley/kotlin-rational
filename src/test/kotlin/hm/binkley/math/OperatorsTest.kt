@@ -18,7 +18,7 @@ internal class OperatorsTest {
         @Test
         fun `should add big rational`() {
             (valueOf(3.big, 5.big) + valueOf(2.big, 3.big)) shouldBe
-                    valueOf(19.big, 15.big)
+                valueOf(19.big, 15.big)
         }
 
         @Test
@@ -60,7 +60,7 @@ internal class OperatorsTest {
         @Test
         fun `should subtract big rational`() {
             (valueOf(3.big, 5.big) - valueOf(2.big, 3.big)) shouldBe
-                    valueOf((-1).big, 15.big)
+                valueOf((-1).big, 15.big)
         }
 
         @Test
@@ -127,7 +127,7 @@ internal class OperatorsTest {
         @Test
         fun `should multiply big rational`() {
             (valueOf(3.big, 5.big) * valueOf(2.big, 3.big)) shouldBe
-                    valueOf(2.big, 5.big)
+                valueOf(2.big, 5.big)
         }
 
         @Test
@@ -191,7 +191,7 @@ internal class OperatorsTest {
         @Test
         fun `should divide big rational`() {
             (valueOf(3.big, 5.big) / valueOf(2.big, 3.big)) shouldBe
-                    valueOf(9.big, 10.big)
+                valueOf(9.big, 10.big)
         }
 
         @Test
@@ -349,9 +349,9 @@ internal class OperatorsTest {
 
         // Associativity
         ((twoThirds + threeHalves) + fiveSevenths) shouldBe
-                (twoThirds + (threeHalves + fiveSevenths))
+            (twoThirds + (threeHalves + fiveSevenths))
         ((twoThirds * threeHalves) * fiveSevenths) shouldBe
-                (twoThirds * (threeHalves * fiveSevenths))
+            (twoThirds * (threeHalves * fiveSevenths))
 
         // Commutativity
         (twoThirds + threeHalves) shouldBe threeHalves + twoThirds
@@ -359,6 +359,6 @@ internal class OperatorsTest {
 
         // Distributivity
         ((twoThirds + threeHalves) * fiveSevenths) shouldBe
-                (twoThirds * fiveSevenths + threeHalves * fiveSevenths)
+            (twoThirds * fiveSevenths + threeHalves * fiveSevenths)
     }
 }

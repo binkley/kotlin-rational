@@ -31,7 +31,7 @@ public class FixedContinuedFraction private constructor(
         backAgain()
 
     public companion object : ContinuedFractionCompanionBase<FixedBigRational,
-            FixedContinuedFraction>(ONE) {
+        FixedContinuedFraction>(ONE) {
         override fun constructTerm(term: BFixed) =
             FixedBigRational.valueOf(term)
 
