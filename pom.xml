@@ -122,7 +122,13 @@
     </dependencies>
 
     <build>
-        <defaultGoal>verify</defaultGoal>
+        <!-- TODO: Workaround: JaCoCo does not understand the Kotlin plugin
+                   properties, so coverage report is missing source links.
+                   However, Kotlin plugin ignores Java compilation if it sees
+                   these.
+        <sourceDirectory>${basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/kotlin</testSourceDirectory>
+        -->
 
         <plugins>
             <plugin>
