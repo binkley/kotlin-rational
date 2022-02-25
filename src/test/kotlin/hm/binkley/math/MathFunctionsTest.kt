@@ -7,8 +7,6 @@ import hm.binkley.math.fixed.toBigRational
 import hm.binkley.math.floating.FloatingBigRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.forAll
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -192,11 +190,11 @@ internal class MathFunctionsTest {
         @Test
         fun `should square root approximately`() {
             (9 over 25).sqrtApproximated() shouldBe
-                (3 over 5)
+                    (3 over 5)
             (8 over 25).sqrtApproximated() shouldBe
-                (282_842_712_474_619 over 500_000_000_000_000)
+                    (282_842_712_474_619 over 500_000_000_000_000)
             (9 over 26).sqrtApproximated() shouldBe
-                (5_883_484_054_145_521 over 10_000_000_000_000_000)
+                    (5_883_484_054_145_521 over 10_000_000_000_000_000)
         }
 
         @Test
@@ -222,10 +220,10 @@ internal class MathFunctionsTest {
         fun `should cube root approximately`() {
             // Too big
             (28 over 125).cbrtApproximated() shouldBe
-                (3_036_588_971_875_663 over 5_000_000_000_000_000)
+                    (3_036_588_971_875_663 over 5_000_000_000_000_000)
             // Too small
             (26 over 125).cbrtApproximated() shouldBe
-                (5_924_992_136_814_741 over 10_000_000_000_000_000)
+                    (5_924_992_136_814_741 over 10_000_000_000_000_000)
             // Just right
             (27 over 125).cbrtApproximated() shouldBe (3 over 5)
         }
@@ -237,13 +235,13 @@ internal class MathFunctionsTest {
         fun `should find GCD (HCF)`() {
             ZERO.gcd(ZERO) shouldBe ZERO
             (2 over 9).gcd((6 over 21)) shouldBe
-                (2 over 63)
+                    (2 over 63)
             (-2 over 9).gcd((6 over 21)) shouldBe
-                (2 over 63)
+                    (2 over 63)
             (2 over 9).gcd((-6 over 21)) shouldBe
-                (2 over 63)
+                    (2 over 63)
             (-2 over 9).gcd((-6 over 21)) shouldBe
-                (2 over 63)
+                    (2 over 63)
             ZERO.gcd((2 over 9)) shouldBe (2 over 9)
         }
 
@@ -251,13 +249,13 @@ internal class MathFunctionsTest {
         fun `should find LCM (LCD)`() {
             ZERO.lcm(ZERO) shouldBe ZERO
             (2 over 9).lcm((6 over 21)) shouldBe
-                (2 over 1)
+                    (2 over 1)
             (-2 over 9).lcm((6 over 21)) shouldBe
-                (2 over 1)
+                    (2 over 1)
             (2 over 9).lcm((-6 over 21)) shouldBe
-                (2 over 1)
+                    (2 over 1)
             (-2 over 9).lcm((-6 over 21)) shouldBe
-                (2 over 1)
+                    (2 over 1)
             ZERO.lcm((6 over 21)) shouldBe ZERO
         }
 
@@ -266,12 +264,5 @@ internal class MathFunctionsTest {
             ZERO.mediant(ZERO) shouldBe ZERO
             ONE.mediant(TWO) shouldBe (3 over 2)
         }
-    }
-
-    @Test
-    fun `should note negative BigIntegers`() {
-        (-BFixed.ONE).isNegative().shouldBeTrue()
-        BFixed.ZERO.isNegative().shouldBeFalse()
-        BFixed.ONE.isNegative().shouldBeFalse()
     }
 }

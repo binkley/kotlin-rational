@@ -126,9 +126,9 @@
                    properties, so coverage report is missing source links.
                    However, Kotlin plugin ignores Java compilation if it sees
                    these.
+        -->
         <sourceDirectory>${basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${basedir}/src/test/kotlin</testSourceDirectory>
-        -->
 
         <plugins>
             <plugin>
@@ -309,7 +309,7 @@
                                         <limit>
                                             <counter>BRANCH</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>98%</minimum>
+                                            <minimum>99%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

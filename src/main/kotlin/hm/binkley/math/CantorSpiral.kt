@@ -33,10 +33,10 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
                 if (x.isZero() && !y.isUnit()) continue
                 // Skip the X axis
                 if (y.isZero()) continue
-                // Skip bottom side after, but include SE corner
-                if (W == dir && y.isNegative() && x != -y) continue
-                // Skip lower left side, but include NW corner
-                if (N == dir && x.isNegative()) continue
+                // Skip bottom side, but include SE corner
+                if (W == dir && x != -y) continue
+                // Skip left side, but include NW corner
+                if (N == dir) continue
                 // Skip reducible ratios, but include whole numbers
                 if (!y.isUnit() && !x.gcd(y).isUnit()) continue
 
