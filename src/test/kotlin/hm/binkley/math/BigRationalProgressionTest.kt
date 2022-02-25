@@ -12,7 +12,14 @@ import org.junit.jupiter.api.Test
 internal class BigRationalProgressionTest {
     @Test
     fun `should equate`() {
-        ((ZERO..TWO step 2) == ZERO..TWO step 2).shouldBeTrue()
+        val progression = (ZERO..TWO step 2)
+        @Suppress("ReplaceCallWithBinaryOperator") // JaCoCo
+        (progression.equals(progression)).shouldBeTrue()
+        (ZERO..TWO step 2).equals(this).shouldBeFalse()
+        @Suppress("ReplaceCallWithBinaryOperator") // JaCoCo
+        (ZERO..TWO step 2).equals(ZERO..TWO step 2).shouldBeTrue()
+        ((ONE..TWO step 2) == ZERO..TWO step 2).shouldBeFalse()
+        ((ZERO..ONE step 2) == ZERO..TWO step 2).shouldBeFalse()
         ((ZERO..TWO step 1) == ZERO..TWO step 2).shouldBeFalse()
     }
 

@@ -99,7 +99,6 @@ public abstract class ContinuedFractionBase<
      */
     override fun equals(other: Any?): Boolean = this === other ||
             other is ContinuedFractionBase<*, *> &&
-            javaClass == other.javaClass &&
             terms == other.terms
 
     override fun hashCode(): Int = terms.hashCode()

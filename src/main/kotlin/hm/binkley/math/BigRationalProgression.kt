@@ -68,7 +68,6 @@ private class BigRationalProgression<T : BigRationalBase<T>>(
 
     override fun equals(other: Any?) = this === other ||
             other is BigRationalProgression<*> &&
-            javaClass == other.javaClass &&
             start == other.start &&
             endInclusive == other.endInclusive &&
             step == other.step

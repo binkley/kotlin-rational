@@ -36,7 +36,7 @@ internal class CantorSpiral<T : BigRationalBase<T>>(
         }
 
         private fun walk(): Pair<BFixed, BFixed> {
-            when (dir) {
+            when (dir) { // TODO: JaCoCo claims missing branch
                 N -> {
                     ++q; if (q == p.abs() + 1.big) dir = E
                 }

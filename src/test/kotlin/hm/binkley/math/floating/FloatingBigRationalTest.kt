@@ -18,6 +18,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floor
+import hm.binkley.math.isDyadic
 import hm.binkley.math.rangeTo
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
@@ -161,14 +162,19 @@ internal class FloatingBigRationalTest {
             (NEGATIVE_INFINITY / NEGATIVE_INFINITY).shouldBeNaN()
             (POSITIVE_INFINITY / POSITIVE_INFINITY).shouldBeNaN()
             (ONE / NaN).shouldBeNaN()
+            (NaN / ONE).shouldBeNaN()
             (ZERO / ZERO).shouldBeNaN()
         }
 
         @Test
         fun `should find remainder`() {
             (ONE % POSITIVE_INFINITY) shouldBe ZERO
+            (POSITIVE_INFINITY % ONE) shouldBe ZERO
             (ONE % NEGATIVE_INFINITY) shouldBe ZERO
+            (NEGATIVE_INFINITY % ONE) shouldBe ZERO
             (ONE % NaN).shouldBeNaN()
+            (NaN % ONE).shouldBeNaN()
+            (ZERO % ZERO).shouldBeNaN()
         }
 
         @Test
@@ -321,14 +327,6 @@ internal class FloatingBigRationalTest {
     }
 
     @Test
-    fun `should note dyadic rationals`() {
-        (1 over 2).isDyadic().shouldBeTrue()
-        POSITIVE_INFINITY.isDyadic().shouldBeFalse()
-        NEGATIVE_INFINITY.isDyadic().shouldBeFalse()
-        NaN.isDyadic().shouldBeFalse()
-    }
-
-    @Test
     fun `should note p-adic rationals`() {
         (1 over 3).isPAdic(3).shouldBeTrue()
         POSITIVE_INFINITY.isPAdic(3).shouldBeFalse()
@@ -337,21 +335,35 @@ internal class FloatingBigRationalTest {
     }
 
     @Test
-    fun `should not be a fixed big rational range`() {
-        (ONE..TEN) shouldNotBe
-                FixedBigRational.ONE..FixedBigRational.TEN
-        (ONE..TEN).hashCode() shouldNotBe
-                (FixedBigRational.ONE..FixedBigRational.TEN).hashCode()
+    fun `should note dyadic rationals`() {
+        (1 over 2).isDyadic().shouldBeTrue()
+        POSITIVE_INFINITY.isDyadic().shouldBeFalse()
+        NEGATIVE_INFINITY.isDyadic().shouldBeFalse()
+        NaN.isDyadic().shouldBeFalse()
+    }
+
+    @Nested
+    inner class ProgressionTests {
+        @Test
+        fun `should equate`() {
+            (ONE..TEN).equals(this).shouldBeFalse()
+            (ONE..TEN) shouldNotBe
+                    FixedBigRational.ONE..FixedBigRational.TEN
+            (ONE..TEN).hashCode() shouldNotBe
+                    (FixedBigRational.ONE..FixedBigRational.TEN).hashCode()
+        }
     }
 
     @Nested
     inner class ConversionTests {
         @Test
         fun `should be a number`() {
+            ONE.toDouble() shouldBe 1.0
             POSITIVE_INFINITY.toDouble() shouldBe Double.POSITIVE_INFINITY
             NEGATIVE_INFINITY.toDouble() shouldBe Double.NEGATIVE_INFINITY
             NaN.toDouble() shouldBe Double.NaN
 
+            ONE.toFloat() shouldBe 1.0f
             POSITIVE_INFINITY.toFloat() shouldBe Float.POSITIVE_INFINITY
             NEGATIVE_INFINITY.toFloat() shouldBe Float.NEGATIVE_INFINITY
             NaN.toFloat() shouldBe Float.NaN
@@ -505,6 +517,7 @@ internal class FloatingBigRationalTest {
                 2.0,
                 3.0,
                 4.0,
+                10.0,
                 123.456
             )
             val rationals = listOf(
@@ -520,9 +533,10 @@ internal class FloatingBigRationalTest {
                 3 over 10,
                 1 over 2,
                 ONE,
-                2 over 1,
+                TWO,
                 3 over 1,
                 4 over 1,
+                TEN,
                 15432 over 125
             )
 
@@ -558,6 +572,7 @@ internal class FloatingBigRationalTest {
                 2.0f,
                 3.0f,
                 4.0f,
+                10.0f,
                 123.456f
             )
             val rationals = listOf(
@@ -573,14 +588,15 @@ internal class FloatingBigRationalTest {
                 3 over 10,
                 1 over 2,
                 ONE,
-                2 over 1,
+                TWO,
                 3 over 1,
                 4 over 1,
+                TEN,
                 15432 over 125
             )
 
-            Float.NEGATIVE_INFINITY.toBigRational().shouldBeNegativeInfinity()
             Float.POSITIVE_INFINITY.toBigRational().shouldBePositiveInfinity()
+            Float.NEGATIVE_INFINITY.toBigRational().shouldBeNegativeInfinity()
             Float.NaN.toBigRational().shouldBeNaN()
             (-0.0f).toBigRational() shouldBe ZERO
 

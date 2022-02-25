@@ -11,6 +11,7 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.rangeTo
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Nested
@@ -29,12 +30,16 @@ internal class FixedBigRationalTest {
         }
     }
 
-    @Test
-    fun `should not be a floating big rational range`() {
-        (ONE..TEN) shouldNotBe
-                FloatingBigRational.ONE..FloatingBigRational.TEN
-        (ONE..TEN).hashCode() shouldNotBe
-                (FloatingBigRational.ONE..FloatingBigRational.TEN).hashCode()
+    @Nested
+    inner class ProgressionTests {
+        @Test
+        fun `should equate`() {
+            (ONE..TEN).equals(this).shouldBeFalse()
+            (ONE..TEN) shouldNotBe
+                    FloatingBigRational.ONE..FloatingBigRational.TEN
+            (ONE..TEN).hashCode() shouldNotBe
+                    (FloatingBigRational.ONE..FloatingBigRational.TEN).hashCode()
+        }
     }
 
     @Nested

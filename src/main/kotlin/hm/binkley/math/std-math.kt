@@ -16,14 +16,19 @@ internal val Double.big: BFloating
         else -> BFloating.valueOf(this)
     }
 
-internal fun Float.isFinite() = !isInfinite() && !isNaN()
+/**
+ * Reuses the JDK's `Float.isFinite(float)`.
+ *
+ * @todo Smell around complexity of double/float conversion.  Trace usages, and
+ *       compare with other `valueOf` methods, and also has an uncovered branch
+ */
+internal fun Float.isFinite() = java.lang.Float.isFinite(this)
 
 internal fun BFixed.isZero() = BFixed.ZERO == this
 internal fun BFixed.isUnit() = BFixed.ONE == this
 internal fun BFixed.isTwo() = BFixed.TWO == this
 internal fun BFixed.isTen() = BFixed.TEN == this
 internal fun BFixed.isPAdic(p: Long) = (isUnit() || (this % p.big).isZero())
-internal fun BFixed.isDyadic() = isPAdic(2)
 internal fun BFixed.lcm(other: BFixed) = (this * (other / gcd(other))).abs()
 internal fun BFixed.isEven() = (this % 2.big).isZero()
 

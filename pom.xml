@@ -302,7 +302,14 @@
                                 <rule>
                                     <limits>
                                         <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
                                             <minimum>100%</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>99%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

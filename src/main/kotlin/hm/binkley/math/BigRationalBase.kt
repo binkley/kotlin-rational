@@ -402,14 +402,6 @@ public abstract class BigRationalBase<
         )
 
     /**
-     * Checks that this rational is dyadic, that is, the denominator is a power
-     * of 2.
-     *
-     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
-     */
-    public open fun isDyadic(): Boolean = denominator.isDyadic()
-
-    /**
      * Checks that this rational is _p_-adic, that is, the denominator is a power
      * of [p].
      *
@@ -465,3 +457,11 @@ public fun <T : BigRationalBase<T>> T.isNegative(): Boolean = -1 == signum()
  */
 public fun <T : BigRationalBase<T>> T.isDenominatorEven(): Boolean =
     denominator.isEven()
+
+/**
+ * Checks that this rational is dyadic, that is, the denominator is a power
+ * of 2.
+ *
+ * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational"><cite>Dyadic rational</cite></a>
+ */
+public fun <T : BigRationalBase<T>> T.isDyadic(): Boolean = isPAdic(2)

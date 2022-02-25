@@ -32,7 +32,11 @@ internal class BigRationalBaseTest {
     }
 
     @Test
-    fun `should be itself`() {
+    fun `should equate`() {
+        val rational = (1 over 2)
+        @Suppress("ReplaceCallWithBinaryOperator") // JaCoCo
+        rational.equals(rational).shouldBeTrue()
+        rational.equals(this).shouldBeFalse()
         (1 over 2) shouldBe (1 over 2)
         0 shouldNotBe ZERO
         (2 over 5) shouldNotBe (2 over 3)
@@ -327,19 +331,19 @@ internal class BigRationalBaseTest {
         }
 
         @Test
-        fun `should be dyadic`() {
-            ZERO.isDyadic().shouldBeTrue()
-            (1 over 2).isDyadic().shouldBeTrue()
-            (2 over 1).isDyadic().shouldBeTrue()
-            (2 over 3).isDyadic().shouldBeFalse()
-        }
-
-        @Test
         fun `should be p-adic`() {
             ZERO.isPAdic(3).shouldBeTrue()
             (1 over 3).isPAdic(3).shouldBeTrue()
             (2 over 1).isPAdic(3).shouldBeTrue()
             (2 over 5).isPAdic(3).shouldBeFalse()
+        }
+
+        @Test
+        fun `should be dyadic`() {
+            ZERO.isDyadic().shouldBeTrue()
+            (1 over 2).isDyadic().shouldBeTrue()
+            (2 over 1).isDyadic().shouldBeTrue()
+            (2 over 3).isDyadic().shouldBeFalse()
         }
 
         @Test

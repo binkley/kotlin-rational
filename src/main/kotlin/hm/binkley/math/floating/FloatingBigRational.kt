@@ -134,7 +134,9 @@ public class FloatingBigRational private constructor(
     override operator fun rem(
         divisor: FloatingBigRational,
     ): FloatingBigRational = when {
-        isNaN() || divisor.isNaN() -> NaN
+        isNaN() -> NaN
+        divisor.isNaN() -> NaN
+        isZero() && divisor.isZero() -> NaN
         else -> super.rem(divisor)
     }
 
@@ -167,15 +169,6 @@ public class FloatingBigRational private constructor(
             isNaN() || isPositiveInfinity() || isNegativeInfinity() -> this
             else -> super.round(roundingMode)
         }
-
-    /**
-     * Checks that this rational is dyadic, that is, the denominator is a power
-     * of 2, or `false` if this number is not finite.
-     *
-     * @see <a href="https://en.wikipedia.org/wiki/Dyadic_rational">
-     *     <cite>Dyadic rational</cite></a>
-     */
-    override fun isDyadic(): Boolean = isFinite() && super.isDyadic()
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a
@@ -280,17 +273,17 @@ public class FloatingBigRational private constructor(
 
         override fun valueOf(floatingPoint: Double): FloatingBigRational =
             when {
-                floatingPoint.isNaN() -> NaN
                 floatingPoint == Double.POSITIVE_INFINITY -> POSITIVE_INFINITY
                 floatingPoint == Double.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
+                floatingPoint.isNaN() -> NaN
                 else -> super.valueOf(floatingPoint)
             }
 
         override fun valueOf(floatingPoint: Float): FloatingBigRational =
             when {
-                floatingPoint.isNaN() -> NaN
                 floatingPoint == Float.POSITIVE_INFINITY -> POSITIVE_INFINITY
                 floatingPoint == Float.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
+                floatingPoint.isNaN() -> NaN
                 else -> super.valueOf(floatingPoint)
             }
 
