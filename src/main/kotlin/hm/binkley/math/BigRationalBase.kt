@@ -141,9 +141,6 @@ public abstract class BigRationalCompanion<T : BigRationalBase<T>>(
         denominator: BFixed,
         ctor: (BFixed, BFixed) -> T,
     ): T {
-        require(!denominator.isZero()) {
-            "BUG: Internal division by zero"
-        }
         if (numerator.isZero()) return ZERO
 
         var n = numerator
