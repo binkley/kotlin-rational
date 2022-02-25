@@ -70,9 +70,7 @@ public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
 public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
 } catch (_: ArithmeticException) {
-    companion.valueOf(
-        sqrt(numerator.toDouble() / denominator.toDouble())
-    )
+    companion.valueOf(sqrt(numerator.toDouble() / denominator.toDouble()))
 }
 
 /**
@@ -111,9 +109,7 @@ public fun <T : BigRationalBase<T>> T.cbrt(): T {
 public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T = try {
     cbrt()
 } catch (_: ArithmeticException) {
-    companion.valueOf(
-        cbrt(numerator.toDouble() / denominator.toDouble())
-    )
+    companion.valueOf(cbrt(numerator.toDouble() / denominator.toDouble()))
 }
 
 /**
@@ -189,7 +185,8 @@ public fun <T : BigRationalBase<T>> T.truncate(): T {
  * `tailrec` does not support mutual recursion.
  */
 public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
-    if (isZero()) that else companion.valueOf(
+    if (isZero()) that
+    else companion.valueOf(
         numerator.gcd(that.numerator),
         denominator.lcm(that.denominator)
     )
@@ -199,7 +196,8 @@ public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
  * [that].  Returns 0 when `this` and [that] are both 0.
  */
 public fun <T : BigRationalBase<T>> T.lcm(that: T): T =
-    if (isZero()) companion.ZERO else companion.valueOf(
+    if (isZero()) companion.ZERO
+    else companion.valueOf(
         numerator.lcm(that.numerator),
         denominator.gcd(that.denominator)
     )
