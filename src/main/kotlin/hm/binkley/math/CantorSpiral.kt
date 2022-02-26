@@ -24,8 +24,8 @@ private enum class Direction { N, S, E, W }
  *
  * See https://youtu.be/3xyYs_eQTUc
  */
-internal class CantorSpiral<T : BigRationalBase<T>>(
-    private val companion: BigRationalCompanion<T>,
+internal class CantorSpiral<T : BRatBase<T>>(
+    private val companion: BRatCompanion<T>,
 ) : SeekableSequence<T> {
     override fun iterator() = object : Iterator<T> {
         private var x = ZERO

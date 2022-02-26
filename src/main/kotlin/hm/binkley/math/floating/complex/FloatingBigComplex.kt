@@ -10,6 +10,7 @@ import hm.binkley.math.floating.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
+import hm.binkley.math.toBigInteger
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.absoluteValue

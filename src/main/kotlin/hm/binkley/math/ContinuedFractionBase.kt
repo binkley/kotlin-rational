@@ -107,14 +107,6 @@ public abstract class ContinuedFractionBase<
         else -> terms.toString().replaceFirst(',', ';')
     }
 
-    /**
-     * Returns a limited list of terms for the continued fraction.  For
-     * example, `terms(0)` returns only the _integral part_ of this continued
-     * fraction.
-     */
-    public fun terms(fractionalTerms: Int): List<T> =
-        subList(0, fractionalTerms + 1)
-
     /** Helper for conversion to [T]. */
     protected fun backAgain(): T = subList(0, size - 1)
         .asReversed()
@@ -122,6 +114,15 @@ public abstract class ContinuedFractionBase<
             previous.unaryDiv() + a_ni
         }
 }
+
+/**
+ * Returns a limited list of terms for the continued fraction.  For
+ * example, `terms(0)` returns only the _integral part_ of this continued
+ * fraction, and fractional terms begin at index 1.
+ */
+public fun <T : BRatBase<T>, C : CFracBase<T, C>> C.terms(
+    fractionalTerms: Int
+): List<T> = subList(0, fractionalTerms + 1)
 
 /**
  * Returns the convergent up to [n] terms of the continued fraction.  The 0th

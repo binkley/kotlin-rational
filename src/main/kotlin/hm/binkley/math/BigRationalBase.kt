@@ -248,12 +248,6 @@ public abstract class BigRationalBase<
         .divide(BFloating(denominator, limitPlaces), roundingMode)
 
     /**
-     * Returns this as a [BigInteger] which may involve rounding
-     * corresponding to rounding mode [HALF_UP].
-     */
-    public fun toBigInteger(): BigInteger = numerator / denominator
-
-    /**
      * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
      * Java does not have a conversion to [Character] for [java.lang.Number].
      */
@@ -312,14 +306,6 @@ public abstract class BigRationalBase<
     /** Returns the arithmetic inverse of this value. */
     override operator fun unaryMinus(): T =
         companion.valueOf(numerator.negate(), denominator)
-
-    /** Increments this value by 1. */
-    public operator fun inc(): T =
-        companion.valueOf(numerator + denominator, denominator)
-
-    /** Decrements this value by 1. */
-    public operator fun dec(): T =
-        companion.valueOf(numerator - denominator, denominator)
 
     /** Adds the other value to this value. */
     override operator fun plus(addend: T): T =
@@ -435,6 +421,21 @@ public abstract class BigRationalBase<
         else -> "$numerator⁄$denominator" // UNICODE fraction slash
     }
 }
+
+/**
+ * Returns this as a [BigInteger] which may involve rounding
+ * corresponding to rounding mode [HALF_UP].
+ */
+public fun <T : BRatBase<T>> T.toBigInteger(): BigInteger =
+    numerator / denominator
+
+/** Increments this value by 1. */
+public operator fun <T : BRatBase<T>> T.inc(): T =
+    companion.valueOf(numerator + denominator, denominator)
+
+/** Decrements this value by 1. */
+public operator fun <T : BRatBase<T>> T.dec(): T =
+    companion.valueOf(numerator - denominator, denominator)
 
 /** Finds the absolute difference between values. */
 public fun <T : BRatBase<T>> T.diff(other: T): T =

@@ -7,6 +7,7 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
+import hm.binkley.math.terms
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue

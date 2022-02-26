@@ -10,6 +10,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
+import hm.binkley.math.terms
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -86,7 +87,7 @@ internal class FloatingContinuedFractionTest {
                 ONE,
                 ONE,
                 10 over 1
-// truncated from here
+                // truncated from here
             )
     }
 

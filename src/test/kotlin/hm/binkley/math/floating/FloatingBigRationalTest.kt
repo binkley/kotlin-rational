@@ -8,6 +8,7 @@ import hm.binkley.math.`^`
 import hm.binkley.math.big
 import hm.binkley.math.ceil
 import hm.binkley.math.compareTo
+import hm.binkley.math.dec
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
@@ -18,10 +19,12 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floor
+import hm.binkley.math.inc
 import hm.binkley.math.isDyadic
 import hm.binkley.math.rangeTo
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
+import hm.binkley.math.toBigInteger
 import hm.binkley.math.truncate
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -275,6 +278,9 @@ internal class FloatingBigRationalTest {
             (NaN / ONE).shouldBeNaN()
             (NaN / NaN).shouldBeNaN()
             (ONE / NaN).shouldBeNaN()
+            (NaN % ONE).shouldBeNaN()
+            (NaN % NaN).shouldBeNaN()
+            (ONE % NaN).shouldBeNaN()
         }
 
         @Test
