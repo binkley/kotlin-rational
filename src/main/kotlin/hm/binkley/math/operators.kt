@@ -1,5 +1,11 @@
 package hm.binkley.math
 
+/** Extracts the numerator for destructuring. */
+public operator fun <T : BRatBase<T>> T.component1(): BFixed = numerator
+
+/** Extracts the denominator for destructuring. */
+public operator fun <T : BRatBase<T>> T.component2(): BFixed = denominator
+
 /** Adds [addend] to this value. */
 public operator fun <T : BRatBase<T>> T.plus(addend: BFloating): T =
     this + companion.valueOf(addend)

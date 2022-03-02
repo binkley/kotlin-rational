@@ -3,6 +3,7 @@
 package hm.binkley.math
 
 import hm.binkley.math.TestBigRational.Companion.ONE
+import hm.binkley.math.TestBigRational.Companion.TEN
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestBigRational.Companion.valueOf
 import io.kotest.assertions.throwables.shouldThrow
@@ -13,6 +14,14 @@ import org.junit.jupiter.api.assertThrows
 
 @Suppress("RedundantInnerClassModifier")
 internal class OperatorsTest {
+    @Test
+    fun `should destructure`() {
+        val (numerator, denominator) = TEN
+
+        numerator shouldBe 10.big
+        denominator shouldBe 1.big
+    }
+
     @Nested
     inner class Group {
         @Test
