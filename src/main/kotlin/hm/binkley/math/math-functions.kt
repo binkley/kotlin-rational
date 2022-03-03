@@ -176,6 +176,29 @@ public fun <T : BigRationalBase<T>> T.truncate(): T {
 }
 
 /**
+ * Returns the pair of `this / other` (quotient) and `this % other`
+ * (remainder) integral division and modulo operations.
+ *
+ * @see [div]
+ */
+public fun <T : BRatBase<T>> T.divideAndRemainder(divisor: T): Pair<T, T> {
+    val quotient = (this / divisor).truncate()
+    val remainder = this - divisor * quotient
+
+    return quotient to remainder
+}
+
+/**
+ * Returns the pair of whole number and remainder.
+ * The whole number is the integer _closest to 0_ such that adding the pair
+ * results in the original rational.
+ *
+ * @see [divideAndRemainder]
+ */
+public fun <T : BRatBase<T>> T.wholeNumberAndRemainder(): Pair<T, T> =
+    divideAndRemainder(companion.ONE)
+
+/**
  * Returns the greatest common divisor of the absolute values of `this` and
  * [that].  Returns 0 when `this` and [that] are both 0.
  *

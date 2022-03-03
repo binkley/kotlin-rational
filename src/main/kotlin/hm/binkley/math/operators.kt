@@ -349,33 +349,6 @@ public operator fun <T : BRatBase<T>> T.rem(divisor: Int): T =
 public operator fun <T : BRatBase<T>> Int.rem(divisor: T): T =
     divisor.companion.valueOf(this) % divisor
 
-// The remainder below are not technically operators, but in actual usage are
-// close enough as above and below share testing.  In Perl, below would be
-// operators :)
-
-/**
- * Returns the pair of `this / other` (quotient) and `this % other`
- * (remainder) integral division and modulo operations.
- *
- * @see [div]
- */
-public fun <T : BRatBase<T>> T.divideAndRemainder(divisor: T): Pair<T, T> {
-    val quotient = (this / divisor).truncate()
-    val remainder = this - divisor * quotient
-
-    return quotient to remainder
-}
-
-/**
- * Returns the pair of whole number and remainder.
- * The whole number is the integer _closest to 0_ such that adding the pair
- * results in the original rational.
- *
- * @see [divideAndRemainder]
- */
-public fun <T : BRatBase<T>> T.wholeNumberAndRemainder(): Pair<T, T> =
-    divideAndRemainder(companion.ONE)
-
 /**
  * Provides a pseudo-operator for exponentiation, raising this value to the
  * power of [exponent].
