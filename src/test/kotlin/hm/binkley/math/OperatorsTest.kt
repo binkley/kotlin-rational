@@ -4,8 +4,8 @@ package hm.binkley.math
 
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TEN
+import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
-import hm.binkley.math.TestBigRational.Companion.valueOf
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
@@ -26,50 +26,48 @@ internal class OperatorsTest {
     inner class Group {
         @Test
         fun `should add big rational`() {
-            (valueOf(3.big, 5.big) + valueOf(2.big, 3.big)) shouldBe
-                valueOf(19.big, 15.big)
+            ((3 over 5) + (2 over 3)) shouldBe (19 over 15)
         }
 
         @Test
         fun `should add big decimal`() {
-            (1.0.big + ONE) shouldBe valueOf(2.big, 1.big)
-            (ONE + 10.0.big) shouldBe valueOf(11.big, 1.big)
+            (1.0.big + ONE) shouldBe (2 over 1)
+            (ONE + 10.0.big) shouldBe (11 over 1)
         }
 
         @Test
         fun `should add double`() {
-            (1.0 + ONE) shouldBe valueOf(2.big, 1.big)
-            (ONE + 1.0) shouldBe valueOf(2.big, 1.big)
+            (1.0 + ONE) shouldBe (2 over 1)
+            (ONE + 1.0) shouldBe (2 over 1)
         }
 
         @Test
         fun `should add float`() {
-            (1.0f + ONE) shouldBe valueOf(2.big, 1.big)
-            (ONE + 1.0f) shouldBe valueOf(2.big, 1.big)
+            (1.0f + ONE) shouldBe (2 over 1)
+            (ONE + 1.0f) shouldBe (2 over 1)
         }
 
         @Test
         fun `should add big integer`() {
-            (1.big + ONE) shouldBe valueOf(2.big, 1.big)
-            (ONE + 1.big) shouldBe valueOf(2.big, 1.big)
+            (1.big + ONE) shouldBe (2 over 1)
+            (ONE + 1.big) shouldBe (2 over 1)
         }
 
         @Test
         fun `should add long`() {
-            (1L + ONE) shouldBe valueOf(2.big, 1.big)
-            (ONE + 1L) shouldBe valueOf(2.big, 1.big)
+            (1L + ONE) shouldBe (2 over 1)
+            (ONE + 1L) shouldBe (2 over 1)
         }
 
         @Test
         fun `should add int`() {
-            (1 + ONE) shouldBe valueOf(2.big, 1.big)
-            (ONE + 1) shouldBe valueOf(2.big, 1.big)
+            (1 + ONE) shouldBe (2 over 1)
+            (ONE + 1) shouldBe (2 over 1)
         }
 
         @Test
         fun `should subtract big rational`() {
-            (valueOf(3.big, 5.big) - valueOf(2.big, 3.big)) shouldBe
-                valueOf((-1).big, 15.big)
+            ((3 over 5) - (2 over 3)) shouldBe (-1 over 15)
         }
 
         @Test
@@ -110,12 +108,12 @@ internal class OperatorsTest {
 
         @Test
         fun `should do nothing arithmetically`() {
-            (+valueOf(2.big, 3.big)) shouldBe valueOf(2.big, 3.big)
+            +(2 over 3) shouldBe (2 over 3)
         }
 
         @Test
         fun `should invert arithmetically`() {
-            (-valueOf(2.big, 3.big)) shouldBe valueOf((-2).big, 3.big)
+            -(2 over 3) shouldBe (-2 over 3)
         }
 
         @Test
@@ -135,8 +133,7 @@ internal class OperatorsTest {
     inner class Ring {
         @Test
         fun `should multiply big rational`() {
-            (valueOf(3.big, 5.big) * valueOf(2.big, 3.big)) shouldBe
-                valueOf(2.big, 5.big)
+            (3 over 5) * (2 over 3) shouldBe (2 over 5)
         }
 
         @Test
@@ -177,9 +174,9 @@ internal class OperatorsTest {
 
         @Test
         fun `should raise`() {
-            valueOf(3.big, 5.big) `^` 0 shouldBe ONE
-            valueOf(3.big, 5.big) `^` 2 shouldBe valueOf(9.big, 25.big)
-            valueOf(3.big, 5.big) `^` -2 shouldBe valueOf(25.big, 9.big)
+            (3 over 5) `^` 0 shouldBe ONE
+            (3 over 5) `^` 2 shouldBe (9 over 25)
+            (3 over 5) `^` -2 shouldBe (25 over 9)
         }
 
         @Test
@@ -199,8 +196,7 @@ internal class OperatorsTest {
     inner class Field {
         @Test
         fun `should divide big rational`() {
-            (valueOf(3.big, 5.big) / valueOf(2.big, 3.big)) shouldBe
-                valueOf(9.big, 10.big)
+            (3 over 5) / (2 over 3) shouldBe (9 over 10)
         }
 
         @Test
@@ -241,7 +237,7 @@ internal class OperatorsTest {
 
         @Test
         fun `should modulo big rational`() {
-            (valueOf(3.big, 5.big) % valueOf(2.big, 3.big)) shouldBe ZERO
+            (3 over 5) % (2 over 3) shouldBe ZERO
         }
 
         @Test
@@ -322,31 +318,33 @@ internal class OperatorsTest {
 
         @Test
         fun `should divide with remainder`() {
-            valueOf(13.big, 2.big).divideAndRemainder(
-                valueOf(3.big, 1.big)
-            ) shouldBe (valueOf(2.big, 1.big) to valueOf(1.big, 2.big))
-            valueOf((-13).big, 2.big).divideAndRemainder(
-                valueOf((-3).big, 1.big)
-            ) shouldBe (valueOf(2.big, 1.big) to valueOf((-1).big, 2.big))
-            valueOf((-13).big, 2.big).divideAndRemainder(
-                valueOf(3.big, 1.big)
-            ) shouldBe (valueOf((-2).big, 1.big) to valueOf((-1).big, 2.big))
-            valueOf(13.big, 2.big).divideAndRemainder(
-                valueOf((-3).big, 1.big)
-            ) shouldBe (valueOf((-2).big, 1.big) to valueOf(1.big, 2.big))
+            (13 over 2).divideAndRemainder(3 over 1) shouldBe
+                ((2 over 1) to (1 over 2))
+            (-13 over 2).divideAndRemainder(-3 over 1) shouldBe
+                ((2 over 1) to (-1 over 2))
+            (-13 over 2).divideAndRemainder(3 over 1) shouldBe
+                ((-2 over 1) to (-1 over 2))
+            (13 over 2).divideAndRemainder(-3 over 1) shouldBe
+                ((-2 over 1) to (1 over 2))
+        }
+
+        @Test
+        fun `should be a whole number and a remainder`() {
+            (5 over 2).wholeNumberAndRemainder() shouldBe (TWO to (1 over 2))
+            (-5 over 2).wholeNumberAndRemainder() shouldBe (-TWO to (-1 over 2))
         }
 
         @Test
         fun `should invert multiplicatively`() {
-            valueOf(2.big, 3.big).unaryDiv() shouldBe valueOf(3.big, 2.big)
+            (2 over 3).unaryDiv() shouldBe (3 over 2)
         }
     }
 
     @Test
     fun `should be ℚ-ish`() {
-        val twoThirds = valueOf(2.big, 3.big)
-        val threeHalves = valueOf(3.big, 2.big)
-        val fiveSevenths = valueOf(5.big, 7.big)
+        val twoThirds = (2 over 3)
+        val threeHalves = (3 over 2)
+        val fiveSevenths = (5 over 7)
 
         // Identity elements
         (twoThirds + ZERO) shouldBe twoThirds

@@ -367,6 +367,16 @@ public fun <T : BRatBase<T>> T.divideAndRemainder(divisor: T): Pair<T, T> {
 }
 
 /**
+ * Returns the pair of whole number and remainder.
+ * The whole number is the integer _closest to 0_ such that adding the pair
+ * results in the original rational.
+ *
+ * @see [divideAndRemainder]
+ */
+public fun <T : BRatBase<T>> T.wholeNumberAndRemainder(): Pair<T, T> =
+    divideAndRemainder(companion.ONE)
+
+/**
  * Provides a pseudo-operator for exponentiation, raising this value to the
  * power of [exponent].
  */
