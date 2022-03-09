@@ -48,7 +48,7 @@ jobs:
         run: ./batect build
 
       - name: Execute run script
-        run: ./batect run
+        run: ./batect demo
 
 # Disable until public access is resolved:
 # https://github.community/t/download-from-github-package-registry-without-authentication/14407

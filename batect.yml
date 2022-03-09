@@ -22,11 +22,11 @@ tasks:
     run:
       container: build-env
       command: ./mvnw --no-transfer-progress clean verify site
-  run:
+  demo:
     description: Runs the demo program
     run:
       container: build-env
-      command: ./run.sh -L kotlin main
+      command: ./run
   java-run:
     description: Runs the Java demo program
     run:
