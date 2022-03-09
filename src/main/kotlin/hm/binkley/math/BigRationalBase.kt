@@ -378,13 +378,13 @@ public abstract class BigRationalBase<
         denominator + that.denominator
     )
 
-    /** Checks that this rational is an integer. */
-    public fun isInteger(): Boolean = denominator.isUnit()
+    /** Checks that this rational is a whole number (no fractional part). */
+    public fun isWhole(): Boolean = denominator.isUnit()
 
     /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
     public open fun round(roundingMode: RoundingMode): T =
-        if (isInteger()) this as T
+        if (isWhole()) this as T
         else companion.valueOf(
             // BigInteger does not have a divide with rounding mode
             numerator.toBigDecimal()

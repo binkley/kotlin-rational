@@ -325,9 +325,9 @@ internal class BigRationalBaseTest {
 
         @Test
         fun `should be integral`() {
-            ZERO.isInteger().shouldBeTrue()
-            (2 over 1).isInteger().shouldBeTrue()
-            (1 over 2).isInteger().shouldBeFalse()
+            ZERO.isWhole().shouldBeTrue()
+            (2 over 1).isWhole().shouldBeTrue()
+            (1 over 2).isWhole().shouldBeFalse()
         }
 
         @Test

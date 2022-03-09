@@ -327,9 +327,9 @@ internal class FloatingBigRationalTest {
 
     @Test
     fun `should note integer rationals`() {
-        POSITIVE_INFINITY.isInteger().shouldBeFalse()
-        NEGATIVE_INFINITY.isInteger().shouldBeFalse()
-        NaN.isInteger().shouldBeFalse()
+        POSITIVE_INFINITY.isWhole().shouldBeFalse()
+        NEGATIVE_INFINITY.isWhole().shouldBeFalse()
+        NaN.isWhole().shouldBeFalse()
     }
 
     @Test
