@@ -189,14 +189,15 @@ public fun <T : BRatBase<T>> T.divideAndRemainder(divisor: T): Pair<T, T> {
 }
 
 /**
- * Returns the pair of whole number and remainder.
+ * Returns the pair of "whole number" and remainder.
  * The whole number is the integer _closest to 0_ such that adding the pair
  * results in the original rational.
  *
  * @see [divideAndRemainder]
  */
-public fun <T : BRatBase<T>> T.wholeNumberAndRemainder(): Pair<T, T> =
-    divideAndRemainder(companion.ONE)
+public fun <T : BRatBase<T>> T.wholeAndRemainder(): Pair<T, T> =
+    if (isWhole()) this to companion.ZERO
+    else divideAndRemainder(companion.ONE)
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and
@@ -207,12 +208,10 @@ public fun <T : BRatBase<T>> T.wholeNumberAndRemainder(): Pair<T, T> =
  * Note: this code has recursive calls between [gcd] and [lcm], and Kotlin
  * `tailrec` does not support mutual recursion.
  */
-public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
-    if (isZero()) that
-    else companion.valueOf(
-        numerator.gcd(that.numerator),
-        denominator.lcm(that.denominator)
-    )
+public fun <T : BigRationalBase<T>> T.gcd(that: T): T = if (isZero()) that
+else companion.valueOf(
+    numerator.gcd(that.numerator), denominator.lcm(that.denominator)
+)
 
 /**
  * Returns the lowest common multiple of the absolute values of `this` and
@@ -221,6 +220,5 @@ public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
 public fun <T : BigRationalBase<T>> T.lcm(that: T): T =
     if (isZero()) companion.ZERO
     else companion.valueOf(
-        numerator.lcm(that.numerator),
-        denominator.gcd(that.denominator)
+        numerator.lcm(that.numerator), denominator.gcd(that.denominator)
     )

@@ -318,6 +318,7 @@ internal class OperatorsTest {
 
         @Test
         fun `should divide with remainder`() {
+            (6 over 1).divideAndRemainder(TWO) shouldBe ((3 over 1) to ZERO)
             (13 over 2).divideAndRemainder(3 over 1) shouldBe
                 ((2 over 1) to (1 over 2))
             (-13 over 2).divideAndRemainder(-3 over 1) shouldBe
@@ -330,8 +331,9 @@ internal class OperatorsTest {
 
         @Test
         fun `should be a whole number and a remainder`() {
-            (5 over 2).wholeNumberAndRemainder() shouldBe (TWO to (1 over 2))
-            (-5 over 2).wholeNumberAndRemainder() shouldBe (-TWO to (-1 over 2))
+            (6 over 1).wholeAndRemainder() shouldBe ((6 over 1) to ZERO)
+            (5 over 2).wholeAndRemainder() shouldBe (TWO to (1 over 2))
+            (-5 over 2).wholeAndRemainder() shouldBe (-TWO to (-1 over 2))
         }
 
         @Test
