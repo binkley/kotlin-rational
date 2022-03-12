@@ -48,11 +48,4 @@ jobs:
         run: ./batect build
 
       - name: Execute run script
-        run: ./batect demo
-
-# Disable until public access is resolved:
-# https://github.community/t/download-from-github-package-registry-without-authentication/14407
-#      - name: Publish package to GitHub Packages
-#        run: ./mvnw --batch-mode deploy
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./batect -o quiet demo
