@@ -429,20 +429,3 @@ public fun BRat.toContinuedFraction(): CFrac = CFrac.valueOf(this)
  */
 public fun BRat.toFloatingBigRational(): FloatingBigRational =
     FloatingBigRational.valueOf(numerator, denominator)
-
-/**
- * Returns an average value of elements in the collection.
- *
- * @todo Stdlib returns `Double`.  Should this fun return same?
- */
-public fun Iterable<BRat>.average(): BRat = sum() / count()
-
-/** Returns the sum of all elements in the collection. */
-public fun Iterable<BRat>.sum(): BRat = sumOf { it }
-
-/**
- * Returns the sum of all values produced by [selector] function applied to each
- * element in the collection.
- */
-public fun <T> Iterable<T>.sumOf(selector: (T) -> BRat): BRat =
-    fold(ZERO) { acc, element -> acc + selector(element) }

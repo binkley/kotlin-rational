@@ -6,12 +6,10 @@ import hm.binkley.math.big
 import hm.binkley.math.compareTo
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TEN
-import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
 import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.rangeTo
-import hm.binkley.math.times
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.shouldBe
@@ -299,24 +297,6 @@ internal class FixedBigRationalTest {
             shouldThrow<ArithmeticException> {
                 ZERO.unaryDiv()
             }
-        }
-    }
-
-    @Nested
-    inner class CollectionTests {
-        @Test
-        fun `should average`() {
-            listOf(ZERO, ONE, TWO).average() shouldBe ONE
-        }
-
-        @Test
-        fun `should sum`() {
-            listOf(ZERO, ONE, TWO).sum() shouldBe (3 over 1)
-        }
-
-        @Test
-        fun `should sum of`() {
-            listOf(ZERO, ONE, TWO).sumOf { it * 2 } shouldBe (6 over 1)
         }
     }
 }

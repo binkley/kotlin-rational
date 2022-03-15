@@ -690,20 +690,3 @@ public fun BRat.isPositiveInfinity(): Boolean = POSITIVE_INFINITY === this
  * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
  */
 public fun BRat.isNegativeInfinity(): Boolean = NEGATIVE_INFINITY === this
-
-/**
- * Returns an average value of elements in the collection.
- *
- * @todo Stdlib returns `Double`.  Should this fun return same?
- */
-public fun Iterable<BRat>.average(): BRat = sum() / count()
-
-/** Returns the sum of all elements in the collection. */
-public fun Iterable<BRat>.sum(): BRat = sumOf { it }
-
-/**
- * Returns the sum of all values produced by [selector] function applied to each
- * element in the collection.
- */
-public fun <T> Iterable<T>.sumOf(selector: (T) -> BRat): BRat =
-    fold(ZERO) { acc, element -> acc + selector(element) }

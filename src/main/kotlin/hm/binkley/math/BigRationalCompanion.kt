@@ -105,6 +105,23 @@ public abstract class BigRationalCompanion<T : BRatBase<T>>(
     /** Generates the Cantor spiral for walking the rationals. */
     public fun cantorSpiral(): Sequence<T> = CantorSpiral(this)
 
+    /**
+     * Returns an average value of elements in the collection.
+     *
+     * @todo Stdlib returns `Double`.  Should this fun return same?
+     */
+    public fun Iterable<T>.average(): T = sum() / count()
+
+    /** Returns the sum of all elements in the collection. */
+    public fun Iterable<T>.sum(): T = sumOf { it }
+
+    /**
+     * Returns the sum of all values produced by [selector] function applied to each
+     * element in the collection.
+     */
+    public fun <E> Iterable<E>.sumOf(selector: (E) -> T): T =
+        fold(ZERO) { acc, element -> acc + selector(element) }
+
     internal open fun iteratorCheck(first: T, last: T, step: T) {
         if (step.isZero()) error("Step must be non-zero.")
     }
