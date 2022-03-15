@@ -24,6 +24,7 @@ import hm.binkley.math.isDyadic
 import hm.binkley.math.rangeTo
 import hm.binkley.math.sqrt
 import hm.binkley.math.sqrtApproximated
+import hm.binkley.math.times
 import hm.binkley.math.toBigInteger
 import hm.binkley.math.truncate
 import io.kotest.assertions.throwables.shouldThrow
@@ -765,6 +766,24 @@ internal class FloatingBigRationalTest {
             cfNegInf.isFinite().shouldBeFalse()
             cfNegInf.toBigRational().shouldBeNaN()
             cfNegInf.integerPart.shouldBeNaN()
+        }
+    }
+
+    @Nested
+    inner class CollectionTests {
+        @Test
+        fun `should average`() {
+            listOf(ZERO, ONE, TWO).average() shouldBe ONE
+        }
+
+        @Test
+        fun `should sum`() {
+            listOf(ZERO, ONE, TWO).sum() shouldBe (3 over 1)
+        }
+
+        @Test
+        fun `should sum of`() {
+            listOf(ZERO, ONE, TWO).sumOf { it * 2 } shouldBe (6 over 1)
         }
     }
 }

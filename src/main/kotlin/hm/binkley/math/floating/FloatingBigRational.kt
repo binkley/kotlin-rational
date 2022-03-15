@@ -5,6 +5,7 @@ import hm.binkley.math.BFloating
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.big
+import hm.binkley.math.div
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.equivalent
 import hm.binkley.math.fixed.FixedBigRational
@@ -117,7 +118,8 @@ public class FloatingBigRational private constructor(
 
     /**
      * The signum of this value: -1 for negative, 0 for zero, or 1 for
-     * positive.  `sign` of [NaN] is [NaN].
+     * positive.
+     * `sign` of [NaN] is [NaN].
      */
     override val sign: BRat
         get() = when {
@@ -156,19 +158,17 @@ public class FloatingBigRational private constructor(
      * this function returns `(a+c)/(b+d)` (order of `this` and [that] does
      * not matter).
      */
-    override fun mediant(that: BRat): BRat =
-        when {
-            isNaN() || that.isNaN() -> NaN
-            (isPositiveInfinity() && that.isNegativeInfinity()) ||
-                (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
-            else -> super.mediant(that)
-        }
+    override fun mediant(that: BRat): BRat = when {
+        isNaN() || that.isNaN() -> NaN
+        (isPositiveInfinity() && that.isNegativeInfinity()) ||
+            (isNegativeInfinity() && that.isPositiveInfinity()) -> ZERO
+        else -> super.mediant(that)
+    }
 
-    override fun round(roundingMode: RoundingMode): BRat =
-        when {
-            isNaN() || isPositiveInfinity() || isNegativeInfinity() -> this
-            else -> super.round(roundingMode)
-        }
+    override fun round(roundingMode: RoundingMode): BRat = when {
+        isNaN() || isPositiveInfinity() || isNegativeInfinity() -> this
+        else -> super.round(roundingMode)
+    }
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a
@@ -228,8 +228,7 @@ public class FloatingBigRational private constructor(
          * Usable directly from Java via `Companion`.
          */
         @JvmField
-        public val POSITIVE_INFINITY: BRat =
-            BRat(1.big, 0.big)
+        public val POSITIVE_INFINITY: BRat = BRat(1.big, 0.big)
 
         /**
          * A constant holding negative infinity value of type
@@ -238,8 +237,7 @@ public class FloatingBigRational private constructor(
          * Usable directly from Java via `Companion`.
          */
         @JvmField
-        public val NEGATIVE_INFINITY: BRat =
-            BRat(1.big.negate(), 0.big)
+        public val NEGATIVE_INFINITY: BRat = BRat(1.big.negate(), 0.big)
 
         /**
          * Returns a [BRat] whose value is equal to that of the
@@ -271,21 +269,19 @@ public class FloatingBigRational private constructor(
             }
         }
 
-        override fun valueOf(floatingPoint: Double): BRat =
-            when {
-                floatingPoint == Double.POSITIVE_INFINITY -> POSITIVE_INFINITY
-                floatingPoint == Double.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
-                floatingPoint.isNaN() -> NaN
-                else -> super.valueOf(floatingPoint)
-            }
+        override fun valueOf(floatingPoint: Double): BRat = when {
+            Double.POSITIVE_INFINITY == floatingPoint -> POSITIVE_INFINITY
+            Double.NEGATIVE_INFINITY == floatingPoint -> NEGATIVE_INFINITY
+            floatingPoint.isNaN() -> NaN
+            else -> super.valueOf(floatingPoint)
+        }
 
-        override fun valueOf(floatingPoint: Float): BRat =
-            when {
-                floatingPoint == Float.POSITIVE_INFINITY -> POSITIVE_INFINITY
-                floatingPoint == Float.NEGATIVE_INFINITY -> NEGATIVE_INFINITY
-                floatingPoint.isNaN() -> NaN
-                else -> super.valueOf(floatingPoint)
-            }
+        override fun valueOf(floatingPoint: Float): BRat = when {
+            Float.POSITIVE_INFINITY == floatingPoint -> POSITIVE_INFINITY
+            Float.NEGATIVE_INFINITY == floatingPoint -> NEGATIVE_INFINITY
+            floatingPoint.isNaN() -> NaN
+            else -> super.valueOf(floatingPoint)
+        }
 
         override fun iteratorCheck(
             first: BRat,
@@ -647,10 +643,8 @@ public fun Int.toBigRational(): BRat = valueOf(this)
  *
  * Non-finite BigRationals produce `[NaN;]`.
  */
-/* ktlint-disable max-line-length */
 public fun BRat.toContinuedFraction(): FloatingContinuedFraction =
     FloatingContinuedFraction.valueOf(this)
-/* ktlint-enable max-line-length */
 
 /**
  * Converts this _floating_ big rational to a _fixed_ equivalent.
@@ -688,13 +682,28 @@ public fun BRat.isNaN(): Boolean = this === NaN
  *
  * NB -- `POSITIVE_INFINITY != POSITIVE_INFINITY`
  */
-public fun BRat.isPositiveInfinity(): Boolean =
-    this === POSITIVE_INFINITY
+public fun BRat.isPositiveInfinity(): Boolean = POSITIVE_INFINITY === this
 
 /**
  * Checks that this rational is negative infinity.
  *
  * NB -- `NEGATIVE_INFINITY != NEGATIVE_INFINITY`
  */
-public fun BRat.isNegativeInfinity(): Boolean =
-    this === NEGATIVE_INFINITY
+public fun BRat.isNegativeInfinity(): Boolean = NEGATIVE_INFINITY === this
+
+/**
+ * Returns an average value of elements in the collection.
+ *
+ * @todo Stdlib returns `Double`.  Should this fun return same?
+ */
+public fun Iterable<BRat>.average(): BRat = sum() / count()
+
+/** Returns the sum of all elements in the collection. */
+public fun Iterable<BRat>.sum(): BRat = sumOf { it }
+
+/**
+ * Returns the sum of all values produced by [selector] function applied to each
+ * element in the collection.
+ */
+public fun <T> Iterable<T>.sumOf(selector: (T) -> BRat): BRat =
+    fold(ZERO) { acc, element -> acc + selector(element) }

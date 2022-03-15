@@ -22,9 +22,7 @@ import java.math.BigInteger
  */
 public class FloatingContinuedFraction private constructor(
     terms: List<BRat>,
-) : CFracBase<BRat, FloatingContinuedFraction>(
-    terms, FloatingContinuedFraction
-) {
+) : CFracBase(terms, FloatingContinuedFraction) {
     override fun construct(terms: List<BRat>): CFrac = CFrac(terms)
 
     override fun toBigRational(): BRat =

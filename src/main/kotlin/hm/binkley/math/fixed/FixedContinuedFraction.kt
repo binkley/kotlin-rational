@@ -1,7 +1,6 @@
 package hm.binkley.math.fixed
 
 import hm.binkley.math.BFixed
-import hm.binkley.math.ContinuedFractionBase
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational
@@ -20,9 +19,7 @@ import java.math.BigInteger
  * values are convertible to [FixedBigRational].
  */
 public class FixedContinuedFraction private constructor(terms: List<BRat>) :
-    ContinuedFractionBase<BRat, FixedContinuedFraction>(
-        terms, FixedContinuedFraction
-    ) {
+    CFracBase(terms, FixedContinuedFraction) {
     override fun construct(terms: List<BRat>): CFrac = CFrac(terms)
 
     override fun toBigRational(): BRat = backAgain()
