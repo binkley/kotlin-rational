@@ -49,3 +49,6 @@ jobs:
 
       - name: Execute run script
         run: ./batect -o quiet demo
+
+      - name: Execute run script for Java
+        run: ./batect -o quiet java-demo

@@ -27,11 +27,11 @@ tasks:
     run:
       container: build-env
       command: ./run
-  java-run:
+  java-demo:
     description: Runs the Java demo program
     run:
       container: build-env
-      command: ./run.sh -L java main
+      command: ./run -L java main
   shell:
     description: Opens a shell in the container
     run:
