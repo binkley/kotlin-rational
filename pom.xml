@@ -330,10 +330,6 @@
                 <configuration>
                     <avoidCallsTo>
                         <avoidCallsTo>kotlin.jvm.internal</avoidCallsTo>
-                        <avoidCallsTo>java.util.logging</avoidCallsTo>
-                        <avoidCallsTo>org.apache.log4j</avoidCallsTo>
-                        <avoidCallsTo>org.slf4j</avoidCallsTo>
-                        <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
                     </avoidCallsTo>
                     <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
@@ -356,8 +352,7 @@
                     <targetTests>
                         <param>hm.binkley*</param>
                     </targetTests>
-                    <!-- TODO: Experiment with 'true' -->
-                    <withHistory>false</withHistory>
+                    <withHistory>true</withHistory>
                     <timestampedReports>false</timestampedReports>
                 </configuration>
                 <executions>
