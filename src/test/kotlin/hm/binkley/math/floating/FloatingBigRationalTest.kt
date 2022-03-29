@@ -335,6 +335,7 @@ internal class FloatingBigRationalTest {
     @Test
     fun `should note p-adic rationals`() {
         (1 over 3).isPAdic(3).shouldBeTrue()
+        (2 over 5).isPAdic(3).shouldBeFalse()
         POSITIVE_INFINITY.isPAdic(3).shouldBeFalse()
         NEGATIVE_INFINITY.isPAdic(3).shouldBeFalse()
         NaN.isPAdic(3).shouldBeFalse()

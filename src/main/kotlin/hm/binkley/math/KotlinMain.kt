@@ -13,9 +13,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingBigRational.Companion.cantorSpiral
 import hm.binkley.math.floating.over
 import hm.binkley.math.floating.toBigRational
-import lombok.Generated
 
-@Generated // Lie to JaCoCo
 public fun main() {
     println("==FLOATING BIG RATIONALS")
 
@@ -48,8 +46,7 @@ public fun main() {
     println()
 
     try {
-        @Suppress("ControlFlowWithEmptyBody")
-        for (r in POSITIVE_INFINITY..NaN); // ktlint-disable no-semi
+        @Suppress("ControlFlowWithEmptyBody") for (r in POSITIVE_INFINITY..NaN); // ktlint-disable no-semi
     } catch (e: IllegalStateException) {
         println("Expected error for progression containing $NaN: $e")
     }
@@ -157,16 +154,38 @@ public fun main() {
         FixedBigRational.ONE.equivalent(ONE)
         }"
     )
+
+    println()
+    println("==SPECIAL PRINTING (UNICODE vulgar from solidus in some terminals)")
+    println(
+        listOf(
+            1 over 2, // 0 over 3 -- reduces to ZERO, not to a fraction
+            1 over 3,
+            2 over 3,
+            1 over 4,
+            3 over 4,
+            1 over 5,
+            2 over 5,
+            3 over 5,
+            4 over 5,
+            1 over 6,
+            5 over 6,
+            1 over 7,
+            1 over 8,
+            5 over 8,
+            7 over 8,
+            1 over 9,
+            1 over 10,
+        ).joinToString()
+    )
 }
 
-@Generated // Lie to JaCoCo
 private fun dump(d: Double) {
     val rat = d.toBigRational()
 
     println("$d -> $rat -> ${rat.toDouble()}")
 }
 
-@Generated // Lie to JaCoCo
 private fun dump(f: Float) {
     val rat = f.toBigRational()
 

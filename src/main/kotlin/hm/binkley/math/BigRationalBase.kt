@@ -230,8 +230,8 @@ public abstract class BigRationalBase<
         )
 
     /**
-     * Checks that this rational is _p_-adic, that is, the denominator is a power
-     * of [p].
+     * Checks that this rational is _p_-adic, that is, the denominator is a
+     * power of [p].
      *
      * *NB* &mdash; No check is made that [p] is prime, as required by the
      * definition of _p_-adic numbers.
