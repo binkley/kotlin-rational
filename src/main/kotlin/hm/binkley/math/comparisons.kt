@@ -1,6 +1,11 @@
 package hm.binkley.math
 
-/** Checks if this is an equivalent rational fraction to [other]. */
+/**
+ * Checks if this is an equivalent rational fraction to [other].
+ * This is distinct from [equals]: `equivalent` is mathematically equal
+ * regardless of representation; `equals` is programming equal including
+ * object type.
+ */
 public fun <T : BRatBase<T>, U : BRatBase<U>> T.equivalent(
     other: U,
 ): Boolean = 0 == this.compareTo(other)
