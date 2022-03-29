@@ -34,6 +34,10 @@
 
     <properties>
         <!-- @formatter:off -->
+        <coverage.branches>99</coverage.branches>
+        <coverage.lines>100</coverage.lines>
+        <coverage.instructions>100</coverage.instructions>
+        <coverage.mutation>90</coverage.mutation>
         <dependency-check-maven.version>7.0.2</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.19.1</detekt-maven-plugin.version>
         <dokka.version>1.6.10</dokka.version>
@@ -285,17 +289,17 @@
                                 <limit>
                                     <counter>LINE</counter>
                                     <value>COVEREDRATIO</value>
-                                    <minimum>100%</minimum>
+                                    <minimum>${coverage.lines}%</minimum>
                                 </limit>
                                 <limit>
                                     <counter>BRANCH</counter>
                                     <value>COVEREDRATIO</value>
-                                    <minimum>99%</minimum>
+                                    <minimum>${coverage.branches}%</minimum>
                                 </limit>
                                 <limit>
                                     <counter>INSTRUCTION</counter>
                                     <value>COVEREDRATIO</value>
-                                    <minimum>100%</minimum>
+                                    <minimum>${coverage.instructions}%</minimum>
                                 </limit>
                             </limits>
                         </rule>
@@ -345,7 +349,7 @@
                         <excludedMethod>shortValue</excludedMethod>
                     </excludedMethods>
                     <!-- TODO: How to make mutation testing happier? -->
-                    <mutationThreshold>89</mutationThreshold>
+                    <mutationThreshold>${coverage.mutation}</mutationThreshold>
                     <targetClasses>
                         <param>hm.binkley*</param>
                     </targetClasses>
