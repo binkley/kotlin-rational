@@ -5,6 +5,7 @@ import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import hm.binkley.math.TestContinuedFraction.Companion.phi
 import hm.binkley.math.TestContinuedFraction.Companion.root2
+import hm.binkley.math.TestContinuedFraction.Companion.root3
 import hm.binkley.math.TestContinuedFraction.Companion.valueOf
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -69,7 +70,7 @@ internal class ContinuedFractionTest {
         val approximation = phi(10).toBigRational()
 
         approximation shouldBe (89 over 55)
-        (decimalApproximation - approximation) shouldBe (-1637 over 11000000)
+        (decimalApproximation - approximation) shouldBe (-1637 over 11_000_000)
 
         shouldThrow<IllegalStateException> { phi(0) }
         shouldThrow<IllegalStateException> { phi(-1) }
@@ -81,10 +82,24 @@ internal class ContinuedFractionTest {
         val approximation = root2(10).toBigRational()
 
         approximation shouldBe (3363 over 2378)
-        (decimalApproximation - approximation) shouldBe (-743 over 1_189_000_000)
+        (decimalApproximation - approximation) shouldBe
+            (-743 over 1_189_000_000)
 
         shouldThrow<IllegalStateException> { root2(0) }
         shouldThrow<IllegalStateException> { root2(-1) }
+    }
+
+    @Test
+    fun `should approximate root three`() {
+        // 1_732_050 // _80757
+        val decimalApproximation = 1_732_050 over 1_000_000
+        val approximation = root3(10).toBigRational()
+
+        approximation shouldBe (362 over 209)
+        (decimalApproximation - approximation) shouldBe (-31 over 4_180_000)
+
+        shouldThrow<IllegalStateException> { root3(0) }
+        shouldThrow<IllegalStateException> { root3(-1) }
     }
 }
 

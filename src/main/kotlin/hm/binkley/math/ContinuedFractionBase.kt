@@ -197,6 +197,15 @@ public abstract class ContinuedFractionCompanionBase<
     public fun root2(n: Int): C =
         if (0 < n) construct(MutableList(n - 1) { TWO }.prepend(ONE))
         else error("Not enough digits to approximate √2: $n")
+
+    /** Creates a continued fraction for √3 of [n] parts. */
+    public fun root3(n: Int): C =
+        if (0 < n) construct(
+            MutableList(n - 1) { index ->
+                if (0 == index % 2) ONE else TWO
+            }.prepend(ONE)
+        )
+        else error("Not enough digits to approximate √3: $n")
 }
 
 private fun <T> MutableList<T>.prepend(element: T) =
