@@ -181,6 +181,7 @@
                         <arg>-Xexplicit-api=strict</arg>
                         <arg>-Werror</arg>
                     </args>
+                    <javaParameters>true</javaParameters>
                 </configuration>
                 <executions>
                     <execution>
