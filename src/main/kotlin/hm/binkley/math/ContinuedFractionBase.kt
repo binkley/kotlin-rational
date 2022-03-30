@@ -183,6 +183,18 @@ public abstract class ContinuedFractionCompanionBase<
         return construct(terms)
     }
 
+    /** Creates a continued fraction for e (Euler's number) of [n] parts. */
+    public fun e(n: Int): C =
+        if (0 < n) construct(
+            MutableList(n - 1) { index ->
+                when (index % 3) {
+                    0, 2 -> ONE
+                    else -> constructTerm((2 * (1 + index / 3)).big)
+                }
+            }.prepend(TWO)
+        )
+        else error("Not enough digits to approximate √2: $n")
+
     /**
      * Creates a continued fraction for φ (the golden ration) of [n] parts.
      * Note two key properties:

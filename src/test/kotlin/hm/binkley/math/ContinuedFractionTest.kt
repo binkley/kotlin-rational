@@ -3,6 +3,7 @@ package hm.binkley.math
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
+import hm.binkley.math.TestContinuedFraction.Companion.e
 import hm.binkley.math.TestContinuedFraction.Companion.phi
 import hm.binkley.math.TestContinuedFraction.Companion.root2
 import hm.binkley.math.TestContinuedFraction.Companion.root3
@@ -65,12 +66,24 @@ internal class ContinuedFractionTest {
     }
 
     @Test
+    fun `should approximate Euler's number`() {
+        val decimalApproximation = 2_718_282 over 1_000_000
+        val approximation = e(10).toBigRational()
+
+        approximation shouldBe (1_457 over 536)
+        (decimalApproximation - approximation) shouldBe (-53 over 33_500_000)
+
+        shouldThrow<IllegalStateException> { e(0) }
+        shouldThrow<IllegalStateException> { e(-1) }
+    }
+
+    @Test
     fun `should approximate the golden ratio`() {
         val decimalApproximation = 1_618_033 over 1_000_000
         val approximation = phi(10).toBigRational()
 
         approximation shouldBe (89 over 55)
-        (decimalApproximation - approximation) shouldBe (-1637 over 11_000_000)
+        (decimalApproximation - approximation) shouldBe (-1_637 over 11_000_000)
 
         shouldThrow<IllegalStateException> { phi(0) }
         shouldThrow<IllegalStateException> { phi(-1) }
@@ -78,12 +91,11 @@ internal class ContinuedFractionTest {
 
     @Test
     fun `should approximate root two`() {
-        val decimalApproximation = 1_414_213 over 1_000_000
+        val decimalApproximation = 1_414_214 over 1_000_000
         val approximation = root2(10).toBigRational()
 
         approximation shouldBe (3363 over 2378)
-        (decimalApproximation - approximation) shouldBe
-            (-743 over 1_189_000_000)
+        (decimalApproximation - approximation) shouldBe (223 over 594_500_000)
 
         shouldThrow<IllegalStateException> { root2(0) }
         shouldThrow<IllegalStateException> { root2(-1) }
@@ -91,12 +103,12 @@ internal class ContinuedFractionTest {
 
     @Test
     fun `should approximate root three`() {
-        // 1_732_050 // _80757
-        val decimalApproximation = 1_732_050 over 1_000_000
+        val decimalApproximation = 1_732_051 over 1_000_000
         val approximation = root3(10).toBigRational()
 
         approximation shouldBe (362 over 209)
-        (decimalApproximation - approximation) shouldBe (-31 over 4_180_000)
+        (decimalApproximation - approximation) shouldBe
+            (-1_341 over 209_000_000)
 
         shouldThrow<IllegalStateException> { root3(0) }
         shouldThrow<IllegalStateException> { root3(-1) }
