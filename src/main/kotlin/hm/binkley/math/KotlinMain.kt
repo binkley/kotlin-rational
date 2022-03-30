@@ -156,7 +156,9 @@ public fun main() {
     )
 
     println()
-    println("==SPECIAL PRINTING (UNICODE vulgar from solidus in some terminals)")
+    println(
+        "==SPECIAL PRINTING (UNICODE vulgar from solidus in some terminals)"
+    )
     println(
         listOf(
             1 over 2, // 0 over 3 -- reduces to ZERO, not to a fraction

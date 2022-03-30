@@ -34,9 +34,9 @@
 
     <properties>
         <!-- @formatter:off -->
-        <coverage.branches>99</coverage.branches>
-        <coverage.lines>100</coverage.lines>
-        <coverage.instructions>100</coverage.instructions>
+        <coverage.branches>97</coverage.branches>
+        <coverage.lines>99</coverage.lines>
+        <coverage.instructions>99</coverage.instructions>
         <coverage.mutation>90</coverage.mutation>
         <dependency-check-maven.version>7.0.2</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.19.1</detekt-maven-plugin.version>
