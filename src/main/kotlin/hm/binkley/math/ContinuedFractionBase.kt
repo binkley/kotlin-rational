@@ -159,7 +159,7 @@ private tailrec fun <T : BRatBase<T>> converge(
 public abstract class ContinuedFractionCompanionBase<
     T : BRatBase<T>,
     C : CFracBase<T, C>,
-    >(private val ONE: T) {
+    >(private val ONE: T, private val TWO: T) {
     internal abstract fun constructTerm(term: BFixed): T
     internal abstract fun construct(terms: List<T>): C
 
@@ -184,15 +184,23 @@ public abstract class ContinuedFractionCompanionBase<
     }
 
     /**
-     * Creates a continued fraction for φ (the golden ration) of [n]
-     * parts.  Note two key properties:
+     * Creates a continued fraction for φ (the golden ration) of [n] parts.
+     * Note two key properties:
      * - Convergents are ratios of Fibonacci numbers
      * - The approximation is rather slow
      */
     public fun phi(n: Int): C =
         if (0 < n) construct(List(n) { ONE })
         else error("Not enough digits to approximate φ: $n")
+
+    /** Creates a continued fraction for √2 of [n] parts. */
+    public fun root2(n: Int): C =
+        if (0 < n) construct(MutableList(n - 1) { TWO }.prepend(ONE))
+        else error("Not enough digits to approximate √2: $n")
 }
+
+private fun <T> MutableList<T>.prepend(element: T) =
+    also { add(0, element) }
 
 /**
  * Checks if this continued fraction is _simple_ (has only 1 in all

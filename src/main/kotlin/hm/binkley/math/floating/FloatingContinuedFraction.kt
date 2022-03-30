@@ -4,6 +4,7 @@ import hm.binkley.math.BFixed
 import hm.binkley.math.ContinuedFractionCompanionBase
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
+import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.fractionateInPlace
 import java.math.BigInteger
 
@@ -29,7 +30,8 @@ public class FloatingContinuedFraction private constructor(
         if (!isFinite()) NaN
         else backAgain()
 
-    public companion object : ContinuedFractionCompanionBase<BRat, CFrac>(ONE) {
+    public companion object :
+        ContinuedFractionCompanionBase<BRat, CFrac>(ONE, TWO) {
         override fun constructTerm(term: BFixed) = BRat.valueOf(term)
 
         override fun construct(terms: List<BRat>) = CFrac(terms)

@@ -8,7 +8,6 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.TWO
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
-import hm.binkley.math.floating.FloatingContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
 import hm.binkley.math.terms
 import io.kotest.assertions.throwables.shouldThrow
@@ -70,25 +69,23 @@ internal class FloatingContinuedFractionTest {
     @Test
     fun `should continue`() {
         eulerApproximation.terms(0) shouldBe listOf(2 over 1)
-        eulerApproximation.terms(14) shouldBe
-            listOf(
-                2 over 1,
-                ONE,
-                2 over 1,
-                ONE,
-                ONE,
-                4 over 1,
-                ONE,
-                ONE,
-                6 over 1,
-                ONE,
-                ONE,
-                8 over 1,
-                ONE,
-                ONE,
-                10 over 1
-                // truncated from here
-            )
+        eulerApproximation.terms(14) shouldBe listOf(
+            2 over 1,
+            ONE,
+            2 over 1,
+            ONE,
+            ONE,
+            4 over 1,
+            ONE,
+            ONE,
+            6 over 1,
+            ONE,
+            ONE,
+            8 over 1,
+            ONE,
+            ONE,
+            10 over 1 // truncated from here
+        )
     }
 
     @Test
@@ -161,18 +158,6 @@ internal class FloatingContinuedFractionTest {
         shouldThrow<IllegalStateException> {
             eulerApproximation.convergent(-1)
         }
-    }
-
-    @Test
-    fun `should approximate the golden ratio`() {
-        val decimalApproximation = 1_618_033 over 1_000_000
-        val approximation = phi(10).toBigRational()
-
-        approximation shouldBe (89 over 55)
-        (decimalApproximation - approximation) shouldBe (-1637 over 11000000)
-
-        shouldThrow<IllegalStateException> { phi(0) }
-        shouldThrow<IllegalStateException> { phi(-1) }
     }
 
     @Nested

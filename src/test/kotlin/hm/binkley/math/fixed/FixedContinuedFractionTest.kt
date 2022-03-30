@@ -5,7 +5,6 @@ import hm.binkley.math.convergent
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.TWO
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO
-import hm.binkley.math.fixed.FixedContinuedFraction.Companion.phi
 import hm.binkley.math.isSimple
 import hm.binkley.math.terms
 import io.kotest.assertions.throwables.shouldThrow
@@ -147,18 +146,6 @@ internal class FixedContinuedFractionTest {
         shouldThrow<IllegalStateException> {
             eulerApproximation.convergent(-1)
         }
-    }
-
-    @Test
-    fun `should approximate the golden ratio`() {
-        val decimalApproximation = 1_618_033 over 1_000_000
-        val approximation = phi(10).toBigRational()
-
-        approximation shouldBe (89 over 55)
-        (decimalApproximation - approximation) shouldBe (-1637 over 11000000)
-
-        shouldThrow<IllegalStateException> { phi(0) }
-        shouldThrow<IllegalStateException> { phi(-1) }
     }
 
     @Nested

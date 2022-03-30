@@ -3,6 +3,8 @@ package hm.binkley.math
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 import hm.binkley.math.TestBigRational.Companion.ZERO
+import hm.binkley.math.TestContinuedFraction.Companion.phi
+import hm.binkley.math.TestContinuedFraction.Companion.root2
 import hm.binkley.math.TestContinuedFraction.Companion.valueOf
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -15,8 +17,7 @@ internal class ContinuedFractionTest {
     fun `should be or not be itself`() {
         val cf = valueOf(TWO)
 
-        @Suppress("KotlinConstantConditions")
-        (cf == cf).shouldBeTrue()
+        @Suppress("KotlinConstantConditions") (cf == cf).shouldBeTrue()
         cf shouldNotBe 2
         cf shouldNotBe valueOf(ONE)
     }
@@ -60,6 +61,30 @@ internal class ContinuedFractionTest {
         shouldThrow<UnsupportedOperationException> {
             valueOf(ZERO).toChar()
         }
+    }
+
+    @Test
+    fun `should approximate the golden ratio`() {
+        val decimalApproximation = 1_618_033 over 1_000_000
+        val approximation = phi(10).toBigRational()
+
+        approximation shouldBe (89 over 55)
+        (decimalApproximation - approximation) shouldBe (-1637 over 11000000)
+
+        shouldThrow<IllegalStateException> { phi(0) }
+        shouldThrow<IllegalStateException> { phi(-1) }
+    }
+
+    @Test
+    fun `should approximate root two`() {
+        val decimalApproximation = 1_414_213 over 1_000_000
+        val approximation = root2(10).toBigRational()
+
+        approximation shouldBe (3363 over 2378)
+        (decimalApproximation - approximation) shouldBe (-743 over 1_189_000_000)
+
+        shouldThrow<IllegalStateException> { root2(0) }
+        shouldThrow<IllegalStateException> { root2(-1) }
     }
 }
 
