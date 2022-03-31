@@ -78,7 +78,7 @@ internal class MathFunctionsTest {
         }
 
         @Test
-        fun `should round towards an a goal`() {
+        fun `should round towards a goal`() {
             fun TestBigRational.roundToOne() = roundTowards(ONE)
 
             ZERO.roundToOne() shouldBe ZERO
@@ -88,6 +88,19 @@ internal class MathFunctionsTest {
             (1 over 2).roundToOne() shouldBe ONE
             (-1 over 2).roundToOne() shouldBe ZERO
             (-3 over 2).roundToOne() shouldBe -ONE
+        }
+
+        @Test
+        fun `should round away from a goal`() {
+            fun TestBigRational.roundFromOne() = roundAwayFrom(ONE)
+
+            ZERO.roundFromOne() shouldBe ZERO
+            ONE.roundFromOne() shouldBe ONE
+            (-ONE).roundFromOne() shouldBe -ONE
+            (3 over 2).roundFromOne() shouldBe TWO
+            (1 over 2).roundFromOne() shouldBe ZERO
+            (-1 over 2).roundFromOne() shouldBe -ONE
+            (-3 over 2).roundFromOne() shouldBe -TWO
         }
 
         @Test

@@ -134,20 +134,26 @@ public fun <T : BigRationalBase<T>> T.round(): T = round(HALF_EVEN)
  * @todo A better verb that is opposite of [truncate]
  */
 public fun <T : BigRationalBase<T>> T.roundOut(): T =
-    if (companion.ZERO < this) ceil() else floor()
+    roundAwayFrom(companion.ZERO)
 
 /**
- * Rounds to the nearest whole number towards [goal].  The bound remains
- * itself.
- *
- * Current limitation: [goal] is assumed an integer
- *
- * @todo A more general algorithm that does not assume [goal] an integer
+ * Rounds to the nearest whole number towards [goal].
+ * The bound remains itself.
  */
 public fun <T : BigRationalBase<T>> T.roundTowards(goal: T): T = when {
     this == goal -> this
     this > goal -> floor()
     else -> ceil()
+}
+
+/**
+ * Rounds to the nearest whole number away from [goal].
+ * The bound remains itself.
+ */
+public fun <T : BigRationalBase<T>> T.roundAwayFrom(goal: T): T = when {
+    this == goal -> this
+    this > goal -> ceil()
+    else -> floor()
 }
 
 /**
