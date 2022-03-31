@@ -259,7 +259,6 @@ public operator fun <T : BRatBase<T>> T.rem(divisor: BFloating): T =
  *
  * @see [divideAndRemainder]
  */
-@Suppress("UNUSED_PARAMETER")
 public operator fun <T : BRatBase<T>> BFloating.rem(divisor: T): T =
     divisor.companion.valueOf(this) % divisor
 

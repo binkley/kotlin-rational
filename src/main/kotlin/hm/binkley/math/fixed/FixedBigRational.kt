@@ -5,7 +5,6 @@ import hm.binkley.math.BFloating
 import hm.binkley.math.BigRationalBase
 import hm.binkley.math.BigRationalCompanion
 import hm.binkley.math.big
-import hm.binkley.math.div
 import hm.binkley.math.equivalent
 import hm.binkley.math.fixed.FixedBigRational.Companion.ONE
 import hm.binkley.math.fixed.FixedBigRational.Companion.ZERO

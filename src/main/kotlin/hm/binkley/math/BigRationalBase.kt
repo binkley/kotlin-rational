@@ -176,7 +176,6 @@ public abstract class BigRationalBase<
      *
      * @see [divideAndRemainder]
      */
-    @Suppress("UNUSED_PARAMETER")
     public open operator fun rem(divisor: T): T = when (divisor) {
         companion.ZERO -> throw ArithmeticException("Modulus by zero")
         else -> companion.ZERO

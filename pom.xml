@@ -37,7 +37,7 @@
         <coverage.branches>97</coverage.branches>
         <coverage.lines>99</coverage.lines>
         <coverage.instructions>99</coverage.instructions>
-        <coverage.mutation>90</coverage.mutation>
+        <coverage.mutation>91</coverage.mutation>
         <dependency-check-maven.version>7.0.3</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.19.1</detekt-maven-plugin.version>
         <dokka.version>1.6.10</dokka.version>
