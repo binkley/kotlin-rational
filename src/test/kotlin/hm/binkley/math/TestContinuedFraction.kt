@@ -3,8 +3,7 @@ package hm.binkley.math
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.TWO
 
-/** @todo IntelliJ inspection is confused */
-@Suppress("unused")
+@Suppress("unused") // TODO: IntelliJ inspection confused
 internal class TestContinuedFraction private constructor(
     terms: List<TestBigRational>,
 ) : ContinuedFractionBase<TestBigRational, TestContinuedFraction>(
