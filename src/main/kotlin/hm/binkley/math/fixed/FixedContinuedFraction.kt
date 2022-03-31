@@ -10,7 +10,8 @@ import java.math.BigInteger
 /**
  * `ContinuedFraction` represents a [FloatingBigRational] as a finite
  * continued fraction sequence with the integer part at the natural index
- * of 0.  Subsequent fraction parts use their natural index, starting at 1.
+ * of 0.
+ * Subsequent fraction parts use their natural index starting at 1.
  * All numerators are 1.
  *
  * Elements are [FixedBigRational] (rather than [BigInteger]) to express

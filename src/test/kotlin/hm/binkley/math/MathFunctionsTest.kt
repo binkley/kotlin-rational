@@ -191,16 +191,16 @@ internal class MathFunctionsTest {
                 1.0959147000981383E153
 
             // Ginormous
-            // TODO: How to find a "near Double.MAX_VALUE" who's sqrt produces a
+            // TODO: How to find a "near Double.MAX_VALUE" whose sqrt produces a
             //  remainder?
             //  valueOf(Double.MAX_VALUE -
             //  ulp(Double.MAX_VALUE)).sqrtAndRemainder() shouldBe
             //  ((2 over 5) to (121 over 650))
 
             // Teensy weensy
-            // TODO: What math correct here?  The sqrt of Double.MIN_VALUE to
-            //  still be min value as sqrt is smaller
-            //  valueOf(Double.MIN_VALUE).sqrtAndRemainder() shouldBe
+            // TODO: What math correct here?
+            //  The sqrt of Double.MIN_VALUE to still be min value as sqrt is
+            //  smaller valueOf(Double.MIN_VALUE).sqrtAndRemainder() shouldBe
             //  (valueOf(Double.MIN_VALUE) to ZERO)
         }
 

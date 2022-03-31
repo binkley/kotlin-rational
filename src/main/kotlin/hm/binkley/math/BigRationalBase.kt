@@ -44,8 +44,9 @@ public abstract class BigRationalBase<
 
     /**
      * Returns this as a [BigDecimal] corresponding to [toDouble] following the
-     * same rules as [Double.toBigDecimal].  Note: this maintains that "double
-     * -> BigDecimal" and "BigRational -> BigDecimal" look the same.
+     * same rules as [Double.toBigDecimal].
+     * Note: this maintains that "double -> BigDecimal" and "BigRational ->
+     * BigDecimal" look the same.
      *
      * @throws ArithmeticException if denominator are coprime (produce a
      * repeating decimal)
@@ -54,9 +55,10 @@ public abstract class BigRationalBase<
 
     /**
      * Returns this as a [BigDecimal] corresponding to [toDouble] up to
-     * [limitPlaces] digits after the decimal place, for example when working
-     * with repeating expansions such as "1/3".  For non-repeating decimals,
-     * zero-pads any remaining places to reach the limit.
+     * [limitPlaces] digits after the decimal place, for example, when working
+     * with repeating expansions such as "1/3".
+     * For non-repeating decimals, zero-pads any remaining places to reach the
+     * limit.
      *
      * Examples with `1 over 2`:
      * - `toBigDecimal(0)` -> 0
@@ -85,8 +87,9 @@ public abstract class BigRationalBase<
         .divide(BFloating(denominator, limitPlaces), roundingMode)
 
     /**
-     * Raises an [IllegalStateException].  Kotlin provides a [Number.toChar];
-     * Java does not have a conversion to [Character] for [java.lang.Number].
+     * Raises an [IllegalStateException].
+     * Kotlin provides a [Number.toChar]; Java does not have a conversion to
+     * [Character] for [java.lang.Number].
      */
     override fun toChar(): Char =
         throw UnsupportedOperationException("Characters are non-numeric")
@@ -111,9 +114,10 @@ public abstract class BigRationalBase<
 
     /**
      * Returns the value of this number as a [Double], which may involve
-     * rounding.  This produces an _exact_ conversion, that is,
-     * `123.456.toBigRational().toDouble == 123.456`, and follows the rules
-     * for [BigDecimal.toDouble].
+     * rounding.
+     * This produces an _exact_ conversion; that is,
+     * `123.456.toBigRational().toDouble == 123.456` following the rules for
+     * [BigDecimal.toDouble].
      *
      * @see [BigDecimal.toDouble]
      * @see [BRatCompanion.valueOf(Double)]
@@ -122,9 +126,9 @@ public abstract class BigRationalBase<
         numerator.toBigDecimal().divide(denominator.toBigDecimal()).toDouble()
 
     /**
-     * Compares this object with the specified object for order. Returns
-     * 0 when this object is equal to the specified [other] object, -1 when
-     * it is less than [other], or 1 when it is greater than [other].
+     * Compares this object with the specified object for order.
+     * Returns 0 when this object is equal to the specified [other] object, -1
+     * when it is less than [other], or 1 when it is greater than [other].
      *
      * Stable ordering produces:
      * - -1
@@ -182,8 +186,8 @@ public abstract class BigRationalBase<
     }
 
     /**
-     * Returns the value `(this^exponent)`. Note that [exponent] is an integer
-     * rather than a big rational.
+     * Returns the value `(this^exponent)`.
+     * Note that [exponent] is an integer rather than a big rational.
      *
      * Note that for floating big rationals, extra rules apply:
      * - NaN to any power is NaN
@@ -291,9 +295,9 @@ public fun <T : BRatBase<T>> T.isPositive(): Boolean = 1 == signum()
 public fun <T : BRatBase<T>> T.isNegative(): Boolean = -1 == signum()
 
 /**
- * Checks that this rational has an even denominator.  The odds of a random
- * rational number having an even denominator is exactly 1/3 (Salamin and
- * Gosper 1972).
+ * Checks that this rational has an even denominator.
+ * The odds of a random rational number having an even denominator are exactly
+ * 1/3 (Salamin and Gosper 1972).
  *
  * See [HAKMEM](https://en.wikipedia.org/wiki/HAKMEM).
  */

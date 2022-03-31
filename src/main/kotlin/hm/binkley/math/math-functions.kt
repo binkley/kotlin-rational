@@ -9,8 +9,8 @@ import java.math.RoundingMode.HALF_EVEN
 import kotlin.math.sqrt
 
 /**
- * Returns an _exact_ square root (non-complex).  The caller should take
- * [BigRationalBase.sign] into consideration.
+ * Returns an _exact_ square root (non-complex).
+ * The caller should take [BigRationalBase.sign] into consideration.
  *
  * @throws ArithmeticException if `this` is negative
  * @throws ArithmeticException if there is no exact root
@@ -30,8 +30,8 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
  * Returns an _exact_ square root (non-complex) `root` and a remainder `rem`
  * such that `this == root * root + remainder`, and `root` is the nearest
  * integer from beneath to the true square root (`floor(sqrt(n))` with `n` as
- * an IEEE 754 binary64 number). The caller should take [BigRationalBase.sign]
- * into consideration.
+ * an IEEE 754 binary64 number).
+ * The caller should take [BigRationalBase.sign] into consideration.
  *
  * Note: It follows from the above definition that root and remainder will
  * always be non-negative.
@@ -55,8 +55,8 @@ public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
 
 /**
  * Returns the nearest _positive_ (non-complex) rational square root _based
- * on IEEE 754_ double-precision floating-point values.  The caller should take
- * [BigRationalBase.sign] into consideration.
+ * on IEEE 754_ double-precision floating-point values.
+ * The caller should take [BigRationalBase.sign] into consideration.
  *
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
@@ -65,8 +65,8 @@ public fun <T : BigRationalBase<T>> T.sqrtAndRemainder(): Pair<T, T> {
  * @throws ArithmeticException if `this` is negative
  *
  * @todo The algorithm converts to a `Double` for the numerator and denominator
- *       seemingly unnecessarily rather than directly using `toDouble()`.  This
- *       avoids an `ArithmeticException`
+ *       seemingly unnecessarily rather than directly using `toDouble()`.
+ *       This avoids an `ArithmeticException`
  */
 public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
     sqrt()
@@ -75,14 +75,15 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
 }
 
 /**
- * Returns an _exact_ cube root (non-complex).  The caller should take
- * [BigRationalBase.sign] into consideration.
+ * Returns an _exact_ cube root (non-complex).
+ * The caller should take [BigRationalBase.sign] into consideration.
  *
  * @throws ArithmeticException if there is no exact root
  *
  * @todo Confirm that corner cases exist for denominator
  * @todo Nicer algorithm
  */
+@Suppress("SpellCheckingInspection")
 public fun <T : BigRationalBase<T>> T.cbrt(): T {
     val nRoot = cbrt(numerator.toDouble()).toBigDecimal().toBigIntegerExact()
     val dRoot = cbrt(denominator.toDouble()).toBigDecimal().toBigIntegerExact()
@@ -96,17 +97,18 @@ public fun <T : BigRationalBase<T>> T.cbrt(): T {
 
 /**
  * Returns the nearest _positive_ (non-complex) rational cube root _based
- * on IEEE 754_ double-precision floating-point values.  The caller should take
- * [BigRationalBase.sign] into consideration.
+ * on IEEE 754_ double-precision floating-point values.
+ * The caller should take [BigRationalBase.sign] into consideration.
  *
  * Note: Approximations are limited to the precision of
  * [IEEE 754 binary64](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
  * It is not clear given handling of extrema by IEEE what the best approach is.
  *
  * @todo The algorithm converts to a `Double` for the numerator and denominator
- *       seemingly unnecessarily rather than directly using `toDouble()`.  This
- *       avoids an `ArithmeticException`
+ *       seemingly unnecessarily rather than directly using `toDouble()`.
+ *       This avoids an `ArithmeticException`
  */
+@Suppress("SpellCheckingInspection")
 public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T = try {
     cbrt()
 } catch (_: ArithmeticException) {
@@ -209,7 +211,8 @@ public fun <T : BigRationalBase<T>> T.truncateAndRemainder(): Pair<T, T> =
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and
- * [that].  Returns 0 when `this` and [that] are both 0.
+ * [that].
+ * Returns 0 when `this` and [that] are both 0.
  *
  * See an example
  * [tail-recursive version](https://github.com/breandan/kotlingrad/blob/56a6d4d03544db1bcaa93c31ffc7e075bc564e64/core/src/main/kotlin/edu/umontreal/kotlingrad/typelevel/TypeClassing.kt#L192)
@@ -223,7 +226,8 @@ else companion.valueOf(
 
 /**
  * Returns the lowest common multiple of the absolute values of `this` and
- * [that].  Returns 0 when `this` and [that] are both 0.
+ * [that].
+ * Returns 0 when `this` and [that] are both 0.
  */
 public fun <T : BigRationalBase<T>> T.lcm(that: T): T =
     if (isZero()) companion.ZERO

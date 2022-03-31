@@ -11,15 +11,16 @@ import java.math.BigInteger
 /**
  * `ContinuedFraction` represents a [FloatingBigRational] as a finite
  * continued fraction sequence with the integer part at the natural index
- * of 0.  Subsequent fraction parts use their natural index, starting at 1.
+ * of 0.
+ * Subsequent fraction parts use their natural index starting at 1.
  * All numerators are 1.
  *
  * Elements are [FloatingBigRational] (rather than [BigInteger]) to express
- * continued fractions of non-finite [FloatingBigRational]s.  The continued
- * fraction of a non-finite [FloatingBigRational] is `[NaN;]`
+ * continued fractions of non-finite [FloatingBigRational]s.
+ * The continued fraction of a non-finite [FloatingBigRational] is `[NaN;]`
  *
  * This class supports infinite continued fractions in a very limited sense;
- * none are calculated to their limit; all convert to [NaN].
+ * none is calculated to their limit; all convert to [NaN].
  */
 public class FloatingContinuedFraction private constructor(
     terms: List<BRat>,
@@ -48,8 +49,8 @@ public class FloatingContinuedFraction private constructor(
 }
 
 /**
- * Checks that this is a finite continued fraction.  All finite
- * BigRationals produce a finite continued fraction; all non-finite
- * BigRationals produce a non-finite continued fraction.
+ * Checks that this continued fraction is finite.
+ * All finite BigRationals produce finite continued fractions; all non-finite
+ * BigRationals produce non-finite continued fractions.
  */
 public fun CFrac.isFinite(): Boolean = integerPart.isFinite()

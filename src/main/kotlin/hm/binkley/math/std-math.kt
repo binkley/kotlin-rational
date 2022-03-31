@@ -19,8 +19,9 @@ internal val Double.big: BFloating
 /**
  * Reuses the JDK's `Float.isFinite(float)`.
  *
- * @todo Smell around complexity of double/float conversion.  Trace usages, and
- *       compare with other `valueOf` methods, and also has an uncovered branch
+ * @todo Smell around complexity of double/float conversion.
+ *       Trace usages, and compare with other `valueOf` methods, and also has
+ *       an uncovered branch
  */
 internal fun Float.isFinite() = java.lang.Float.isFinite(this)
 

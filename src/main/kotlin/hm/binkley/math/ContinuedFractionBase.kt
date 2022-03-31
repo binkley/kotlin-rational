@@ -74,8 +74,9 @@ public abstract class ContinuedFractionBase<
         construct(listOf(integerPart.companion.ZERO) + terms)
 
     /**
-     * Raises an [UnsupportedOperationException].  There is no sensible way to
-     * express a general continued fraction as a character in a language.
+     * Raises an [UnsupportedOperationException].
+     * There is no sensible way to express a general continued fraction as a
+     * character in a language.
      */
     override fun toChar(): Char =
         throw UnsupportedOperationException("Characters are non-numeric")
@@ -92,8 +93,8 @@ public abstract class ContinuedFractionBase<
 
     /**
      * @todo Provide `equivalent` so that `[1; 2] eq? [1; 1, 1]`, but is not JVM
-     *       sense of `equals`.  Alternative: reduce continued fractions to
-     *       "lowest terms"
+     *       sense of `equals`.
+     *       Alternative: reduce continued fractions to "lowest terms"
      */
     override fun equals(other: Any?): Boolean = this === other ||
         other is CFracBase<*, *> &&
@@ -116,8 +117,8 @@ public abstract class ContinuedFractionBase<
 }
 
 /**
- * Returns a limited list of terms for the continued fraction.  For
- * example, `terms(0)` returns only the _integral part_ of this continued
+ * Returns a limited list of terms for the continued fraction.
+ * For example, `terms(0)` returns only the _integral part_ of this continued
  * fraction, and fractional terms begin at index 1.
  */
 public fun <T : BRatBase<T>, C : CFracBase<T, C>> C.terms(
@@ -125,8 +126,8 @@ public fun <T : BRatBase<T>, C : CFracBase<T, C>> C.terms(
 ): List<T> = subList(0, fractionalTerms + 1)
 
 /**
- * Returns the convergent up to [n] terms of the continued fraction.  The 0th
- * convergent is the integer part of the continued fraction.
+ * Returns the convergent up to [n] terms of the continued fraction.
+ * The 0th convergent is the integer part of the continued fraction.
  */
 public fun <T : BRatBase<T>, C : CFracBase<T, C>> C.convergent(n: Int): T {
     if (0 > n) error("Convergents start from the 0th")

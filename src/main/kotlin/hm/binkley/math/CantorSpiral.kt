@@ -12,14 +12,14 @@ private enum class Direction { N, S, E, W }
 
 /**
  * Spirals through Cantor's diagonalization starting at the origin and heading
- * up; thereafter it progresses clockwise.  Each integer coordinate pair on the
- * grid represents the fraction, "x / y".
+ * up; thereafter it progresses clockwise.
+ * Each integer coordinate pair on the grid represents the fraction, "x / y".
  *
  * The sequence skips over:
  * - Points on the X or Y axes except for (0, 1) (representing "0")
  * - Equivalent points already visited such as (-2, 3) and (2, -3) (both
  *   represent "-2 / 3")
- * - Points whose fraction reduces in lowest terms to an already visited point
+ * - Points whose fraction reduces to lowest terms for an already visited point
  *   such as (1, 2) and (2, 4) (presenting "1 / 2")
  *
  * See https://youtu.be/3xyYs_eQTUc
@@ -34,7 +34,8 @@ internal class CantorSpiral<T : BRatBase<T>>(
 
         /**
          * The spiral has no stopping point: it is infinite until caller grows
-         * tired of new values.  It walks clockwise.
+         * tired of new values.
+         * It walks clockwise.
          */
         override fun hasNext() = true
 

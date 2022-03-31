@@ -22,8 +22,9 @@ public val ONE: BRat = ONE
 /**
  * Immutable arbitrary-precision rationals (finite fractions).
  * `FixedBigRational` provides analogues to all of Kotlin's [Long] operators
- * where appropriate. Additionally, `FixedBigRational` provides operations
- * for GCD and LCM calculation.
+ * where appropriate.
+ * Additionally, `FixedBigRational` provides operations for GCD and LCM
+ * calculation.
  *
  * Comparison operations perform signed comparisons, analogous to those
  * performed by Kotlin's relational and equality operators.
@@ -48,11 +49,12 @@ public class FixedBigRational private constructor(
         TEN = BRat(10.big, 1.big),
     ) {
         /**
-         * Returns a `BRat` whose value is equal to that of the
-         * specified ratio, `numerator / denominator`.
+         * Returns a `BRat` whose value is equal to that of the specified ratio,
+         * `numerator / denominator`.
          *
          * This factory method is in preference to an explicit constructor, and
-         * allows for reuse of frequently used values.  In particular:
+         * allows for reuse of frequently used values.
+         * In particular:
          *
          * * ZERO
          * * ONE

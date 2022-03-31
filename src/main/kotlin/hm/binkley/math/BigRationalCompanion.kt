@@ -116,8 +116,8 @@ public abstract class BigRationalCompanion<T : BRatBase<T>>(
     public fun Iterable<T>.sum(): T = sumOf { it }
 
     /**
-     * Returns the sum of all values produced by [selector] function applied to each
-     * element in the collection.
+     * Returns the sum of all values produced by [selector] function applied to
+     * each element in the collection.
      */
     public fun <E> Iterable<E>.sumOf(selector: (E) -> T): T =
         fold(ZERO) { acc, element -> acc + selector(element) }
@@ -128,8 +128,9 @@ public abstract class BigRationalCompanion<T : BRatBase<T>>(
 
     /**
      * Constructs a `T` _after_ derived types handle all special cases in
-     * `valueOf`.  The most important special case is when [denominator] is
-     * `ZERO`  Common behavior for all derived types:
+     * `valueOf`.
+     * The most important special case is when [denominator] is `ZERO`
+     * Common behavior for all derived types:
      * - Produces the constant `ZERO` for a numerator of `ZERO`
      * - Transfers the negative sign from the [denominator] to the constructed
      *   numerator
@@ -137,7 +138,7 @@ public abstract class BigRationalCompanion<T : BRatBase<T>>(
      * - Produces the constants `ONE`, `TWO`, and `TEN` when the constructed big
      *   rational has those values
      *
-     *  **[denominator] may not be `ZERO`**.
+     *  **The [denominator] may not be `ZERO`**.
      *
      * A typical `valueOf` looks like:
      * ```

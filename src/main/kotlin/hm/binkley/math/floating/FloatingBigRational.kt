@@ -36,8 +36,8 @@ public val ONE: BRat = ONE
  * performed by Kotlin's relational and equality operators.
  *
  * Division by [ZERO] does not raise an [ArithmeticException]; rather, it
- * produces infinities or "not a number".  Infinities and "not a number"
- * propagate where appropriate.
+ * produces infinities or "not a number".
+ * Infinities and "not a number" propagate where appropriate.
  *
  * Ranges increment by 1 unless otherwise specified.
  */
@@ -53,8 +53,9 @@ public class FloatingBigRational private constructor(
 
     /**
      * Returns this as a [BigDecimal] corresponding to [toDouble] following the
-     * same rules as [Double.toBigDecimal].  Note: this maintains that "double
-     * -> BigDecimal" and "BigRational -> BigDecimal" look the same.
+     * same rules as [Double.toBigDecimal].
+     * Note: this maintains that "double -> BigDecimal" and "BigRational ->
+     * BigDecimal" look the same.
      *
      * @throws ArithmeticException if denominator are coprime (produce a
      * repeating decimal) or for non-finite rationals
@@ -74,7 +75,8 @@ public class FloatingBigRational private constructor(
 
     /**
      * Returns the value of this number as a [Double], which may involve
-     * rounding.  This should produce an _exact_ conversion, that is,
+     * rounding.
+     * This should produce an _exact_ conversion; that is,
      * `123.456.toBigRational().toDouble == 123.456`.
      *
      * Handles special values `NaN`, `POSITIVE_INFINITY`, and
@@ -90,9 +92,9 @@ public class FloatingBigRational private constructor(
     }
 
     /**
-     * Compares this object with the specified object for order. Returns
-     * 0 when this object is equal to the specified [other] object, -1 when
-     * it is less than [other], or 1 when it is greater than [other].
+     * Compares this object with the specified object for order.
+     * Returns 0 when this object is equal to the specified [other] object, -1
+     * when it is less than [other], or 1 when it is greater than [other].
      *
      * Sorting ignores [equals] for special values.  [NaN] sorts to the end,
      * even as `NaN != NaN` (and similarly for the infinities).
@@ -149,8 +151,9 @@ public class FloatingBigRational private constructor(
 
     /**
      * Returns the Farey value between this FixedBigRational and [that], the
-     * same value when equal.  If either value is [NaN], returns [NaN]. [ZERO]
-     * is between the two infinities, and the infinities are between
+     * same value when equal.
+     * If either value is [NaN], returns [NaN].
+     * [ZERO] lies between the two infinities, and the infinities are between
      * themselves.
      *
      * If `a/b` and `c/d` are rational numbers such that `a/b ≠ c/d` or, then
@@ -192,7 +195,8 @@ public class FloatingBigRational private constructor(
     }
 
     /**
-     * Returns a string representation of the object.  In particular:
+     * Returns a string representation of the object.
+     * In particular:
      * * [NaN] is "NaN"
      * * [POSITIVE_INFINITY] is "+∞" (UNICODE)
      * * [NEGATIVE_INFINITY] is "-∞" (UNICODE)
@@ -212,8 +216,8 @@ public class FloatingBigRational private constructor(
         TEN = BRat(10.big, 1.big),
     ) {
         /**
-         * A constant holding "not a number" (NaN) value of type
-         * [BRat]. It is equivalent `0 over 0`.
+         * A constant holding "not a number" (NaN) value of type [BRat].
+         * It is equivalent `0 over 0`.
          *
          * Usable directly from Java via `Companion`.
          */
@@ -221,8 +225,8 @@ public class FloatingBigRational private constructor(
         public val NaN: BRat = BRat(0.big, 0.big)
 
         /**
-         * A constant holding positive infinity value of type
-         * [BRat]. It is equivalent `1 over 0`.
+         * A constant holding positive infinity value of type [BRat].
+         * It is equivalent `1 over 0`.
          *
          * Usable directly from Java via `Companion`.
          */
@@ -230,8 +234,8 @@ public class FloatingBigRational private constructor(
         public val POSITIVE_INFINITY: BRat = BRat(1.big, 0.big)
 
         /**
-         * A constant holding negative infinity value of type
-         * [BRat]. It is equivalent `-1 over 0`.
+         * A constant holding negative infinity value of type [BRat].
+         * It is equivalent `-1 over 0`.
          *
          * Usable directly from Java via `Companion`.
          */
@@ -243,7 +247,8 @@ public class FloatingBigRational private constructor(
          * specified ratio, `numerator / denominator`.
          *
          * This factory method is in preference to an explicit constructor, and
-         * allows for reuse of frequently used values.  In particular:
+         * allows for reuse of frequently used values.
+         * In particular:
          *
          * * NaN
          * * POSITIVE_INFINITY
@@ -657,22 +662,22 @@ public fun BRat.toFixedBigRational(): FixedBigRational =
     FixedBigRational.valueOf(numerator, denominator)
 
 /**
- * Checks that this rational is infinite, positive or negative.  "Not a
- * number" is not infinite.
+ * Checks that this rational is infinite, positive or negative.
+ * "Not a number" is neither finite nor infinite.
  */
 public fun BRat.isInfinite(): Boolean =
     isPositiveInfinity() || isNegativeInfinity()
 
 /**
- * Checks that this rational is finite.  "Not a number" and infinities are
- * not finite.
+ * Checks that this rational is finite.
+ * "Not a number" is neither finite nor infinite.
  */
 public fun BRat.isFinite(): Boolean = !isNaN() && !isInfinite()
 
 /**
  * Checks that this rational is "not a number".
  *
- * NB -- `NaN != NaN`
+ * **NB** &mdash; `NaN != NaN`
  */
 public fun BRat.isNaN(): Boolean = this === NaN
 
