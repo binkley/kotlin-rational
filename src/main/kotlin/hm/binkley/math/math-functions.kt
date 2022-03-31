@@ -1,6 +1,7 @@
 package hm.binkley.math
 
 import java.lang.Math.cbrt
+import java.math.RoundingMode
 import java.math.RoundingMode.CEILING
 import java.math.RoundingMode.DOWN
 import java.math.RoundingMode.FLOOR
@@ -144,9 +145,49 @@ public fun <T : BigRationalBase<T>> T.roundOut(): T =
  * @todo A more general algorithm that does not assume [goal] an integer
  */
 public fun <T : BigRationalBase<T>> T.roundTowards(goal: T): T = when {
-    goal == this -> this
-    goal < this -> floor()
+    this == goal -> this
+    this > goal -> floor()
     else -> ceil()
+}
+
+/**
+ * Truncates to the nearest whole number _closer to 0_ than this BigRational,
+ * or when this is a whole number, returns this.
+ *
+ * @see truncateAndRemainder
+ */
+public fun <T : BigRationalBase<T>> T.truncate(): T = round(DOWN)
+
+/**
+ * Returns the pair of `this / other` (quotient) and `this % other`
+ * (remainder) integral division and modulo operations.
+ *
+ * @see [div]
+ *
+ * @todo What rounding mode does this correspond to?  Deduplicate
+ */
+public fun <T : BRatBase<T>> T.divideAndRemainder(divisor: T): Pair<T, T> {
+    val quotient = (this / divisor).truncate()
+    val remainder = this - divisor * quotient
+
+    return quotient to remainder
+}
+
+/**
+ * Rounds to the nearest whole number corresponding to [roundingMode], returning
+ * the whole number and remaining fraction.
+ *
+ * Summing the whole number and fraction should produce the original number
+ * except for floating big rationals of `NaN` or positive or negative
+ * infinities.
+ */
+public fun <T : BigRationalBase<T>> T.roundAndRemainder(
+    roundingMode: RoundingMode,
+): Pair<T, T> {
+    val rounded = round(roundingMode)
+    val remainder = this - rounded
+
+    return rounded to remainder
 }
 
 /**
@@ -157,47 +198,8 @@ public fun <T : BigRationalBase<T>> T.roundTowards(goal: T): T = when {
  * except for floating big rationals of `NaN` or positive or negative
  * infinities.
  */
-public fun <T : BigRationalBase<T>> T.truncateAndFraction(): Pair<T, T> {
-    val truncation = round(DOWN)
-    val fraction = this - truncation
-
-    return truncation to fraction
-}
-
-/**
- * Truncates to the nearest whole number _closer to 0_ than this BigRational,
- * or when this is a whole number, returns this.
- *
- * @see truncateAndFraction
- */
-public fun <T : BigRationalBase<T>> T.truncate(): T {
-    val (numerator, _) = truncateAndFraction()
-    return numerator
-}
-
-/**
- * Returns the pair of `this / other` (quotient) and `this % other`
- * (remainder) integral division and modulo operations.
- *
- * @see [div]
- */
-public fun <T : BRatBase<T>> T.divideAndRemainder(divisor: T): Pair<T, T> {
-    val quotient = (this / divisor).truncate()
-    val remainder = this - divisor * quotient
-
-    return quotient to remainder
-}
-
-/**
- * Returns the pair of "whole number" and remainder.
- * The whole number is the integer _closest to 0_ such that adding the pair
- * results in the original rational.
- *
- * @see [divideAndRemainder]
- */
-public fun <T : BRatBase<T>> T.wholeAndRemainder(): Pair<T, T> =
-    if (isWhole()) this to companion.ZERO
-    else divideAndRemainder(companion.ONE)
+public fun <T : BigRationalBase<T>> T.truncateAndRemainder(): Pair<T, T> =
+    roundAndRemainder(DOWN)
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and

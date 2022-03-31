@@ -330,13 +330,6 @@ internal class OperatorsTest {
         }
 
         @Test
-        fun `should be a whole number and a remainder`() {
-            (6 over 1).wholeAndRemainder() shouldBe ((6 over 1) to ZERO)
-            (5 over 2).wholeAndRemainder() shouldBe (TWO to (1 over 2))
-            (-5 over 2).wholeAndRemainder() shouldBe (-TWO to (-1 over 2))
-        }
-
-        @Test
         fun `should invert multiplicatively`() {
             (2 over 3).unaryDiv() shouldBe (3 over 2)
         }

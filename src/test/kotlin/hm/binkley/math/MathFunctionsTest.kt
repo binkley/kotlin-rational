@@ -121,8 +121,8 @@ internal class MathFunctionsTest {
                 (-1 over 2),
                 (-3 over 2),
             ).forAll {
-                val (truncation, fraction) = it.truncateAndFraction()
-                (truncation + fraction) shouldBe it
+                val (truncation, remainder) = it.truncateAndRemainder()
+                (truncation + remainder) shouldBe it
             }
         }
     }
