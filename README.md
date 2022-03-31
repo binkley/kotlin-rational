@@ -663,6 +663,8 @@ themselves a type hierarchy mirroring hierarchy of types the companions go with.
 - [_Continued fraction_](https://en.wikipedia.org/wiki/Continued_fraction)
 - [_Double-precision floating-point
   format_](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
+- [_Continued fractions of square
+  roots_](https://www.johndcook.com/blog/2020/08/04/continued-fraction-sqrt/)
 - [_Exact value of a floating-point number as a
   rational_](https://stackoverflow.com/questions/51142275/exact-value-of-a-floating-point-number-as-a-rational)
 - [_Generalized continued

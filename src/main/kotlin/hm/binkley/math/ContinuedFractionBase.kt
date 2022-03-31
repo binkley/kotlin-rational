@@ -230,12 +230,12 @@ public fun <T : BRatBase<T>, C : CFracBase<T, C>> C.isSimple(): Boolean =
 
 internal tailrec fun <T : BRatBase<T>> fractionateInPlace(
     r: T,
-    sequence: MutableList<T>,
+    terms: MutableList<T>,
 ): List<T> {
     val (i, f) = r.toParts()
-    sequence += i
-    return if (f.isZero()) sequence
-    else fractionateInPlace(f.unaryDiv(), sequence)
+    terms += i
+    return if (f.isZero()) terms
+    else fractionateInPlace(f.unaryDiv(), terms)
 }
 
 private fun <T : BRatBase<T>> T.toParts(): Pair<T, T> {
