@@ -187,10 +187,8 @@ public abstract class ContinuedFractionCompanionBase<
     public fun e(n: Int): C =
         if (0 < n) construct(
             MutableList(n - 1) { index ->
-                when (index % 3) {
-                    0, 2 -> ONE
-                    else -> constructTerm((2 * (1 + index / 3)).big)
-                }
+                if (1 == index % 3) constructTerm((2 * (1 + index / 3)).big)
+                else ONE
             }.prepend(TWO)
         )
         else error("Not enough digits to approximate √2: $n")
