@@ -1,6 +1,6 @@
 package hm.binkley.math
 
-import hm.binkley.kotlin.SeekableSequence
+import hm.binkley.kotlin.sequences.SeekableSequence
 import hm.binkley.math.Direction.E
 import hm.binkley.math.Direction.N
 import hm.binkley.math.Direction.S

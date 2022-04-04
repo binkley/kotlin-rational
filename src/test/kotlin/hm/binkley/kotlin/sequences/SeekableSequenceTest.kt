@@ -1,4 +1,4 @@
-package hm.binkley.kotlin
+package hm.binkley.kotlin.sequences
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe

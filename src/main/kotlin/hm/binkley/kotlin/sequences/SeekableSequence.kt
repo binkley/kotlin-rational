@@ -1,4 +1,4 @@
-package hm.binkley.kotlin
+package hm.binkley.kotlin.sequences
 
 /** A [Sequence] with an index operator. */
 public interface SeekableSequence<T> : Sequence<T> {
