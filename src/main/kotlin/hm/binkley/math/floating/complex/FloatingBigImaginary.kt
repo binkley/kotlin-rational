@@ -42,25 +42,25 @@ public data class FloatingBigImaginary(
 // Factories
 
 public fun BRat.toImaginary(): BImag = BImag(this)
-public val BRat.i: BImag get() = toImaginary()
+public inline val BRat.i: BImag get() = toImaginary()
 
 public fun BFloating.toImaginary(): BImag = toBigRational().toImaginary()
-public val BFloating.i: BImag get() = toBigRational().toImaginary()
+public inline val BFloating.i: BImag get() = toBigRational().toImaginary()
 
 public fun Double.toImaginary(): BImag = toBigRational().toImaginary()
-public val Double.i: BImag get() = toImaginary()
+public inline val Double.i: BImag get() = toImaginary()
 
 public fun Float.toImaginary(): BImag = toBigRational().toImaginary()
-public val Float.i: BImag get() = toImaginary()
+public inline val Float.i: BImag get() = toImaginary()
 
 public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
-public val BFixed.i: BImag get() = toImaginary()
+public inline val BFixed.i: BImag get() = toImaginary()
 
 public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
-public val Long.i: BImag get() = toImaginary()
+public inline val Long.i: BImag get() = toImaginary()
 
 public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
-public val Int.i: BImag get() = toImaginary()
+public inline val Int.i: BImag get() = toImaginary()
 
 // Multiplication operator
 

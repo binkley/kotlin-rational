@@ -34,7 +34,7 @@ internal fun BFixed.isEven() = (this % 2.big).isZero()
 internal fun BFixed.lcm(other: BFixed) = (this * (other / gcd(other))).abs()
 
 /** Note that [BigInteger.valueOf] checks for cached constants. */
-internal val Long.big: BFixed get() = BFixed.valueOf(this)
-internal val Int.big: BFixed get() = toLong().big
+internal inline val Long.big: BFixed get() = BFixed.valueOf(this)
+internal inline val Int.big: BFixed get() = toLong().big
 
 internal fun Int.isZero() = this == 0

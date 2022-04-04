@@ -41,16 +41,16 @@ public data class FixedBigImaginary(
 // Factories
 
 public fun BRat.toImaginary(): BImag = BImag(this)
-public val BRat.i: BImag get() = toImaginary()
+public inline val BRat.i: BImag get() = toImaginary()
 
 public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
-public val BFixed.i: BImag get() = toImaginary()
+public inline val BFixed.i: BImag get() = toImaginary()
 
 public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
-public val Long.i: BImag get() = toImaginary()
+public inline val Long.i: BImag get() = toImaginary()
 
 public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
-public val Int.i: BImag get() = toImaginary()
+public inline val Int.i: BImag get() = toImaginary()
 
 // Multiplication operator
 
