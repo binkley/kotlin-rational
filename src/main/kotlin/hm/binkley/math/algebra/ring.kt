@@ -2,6 +2,7 @@ package hm.binkley.math.algebra
 
 /** Exposes an abstract `ONE` element as a companion property. */
 public interface RingCompanion<T : Ring<T>> : GroupCompanion<T> {
+    /** The identity element for multiplication. */
     @Suppress("PropertyName")
     public val ONE: T
 }
@@ -16,5 +17,6 @@ public interface RingCompanion<T : Ring<T>> : GroupCompanion<T> {
 public interface Ring<T : Ring<T>> : Group<T> {
     override val companion: RingCompanion<T>
 
-    public operator fun times(factor: T): T
+    /** Multiplies this element by [multiplicand]. */
+    public operator fun times(multiplicand: T): T
 }

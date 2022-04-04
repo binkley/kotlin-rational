@@ -9,8 +9,16 @@ import hm.binkley.math.floating.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.times
 
-public data class FloatingBigImaginary(val value: BRat) :
-    Group<FloatingBigImaginary>, Comparable<FloatingBigImaginary> {
+/**
+ * Imaginary numbers of big floating rationals.
+ *
+ * @todo A value class may be a better choice than a data class
+ */
+public data class FloatingBigImaginary(
+    /** The big rational quantity of `i`. */
+    val value: BRat
+) : Group<FloatingBigImaginary>,
+    Comparable<FloatingBigImaginary> {
     override val companion: Companion get() = Companion
 
     override fun unaryMinus(): BImag = (-value).toImaginary()
@@ -25,6 +33,7 @@ public data class FloatingBigImaginary(val value: BRat) :
     public companion object : GroupCompanion<BImag> {
         override val ZERO: BImag = 0.0.i
 
+        /** The imaginary unit. */
         @JvmField
         public val I: BImag = 1.0.i
     }
@@ -33,25 +42,24 @@ public data class FloatingBigImaginary(val value: BRat) :
 // Factories
 
 public fun BRat.toImaginary(): BImag = BImag(this)
-
 public val BRat.i: BImag get() = toImaginary()
+
 public fun BFloating.toImaginary(): BImag = toBigRational().toImaginary()
-
 public val BFloating.i: BImag get() = toBigRational().toImaginary()
+
 public fun Double.toImaginary(): BImag = toBigRational().toImaginary()
-
 public val Double.i: BImag get() = toImaginary()
+
 public fun Float.toImaginary(): BImag = toBigRational().toImaginary()
-
 public val Float.i: BImag get() = toImaginary()
+
 public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
-
 public val BFixed.i: BImag get() = toImaginary()
+
 public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
-
 public val Long.i: BImag get() = toImaginary()
-public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
 
+public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
 public val Int.i: BImag get() = toImaginary()
 
 // Multiplication operator

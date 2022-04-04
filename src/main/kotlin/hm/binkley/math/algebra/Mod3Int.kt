@@ -12,8 +12,8 @@ public class Mod3Int private constructor(
     override fun plus(addend: Mod3Int): Mod3Int =
         valueOf(value + addend.value)
 
-    override fun times(factor: Mod3Int): Mod3Int =
-        valueOf(value * factor.value)
+    override fun times(multiplicand: Mod3Int): Mod3Int =
+        valueOf(value * multiplicand.value)
 
     public operator fun inc(): Mod3Int = valueOf(value + 1)
     public operator fun dec(): Mod3Int = valueOf(value - 1)

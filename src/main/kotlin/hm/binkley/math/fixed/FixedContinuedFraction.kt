@@ -22,6 +22,7 @@ import java.math.BigInteger
  */
 public class FixedContinuedFraction private constructor(terms: List<BRat>) :
     CFracBase(terms, FixedContinuedFraction) {
+    /** Creates a new big continued fraction of big fixed rationals. */
     override fun construct(terms: List<BRat>): CFrac = CFrac(terms)
 
     override fun toBigRational(): BRat = backAgain()

@@ -14,6 +14,7 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.cantorSpiral
 import hm.binkley.math.floating.over
 import hm.binkley.math.floating.toBigRational
 
+/** Runs the demo. */
 public fun main() {
     println("==FLOATING BIG RATIONALS")
 

@@ -8,8 +8,15 @@ import hm.binkley.math.fixed.toBigRational
 import hm.binkley.math.isZero
 import hm.binkley.math.times
 
-public data class FixedBigImaginary(val value: BRat) :
-    Group<FixedBigImaginary>,
+/**
+ * Imaginary numbers of big fixed rationals.
+ *
+ * @todo A value class may be a better choice than a data class
+ */
+public data class FixedBigImaginary(
+    /** The big rational quantity of `i`. */
+    val value: BRat
+) : Group<FixedBigImaginary>,
     Comparable<FixedBigImaginary> {
     override val companion: Companion get() = Companion
 
@@ -25,6 +32,7 @@ public data class FixedBigImaginary(val value: BRat) :
     public companion object : GroupCompanion<BImag> {
         override val ZERO: BImag = 0.i
 
+        /** The imaginary unit. */
         @JvmField
         public val I: BImag = 1.i
     }
@@ -33,13 +41,14 @@ public data class FixedBigImaginary(val value: BRat) :
 // Factories
 
 public fun BRat.toImaginary(): BImag = BImag(this)
-
 public val BRat.i: BImag get() = toImaginary()
-public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
 
+public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
 public val BFixed.i: BImag get() = toImaginary()
+
 public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
 public val Long.i: BImag get() = toImaginary()
+
 public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
 public val Int.i: BImag get() = toImaginary()
 

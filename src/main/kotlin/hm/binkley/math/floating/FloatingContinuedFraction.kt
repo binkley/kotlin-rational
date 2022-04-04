@@ -25,6 +25,7 @@ import java.math.BigInteger
 public class FloatingContinuedFraction private constructor(
     terms: List<BRat>,
 ) : CFracBase(terms, FloatingContinuedFraction) {
+    /** Creates a new big continued fraction of big floating rationals. */
     override fun construct(terms: List<BRat>): CFrac = CFrac(terms)
 
     override fun toBigRational(): BRat =

@@ -346,10 +346,10 @@ Example: extension functions for the `plus` operator in this order ("real" comes
 first):
 
 ```kotlin
-public operator fun Int.plus(imag: FixedBigImaginary): FixedBigComplex =
+operator fun Int.plus(imag: FixedBigImaginary): FixedBigComplex =
     toBigRational() + imag
 
-public operator fun FixedBigImaginary.plus(real: Int): FixedBigComplex =
+operator fun FixedBigImaginary.plus(real: Int): FixedBigComplex =
     real + this
 ```
 
