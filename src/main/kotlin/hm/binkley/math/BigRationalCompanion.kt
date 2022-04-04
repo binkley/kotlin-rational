@@ -1,6 +1,7 @@
 package hm.binkley.math
 
 import hm.binkley.math.algebra.FieldCompanion
+import java.math.BigDecimal
 import java.math.BigInteger
 
 /**
@@ -47,6 +48,7 @@ public abstract class BigRationalCompanion<T : BRatBase<T>>(
     @JvmField
     public val TEN: T,
 ) : FieldCompanion<T> {
+    /** Creates a new big rational of type [T]. */
     public abstract fun valueOf(numerator: BFixed, denominator: BFixed): T
 
     /**
@@ -95,12 +97,14 @@ public abstract class BigRationalCompanion<T : BRatBase<T>>(
         else -> throw ArithmeticException("$floatingPoint: Not representable")
     }
 
+    /** Creates a new big rational of type [T]. */
     public fun valueOf(wholeNumber: BFixed): T = valueOf(wholeNumber, 1.big)
-    public fun valueOf(wholeNumber: Long): T =
-        valueOf(wholeNumber.toBigInteger())
 
-    public fun valueOf(wholeNumber: Int): T =
-        valueOf(wholeNumber.toBigInteger())
+    /** Creates a new big rational of type [T]. */
+    public fun valueOf(wholeNumber: Long): T = valueOf(wholeNumber.big)
+
+    /** Creates a new big rational of type [T]. */
+    public fun valueOf(wholeNumber: Int): T = valueOf(wholeNumber.big)
 
     /** Generates the Cantor spiral for walking the rationals. */
     public fun cantorSpiral(): Sequence<T> = CantorSpiral(this)

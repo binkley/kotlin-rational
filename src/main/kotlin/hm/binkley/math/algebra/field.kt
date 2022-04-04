@@ -11,6 +11,7 @@ public interface FieldCompanion<T : Field<T>> : RingCompanion<T>
  * @todo Should there also be an abstract `rem` operator?
  */
 public interface Field<T : Field<T>> : Ring<T> {
+    /** Access to the companion object specialized for type [T]. */
     override val companion: FieldCompanion<T>
 
     // No such thing as `operator unaryDiv`

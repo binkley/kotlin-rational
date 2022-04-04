@@ -8,10 +8,13 @@ import java.math.RoundingMode.FLOOR
 import java.math.RoundingMode.HALF_UP
 import java.util.Objects.hash
 
+/** Base type for big rational numbers. */
 public abstract class BigRationalBase<
     T : BigRationalBase<T>
     > protected constructor(
+    /** The numerator in the fraction. */
     public val numerator: BFixed,
+    /** The denominator in the fraction. */
     public val denominator: BFixed,
 ) : Number(), Comparable<T>, Field<T> {
     public abstract override val companion: BRatCompanion<T>

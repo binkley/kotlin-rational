@@ -13,6 +13,7 @@ public abstract class ContinuedFractionBase<
     private val terms: List<T>,
     private val companion: ContinuedFractionCompanionBase<T, C>,
 ) : Number(), List<T> by terms, Comparable<CFracBase<T, C>> {
+    /** Creates a new big continued fraction of type [C]. */
     protected abstract fun construct(terms: List<T>): C
 
     /** Returns the big rational for the continued fraction. */
@@ -157,6 +158,7 @@ private tailrec fun <T : BRatBase<T>> converge(
     else converge(terms, n, i + 1, ci, c_1)
 }
 
+/** Base type for companions to big continue fraction types. */
 public abstract class ContinuedFractionCompanionBase<
     T : BRatBase<T>,
     C : CFracBase<T, C>,

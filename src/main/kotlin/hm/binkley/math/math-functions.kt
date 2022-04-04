@@ -9,7 +9,7 @@ import java.math.RoundingMode.HALF_EVEN
 import kotlin.math.sqrt
 
 /**
- * Returns an _exact_ square root (non-complex).
+ * Returns the _exact_ positive square root (non-complex).
  * The caller should take [BigRationalBase.sign] into consideration.
  *
  * @throws ArithmeticException if `this` is negative
@@ -27,10 +27,10 @@ public fun <T : BigRationalBase<T>> T.sqrt(): T {
 }
 
 /**
- * Returns an _exact_ square root (non-complex) `root` and a remainder `rem`
- * such that `this == root * root + remainder`, and `root` is the nearest
- * integer from beneath to the true square root (`floor(sqrt(n))` with `n` as
- * an IEEE 754 binary64 number).
+ * Returns the _exact_ positive square root (non-complex) `root` and a
+ * remainder `rem` such that `this == root * root + remainder`, and `root` is
+ * the nearest integer from beneath to the true square root (`floor(sqrt(n))`
+ * with `n` as an IEEE 754 binary64 number).
  * The caller should take [BigRationalBase.sign] into consideration.
  *
  * Note: It follows from the above definition that root and remainder will
@@ -75,7 +75,7 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
 }
 
 /**
- * Returns an _exact_ cube root (non-complex).
+ * Returns the _exact_ cube root (non-complex).
  * The caller should take [BigRationalBase.sign] into consideration.
  *
  * @throws ArithmeticException if there is no exact root
