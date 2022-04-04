@@ -355,5 +355,11 @@ public operator fun <T : BRatBase<T>> Int.rem(divisor: T): T =
 @Suppress("FunctionName")
 public infix fun <T : BRatBase<T>> T.`^`(exponent: Int): T = pow(exponent)
 
+/**
+ * Pseudo-operator for raising this number to the [exponent] power.
+ * - The [xor] infix function has no `^` syntax, and would be a confusing
+ *   name in this context
+ * - `**` is a sensible alternative name to `^`
+ */
 @Suppress("FunctionName")
 public infix fun BFixed.`^`(exponent: Int): BFixed = pow(exponent)

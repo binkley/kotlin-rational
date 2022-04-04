@@ -26,7 +26,13 @@ public data class FloatingBigComplex(
 
     override operator fun unaryMinus(): BComplex = -real + -imag
 
-    /** *NB* &mdash; `1/(a+bi)` is `(a-bi)/(a² + b²)`. */
+    /**
+     * Returns the multiplicative inverse.
+     * - [inv] is a sensible alternative name, however has a bitwise meaning
+     *   for primitives
+     *
+     * *NB* &mdash; `1/(a+bi)` is `(a-bi)/(a² + b²)`.
+     */
     override fun unaryDiv(): BComplex = conjugate / det
 
     override operator fun plus(addend: BComplex): BComplex =
@@ -476,13 +482,13 @@ public fun BComplex.sqrtApproximated(): BComplex {
 }
 
 /**
- * Pseudo-operator for raising this number to the [n] power.
+ * Pseudo-operator for raising this number to the [exponent] power.
  * - The [xor] infix function has no `^` syntax, and would be a confusing
  *   name in this context
  * - `**` is a sensible alternative name to `^`
  */
 @Suppress("DANGEROUS_CHARACTERS", "FunctionName")
-public infix fun BComplex.`^`(n: Int): BComplex = pow(n)
+public infix fun BComplex.`^`(exponent: Int): BComplex = pow(exponent)
 
 /**
  * Note: Following expectations for discrete exponents, `0^0` is defined as `1`.

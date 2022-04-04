@@ -40,69 +40,102 @@ public data class FixedBigImaginary(
 
 // Factories
 
+/** Creates a new imaginary number. */
 public fun BRat.toImaginary(): BImag = BImag(this)
+/** Creates a new imaginary number. */
 public inline val BRat.i: BImag get() = toImaginary()
 
+/** Creates a new imaginary number. */
 public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
+/** Creates a new imaginary number. */
 public inline val BFixed.i: BImag get() = toImaginary()
 
+/** Creates a new imaginary number. */
 public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
+/** Creates a new imaginary number. */
 public inline val Long.i: BImag get() = toImaginary()
 
+/** Creates a new imaginary number. */
 public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
+/** Creates a new imaginary number. */
 public inline val Int.i: BImag get() = toImaginary()
 
 // Multiplication operator
 
-public operator fun BImag.times(multiplier: BImag): BRat =
-    -(value * multiplier.value)
+/** Multiplies this number by [multiplicand]. */
+public operator fun BImag.times(multiplicand: BImag): BRat =
+    -(value * multiplicand.value)
 
-public operator fun BRat.times(multiplier: BImag): BImag = multiplier * this
+/** Multiplies this number by [multiplicand]. */
+public operator fun BRat.times(multiplicand: BImag): BImag = multiplicand * this
 
-public operator fun BImag.times(multiplier: BRat): BImag =
-    (value * multiplier).toImaginary()
+/** Multiplies this number by [multiplicand]. */
+public operator fun BImag.times(multiplicand: BRat): BImag =
+    (value * multiplicand).toImaginary()
 
-public operator fun BFixed.times(multiplier: BImag): BImag = multiplier * this
+/** Multiplies this number by [multiplicand]. */
+public operator fun BFixed.times(multiplicand: BImag): BImag =
+    multiplicand * this
 
-public operator fun BImag.times(multiplier: BFixed): BImag =
-    (value * multiplier).toImaginary()
+/** Multiplies this number by [multiplicand]. */
+public operator fun BImag.times(multiplicand: BFixed): BImag =
+    (value * multiplicand).toImaginary()
 
-public operator fun Long.times(multiplier: BImag): BImag = multiplier * this
+/** Multiplies this number by [multiplicand]. */
+public operator fun Long.times(multiplicand: BImag): BImag = multiplicand * this
 
-public operator fun BImag.times(multiplier: Long): BImag =
-    (value * multiplier).toImaginary()
+/** Multiplies this number by [multiplicand]. */
+public operator fun BImag.times(multiplicand: Long): BImag =
+    (value * multiplicand).toImaginary()
 
-public operator fun Int.times(multiplier: BImag): BImag = multiplier * this
+/** Multiplies this number by [multiplicand]. */
+public operator fun Int.times(multiplicand: BImag): BImag = multiplicand * this
 
-public operator fun BImag.times(multiplier: Int): BImag =
-    (value * multiplier).toImaginary()
+/** Multiplies this number by [multiplicand]. */
+public operator fun BImag.times(multiplicand: Int): BImag =
+    (value * multiplicand).toImaginary()
 
 // Division operator
 
+/**
+ * Returns the multiplicative inverse.
+ * - [inv] is a sensible alternative name, however has a bitwise meaning
+ *   for primitives
+ */
 public fun BImag.unaryDiv(): BImag = -value.unaryDiv().i
 
+/** Divides this number by [divisor]. */
 public operator fun BImag.div(divisor: BImag): BRat = this * divisor.unaryDiv()
 
+/** Divides this number by [divisor]. */
 public operator fun BRat.div(divisor: BImag): BImag = this * divisor.unaryDiv()
 
+/** Divides this number by [divisor]. */
 public operator fun BImag.div(divisor: BRat): BImag = this * divisor.unaryDiv()
 
+/** Divides this number by [divisor]. */
 public operator fun BFixed.div(divisor: BImag): BImag =
     this * divisor.unaryDiv()
 
+/** Divides this number by [divisor]. */
 public operator fun BImag.div(divisor: BFixed): BImag =
     (value / divisor).toImaginary()
 
+/** Divides this number by [divisor]. */
 public operator fun Long.div(divisor: BImag): BImag = this * divisor.unaryDiv()
 
+/** Divides this number by [divisor]. */
 public operator fun BImag.div(divisor: Long): BImag =
     (value / divisor).toImaginary()
 
+/** Divides this number by [divisor]. */
 public operator fun Int.div(divisor: BImag): BImag = this * divisor.unaryDiv()
 
+/** Divides this number by [divisor]. */
 public operator fun BImag.div(divisor: Int): BImag =
     (value / divisor).toImaginary()
 
 // Other
 
+/** Checks if this number is the additive identity. */
 public fun BImag.isZero(): Boolean = value.isZero()

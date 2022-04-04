@@ -1,5 +1,6 @@
 package hm.binkley.kotlin
 
+/** A [Sequence] with an index operator. */
 public interface SeekableSequence<T> : Sequence<T> {
     /**
      * Finds the "nth" element of the sequence.
