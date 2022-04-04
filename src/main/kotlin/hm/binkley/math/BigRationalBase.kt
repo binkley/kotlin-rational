@@ -40,8 +40,8 @@ public abstract class BigRationalBase<
     public fun signum(): Int = numerator.signum()
 
     /**
-     * The signum of this value as a big rational type: `-ONE` for negative,
-     * `ZERO` for zero, or `ONE` for positive.
+     * The signum function of this value as a big rational type: `-ONE` for
+     * negative, `ZERO` for zero, or `ONE` for positive.
      */
     public open val sign: T get() = companion.valueOf(signum())
 

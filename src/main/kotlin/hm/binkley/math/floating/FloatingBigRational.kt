@@ -18,11 +18,13 @@ import hm.binkley.math.isZero
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-// Workarounds for Java interop
+// Workarounds for Java interoperability
 
+/** The identity element for addition. */
 @JvmField
 public val ZERO: BRat = ZERO
 
+/** The identity element for multiplication. */
 @JvmField
 public val ONE: BRat = ONE
 
@@ -118,8 +120,8 @@ public class FloatingBigRational private constructor(
     }
 
     /**
-     * The signum of this value: -1 for negative, 0 for zero, or 1 for
-     * positive.
+     * The signum function of this value as a big rational type: `-ONE` for
+     * negative, `ZERO` for zero, or `ONE` for positive.
      * `sign` of [NaN] is [NaN].
      */
     override val sign: BRat

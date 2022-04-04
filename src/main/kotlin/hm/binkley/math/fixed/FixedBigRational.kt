@@ -12,10 +12,13 @@ import hm.binkley.math.fixed.FixedBigRational.Companion.valueOf
 import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.isZero
 
-// Workarounds for Java interop
+// Workarounds for Java interoperability
+
+/** The identity element for addition. */
 @JvmField
 public val ZERO: BRat = ZERO
 
+/** The identity element for multiplication. */
 @JvmField
 public val ONE: BRat = ONE
 

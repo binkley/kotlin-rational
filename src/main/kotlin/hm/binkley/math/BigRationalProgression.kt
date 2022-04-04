@@ -8,6 +8,7 @@ private typealias BRange<T> = BigRationalRange<T>
 private typealias DecIter<T> = DecrementingBigRationalIterator<T>
 private typealias IncIter<T> = IncrementingBigRationalIterator<T>
 
+/** Represents a range of big rational values. */
 public interface BigRationalRange<T : BRatBase<T>> : Iterable<T>, ClosedRange<T>
 
 private sealed class BigRationalIterator<T : BRatBase<T>>(
@@ -210,23 +211,30 @@ public infix fun <T : BRatBase<T>> Int.downTo(
     endInclusive: T,
 ): BRange<T> = endInclusive.companion.valueOf(this) downTo endInclusive
 
+/** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: T): BRange<T> =
     BProgression(start, endInclusive, step)
 
+/** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: BFloating): BRange<T> =
     BProgression(start, endInclusive, start.companion.valueOf(step))
 
+/** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: Double): BRange<T> =
     BProgression(start, endInclusive, start.companion.valueOf(step))
 
+/** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: Float): BRange<T> =
     BProgression(start, endInclusive, start.companion.valueOf(step))
 
+/** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: BFixed): BRange<T> =
     BProgression(start, endInclusive, start.companion.valueOf(step))
 
+/** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: Long): BRange<T> =
     BProgression(start, endInclusive, start.companion.valueOf(step))
 
+/** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: Int): BRange<T> =
     BProgression(start, endInclusive, start.companion.valueOf(step))

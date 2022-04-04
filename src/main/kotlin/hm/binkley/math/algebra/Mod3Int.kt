@@ -1,3 +1,5 @@
+@file:Suppress("KDocMissingDocumentation")
+
 package hm.binkley.math.algebra
 
 import lombok.Generated
