@@ -87,7 +87,7 @@ public abstract class BigRationalBase<
         .divide(BFloating(denominator, limitPlaces), roundingMode)
 
     /**
-     * Raises an [IllegalStateException].
+     * Raises an [UnsupportedOperationException].
      * Kotlin provides a [Number.toChar]; Java does not have a conversion to
      * [Character] for [java.lang.Number].
      */
