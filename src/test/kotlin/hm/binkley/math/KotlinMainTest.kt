@@ -101,7 +101,7 @@ NaN -> NaN -> NaN
 1 fixed eq? 1 floating? -> true
 
 ==SPECIAL PRINTING (UNICODE vulgar with solidus in some terminals)
-½, ⅓, ⅔, ¼, ¾, ⅕, ⅖, ⅗, ⅘, ⅙, ⅚, ⅐, ⅛, ⅝, ⅞, ⅑, ⅒, 1⁄11
+½, ⅓, ⅔, ¼, ¾, ⅕, ⅖, ⅗, ⅘, ⅙, ⅚, ⅐, 2⁄7, ⅛, ⅜, ⅝, ⅞, ⅑, 2⁄9, ⅒, 3⁄10, 1⁄11
         """
     }
 }

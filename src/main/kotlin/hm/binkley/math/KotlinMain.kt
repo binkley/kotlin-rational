@@ -162,6 +162,8 @@ public fun main() {
     )
     println(
         // 0 over 3 -- reduces to ZERO, not to a fraction
+        // Note: JaCoCo does not spot exhaustive cases (ie, n/5) from
+        // non-exhaustive ones (ie, n/6), so complains about "when" cases
         listOf(
             1 over 2,
             1 over 3,
@@ -175,11 +177,15 @@ public fun main() {
             1 over 6,
             5 over 6,
             1 over 7,
+            2 over 7, // Should be "2/7" with solidus
             1 over 8,
+            3 over 8,
             5 over 8,
             7 over 8,
             1 over 9,
+            2 over 9, // Should be "2/9" with solidus
             1 over 10,
+            3 over 10, // Should be "3/10" with solidus
             1 over 11,
         ).joinToString { it.display }
     )

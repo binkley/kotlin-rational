@@ -271,42 +271,42 @@ public abstract class BigRationalBase<
      * See https://graphemica.com/search?q=vulgar
      */
     public val display: String get() {
-        when (denominator.toInt()) {
-            2 -> when (numerator.toInt()) {
-                1 -> return "½"
+        when (denominator) {
+            2.big -> when (numerator) {
+                1.big -> return "½"
             }
-            3 -> when (numerator.toInt()) {
-                1 -> return "⅓"
-                2 -> return "⅔"
+            3.big -> when (numerator) {
+                1.big -> return "⅓"
+                2.big -> return "⅔"
             }
-            4 -> when (numerator.toInt()) {
-                1 -> return "¼"
-                3 -> return "¾"
+            4.big -> when (numerator) {
+                1.big -> return "¼"
+                3.big -> return "¾"
             }
-            5 -> when (numerator.toInt()) {
-                1 -> return "⅕"
-                2 -> return "⅖"
-                3 -> return "⅗"
-                4 -> return "⅘"
+            5.big -> when (numerator) {
+                1.big -> return "⅕"
+                2.big -> return "⅖"
+                3.big -> return "⅗"
+                4.big -> return "⅘"
             }
-            6 -> when (numerator.toInt()) {
-                1 -> return "⅙"
-                5 -> return "⅚"
+            6.big -> when (numerator) {
+                1.big -> return "⅙"
+                5.big -> return "⅚"
             }
-            7 -> when (numerator.toInt()) {
-                1 -> return "⅐"
+            7.big -> when (numerator) {
+                1.big -> return "⅐"
             }
-            8 -> when (numerator.toInt()) {
-                1 -> return "⅛"
-                3 -> return "⅜"
-                5 -> return "⅝"
-                7 -> return "⅞"
+            8.big -> when (numerator) {
+                1.big -> return "⅛"
+                3.big -> return "⅜"
+                5.big -> return "⅝"
+                7.big -> return "⅞"
             }
-            9 -> when (numerator.toInt()) {
-                1 -> return "⅑"
+            9.big -> when (numerator) {
+                1.big -> return "⅑"
             }
-            10 -> when (numerator.toInt()) {
-                1 -> return "⅒"
+            10.big -> when (numerator) {
+                1.big -> return "⅒"
             }
         }
         return toString()

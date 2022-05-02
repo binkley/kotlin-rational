@@ -34,8 +34,8 @@
 
     <properties>
         <!-- @formatter:off -->
-        <!-- TODO: JaCoCo confused by Kotlin inline -->
-        <coverage.branches>97</coverage.branches>
+        <!-- TODO: JaCoCo confused by Kotlin inline and math -->
+        <coverage.branches>96</coverage.branches>
         <coverage.lines>98</coverage.lines>
         <coverage.instructions>98</coverage.instructions>
         <coverage.mutation>91</coverage.mutation>
