@@ -270,44 +270,46 @@ public abstract class BigRationalBase<
      *
      * See https://graphemica.com/search?q=vulgar
      */
-    public val display: String get() = when {
-        1.big == numerator -> when (denominator) {
-            2.big -> "½"
-            3.big -> "⅓"
-            4.big -> "¼"
-            5.big -> "⅕"
-            6.big -> "⅙"
-            7.big -> "⅐"
-            8.big -> "⅛"
-            9.big -> "⅑"
-            10.big -> "⅒"
-            else -> toString()
+    public val display: String get() {
+        when (denominator.toInt()) {
+            2 -> when (numerator.toInt()) {
+                1 -> return "½"
+            }
+            3 -> when (numerator.toInt()) {
+                1 -> return "⅓"
+                2 -> return "⅔"
+            }
+            4 -> when (numerator.toInt()) {
+                1 -> return "¼"
+                3 -> return "¾"
+            }
+            5 -> when (numerator.toInt()) {
+                1 -> return "⅕"
+                2 -> return "⅖"
+                3 -> return "⅗"
+                4 -> return "⅘"
+            }
+            6 -> when (numerator.toInt()) {
+                1 -> return "⅙"
+                5 -> return "⅚"
+            }
+            7 -> when (numerator.toInt()) {
+                1 -> return "⅐"
+            }
+            8 -> when (numerator.toInt()) {
+                1 -> return "⅛"
+                3 -> return "⅜"
+                5 -> return "⅝"
+                7 -> return "⅞"
+            }
+            9 -> when (numerator.toInt()) {
+                1 -> return "⅑"
+            }
+            10 -> when (numerator.toInt()) {
+                1 -> return "⅒"
+            }
         }
-        2.big == numerator -> when (denominator) {
-            3.big -> "⅔"
-            5.big -> "⅖"
-            else -> toString()
-        }
-        3.big == numerator -> when (denominator) {
-            4.big -> "¾"
-            5.big -> "⅗"
-            8.big -> "⅜"
-            else -> toString()
-        }
-        4.big == numerator -> when (denominator) {
-            5.big -> "⅘"
-            else -> toString()
-        }
-        5.big == numerator -> when (denominator) {
-            6.big -> "⅚"
-            8.big -> "⅝"
-            else -> toString()
-        }
-        7.big == numerator -> when (denominator) {
-            8.big -> "⅞"
-            else -> toString()
-        }
-        else -> toString()
+        return toString()
     }
 }
 
