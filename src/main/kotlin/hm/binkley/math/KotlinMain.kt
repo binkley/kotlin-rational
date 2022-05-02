@@ -158,11 +158,12 @@ public fun main() {
 
     println()
     println(
-        "==SPECIAL PRINTING (UNICODE vulgar from solidus in some terminals)"
+        "==SPECIAL PRINTING (UNICODE vulgar with solidus in some terminals)"
     )
     println(
+        // 0 over 3 -- reduces to ZERO, not to a fraction
         listOf(
-            1 over 2, // 0 over 3 -- reduces to ZERO, not to a fraction
+            1 over 2,
             1 over 3,
             2 over 3,
             1 over 4,
@@ -179,7 +180,8 @@ public fun main() {
             7 over 8,
             1 over 9,
             1 over 10,
-        ).joinToString()
+            1 over 11,
+        ).joinToString { it.display }
     )
 }
 

@@ -256,12 +256,58 @@ public abstract class BigRationalBase<
     override fun hashCode(): Int = hash(javaClass, numerator, denominator)
 
     /**
-     * Returns a string representation of the object,
+     * Returns a string representation of the fraction,
      * "[numerator]/[denominator]".
      */
     override fun toString(): String = when {
         denominator.isUnit() -> numerator.toString()
-        else -> "$numerator⁄$denominator" // UNICODE fraction slash
+        else -> "$numerator⁄$denominator" // UNICODE fraction slash (solidus)
+    }
+
+    /**
+     * Returns a UNICODE string representation of the fraction taking advantage
+     * of special UNICODE fractions (_eg_, "1 / 2" is ½).
+     *
+     * See https://graphemica.com/search?q=vulgar
+     */
+    public val display: String get() = when {
+        1.big == numerator -> when (denominator) {
+            2.big -> "½"
+            3.big -> "⅓"
+            4.big -> "¼"
+            5.big -> "⅕"
+            6.big -> "⅙"
+            7.big -> "⅐"
+            8.big -> "⅛"
+            9.big -> "⅑"
+            10.big -> "⅒"
+            else -> toString()
+        }
+        2.big == numerator -> when (denominator) {
+            3.big -> "⅔"
+            5.big -> "⅖"
+            else -> toString()
+        }
+        3.big == numerator -> when (denominator) {
+            4.big -> "¾"
+            5.big -> "⅗"
+            8.big -> "⅜"
+            else -> toString()
+        }
+        4.big == numerator -> when (denominator) {
+            5.big -> "⅘"
+            else -> toString()
+        }
+        5.big == numerator -> when (denominator) {
+            6.big -> "⅚"
+            8.big -> "⅝"
+            else -> toString()
+        }
+        7.big == numerator -> when (denominator) {
+            8.big -> "⅞"
+            else -> toString()
+        }
+        else -> toString()
     }
 }
 

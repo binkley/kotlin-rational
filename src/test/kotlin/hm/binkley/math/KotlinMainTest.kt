@@ -100,8 +100,8 @@ NaN -> NaN -> NaN
 ==COMPARING FIXED AND FLOATING BIG RATIONALS
 1 fixed eq? 1 floating? -> true
 
-==SPECIAL PRINTING (UNICODE vulgar from solidus in some terminals)
-1⁄2, 1⁄3, 2⁄3, 1⁄4, 3⁄4, 1⁄5, 2⁄5, 3⁄5, 4⁄5, 1⁄6, 5⁄6, 1⁄7, 1⁄8, 5⁄8, 7⁄8, 1⁄9, 1⁄10
+==SPECIAL PRINTING (UNICODE vulgar with solidus in some terminals)
+½, ⅓, ⅔, ¼, ¾, ⅕, ⅖, ⅗, ⅘, ⅙, ⅚, ⅐, ⅛, ⅝, ⅞, ⅑, ⅒, 1⁄11
         """
     }
 }
