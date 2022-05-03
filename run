@@ -4,7 +4,7 @@
 # Edit these to suit
 readonly package=hm.binkley.math
 readonly artifactId=kotlin-rational
-readonly version=2.2.0-SNAPSHOT
+readonly version=2.2.1-SNAPSHOT
 build_tool=maven
 language=kotlin
 jvm_flags=(--add-opens java.base/java.lang=ALL-UNNAMED)
