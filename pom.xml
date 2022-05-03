@@ -27,8 +27,7 @@
         <connection>scm:git:git://github.com/binkley/kotlin-rational
         </connection>
         <url>https://github.com/binkley/kotlin-rational</url>
-      <tag>kotlin-rational-2.2.0</tag>
-  </scm>
+    </scm>
 
     <properties>
         <!-- @formatter:off -->
