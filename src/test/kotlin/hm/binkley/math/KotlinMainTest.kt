@@ -102,6 +102,11 @@ NaN -> NaN -> NaN
 
 ==SPECIAL PRINTING (UNICODE vulgar with solidus in some terminals)
 ½, ⅓, ⅔, ¼, ¾, ⅕, ⅖, ⅗, ⅘, ⅙, ⅚, ⅐, 2⁄7, ⅛, ⅜, ⅝, ⅞, ⅑, 2⁄9, ⅒, 3⁄10, 1⁄11
+
+== E^X (UP TO FIVE TERMS)
+APPROX E^0 -> 1, 1, 1, 1, 1, 1
+APPROX E^1⁄2 -> 1, 3⁄2, 13⁄8, 79⁄48, 211⁄128, 6331⁄3840
+APPROX E^1 -> 1, 2, 5⁄2, 8⁄3, 65⁄24, 163⁄60
         """
     }
 }

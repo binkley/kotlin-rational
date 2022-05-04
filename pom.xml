@@ -35,7 +35,7 @@
         <coverage.branches>96</coverage.branches>
         <coverage.lines>98</coverage.lines>
         <coverage.instructions>98</coverage.instructions>
-        <coverage.mutation>91</coverage.mutation>
+        <coverage.mutation>90</coverage.mutation>
         <dependency-check-maven.version>7.1.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.20.0</detekt-maven-plugin.version>
         <dokka.version>1.6.21</dokka.version>
@@ -335,9 +335,13 @@
                         <avoidCallsTo>kotlin.jvm.internal</avoidCallsTo>
                     </avoidCallsTo>
                     <excludedClasses>
-                        <excludedClass>hm.binkley.math.KotlinMainKt
+                        <excludedClass>hm.binkley.math.KotlinMain*
                         </excludedClass>
                     </excludedClasses>
+                    <excludedTestClasses>
+                        <excludedTestClass>hm.binkley.math.KotlinMainTest*
+                        </excludedTestClass>
+                    </excludedTestClasses>
                     <excludedMethods>
                         <excludedMethod>byteValue</excludedMethod>
                         <excludedMethod>doubleValue</excludedMethod>

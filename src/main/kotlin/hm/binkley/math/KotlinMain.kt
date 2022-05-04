@@ -5,12 +5,14 @@ import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.complex.conjugate
 import hm.binkley.math.fixed.complex.plus
+import hm.binkley.math.floating.FloatingBigRational
 import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.ZERO
 import hm.binkley.math.floating.FloatingBigRational.Companion.cantorSpiral
+import hm.binkley.math.floating.FloatingBigRational.Companion.sum
 import hm.binkley.math.floating.over
 import hm.binkley.math.floating.toBigRational
 
@@ -189,7 +191,31 @@ public fun main() {
             1 over 11,
         ).joinToString { it.display }
     )
+
+    println()
+    println("== E^X (UP TO FIVE TERMS)")
+    // TODO: Who needs memoization?
+    fun `approxE^X`(exponent: FloatingBigRational, limit: Int = 5) {
+        println(
+            (0..limit).map {
+                e(exponent, it)
+            }.joinToString(prefix = "APPROX E^$exponent -> ") {
+                it.toString()
+            }
+        )
+    }
+    `approxE^X`(ZERO)
+    `approxE^X`(1 over 2)
+    `approxE^X`(ONE)
 }
+
+private fun e(exponent: FloatingBigRational, terms: Int) = (0..terms).map {
+    exponent.pow(it) / it.fact()
+}.sum()
+
+private tailrec fun Int.fact(x: Int = 1): Int =
+    if (0 == this) x
+    else (this - 1).fact(x * this)
 
 private fun dump(d: Double) {
     val rat = d.toBigRational()
