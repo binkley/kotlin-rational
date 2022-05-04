@@ -22,7 +22,7 @@ private enum class Direction { N, S, E, W }
  * - Points whose fraction reduces to lowest terms for an already visited point
  *   such as (1, 2) and (2, 4) (presenting "1 / 2")
  *
- * See https://youtu.be/3xyYs_eQTUc
+ * See https://youtu.be/3xyYs_eQTUc?t=252
  */
 internal class CantorSpiral<T : BRatBase<T>>(
     private val companion: BRatCompanion<T>,
