@@ -49,11 +49,44 @@ internal class BigRationalBaseTest {
     }
 
     @Test
-    fun `should pretty print`() {
+    fun `should print nicely`() {
         ZERO.toString() shouldBe "0"
         TEN.toString() shouldBe "10"
-        (1 over 2).toString() shouldBe "1⁄2"
-        (-1 over 2).toString() shouldBe "-1⁄2"
+        (1 over 2).toString() shouldBe "1⁄2" // solidus
+        (-1 over 2).toString() shouldBe "-1⁄2" // solidus
+    }
+
+    @Test
+    fun `should display nicely`() {
+        // Note: JaCoCo does not spot exhaustive cases (ie, n/5) from
+        // non-exhaustive ones (ie, n/6), so complains about "when" cases
+        listOf(
+            (1 over 2) to "½",
+            (0 over 3) to "0", // Ignore UNICODE ↉
+            (1 over 3) to "⅓",
+            (2 over 3) to "⅔",
+            (1 over 4) to "¼",
+            (3 over 4) to "¾",
+            (1 over 5) to "⅕",
+            (2 over 5) to "⅖",
+            (3 over 5) to "⅗",
+            (4 over 5) to "⅘",
+            (1 over 6) to "⅙",
+            (5 over 6) to "⅚",
+            (1 over 7) to "⅐",
+            (2 over 7) to "2⁄7", // With solidus
+            (1 over 8) to "⅛",
+            (3 over 8) to "⅜",
+            (5 over 8) to "⅝",
+            (7 over 8) to "⅞",
+            (1 over 9) to "⅑",
+            (2 over 9) to "2⁄9", // With solidus
+            (1 over 10) to "⅒",
+            (3 over 10) to "3⁄10", // With solidus
+            (1 over 11) to "1⁄11", // With solidus
+        ).forEach { (ratio, expected) ->
+            ratio.display shouldBe expected
+        }
     }
 
     @Nested
