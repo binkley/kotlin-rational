@@ -1,6 +1,9 @@
-package hm.binkley.math
+package demo
 
 import hm.binkley.math.algebra.Mod3Int
+import hm.binkley.math.div
+import hm.binkley.math.downTo
+import hm.binkley.math.equivalent
 import hm.binkley.math.fixed.FixedBigRational
 import hm.binkley.math.fixed.complex.FixedBigImaginary.Companion.I
 import hm.binkley.math.fixed.complex.conjugate
@@ -15,6 +18,8 @@ import hm.binkley.math.floating.FloatingBigRational.Companion.cantorSpiral
 import hm.binkley.math.floating.FloatingBigRational.Companion.sum
 import hm.binkley.math.floating.over
 import hm.binkley.math.floating.toBigRational
+import hm.binkley.math.rangeTo
+import hm.binkley.math.step
 
 /** Runs the demo. */
 public fun main() {

@@ -49,7 +49,7 @@
         <kotlin.version>1.6.21</kotlin.version>
         <ktlint-maven-plugin.version>1.13.1</ktlint-maven-plugin.version>
         <lombok.version>1.18.24</lombok.version>
-        <main.class>hm.binkley.math.KotlinMainKt</main.class>
+        <main.class>demo.KotlinMainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
@@ -282,6 +282,9 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
+                    <excludes>
+                        <exclude>demo/**</exclude>
+                    </excludes>
                     <rules>
                         <rule>
                             <limits>
@@ -335,13 +338,8 @@
                         <avoidCallsTo>kotlin.jvm.internal</avoidCallsTo>
                     </avoidCallsTo>
                     <excludedClasses>
-                        <excludedClass>hm.binkley.math.KotlinMain*
-                        </excludedClass>
+                        <excludedClass>demo.*</excludedClass>
                     </excludedClasses>
-                    <excludedTestClasses>
-                        <excludedTestClass>hm.binkley.math.KotlinMainTest*
-                        </excludedTestClass>
-                    </excludedTestClasses>
                     <excludedMethods>
                         <excludedMethod>byteValue</excludedMethod>
                         <excludedMethod>doubleValue</excludedMethod>
