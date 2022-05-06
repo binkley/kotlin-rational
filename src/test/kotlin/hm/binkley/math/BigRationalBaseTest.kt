@@ -83,7 +83,9 @@ internal class BigRationalBaseTest {
             (2 over 9) to "2⁄9", // With solidus
             (1 over 10) to "⅒",
             (3 over 10) to "3⁄10", // With solidus
-            (1 over 11) to "1⁄11", // With solidus
+            // Coverage regardless of algo for computing UNICODE:
+            (2 over 11) to "2⁄11", // With solidus
+            (11 over 2) to "11⁄2", // With solidus
         ).forEach { (ratio, expected) ->
             ratio.display shouldBe expected
         }
