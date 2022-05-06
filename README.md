@@ -218,6 +218,22 @@ UNICODE forms of
 most helpful is to use the English way to pronounce fractions, _ie_, "two over
 one".
 
+### Pretty printing
+
+Rationals print (`toString`) using [the fraction
+slash](https://graphemica.com/%E2%81%84):
+
+```kotlin
+"$nearPi" // evaluates to "22⁄7"
+```
+
+To leverage UNICODE for particular rationals, use the `display` property (which
+falls back to `toString` if there is no specific UNICOCE character):
+
+```kotlin
+(1 over 2).display // evaluates to "½"
+```
+
 ### Properties
 
 - `numerator`, `denominator`, `absoluteValue`, `sign`, and `reciprocal`
