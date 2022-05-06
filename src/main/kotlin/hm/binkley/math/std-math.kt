@@ -3,9 +3,6 @@ package hm.binkley.math
 import java.math.BigDecimal
 import java.math.BigInteger
 
-internal typealias BFixed = BigInteger
-internal typealias BFloating = BigDecimal
-
 /** Note that [BigDecimal.valueOf] does not check for all constants. */
 internal val Double.big: BFloating
     get() = when (this) {
