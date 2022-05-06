@@ -32,10 +32,10 @@
     <properties>
         <!-- @formatter:off -->
         <!-- TODO: JaCoCo confused by Kotlin inline and math -->
-        <coverage.branches>96</coverage.branches>
+        <coverage.branches>98</coverage.branches>
         <coverage.lines>98</coverage.lines>
-        <coverage.instructions>98</coverage.instructions>
-        <coverage.mutation>90</coverage.mutation>
+        <coverage.instructions>99</coverage.instructions>
+        <coverage.mutation>91</coverage.mutation>
         <dependency-check-maven.version>7.1.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.20.0</detekt-maven-plugin.version>
         <dokka.version>1.6.21</dokka.version>
