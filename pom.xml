@@ -67,7 +67,7 @@
         <maven.test.skip>false</maven.test.skip> <!-- Make linter happy -->
         <maven.version>3.8.4</maven.version>
         <owasp.skip>false</owasp.skip>
-        <pitest-junit5-plugin.version>0.16</pitest-junit5-plugin.version>
+        <pitest-junit5-plugin.version>1.0.0</pitest-junit5-plugin.version>
         <pitest-maven.version>1.8.1</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
