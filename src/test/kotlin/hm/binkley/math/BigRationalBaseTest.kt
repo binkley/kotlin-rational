@@ -253,7 +253,7 @@ internal class BigRationalBaseTest {
         )
 
         @Suppress("unused")
-        fun testData() = listOf(
+        private fun testData() = listOf(
             // Non-repeating
             Conversion(1, 2, 0, null, "0"),
             Conversion(1, 2, 1, null, "0.5"),
