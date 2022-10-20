@@ -293,8 +293,11 @@ internal class BigRationalBaseTest {
         fun `should convert to big decimal`(c: Conversion) {
             val rat = c.numerator over c.denominator
             val actual =
-                if (null == c.roundingMode) rat.toBigDecimal(c.limitPlaces)
-                else rat.toBigDecimal(c.limitPlaces, c.roundingMode)
+                if (null == c.roundingMode) {
+                    rat.toBigDecimal(c.limitPlaces)
+                } else {
+                    rat.toBigDecimal(c.limitPlaces, c.roundingMode)
+                }
             val expected = BFloating(c.result)
 
             actual shouldBe expected

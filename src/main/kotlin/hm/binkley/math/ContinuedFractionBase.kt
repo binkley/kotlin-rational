@@ -69,10 +69,11 @@ public abstract class ContinuedFractionBase<
      *
      * @see reciprocal
      */
-    public fun unaryDiv(): C = if (integerPart.isZero())
+    public fun unaryDiv(): C = if (integerPart.isZero()) {
         construct(fractionalParts)
-    else
+    } else {
         construct(listOf(integerPart.companion.ZERO) + terms)
+    }
 
     /**
      * Raises an [UnsupportedOperationException].
@@ -154,8 +155,11 @@ private tailrec fun <T : BRatBase<T>> converge(
     val ci = (termI * c_1.numerator + c_2.numerator) /
         (termI * c_1.denominator + c_2.denominator)
 
-    return if (n == i) ci
-    else converge(terms, n, i + 1, ci, c_1)
+    return if (n == i) {
+        ci
+    } else {
+        converge(terms, n, i + 1, ci, c_1)
+    }
 }
 
 /** Base type for companions to big continue fraction types. */
@@ -188,13 +192,19 @@ public abstract class ContinuedFractionCompanionBase<
 
     /** Creates a continued fraction for e (Euler's number) of [n] parts. */
     public fun e(n: Int): C =
-        if (0 < n) construct(
-            MutableList(n - 1) { index ->
-                if (1 == index % 3) constructTerm((2 * (1 + index / 3)).big)
-                else ONE
-            }.prepend(TWO)
-        )
-        else error("Not enough digits to approximate √2: $n")
+        if (0 < n) {
+            construct(
+                MutableList(n - 1) { index ->
+                    if (1 == index % 3) {
+                        constructTerm((2 * (1 + index / 3)).big)
+                    } else {
+                        ONE
+                    }
+                }.prepend(TWO)
+            )
+        } else {
+            error("Not enough digits to approximate √2: $n")
+        }
 
     /**
      * Creates a continued fraction for φ (the golden ration) of [n] parts.
@@ -203,22 +213,31 @@ public abstract class ContinuedFractionCompanionBase<
      * - The approximation is rather slow
      */
     public fun phi(n: Int): C =
-        if (0 < n) construct(List(n) { ONE })
-        else error("Not enough digits to approximate φ: $n")
+        if (0 < n) {
+            construct(List(n) { ONE })
+        } else {
+            error("Not enough digits to approximate φ: $n")
+        }
 
     /** Creates a continued fraction for √2 of [n] parts. */
     public fun root2(n: Int): C =
-        if (0 < n) construct(MutableList(n - 1) { TWO }.prepend(ONE))
-        else error("Not enough digits to approximate √2: $n")
+        if (0 < n) {
+            construct(MutableList(n - 1) { TWO }.prepend(ONE))
+        } else {
+            error("Not enough digits to approximate √2: $n")
+        }
 
     /** Creates a continued fraction for √3 of [n] parts. */
     public fun root3(n: Int): C =
-        if (0 < n) construct(
-            MutableList(n - 1) { index ->
-                if (0 == index % 2) ONE else TWO
-            }.prepend(ONE)
-        )
-        else error("Not enough digits to approximate √3: $n")
+        if (0 < n) {
+            construct(
+                MutableList(n - 1) { index ->
+                    if (0 == index % 2) ONE else TWO
+                }.prepend(ONE)
+            )
+        } else {
+            error("Not enough digits to approximate √3: $n")
+        }
 }
 
 private fun <T> MutableList<T>.prepend(element: T) =
@@ -237,8 +256,11 @@ internal tailrec fun <T : BRatBase<T>> fractionateInPlace(
 ): List<T> {
     val (i, f) = r.toParts()
     terms += i
-    return if (f.isZero()) terms
-    else fractionateInPlace(f.unaryDiv(), terms)
+    return if (f.isZero()) {
+        terms
+    } else {
+        fractionateInPlace(f.unaryDiv(), terms)
+    }
 }
 
 private fun <T : BRatBase<T>> T.toParts(): Pair<T, T> {

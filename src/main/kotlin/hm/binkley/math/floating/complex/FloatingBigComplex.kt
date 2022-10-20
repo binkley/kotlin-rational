@@ -46,8 +46,11 @@ public data class FloatingBigComplex(
         this * divisor.unaryDiv()
 
     override fun toString(): String =
-        if (BRat.ZERO > imag.value) "$real-${-imag}"
-        else "$real+$imag"
+        if (BRat.ZERO > imag.value) {
+            "$real-${-imag}"
+        } else {
+            "$real+$imag"
+        }
 
     public companion object : FieldCompanion<BComplex> {
         override val ZERO: BComplex = BComplex(BRat.ZERO, BRat.ZERO.i)
@@ -411,64 +414,88 @@ public operator fun BComplex.div(divisor: Int): BComplex =
  * [ArithmeticException].
  */
 public fun BComplex.toImaginary(): BImag =
-    if (real.isZero()) imag
-    else throw ArithmeticException("Not imaginary: $this")
+    if (real.isZero()) {
+        imag
+    } else {
+        throw ArithmeticException("Not imaginary: $this")
+    }
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
 public fun BComplex.toBigRational(): BRat =
-    if (imag.isZero()) real
-    else throw ArithmeticException("Not real: $this")
+    if (imag.isZero()) {
+        real
+    } else {
+        throw ArithmeticException("Not real: $this")
+    }
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
 public fun BComplex.toBigDecimal(): BigDecimal =
-    if (imag.isZero()) real.toBigDecimal()
-    else throw ArithmeticException("Not real: $this")
+    if (imag.isZero()) {
+        real.toBigDecimal()
+    } else {
+        throw ArithmeticException("Not real: $this")
+    }
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
 public fun BComplex.toDouble(): Double =
-    if (imag.isZero()) real.toDouble()
-    else throw ArithmeticException("Not real: $this")
+    if (imag.isZero()) {
+        real.toDouble()
+    } else {
+        throw ArithmeticException("Not real: $this")
+    }
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
 public fun BComplex.toFloat(): Float =
-    if (imag.isZero()) real.toFloat()
-    else throw ArithmeticException("Not real: $this")
+    if (imag.isZero()) {
+        real.toFloat()
+    } else {
+        throw ArithmeticException("Not real: $this")
+    }
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
 public fun BComplex.toBigInteger(): BigInteger =
-    if (imag.isZero()) real.toBigInteger()
-    else throw ArithmeticException("Not real: $this")
+    if (imag.isZero()) {
+        real.toBigInteger()
+    } else {
+        throw ArithmeticException("Not real: $this")
+    }
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
 public fun BComplex.toLong(): Long =
-    if (imag.isZero()) real.toLong()
-    else throw ArithmeticException("Not real: $this")
+    if (imag.isZero()) {
+        real.toLong()
+    } else {
+        throw ArithmeticException("Not real: $this")
+    }
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
 public fun BComplex.toInt(): Int =
-    if (imag.isZero()) real.toInt()
-    else throw ArithmeticException("Not real: $this")
+    if (imag.isZero()) {
+        real.toInt()
+    } else {
+        throw ArithmeticException("Not real: $this")
+    }
 
 /** Returns the approximate modulus (root of the determinant). */
 public fun BComplex.modulusApproximated(): BRat = det.sqrtApproximated()

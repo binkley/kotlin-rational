@@ -17,11 +17,13 @@ import kotlin.math.sqrt
  */
 public fun <T : BigRationalBase<T>> T.sqrt(): T {
     val (nRoot, nRemainder) = numerator.sqrtAndRemainder()
-    if (!nRemainder.isZero())
+    if (!nRemainder.isZero()) {
         throw ArithmeticException("No rational square root: $this")
+    }
     val (dRoot, dRemainder) = denominator.sqrtAndRemainder()
-    if (!dRemainder.isZero())
+    if (!dRemainder.isZero()) {
         throw ArithmeticException("No rational square root: $this")
+    }
 
     return companion.valueOf(nRoot, dRoot)
 }
@@ -89,8 +91,9 @@ public fun <T : BigRationalBase<T>> T.cbrt(): T {
     val dRoot = cbrt(denominator.toDouble()).toBigDecimal().toBigIntegerExact()
     val cbrt = companion.valueOf(nRoot, dRoot)
 
-    if (this != cbrt * cbrt * cbrt)
+    if (this != cbrt * cbrt * cbrt) {
         throw ArithmeticException("No rational cube root: $this")
+    }
 
     return cbrt
 }
@@ -220,10 +223,14 @@ public fun <T : BigRationalBase<T>> T.truncateAndRemainder(): Pair<T, T> =
  * `tailrec` does not support mutual recursion.
  */
 public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
-    if (isZero()) that
-    else companion.valueOf(
-        numerator.gcd(that.numerator), denominator.lcm(that.denominator)
-    )
+    if (isZero()) {
+        that
+    } else {
+        companion.valueOf(
+            numerator.gcd(that.numerator),
+            denominator.lcm(that.denominator)
+        )
+    }
 
 /**
  * Returns the lowest common multiple of the absolute values of `this` and
@@ -231,7 +238,11 @@ public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
  * Returns 0 when `this` and [that] are both 0.
  */
 public fun <T : BigRationalBase<T>> T.lcm(that: T): T =
-    if (isZero()) companion.ZERO
-    else companion.valueOf(
-        numerator.lcm(that.numerator), denominator.gcd(that.denominator)
-    )
+    if (isZero()) {
+        companion.ZERO
+    } else {
+        companion.valueOf(
+            numerator.lcm(that.numerator),
+            denominator.gcd(that.denominator)
+        )
+    }

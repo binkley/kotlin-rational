@@ -29,8 +29,11 @@ public class FloatingContinuedFraction private constructor(
     override fun construct(terms: List<BRat>): CFrac = CFrac(terms)
 
     override fun toBigRational(): BRat =
-        if (!isFinite()) NaN
-        else backAgain()
+        if (!isFinite()) {
+            NaN
+        } else {
+            backAgain()
+        }
 
     public companion object :
         ContinuedFractionCompanionBase<BRat, CFrac>(ONE, TWO) {

@@ -7,7 +7,8 @@ import hm.binkley.math.TestBigRational.Companion.TWO
 internal class TestContinuedFraction private constructor(
     terms: List<TestBigRational>,
 ) : ContinuedFractionBase<TestBigRational, TestContinuedFraction>(
-    terms, TestContinuedFraction
+    terms,
+    TestContinuedFraction
 ) {
     override fun construct(terms: List<TestBigRational>) =
         TestContinuedFraction(terms)

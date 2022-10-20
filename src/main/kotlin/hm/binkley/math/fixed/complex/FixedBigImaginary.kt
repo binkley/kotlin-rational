@@ -42,21 +42,25 @@ public data class FixedBigImaginary(
 
 /** Creates a new imaginary number. */
 public fun BRat.toImaginary(): BImag = BImag(this)
+
 /** Creates a new imaginary number. */
 public inline val BRat.i: BImag get() = toImaginary()
 
 /** Creates a new imaginary number. */
 public fun BFixed.toImaginary(): BImag = toBigRational().toImaginary()
+
 /** Creates a new imaginary number. */
 public inline val BFixed.i: BImag get() = toImaginary()
 
 /** Creates a new imaginary number. */
 public fun Long.toImaginary(): BImag = toBigRational().toImaginary()
+
 /** Creates a new imaginary number. */
 public inline val Long.i: BImag get() = toImaginary()
 
 /** Creates a new imaginary number. */
 public fun Int.toImaginary(): BImag = toBigRational().toImaginary()
+
 /** Creates a new imaginary number. */
 public inline val Int.i: BImag get() = toImaginary()
 

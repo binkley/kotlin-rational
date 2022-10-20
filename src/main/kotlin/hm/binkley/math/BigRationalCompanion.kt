@@ -177,10 +177,12 @@ public abstract class BigRationalCompanion<T : BRatBase<T>>(
             d /= gcd
         }
 
-        if (d.isUnit()) when {
-            n.isUnit() -> return ONE
-            n.isTwo() -> return TWO
-            n.isTen() -> return TEN
+        if (d.isUnit()) {
+            when {
+                n.isUnit() -> return ONE
+                n.isTwo() -> return TWO
+                n.isTen() -> return TEN
+            }
         }
 
         return ctor(n, d)

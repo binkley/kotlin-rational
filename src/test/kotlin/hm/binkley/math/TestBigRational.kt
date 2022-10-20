@@ -22,8 +22,9 @@ internal class TestBigRational(
         TEN = BRat(BFixed.TEN, BFixed.ONE),
     ) {
         override fun valueOf(numerator: BFixed, denominator: BFixed): BRat {
-            if (denominator.isZero())
+            if (denominator.isZero()) {
                 throw ArithmeticException("division by zero")
+            }
 
             return reduce(numerator, denominator) { n, d ->
                 BRat(n, d)

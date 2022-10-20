@@ -63,8 +63,11 @@ public class FloatingBigRational private constructor(
      * repeating decimal) or for non-finite rationals
      */
     override fun toBigDecimal(): BFloating =
-        if (!isFinite()) throw ArithmeticException("Non-finite")
-        else super.toBigDecimal()
+        if (!isFinite()) {
+            throw ArithmeticException("Non-finite")
+        } else {
+            super.toBigDecimal()
+        }
 
     /**
      * @see [Double.toLong]
@@ -264,10 +267,12 @@ public class FloatingBigRational private constructor(
             numerator: BFixed,
             denominator: BFixed,
         ): BRat {
-            if (denominator.isZero()) return when {
-                numerator.isZero() -> NaN
-                numerator.signum() == 1 -> POSITIVE_INFINITY
-                else -> NEGATIVE_INFINITY
+            if (denominator.isZero()) {
+                return when {
+                    numerator.isZero() -> NaN
+                    numerator.signum() == 1 -> POSITIVE_INFINITY
+                    else -> NEGATIVE_INFINITY
+                }
             }
 
             return reduce(numerator, denominator) { n, d ->
@@ -296,8 +301,9 @@ public class FloatingBigRational private constructor(
         ) {
             super.iteratorCheck(first, last, step)
             if (!step.isFinite()) error("Non-finite step.")
-            if (!first.isFinite() || !last.isFinite())
+            if (!first.isFinite() || !last.isFinite()) {
                 error("Non-finite bounds.")
+            }
         }
     }
 }

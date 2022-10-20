@@ -23,8 +23,11 @@ public abstract class BigRationalBase<
     @Suppress("UNCHECKED_CAST")
     public val absoluteValue: T
         get() =
-            if (0 > numerator.signum()) -this
-            else this as T
+            if (0 > numerator.signum()) {
+                -this
+            } else {
+                this as T
+            }
 
     /**
      * Returns the reciprocal.
@@ -153,15 +156,17 @@ public abstract class BigRationalBase<
 
     /** Adds the other value to this value. */
     override operator fun plus(addend: T): T =
-        if (denominator == addend.denominator)
+        if (denominator == addend.denominator) {
             companion.valueOf(
                 numerator + addend.numerator,
                 denominator
             )
-        else companion.valueOf(
-            numerator * addend.denominator + addend.numerator * denominator,
-            denominator * addend.denominator
-        )
+        } else {
+            companion.valueOf(
+                numerator * addend.denominator + addend.numerator * denominator,
+                denominator * addend.denominator
+            )
+        }
 
     /** Multiplies this value by the other value. */
     override operator fun times(multiplicand: T): T =
@@ -227,13 +232,16 @@ public abstract class BigRationalBase<
     /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
     public open fun round(roundingMode: RoundingMode): T =
-        if (isWhole()) this as T
-        else companion.valueOf(
-            // BigInteger does not have a divide with rounding mode
-            numerator.toBigDecimal()
-                .divide(denominator.toBigDecimal(), roundingMode)
-                .setScale(0)
-        )
+        if (isWhole()) {
+            this as T
+        } else {
+            companion.valueOf(
+                // BigInteger does not have a divide with rounding mode
+                numerator.toBigDecimal()
+                    .divide(denominator.toBigDecimal(), roundingMode)
+                    .setScale(0)
+            )
+        }
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a

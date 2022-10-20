@@ -65,8 +65,11 @@ private class BigRationalProgression<T : BRatBase<T>>(
     private val step: T,
 ) : BRange<T> {
     override fun iterator() =
-        if (start.companion.ZERO > step) DecIter(start, endInclusive, step)
-        else IncIter(start, endInclusive, step)
+        if (start.companion.ZERO > step) {
+            DecIter(start, endInclusive, step)
+        } else {
+            IncIter(start, endInclusive, step)
+        }
 
     override fun equals(other: Any?) = this === other ||
         other is BProgression<*> &&
@@ -77,8 +80,11 @@ private class BigRationalProgression<T : BRatBase<T>>(
     override fun hashCode() = hash(javaClass, start, endInclusive, step)
 
     override fun toString() =
-        if (start.companion.ZERO <= step) "$start..$endInclusive step $step"
-        else "$start downTo $endInclusive step $step"
+        if (start.companion.ZERO <= step) {
+            "$start..$endInclusive step $step"
+        } else {
+            "$start downTo $endInclusive step $step"
+        }
 }
 
 /** Creates a range from this value to [endInclusive]. */
