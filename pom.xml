@@ -179,8 +179,8 @@
                 <version>${kotlin.version}</version>
                 <configuration>
                     <args>
-                        <arg>-Xexplicit-api=strict</arg>
                         <arg>-Werror</arg>
+                        <arg>-Xexplicit-api=strict</arg>
                     </args>
                     <javaParameters>true</javaParameters>
                     <languageVersion>1.8</languageVersion>
