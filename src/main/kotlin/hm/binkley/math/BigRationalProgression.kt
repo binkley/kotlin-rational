@@ -12,7 +12,7 @@ private typealias IncIter<T> = IncrementingBigRationalIterator<T>
 public interface BigRationalRange<T : BRatBase<T>> : Iterable<T>, ClosedRange<T>
 
 private sealed class BigRationalIterator<T : BRatBase<T>>(
-    _current: T,
+    private var _current: T,
     protected val last: T,
     private val step: T,
 ) : Iterator<T> {
@@ -21,20 +21,17 @@ private sealed class BigRationalIterator<T : BRatBase<T>>(
     }
 
     /** Some hoop-jumping to make JaCoCo happier */
-    protected var current: T = _current
-        private set
+    protected val current: T get() = _current
 
     override fun next(): T {
-        val next = current
-        current += step
+        val next = _current
+        _current += step
         return next
     }
 }
 
 private class IncrementingBigRationalIterator<T : BRatBase<T>>(
-    /** The first element in the progression. */
     first: T,
-    /** The last element in the progression. */
     last: T,
     step: T,
 ) : BIter<T>(first, last, step) {
@@ -46,14 +43,12 @@ private class IncrementingBigRationalIterator<T : BRatBase<T>>(
 }
 
 private class DecrementingBigRationalIterator<T : BRatBase<T>>(
-    /** The first element in the progression. */
     first: T,
-    /** The last element in the progression. */
     last: T,
     step: T,
 ) : BIter<T>(first, last, step) {
     init {
-        if (first < last) error("Step must advance range to avoid overflow.")
+        if (first < last) error("Step must advance range to avoid underflow.")
     }
 
     override fun hasNext() = current >= last
