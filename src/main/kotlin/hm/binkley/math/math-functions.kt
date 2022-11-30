@@ -214,35 +214,35 @@ public fun <T : BigRationalBase<T>> T.truncateAndRemainder(): Pair<T, T> =
 
 /**
  * Returns the greatest common divisor of the absolute values of `this` and
- * [that].
- * Returns 0 when `this` and [that] are both 0.
+ * [other].
+ * Returns 0 when `this` and [other] are both 0.
  *
  * See an example
  * [tail-recursive version](https://github.com/breandan/kotlingrad/blob/56a6d4d03544db1bcaa93c31ffc7e075bc564e64/core/src/main/kotlin/edu/umontreal/kotlingrad/typelevel/TypeClassing.kt#L192)
  * Note: this code has recursive calls between [gcd] and [lcm], and Kotlin
  * `tailrec` does not support mutual recursion.
  */
-public fun <T : BigRationalBase<T>> T.gcd(that: T): T =
+public fun <T : BigRationalBase<T>> T.gcd(other: T): T =
     if (isZero()) {
-        that
+        other
     } else {
         companion.valueOf(
-            numerator.gcd(that.numerator),
-            denominator.lcm(that.denominator)
+            numerator.gcd(other.numerator),
+            denominator.lcm(other.denominator)
         )
     }
 
 /**
  * Returns the lowest common multiple of the absolute values of `this` and
- * [that].
- * Returns 0 when `this` and [that] are both 0.
+ * [other].
+ * Returns 0 when `this` and [other] are both 0.
  */
-public fun <T : BigRationalBase<T>> T.lcm(that: T): T =
+public fun <T : BigRationalBase<T>> T.lcm(other: T): T =
     if (isZero()) {
         companion.ZERO
     } else {
         companion.valueOf(
-            numerator.lcm(that.numerator),
-            denominator.gcd(that.denominator)
+            numerator.lcm(other.numerator),
+            denominator.gcd(other.denominator)
         )
     }
