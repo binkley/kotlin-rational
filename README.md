@@ -112,8 +112,7 @@ public repository.
 
 See these examples:
 
-- [Java `main`](./src/main/java/hm/binkley/math/JavaMain.java)
-- [Kotlin `main`](./src/main/kotlin/hm/binkley/math/KotlinMain.kt)
+- [`main`](./src/main/kotlin/demo/KotlinMain.kt)
 
 ### Gradle
 
