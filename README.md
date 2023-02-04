@@ -217,8 +217,8 @@ After experiments with alternative infix operators, for example, "2 `⁄` 1" wit
 the [UNICODE fraction slash](https://graphemica.com/%E2%81%84), or the various
 UNICODE forms of
 [the solidus](https://en.wikipedia.org/wiki/Slash_(punctuation)#Mathematics),
-most helpful is to use the English way to pronounce fractions, _ie_, "two over
-one".
+the English way to pronounce fractions, _ie_, "two over one" was found to be 
+the most clear.
 
 ### Pretty printing
 
@@ -398,12 +398,13 @@ This code provides `FixedBigRational` and `FloatingBigRational`. They differ by:
 
 Note that floating point negative zero is mapped to rational unsigned zero.
 
-### Direct references
+### Sources
 
 These were great help:
 
-- [Android's `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational)
-  , especially treating `FloatingBigRational` as a `kotlin.Number`, and methods
+- [Android's
+  `Rational`](https://developer.android.com/reference/kotlin/android/util/Rational),
+  especially treating `FloatingBigRational` as a `kotlin.Number`, and methods
   such as `isFinite()` and `isInfinite()`
 - [Fylipp/rational](https://github.com/Fylipp/rational), especially the infix
   `over` constructor, and various overloads
@@ -418,10 +419,11 @@ _affinely extended real line_ as a model.
 However, this code does not consider `+0` or `-0`, treating all zeros as `0`,
 and distinguishes +∞ from -∞ (as opposed to the projectively extended real
 line).
-In these ways, `FloatingBigRational` does not represent a proper _Field_.
+As a result `FloatingBigRational` does not represent a proper _Field_.
 
 The code for `FixedBigRational`, however, _should_ simply be ℚ, and raises
-`ArithmeticException` when encountering impossible circumstances.
+`ArithmeticException` when encountering impossible circumstances; hence, it 
+is a _Field_ when not raising exceptions.
 
 ### Prefer readability
 
@@ -430,20 +432,13 @@ code (often though, more readable is also more performant).
 
 ### Always proper form
 
-This code always keeps rationals in proper form:
+This code always keeps rationals in proper form (lowest terms):
 
-1. The numerator and denominator are coprime (in "lowest form")
-2. The denominator is non-negative
+1. The numerator and denominator are coprime
+2. The denominator is positive exception the next point
 3. For `FloatingBigRational`, the denominator is `0` for three special cases:
    `NaN` ("0 / 0"), `POSITIVE_INFINITY` ("1 / 0") and `NEGATIVE_INFINITY`
    ("-1 / 0")
-
-Thus, for these cases, care should be taken in using their denominators
-
-The denominator is always non-negative; it is zero for the special values
-`NaN`, `POSITIVE_INFINITY`, and `NEGATIVE_INFINITY` as an implementation detail
-for `FloatingBigRational` (there is no proper representation in ℚ for these
-cases).
 
 One may conclude that `FixedBigRational` is a _Field_ under addition and
 multiplication, and `FloatingBigRational` is not.
@@ -605,15 +600,15 @@ and relevant code checks for those constants.
 
 See:
 
-- `Nan`, `isNaN()` (`FloatingBigRational`)
+- `ZERO`, `ONE`, `TWO`, `TEN` (`FixedBigRational` and `FloatingBigRational`)
 - `POSITIVE_INFINITY`, `isPositiveInfinity()` (`FloatingBigRational`)
 - `NEGATIVE_INFINITY`, `isNegativeInfinity()` (`FloatingBigRational`)
-- `ZERO`, `ONE`, `TWO`, `TEN` (`FixedBigRational` and `FloatingBigRational`)
+- `Nan`, `isNaN()` (`FloatingBigRational`)
 
 ### Factory constructor
 
 Rather than provide a public constructor, always use the `over` infix operator
-(or `valueOf` factory method).
+or `valueOf` factory method.
 This maintains invariants such as "lowest terms" (numerator and denominator are
 coprime), sign handling, and reuse of special case objects.
 
@@ -622,8 +617,8 @@ coprime), sign handling, and reuse of special case objects.
 This code uses special case handling for non-finite values.
 An alternative would be to use a sealed class with separate subclasses for
 special cases.
-This would potentially provide handling of infinitesimals.
-However, this abstraction bleeds between subclasses.
+This would potentially provide handling of infinitesimals; however, this 
+abstraction bleeds between subclasses.
 It is unclear if a sealed class makes the code clearer.
 
 ### Avoid duplication
