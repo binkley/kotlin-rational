@@ -46,12 +46,12 @@
         <java.charset>UTF-8</java.charset>
         <jdk.version>17</jdk.version>
         <junit.version>5.9.2</junit.version>
-        <kotest.version>5.5.4</kotest.version>
+        <kotest.version>5.5.5</kotest.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.8.10</kotlin.version>
         <ktlint-maven-plugin.version>1.16.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.26</lombok.version>
         <main.class>demo.KotlinMainKt</main.class>
         <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
