@@ -67,6 +67,7 @@
         <maven-site-plugin.version>4.0.0-M5</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
         <maven.test.skip>false</maven.test.skip> <!-- Make linter happy -->
         <maven.version>3.8.4</maven.version>
         <owasp.skip>false</owasp.skip>
@@ -136,6 +137,15 @@
         <testSourceDirectory>${basedir}/src/test/kotlin</testSourceDirectory>
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-wrapper-plugin</artifactId>
+                <version>${maven-wrapper-plugin.version}</version>
+                <configuration>
+                    <distributionType>source</distributionType>
+                    <mavenVersion>${maven.version}</mavenVersion>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
