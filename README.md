@@ -47,7 +47,7 @@ base class in the JDK for numeric types).
 
 To build, use `./mvnw clean verify`.
 
-Try `./run.sh` for a demonstration.
+Try `./run` for a demonstration.
 
 There are no run-time dependencies beyond the Kotlin standard library.
 
@@ -312,7 +312,7 @@ The exception:
 
 Use `./mvnw` (Maven) or `./batect build` (Batect) to build, run tests, and
 create a demo program.
-Use `./run.sh` or `./batect run` to run the demo.
+Use `./run` or `./batect run` to run the demo.
 
 [Batect](https://batect.dev/) works "out of the box".
 However, an important optimization is to avoid re-downloading plugins and
