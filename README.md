@@ -46,14 +46,13 @@ base class in the JDK for numeric types).
 ## Build and try
 
 To build, use `./mvnw clean verify`.
-
 Try `./run` for a demonstration.
 
-There are no run-time dependencies beyond the Kotlin standard library.
-
 To build as CI would, use `./batect build`.
-
 Try `./batect run` for a demonstration as CI would.
+
+This project assumes JDK 17.
+There are no run-time dependencies beyond the Kotlin standard library.
 
 This code builds and passes tests and checks on JDK 11-17.
 
