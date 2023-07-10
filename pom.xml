@@ -428,6 +428,7 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${dependency-check-maven.version}</version>
                 <configuration>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                     <skip>${owasp.skip}</skip>
                     <failBuildOnAnyVulnerability>true
                     </failBuildOnAnyVulnerability>
