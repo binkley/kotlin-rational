@@ -61,16 +61,20 @@ internal class CantorSpiral<T : BRatBase<T>>(
         private fun walk(): Pair<BFixed, BFixed> {
             when (dir) { // TODO: JaCoCo claims missing branch
                 N -> {
-                    ++y; if (y - ONE == -x) dir = E
+                    ++y
+                    if (y - ONE == -x) dir = E
                 }
                 E -> {
-                    ++x; if (x == y) dir = S
+                    ++x
+                    if (x == y) dir = S
                 }
                 S -> {
-                    --y; if (y == -x) dir = W
+                    --y
+                    if (y == -x) dir = W
                 }
                 W -> {
-                    --x; if (x == y) dir = N
+                    --x
+                    if (x == y) dir = N
                 }
             }
             return x to y

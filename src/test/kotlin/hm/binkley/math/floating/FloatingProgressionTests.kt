@@ -77,10 +77,12 @@ internal class FloatingProgressionTests {
             for (r in ZERO..ONE step -1) noop()
         }
         shouldThrow<IllegalStateException> {
-            for (r in 1.big downTo ZERO step 1); noop()
+            for (r in 1.big downTo ZERO step 1);
+            noop()
         }
         shouldThrow<IllegalStateException> {
-            for (r in 0L downTo ONE step ZERO); noop()
+            for (r in 0L downTo ONE step ZERO);
+            noop()
         }
     }
 }

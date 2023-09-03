@@ -22,6 +22,7 @@ import hm.binkley.math.rangeTo
 import hm.binkley.math.step
 
 /** Runs the demo. */
+@Suppress("ktlint:standard:no-semi")
 public fun main() {
     println("==FLOATING BIG RATIONALS")
 
@@ -55,7 +56,8 @@ public fun main() {
 
     try {
         @Suppress("ControlFlowWithEmptyBody")
-        for (r in POSITIVE_INFINITY..NaN); // ktlint-disable no-semi
+        for (r in POSITIVE_INFINITY..NaN)
+            ;
     } catch (e: IllegalStateException) {
         println("Expected error for progression containing $NaN: $e")
     }
