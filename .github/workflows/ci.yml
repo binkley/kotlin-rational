@@ -47,6 +47,19 @@ jobs:
       - name: Build and test with Maven under Batect
         run: ./batect build
 
+      - name: Generate Coverage badge
+        if: ${{ github.ref == 'refs/head/master' }}
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          jacoco-csv-badge: target/site/jacoco/jacoco.csv
+          badges-directory: target/site/jacoco/badges
+
+      - name: Publish Coverage badge
+        if: ${{ github.ref == 'refs/head/master' }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: target/site/jacoco
+
       - name: Execute run script
         run: ./batect -o quiet demo
 
