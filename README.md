@@ -15,7 +15,7 @@ Immutable, infinite-precision `FixedBigRational` and `FloatingBigRational`
 (ℤ) and `BigDecimal` (ℝ, but not really: actually infinite-precision decimals
 [base 10]) in the JDK.
 
-*DISCLAIMER*
+*DISCLAIMER*<br />
 This code has not been vetted by a numerical analyst in the ways that the JDK's
 `BigDecimal` or `BigDecimal` have been.
 For example, `sqrt` behaves poorly for extrema.
