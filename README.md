@@ -6,7 +6,7 @@ align="right" width="20%" height="auto"/>
 # Kotlin Rational
 
 [![build](https://github.com/binkley/kotlin-rational/workflows/build/badge.svg)](https://github.com/binkley/kotlin-rational/actions)
-[![coverage](https://raw.githubusercontent.com/binkley/kotlin-rational/images/jacoco.svg)](https://github.com/binkley/kotlin-rational/actions/workflows/ci.yml)
+[![coverage](https://github.com/binkley/kotlin-rational/raw/master/images/jacoco.svg)](https://github.com/binkley/kotlin-rational/actions/workflows/ci.yml)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![pull requests](https://img.shields.io/github/issues-pr/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/pulls)
 [![vulnerabilities](https://snyk.io/test/github/binkley/kotlin-rational/badge.svg)](https://snyk.io/test/github/binkley/kotlin-rational)
