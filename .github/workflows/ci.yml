@@ -57,7 +57,7 @@ jobs:
           generate-branches-badge: false
           generate-summary: false
 
-      - name: Upload coverage report
+      - name: Save coverage report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
