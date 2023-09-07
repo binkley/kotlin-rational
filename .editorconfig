@@ -1,7 +1,6 @@
 [**]
 end_of_line = lf
-# TODO: Impose max line length
-#max_line_length = 80
+max_line_length = 80
 
 [*.{kt,kts}]
 # TODO: Decide if an Android mix makes more sense
