@@ -7,8 +7,8 @@ align="right" width="20%" height="auto"/>
 
 [![build](https://github.com/binkley/kotlin-rational/workflows/build/badge.svg)](https://github.com/binkley/kotlin-rational/actions)
 [![coverage](https://github.com/binkley/kotlin-rational/raw/master/images/jacoco.svg)](https://github.com/binkley/kotlin-rational/actions/workflows/ci.yml)
-[![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![pull requests](https://img.shields.io/github/issues-pr/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/pulls)
+[![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![vulnerabilities](https://snyk.io/test/github/binkley/kotlin-rational/badge.svg)](https://snyk.io/test/github/binkley/kotlin-rational)
 [![license](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 
