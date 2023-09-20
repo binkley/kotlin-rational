@@ -51,7 +51,7 @@
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.9.10</kotlin.version>
         <ktlint-maven-plugin.version>2.0.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <main.class>demo.KotlinMainKt</main.class>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.3.1</maven-clean-plugin.version>
