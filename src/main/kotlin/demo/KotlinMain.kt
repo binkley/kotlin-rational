@@ -203,6 +203,7 @@ public fun main() {
     println()
     println("== E^X (UP TO FIVE TERMS)")
     // TODO: Who needs memoization?
+    @Suppress("ktlint:standard:function-naming") // TODO: Ktlint wrong?
     fun `approxE^X`(exponent: FloatingBigRational, limit: Int = 5) {
         println(
             (0..limit).map {
@@ -221,12 +222,11 @@ private fun e(exponent: FloatingBigRational, terms: Int) = (0..terms).map {
     exponent.pow(it) / it.fact()
 }.sum()
 
-private tailrec fun Int.fact(x: Int = 1): Int =
-    if (0 == this) {
-        x
-    } else {
-        (this - 1).fact(x * this)
-    }
+private tailrec fun Int.fact(x: Int = 1): Int = if (0 == this) {
+    x
+} else {
+    (this - 1).fact(x * this)
+}
 
 private fun dump(d: Double) {
     val rat = d.toBigRational()

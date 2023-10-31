@@ -11,8 +11,7 @@ public class Mod3Int private constructor(
     override val companion: Companion get() = Mod3Int
 
     override fun unaryMinus(): Mod3Int = valueOf(-value)
-    override fun plus(addend: Mod3Int): Mod3Int =
-        valueOf(value + addend.value)
+    override fun plus(addend: Mod3Int): Mod3Int = valueOf(value + addend.value)
 
     override fun times(multiplicand: Mod3Int): Mod3Int =
         valueOf(value * multiplicand.value)
@@ -33,10 +32,14 @@ public class Mod3Int private constructor(
             else -> TWO
         }
 
+        @Suppress("ktlint:standard:property-naming")
         override val ZERO: Mod3Int = Mod3Int(0)
+
+        @Suppress("ktlint:standard:property-naming")
         override val ONE: Mod3Int = Mod3Int(1)
 
         @JvmField
+        @Suppress("ktlint:standard:property-naming")
         public val TWO: Mod3Int = Mod3Int(2)
     }
 }

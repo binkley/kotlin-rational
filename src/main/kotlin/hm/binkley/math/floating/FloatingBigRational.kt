@@ -62,12 +62,11 @@ public class FloatingBigRational private constructor(
      * @throws ArithmeticException if denominator are coprime (produce a
      * repeating decimal) or for non-finite rationals
      */
-    override fun toBigDecimal(): BFloating =
-        if (!isFinite()) {
-            throw ArithmeticException("Non-finite")
-        } else {
-            super.toBigDecimal()
-        }
+    override fun toBigDecimal(): BFloating = if (!isFinite()) {
+        throw ArithmeticException("Non-finite")
+    } else {
+        super.toBigDecimal()
+    }
 
     /**
      * @see [Double.toLong]
@@ -139,9 +138,7 @@ public class FloatingBigRational private constructor(
      *
      * @see [divideAndRemainder]
      */
-    override operator fun rem(
-        divisor: BRat,
-    ): BRat = when {
+    override operator fun rem(divisor: BRat): BRat = when {
         isNaN() -> NaN
         divisor.isNaN() -> NaN
         isZero() && divisor.isZero() -> NaN
@@ -263,10 +260,7 @@ public class FloatingBigRational private constructor(
          * * TWO
          * * TEN
          */
-        override fun valueOf(
-            numerator: BFixed,
-            denominator: BFixed,
-        ): BRat {
+        override fun valueOf(numerator: BFixed, denominator: BFixed): BRat {
             if (denominator.isZero()) {
                 return when {
                     numerator.isZero() -> NaN
@@ -294,11 +288,7 @@ public class FloatingBigRational private constructor(
             else -> super.valueOf(floatingPoint)
         }
 
-        override fun iteratorCheck(
-            first: BRat,
-            last: BRat,
-            step: BRat,
-        ) {
+        override fun iteratorCheck(first: BRat, last: BRat, step: BRat) {
             super.iteratorCheck(first, last, step)
             if (!step.isFinite()) error("Non-finite step.")
             if (!first.isFinite() || !last.isFinite()) {

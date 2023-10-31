@@ -59,12 +59,11 @@ private class BigRationalProgression<T : BRatBase<T>>(
     override val endInclusive: T,
     private val step: T,
 ) : BRange<T> {
-    override fun iterator() =
-        if (start.companion.ZERO > step) {
-            DecIter(start, endInclusive, step)
-        } else {
-            IncIter(start, endInclusive, step)
-        }
+    override fun iterator() = if (start.companion.ZERO > step) {
+        DecIter(start, endInclusive, step)
+    } else {
+        IncIter(start, endInclusive, step)
+    }
 
     override fun equals(other: Any?) = this === other ||
         other is BProgression<*> &&
@@ -74,18 +73,16 @@ private class BigRationalProgression<T : BRatBase<T>>(
 
     override fun hashCode() = hash(javaClass, start, endInclusive, step)
 
-    override fun toString() =
-        if (start.companion.ZERO <= step) {
-            "$start..$endInclusive step $step"
-        } else {
-            "$start downTo $endInclusive step $step"
-        }
+    override fun toString() = if (start.companion.ZERO <= step) {
+        "$start..$endInclusive step $step"
+    } else {
+        "$start downTo $endInclusive step $step"
+    }
 }
 
 /** Creates a range from this value to [endInclusive]. */
-public operator fun <T : BRatBase<T>> T.rangeTo(
-    endInclusive: T,
-): BRange<T> = BProgression(this, endInclusive, companion.ONE)
+public operator fun <T : BRatBase<T>> T.rangeTo(endInclusive: T): BRange<T> =
+    BProgression(this, endInclusive, companion.ONE)
 
 /** Creates a range from this value to [endInclusive]. */
 public operator fun <T : BRatBase<T>> T.rangeTo(
@@ -138,19 +135,16 @@ public operator fun <T : BRatBase<T>> Long.rangeTo(
 ): BRange<T> = endInclusive.companion.valueOf(this)..endInclusive
 
 /** Creates a range from this value to [endInclusive]. */
-public operator fun <T : BRatBase<T>> T.rangeTo(
-    endInclusive: Int,
-): BRange<T> = this..companion.valueOf(endInclusive)
+public operator fun <T : BRatBase<T>> T.rangeTo(endInclusive: Int): BRange<T> =
+    this..companion.valueOf(endInclusive)
 
 /** Creates a range from this value to [endInclusive]. */
-public operator fun <T : BRatBase<T>> Int.rangeTo(
-    endInclusive: T,
-): BRange<T> = endInclusive.companion.valueOf(this)..endInclusive
+public operator fun <T : BRatBase<T>> Int.rangeTo(endInclusive: T): BRange<T> =
+    endInclusive.companion.valueOf(this)..endInclusive
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> T.downTo(
-    endInclusive: T,
-): BRange<T> = BProgression(this, endInclusive, -companion.ONE)
+public infix fun <T : BRatBase<T>> T.downTo(endInclusive: T): BRange<T> =
+    BProgression(this, endInclusive, -companion.ONE)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
 public infix fun <T : BRatBase<T>> T.downTo(
@@ -163,54 +157,44 @@ public infix fun <T : BRatBase<T>> BFloating.downTo(
 ): BRange<T> = endInclusive.companion.valueOf(this) downTo endInclusive
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> T.downTo(
-    endInclusive: Double,
-): BRange<T> = this downTo companion.valueOf(endInclusive)
+public infix fun <T : BRatBase<T>> T.downTo(endInclusive: Double): BRange<T> =
+    this downTo companion.valueOf(endInclusive)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> Double.downTo(
-    endInclusive: T,
-): BRange<T> = endInclusive.companion.valueOf(this) downTo endInclusive
+public infix fun <T : BRatBase<T>> Double.downTo(endInclusive: T): BRange<T> =
+    endInclusive.companion.valueOf(this) downTo endInclusive
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> T.downTo(
-    endInclusive: Float,
-): BRange<T> = this downTo companion.valueOf(endInclusive)
+public infix fun <T : BRatBase<T>> T.downTo(endInclusive: Float): BRange<T> =
+    this downTo companion.valueOf(endInclusive)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> Float.downTo(
-    endInclusive: T,
-): BRange<T> = endInclusive.companion.valueOf(this) downTo endInclusive
+public infix fun <T : BRatBase<T>> Float.downTo(endInclusive: T): BRange<T> =
+    endInclusive.companion.valueOf(this) downTo endInclusive
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> T.downTo(
-    endInclusive: BFixed,
-): BRange<T> = this downTo companion.valueOf(endInclusive)
+public infix fun <T : BRatBase<T>> T.downTo(endInclusive: BFixed): BRange<T> =
+    this downTo companion.valueOf(endInclusive)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> BFixed.downTo(
-    endInclusive: T,
-): BRange<T> = endInclusive.companion.valueOf(this) downTo endInclusive
+public infix fun <T : BRatBase<T>> BFixed.downTo(endInclusive: T): BRange<T> =
+    endInclusive.companion.valueOf(this) downTo endInclusive
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> T.downTo(
-    endInclusive: Long,
-): BRange<T> = this downTo companion.valueOf(endInclusive)
+public infix fun <T : BRatBase<T>> T.downTo(endInclusive: Long): BRange<T> =
+    this downTo companion.valueOf(endInclusive)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> Long.downTo(
-    endInclusive: T,
-): BRange<T> = endInclusive.companion.valueOf(this) downTo endInclusive
+public infix fun <T : BRatBase<T>> Long.downTo(endInclusive: T): BRange<T> =
+    endInclusive.companion.valueOf(this) downTo endInclusive
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> T.downTo(
-    endInclusive: Int,
-): BRange<T> = this downTo companion.valueOf(endInclusive)
+public infix fun <T : BRatBase<T>> T.downTo(endInclusive: Int): BRange<T> =
+    this downTo companion.valueOf(endInclusive)
 
 /** Creates a range from this value _down_ to [endInclusive]. */
-public infix fun <T : BRatBase<T>> Int.downTo(
-    endInclusive: T,
-): BRange<T> = endInclusive.companion.valueOf(this) downTo endInclusive
+public infix fun <T : BRatBase<T>> Int.downTo(endInclusive: T): BRange<T> =
+    endInclusive.companion.valueOf(this) downTo endInclusive
 
 /** Creates a progression that goes over the same range with the given step. */
 public infix fun <T : BRatBase<T>> BRange<T>.step(step: T): BRange<T> =

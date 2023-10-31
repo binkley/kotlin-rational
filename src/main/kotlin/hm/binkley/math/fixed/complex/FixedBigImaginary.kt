@@ -30,6 +30,7 @@ public data class FixedBigImaginary(
     override fun toString(): String = "${value}i"
 
     public companion object : GroupCompanion<BImag> {
+        @Suppress("ktlint:standard:property-naming")
         override val ZERO: BImag = 0.i
 
         /** The imaginary unit. */

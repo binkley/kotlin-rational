@@ -31,6 +31,7 @@ public data class FloatingBigImaginary(
     override fun toString(): String = "${value}i"
 
     public companion object : GroupCompanion<BImag> {
+        @Suppress("ktlint:standard:property-naming")
         override val ZERO: BImag = 0.0.i
 
         /** The imaginary unit. */

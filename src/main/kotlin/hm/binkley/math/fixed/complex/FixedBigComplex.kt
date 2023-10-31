@@ -43,15 +43,17 @@ public data class FixedBigComplex(
     override operator fun div(divisor: BComplex): BComplex =
         this * divisor.unaryDiv()
 
-    override fun toString(): String =
-        if (BRat.ZERO > imag.value) {
-            "$real-${-imag}"
-        } else {
-            "$real+$imag"
-        }
+    override fun toString(): String = if (BRat.ZERO > imag.value) {
+        "$real-${-imag}"
+    } else {
+        "$real+$imag"
+    }
 
     public companion object : FieldCompanion<BComplex> {
+        @Suppress("ktlint:standard:property-naming")
         override val ZERO: BComplex = BComplex(BRat.ZERO, BRat.ZERO.i)
+
+        @Suppress("ktlint:standard:property-naming")
         override val ONE: BComplex = BComplex(BRat.ONE, BRat.ZERO.i)
     }
 }
@@ -127,8 +129,7 @@ public operator fun BComplex.plus(addend: BImag): BComplex =
     this + (BRat.ZERO + addend)
 
 /** Adds [addend] to this number. */
-public operator fun BImag.plus(addend: BComplex): BComplex =
-    addend + this
+public operator fun BImag.plus(addend: BComplex): BComplex = addend + this
 
 /** Adds [addend] to this number. */
 public operator fun BRat.plus(addend: BComplex): BComplex = addend + this
@@ -249,8 +250,7 @@ public operator fun BComplex.div(divisor: BImag): BComplex =
     this / (BComplex.ZERO + divisor)
 
 /** Divides this number by [divisor]. */
-public operator fun BImag.div(divisor: BComplex): BComplex =
-    divisor / this
+public operator fun BImag.div(divisor: BComplex): BComplex = divisor / this
 
 /** Divides this number by [divisor]. */
 public operator fun BRat.div(divisor: BComplex): BComplex = divisor / this
@@ -286,56 +286,51 @@ public operator fun BComplex.div(divisor: Int): BComplex =
  * Returns an imaginary number if this number is pure imaginary, else raises
  * [ArithmeticException].
  */
-public fun BComplex.toImaginary(): BImag =
-    if (real.isZero()) {
-        imag
-    } else {
-        throw ArithmeticException("Not imaginary: $this")
-    }
+public fun BComplex.toImaginary(): BImag = if (real.isZero()) {
+    imag
+} else {
+    throw ArithmeticException("Not imaginary: $this")
+}
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
-public fun BComplex.toBigRational(): BRat =
-    if (imag.isZero()) {
-        real
-    } else {
-        throw ArithmeticException("Not real: $this")
-    }
+public fun BComplex.toBigRational(): BRat = if (imag.isZero()) {
+    real
+} else {
+    throw ArithmeticException("Not real: $this")
+}
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
-public fun BComplex.toBigInteger(): BigInteger =
-    if (imag.isZero()) {
-        real.toBigInteger()
-    } else {
-        throw ArithmeticException("Not real: $this")
-    }
+public fun BComplex.toBigInteger(): BigInteger = if (imag.isZero()) {
+    real.toBigInteger()
+} else {
+    throw ArithmeticException("Not real: $this")
+}
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
-public fun BComplex.toLong(): Long =
-    if (imag.isZero()) {
-        real.toLong()
-    } else {
-        throw ArithmeticException("Not real: $this")
-    }
+public fun BComplex.toLong(): Long = if (imag.isZero()) {
+    real.toLong()
+} else {
+    throw ArithmeticException("Not real: $this")
+}
 
 /**
  * Returns a real number if this number is purely real, else raises
  * [ArithmeticException].
  */
-public fun BComplex.toInt(): Int =
-    if (imag.isZero()) {
-        real.toInt()
-    } else {
-        throw ArithmeticException("Not real: $this")
-    }
+public fun BComplex.toInt(): Int = if (imag.isZero()) {
+    real.toInt()
+} else {
+    throw ArithmeticException("Not real: $this")
+}
 
 /** Returns the approximate modulus (root of the determinant). */
 public fun BComplex.modulusApproximated(): BRat = det.sqrtApproximated()
@@ -354,7 +349,7 @@ public fun BComplex.sqrtApproximated(): BComplex {
  *   name in this context
  * - `**` is a sensible alternative name to `^`
  */
-@Suppress("DANGEROUS_CHARACTERS", "FunctionName")
+@Suppress("FunctionName")
 public infix fun BComplex.`^`(exponent: Int): BComplex = pow(exponent)
 
 /**
@@ -369,13 +364,11 @@ public fun BComplex.pow(n: Int): BComplex {
         -1 -> return unaryDiv()
     }
 
-    tailrec fun BComplex.pow0(
-        exponent: Int,
-        current: BComplex,
-    ): BComplex = when (exponent) {
-        0 -> current
-        else -> pow0(exponent - 1, this * current)
-    }
+    tailrec fun BComplex.pow0(exponent: Int, current: BComplex): BComplex =
+        when (exponent) {
+            0 -> current
+            else -> pow0(exponent - 1, this * current)
+        }
 
     val z = pow0(n.absoluteValue - 1, this)
 

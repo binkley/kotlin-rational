@@ -191,20 +191,19 @@ public abstract class ContinuedFractionCompanionBase<
     }
 
     /** Creates a continued fraction for e (Euler's number) of [n] parts. */
-    public fun e(n: Int): C =
-        if (0 < n) {
-            construct(
-                MutableList(n - 1) { index ->
-                    if (1 == index % 3) {
-                        constructTerm((2 * (1 + index / 3)).big)
-                    } else {
-                        ONE
-                    }
-                }.prepend(TWO)
-            )
-        } else {
-            error("Not enough digits to approximate √2: $n")
-        }
+    public fun e(n: Int): C = if (0 < n) {
+        construct(
+            MutableList(n - 1) { index ->
+                if (1 == index % 3) {
+                    constructTerm((2 * (1 + index / 3)).big)
+                } else {
+                    ONE
+                }
+            }.prepend(TWO)
+        )
+    } else {
+        error("Not enough digits to approximate √2: $n")
+    }
 
     /**
      * Creates a continued fraction for φ (the golden ration) of [n] parts.
@@ -212,36 +211,32 @@ public abstract class ContinuedFractionCompanionBase<
      * - Convergents are ratios of Fibonacci numbers
      * - The approximation is rather slow
      */
-    public fun phi(n: Int): C =
-        if (0 < n) {
-            construct(List(n) { ONE })
-        } else {
-            error("Not enough digits to approximate φ: $n")
-        }
+    public fun phi(n: Int): C = if (0 < n) {
+        construct(List(n) { ONE })
+    } else {
+        error("Not enough digits to approximate φ: $n")
+    }
 
     /** Creates a continued fraction for √2 of [n] parts. */
-    public fun root2(n: Int): C =
-        if (0 < n) {
-            construct(MutableList(n - 1) { TWO }.prepend(ONE))
-        } else {
-            error("Not enough digits to approximate √2: $n")
-        }
+    public fun root2(n: Int): C = if (0 < n) {
+        construct(MutableList(n - 1) { TWO }.prepend(ONE))
+    } else {
+        error("Not enough digits to approximate √2: $n")
+    }
 
     /** Creates a continued fraction for √3 of [n] parts. */
-    public fun root3(n: Int): C =
-        if (0 < n) {
-            construct(
-                MutableList(n - 1) { index ->
-                    if (0 == index % 2) ONE else TWO
-                }.prepend(ONE)
-            )
-        } else {
-            error("Not enough digits to approximate √3: $n")
-        }
+    public fun root3(n: Int): C = if (0 < n) {
+        construct(
+            MutableList(n - 1) { index ->
+                if (0 == index % 2) ONE else TWO
+            }.prepend(ONE)
+        )
+    } else {
+        error("Not enough digits to approximate √3: $n")
+    }
 }
 
-private fun <T> MutableList<T>.prepend(element: T) =
-    also { add(0, element) }
+private fun <T> MutableList<T>.prepend(element: T) = also { add(0, element) }
 
 /**
  * Checks if this continued fraction is _simple_ (has only 1 in all

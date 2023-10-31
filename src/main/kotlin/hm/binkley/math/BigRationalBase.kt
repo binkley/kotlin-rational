@@ -169,11 +169,10 @@ public abstract class BigRationalBase<
         }
 
     /** Multiplies this value by the other value. */
-    override operator fun times(multiplicand: T): T =
-        companion.valueOf(
-            numerator * multiplicand.numerator,
-            denominator * multiplicand.denominator
-        )
+    override operator fun times(multiplicand: T): T = companion.valueOf(
+        numerator * multiplicand.numerator,
+        denominator * multiplicand.denominator
+    )
 
     /**
      * Simulates a non-existent "unary div" operator.
@@ -231,17 +230,16 @@ public abstract class BigRationalBase<
 
     /** Rounds to the nearest whole number according to [roundingMode]. */
     @Suppress("UNCHECKED_CAST")
-    public open fun round(roundingMode: RoundingMode): T =
-        if (isWhole()) {
-            this as T
-        } else {
-            companion.valueOf(
-                // BigInteger does not have a divide with rounding mode
-                numerator.toBigDecimal()
-                    .divide(denominator.toBigDecimal(), roundingMode)
-                    .setScale(0)
-            )
-        }
+    public open fun round(roundingMode: RoundingMode): T = if (isWhole()) {
+        this as T
+    } else {
+        companion.valueOf(
+            // BigInteger does not have a divide with rounding mode
+            numerator.toBigDecimal()
+                .divide(denominator.toBigDecimal(), roundingMode)
+                .setScale(0)
+        )
+    }
 
     /**
      * Checks that this rational is _p_-adic, that is, the denominator is a
@@ -337,12 +335,10 @@ public operator fun <T : BRatBase<T>> T.dec(): T =
     companion.valueOf(numerator - denominator, denominator)
 
 /** Finds the absolute difference between values. */
-public fun <T : BRatBase<T>> T.diff(other: T): T =
-    (this - other).absoluteValue
+public fun <T : BRatBase<T>> T.diff(other: T): T = (this - other).absoluteValue
 
 /** Checks that this rational is 0. */
-public fun <T : BRatBase<T>> T.isZero(): Boolean =
-    companion.ZERO === this
+public fun <T : BRatBase<T>> T.isZero(): Boolean = companion.ZERO === this
 
 /** Checks that this rational is 1. */
 public fun <T : BRatBase<T>> T.isUnit(): Boolean = companion.ONE === this

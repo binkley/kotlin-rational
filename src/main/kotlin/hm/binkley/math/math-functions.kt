@@ -222,27 +222,25 @@ public fun <T : BigRationalBase<T>> T.truncateAndRemainder(): Pair<T, T> =
  * Note: this code has recursive calls between [gcd] and [lcm], and Kotlin
  * `tailrec` does not support mutual recursion.
  */
-public fun <T : BigRationalBase<T>> T.gcd(other: T): T =
-    if (isZero()) {
-        other
-    } else {
-        companion.valueOf(
-            numerator.gcd(other.numerator),
-            denominator.lcm(other.denominator)
-        )
-    }
+public fun <T : BigRationalBase<T>> T.gcd(other: T): T = if (isZero()) {
+    other
+} else {
+    companion.valueOf(
+        numerator.gcd(other.numerator),
+        denominator.lcm(other.denominator)
+    )
+}
 
 /**
  * Returns the lowest common multiple of the absolute values of `this` and
  * [other].
  * Returns 0 when `this` and [other] are both 0.
  */
-public fun <T : BigRationalBase<T>> T.lcm(other: T): T =
-    if (isZero()) {
-        companion.ZERO
-    } else {
-        companion.valueOf(
-            numerator.lcm(other.numerator),
-            denominator.gcd(other.denominator)
-        )
-    }
+public fun <T : BigRationalBase<T>> T.lcm(other: T): T = if (isZero()) {
+    companion.ZERO
+} else {
+    companion.valueOf(
+        numerator.lcm(other.numerator),
+        denominator.gcd(other.denominator)
+    )
+}
