@@ -39,7 +39,7 @@
         <coverage.lines>98</coverage.lines>
         <coverage.instructions>98</coverage.instructions>
         <coverage.mutation>91</coverage.mutation>
-        <dependency-check-maven.version>8.4.2</dependency-check-maven.version>
+        <dependency-check-maven.version>9.0.6</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.23.3</detekt-maven-plugin.version>
         <dokka.version>1.9.0</dokka.version>
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
