@@ -647,8 +647,8 @@ This code relies on the factory constructor (`valueOf`) for GCM in reducing
 rationals to proper form, and `gcm` and `lcm` methods are recursive between
 themselves.
 
-Do note, however, this code implements GCD and LCM recursively in terms of each
-other.
+> [!NOTE]
+> This code implements GCD and LCM recursively in terms of each other.
 
 ### Continued fractions
 
