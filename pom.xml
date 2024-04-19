@@ -430,15 +430,7 @@
                 <configuration>
                     <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                     <skip>${owasp.skip}</skip>
-                    <failBuildOnAnyVulnerability>true
-                    </failBuildOnAnyVulnerability>
-                    <!--
-                        Test if this goes faster from a government US site as
-                        described in messages during build.
-                        Public domain data from governments should not require
-                        registrataion, and treat all accesses the same.
-                    -->
-                    <nvdApiKey>0fbd6249-ca99-49e2-bc76-45dd97c39191</nvdApiKey>
+                    <failBuildOnCVSS>0</failBuildOnCVSS>
                 </configuration>
                 <executions>
                     <execution>
