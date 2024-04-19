@@ -17,6 +17,10 @@ Immutable, infinite-precision `FixedBigRational` and `FloatingBigRational`
 (ℤ) and `BigDecimal` (ℝ, but not really: actually infinite-precision decimals
 [base 10]) in the JDK.
 
+The library has two main forms of expressing rational numbers on the JDK,
+`FixedBigRational` and `FloatingBigRational`, providing finite and pseudo-IEEE
+754 versions, respectively.
+
 *DISCLAIMER*<br />
 This code has not been vetted by a numerical analyst in the ways that the JDK's
 `BigDecimal` or `BigDecimal` have been.
@@ -28,10 +32,6 @@ The author uses this library to explore better ways for building locally, and
 building in CI with GitHub: the goal of the build is to discover issues before
 they impact others; the goal of the code is to represent rationals on the JVM in
 a sensible fashion.
-
-The library has two main forms of expressing rational numbers on the JDK,
-`FixedBigRational` and `FloatingBigRational`, providing finite and pseudo-IEEE
-754 versions, respectively.
 
 This code is a "finger exercise", trying out Kotlin operator overloading and
 extension methods, and writing clean, clear, concise Kotlin.
