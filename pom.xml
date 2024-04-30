@@ -44,7 +44,7 @@
         <dokka.version>1.9.20</dokka.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
-        <jdk.version>17</jdk.version>
+        <jdk.version>21</jdk.version>
         <junit.version>5.10.2</junit.version>
         <kotest.version>5.8.1</kotest.version>
         <kotlin.code.style>official</kotlin.code.style>
