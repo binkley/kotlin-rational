@@ -45,11 +45,11 @@
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>21</jdk.version>
-        <junit.version>5.10.2</junit.version>
+        <junit.version>5.11.0-M1</junit.version>
         <kotest.version>5.8.1</kotest.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>2.0.0-RC1</kotlin.version>
+        <kotlin.version>2.0.0-RC2</kotlin.version>
         <ktlint-maven-plugin.version>3.2.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.32</lombok.version>
         <main.class>demo.KotlinMainKt</main.class>
@@ -57,9 +57,9 @@
         <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+        <maven-deploy-plugin.version>3.1.2</maven-deploy-plugin.version>
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
-        <maven-jar-plugin.version>3.4.0</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.4.1</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.5.0</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
@@ -67,7 +67,7 @@
         <maven-site-plugin.version>4.0.0-M13</maven-site-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-        <maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
+        <maven-wrapper-plugin.version>3.3.1</maven-wrapper-plugin.version>
         <maven.test.skip>false</maven.test.skip> <!-- Make linter happy -->
         <maven.version>3.9.6</maven.version>
         <owasp.skip>false</owasp.skip>
