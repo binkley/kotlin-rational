@@ -3,11 +3,11 @@ name: build
 on:
   push:
     paths-ignore:
-      - '*.md'
+      - '**.md'
       - 'images/**'
   pull_request:
     paths-ignore:
-      - '*.md'
+      - '**.md'
       - 'images/**'
 
 jobs:
