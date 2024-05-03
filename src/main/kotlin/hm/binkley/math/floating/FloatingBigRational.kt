@@ -139,9 +139,8 @@ public class FloatingBigRational private constructor(
      * @see [divideAndRemainder]
      */
     override operator fun rem(divisor: BRat): BRat = when {
-        isNaN() -> NaN
-        divisor.isNaN() -> NaN
-        isZero() && divisor.isZero() -> NaN
+        isNaN() || divisor.isNaN() -> NaN
+        divisor.isZero() -> NaN
         else -> super.rem(divisor)
     }
 
