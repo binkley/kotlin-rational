@@ -15,6 +15,18 @@
         for Kotlin, akin to `BigDecimal` or `BigInteger`
     </description>
     <url>https://github.com/binkley/kotlin-rational</url>
+    <developers>
+        <developer>
+            <id>binkley</id>
+            <roles>
+                <role>owner</role>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <name>B. K. Oxley (binkley)</name>
+            <email>binkley@alumni.rice.edu</email>
+        </developer>
+    </developers>
     <licenses>
         <license>
             <name>Public Domain</name>
