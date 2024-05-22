@@ -82,6 +82,7 @@
         <maven-wrapper-plugin.version>3.3.1</maven-wrapper-plugin.version>
         <maven.test.skip>false</maven.test.skip> <!-- Make linter happy -->
         <maven.version>3.9.6</maven.version>
+        <nvdApiKey>${env.OWASP_NVD_API_KEY}</nvdApiKey>
         <owasp.skip>false</owasp.skip>
         <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
         <pitest-maven.version>1.16.0</pitest-maven.version>
@@ -443,6 +444,7 @@
                     <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                     <skip>${owasp.skip}</skip>
                     <failBuildOnCVSS>0</failBuildOnCVSS>
+                    <nvdApiKey>${nvdApiKey}</nvdApiKey>
                 </configuration>
                 <executions>
                     <execution>
