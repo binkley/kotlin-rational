@@ -2,3 +2,5 @@
 /.idea/
 /*.iml
 /target/
+# Pull in local secrets and settings
+/.envrc
