@@ -85,55 +85,59 @@ public fun main() {
     println("==DOUBLE CONVERSIONS")
 
     for (
-        d in listOf(
-            -4.0,
-            -3.0,
-            -2.0,
-            -0.5,
-            -0.3,
-            -0.1,
-            0.0,
-            0.1,
-            0.3,
-            0.5,
-            2.0,
-            3.0,
-            4.0,
-            123.456,
-            Double.MAX_VALUE,
-            Double.MIN_VALUE,
-            Double.POSITIVE_INFINITY,
-            Double.NEGATIVE_INFINITY,
-            Double.NaN,
-        )
-        ) dump(d)
+    d in listOf(
+        -4.0,
+        -3.0,
+        -2.0,
+        -0.5,
+        -0.3,
+        -0.1,
+        0.0,
+        0.1,
+        0.3,
+        0.5,
+        2.0,
+        3.0,
+        4.0,
+        123.456,
+        Double.MAX_VALUE,
+        Double.MIN_VALUE,
+        Double.POSITIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.NaN,
+    )
+    ) {
+        dump(d)
+    }
 
     println()
     println("==FLOAT CONVERSIONS")
 
     for (
-        d in listOf(
-            -4.0f,
-            -3.0f,
-            -2.0f,
-            -0.5f,
-            -0.3f,
-            -0.1f,
-            0.0f,
-            0.1f,
-            0.3f,
-            0.5f,
-            2.0f,
-            3.0f,
-            4.0f,
-            123.456f,
-            Float.MAX_VALUE,
-            Float.MIN_VALUE,
-            Float.POSITIVE_INFINITY,
-            Float.NEGATIVE_INFINITY,
-            Float.NaN,
-        )
-        ) dump(d)
+    d in listOf(
+        -4.0f,
+        -3.0f,
+        -2.0f,
+        -0.5f,
+        -0.3f,
+        -0.1f,
+        0.0f,
+        0.1f,
+        0.3f,
+        0.5f,
+        2.0f,
+        3.0f,
+        4.0f,
+        123.456f,
+        Float.MAX_VALUE,
+        Float.MIN_VALUE,
+        Float.POSITIVE_INFINITY,
+        Float.NEGATIVE_INFINITY,
+        Float.NaN,
+    )
+    ) {
+        dump(d)
+    }
 
     println()
     println("==MOD3 INT")

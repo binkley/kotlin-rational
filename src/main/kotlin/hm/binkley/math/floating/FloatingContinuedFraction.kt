@@ -22,9 +22,8 @@ import java.math.BigInteger
  * This class supports infinite continued fractions in a very limited sense;
  * none is calculated to their limit; all convert to [NaN].
  */
-public class FloatingContinuedFraction private constructor(
-    terms: List<BRat>,
-) : CFracBase(terms, FloatingContinuedFraction) {
+public class FloatingContinuedFraction private constructor(terms: List<BRat>,) :
+    CFracBase(terms, FloatingContinuedFraction) {
     /** Creates a new big continued fraction of big floating rationals. */
     override fun construct(terms: List<BRat>): CFrac = CFrac(terms)
 

@@ -9,10 +9,8 @@ internal infix fun Long.over(denominator: Long) = big over denominator.big
 internal infix fun Int.over(denominator: Long) = big over denominator.big
 internal infix fun Int.over(denominator: Int) = big over denominator.big
 
-internal class TestBigRational(
-    numerator: BFixed,
-    denominator: BFixed,
-) : BRatBase<TestBigRational>(numerator, denominator) {
+internal class TestBigRational(numerator: BFixed, denominator: BFixed,) :
+    BRatBase<TestBigRational>(numerator, denominator) {
     override val companion: Companion get() = Companion
 
     companion object : BigRationalCompanion<BRat>(

@@ -9,7 +9,9 @@ private typealias DecIter<T> = DecrementingBigRationalIterator<T>
 private typealias IncIter<T> = IncrementingBigRationalIterator<T>
 
 /** Represents a range of big rational values. */
-public interface BigRationalRange<T : BRatBase<T>> : Iterable<T>, ClosedRange<T>
+public interface BigRationalRange<T : BRatBase<T>> :
+    Iterable<T>,
+    ClosedRange<T>
 
 private sealed class BigRationalIterator<T : BRatBase<T>>(
     private var _current: T,

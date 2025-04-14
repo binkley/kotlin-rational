@@ -5,9 +5,8 @@ package hm.binkley.math.algebra
 import lombok.Generated
 import java.util.Objects.hash
 
-public class Mod3Int private constructor(
-    public val value: Int,
-) : Ring<Mod3Int> {
+public class Mod3Int private constructor(public val value: Int,) :
+    Ring<Mod3Int> {
     override val companion: Companion get() = Mod3Int
 
     override fun unaryMinus(): Mod3Int = valueOf(-value)

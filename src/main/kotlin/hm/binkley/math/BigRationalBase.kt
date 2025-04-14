@@ -16,7 +16,9 @@ public abstract class BigRationalBase<
     public val numerator: BFixed,
     /** The denominator in the fraction. */
     public val denominator: BFixed,
-) : Number(), Comparable<T>, Field<T> {
+) : Number(),
+    Comparable<T>,
+    Field<T> {
     public abstract override val companion: BRatCompanion<T>
 
     /** Returns the absolute value. */

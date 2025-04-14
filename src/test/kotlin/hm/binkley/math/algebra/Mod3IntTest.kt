@@ -24,15 +24,17 @@ internal class Mod3IntTest {
     @Test
     fun `should cycle through values forwards`() {
         var mod = TWO
-        for (n in -7..7)
+        for (n in -7..7) {
             Mod3Int.valueOf(n) shouldBe mod++
+        }
     }
 
     @Test
     fun `should cycle through values backwards`() {
         var mod = ONE
-        for (n in 7 downTo -7)
+        for (n in 7 downTo -7) {
             Mod3Int.valueOf(n) shouldBe mod--
+        }
     }
 
     @Test
