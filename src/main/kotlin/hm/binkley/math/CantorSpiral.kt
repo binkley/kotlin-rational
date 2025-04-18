@@ -1,6 +1,5 @@
 package hm.binkley.math
 
-import hm.binkley.kotlin.sequences.SeekableSequence
 import hm.binkley.math.Direction.E
 import hm.binkley.math.Direction.N
 import hm.binkley.math.Direction.S
@@ -26,7 +25,7 @@ private enum class Direction { N, S, E, W }
  */
 internal class CantorSpiral<T : BRatBase<T>>(
     private val companion: BRatCompanion<T>,
-) : SeekableSequence<T> {
+) : Sequence<T> {
     override fun iterator() = object : Iterator<T> {
         private var x = ZERO
         private var y = ZERO
@@ -48,7 +47,7 @@ internal class CantorSpiral<T : BRatBase<T>>(
                 // Skip the X axis
                 if (y.isZero()) continue
                 // Skip bottom side, but include SE corner
-                if (W == dir && x != -y) continue
+                if (Direction.W == dir && x != -y) continue
                 // Skip left side, but include NW corner
                 if (N == dir) continue
                 // Skip reducible ratios, but include whole numbers
@@ -64,14 +63,17 @@ internal class CantorSpiral<T : BRatBase<T>>(
                     ++y
                     if (y - ONE == -x) dir = E
                 }
+
                 E -> {
                     ++x
                     if (x == y) dir = S
                 }
+
                 S -> {
                     --y
                     if (y == -x) dir = W
                 }
+
                 W -> {
                     --x
                     if (x == y) dir = N

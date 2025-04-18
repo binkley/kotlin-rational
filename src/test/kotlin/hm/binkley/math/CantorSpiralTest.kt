@@ -1,5 +1,6 @@
 package hm.binkley.math
 
+import hm.binkley.kotlin.sequences.get
 import hm.binkley.math.TestBigRational.Companion.ONE
 import hm.binkley.math.TestBigRational.Companion.ZERO
 import io.kotest.assertions.throwables.shouldThrow
