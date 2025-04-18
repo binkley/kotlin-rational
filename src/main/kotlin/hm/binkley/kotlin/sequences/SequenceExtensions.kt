@@ -21,11 +21,16 @@ package hm.binkley.kotlin.sequences
  * relies on the an iterator that may go forward, but some may use a
  * [ListIterator] that can go backward.
  *
- * Repeatable: each call starts a new iterator over the sequence.
+ * **Repeatable**: each call starts a new iterator over the sequence.
  * This assumes the sequence is restartable.
+ *
+ * **Inlined**: use of bracket notation is "syntactic sugar" for `elementAt`,
+ * so call sites are replaced with the call for sequences.
+ * The `@Suppress` annotation makes the compiler happy.
  *
  * @param index the index of the element to return
  * @return the element at the specified position in this sequence
  * @throws IndexOutOfBoundsException if the index is out of bounds
  */
-public operator fun <T> Sequence<T>.get(index: Int): T = elementAt(index)
+@Suppress("NOTHING_TO_INLINE")
+public inline operator fun <T> Sequence<T>.get(index: Int): T = elementAt(index)
