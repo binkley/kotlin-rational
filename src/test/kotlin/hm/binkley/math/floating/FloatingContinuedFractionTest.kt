@@ -59,6 +59,7 @@ internal class FloatingContinuedFractionTest {
         (11 over 10).toContinuedFraction().toDouble() shouldBe 1.1
     }
 
+    @Suppress("DEPRECATION")
     @Test
     fun `should not be a character`() {
         shouldThrow<UnsupportedOperationException> {

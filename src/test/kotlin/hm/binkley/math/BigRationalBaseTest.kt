@@ -234,6 +234,7 @@ internal class BigRationalBaseTest {
                 Byte.MIN_VALUE
         }
 
+        @Suppress("DEPRECATION")
         @Test
         fun `should not convert to character`() {
             shouldThrow<UnsupportedOperationException> {

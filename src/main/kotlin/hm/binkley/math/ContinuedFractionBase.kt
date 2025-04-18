@@ -82,6 +82,11 @@ public abstract class ContinuedFractionBase<
      * There is no sensible way to express a general continued fraction as a
      * character in a language.
      */
+    @Deprecated(
+        message =
+        "Converting a rational number to a character is not supported",
+        level = DeprecationLevel.WARNING
+    )
     override fun toChar(): Char =
         throw UnsupportedOperationException("Characters are non-numeric")
 

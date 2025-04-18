@@ -99,6 +99,11 @@ public abstract class BigRationalBase<
      * Kotlin provides a [Number.toChar]; Java does not have a conversion to
      * [Character] for [java.lang.Number].
      */
+    @Deprecated(
+        message =
+        "Converting a rational number to a character is not supported",
+        level = DeprecationLevel.WARNING
+    )
     override fun toChar(): Char =
         throw UnsupportedOperationException("Characters are non-numeric")
 

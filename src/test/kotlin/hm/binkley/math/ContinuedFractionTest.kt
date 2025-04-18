@@ -59,6 +59,7 @@ internal class ContinuedFractionTest {
         )
     }
 
+    @Suppress("DEPRECATION")
     @Test
     fun `should not be a language character`() {
         shouldThrow<UnsupportedOperationException> {
