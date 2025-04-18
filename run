@@ -15,6 +15,7 @@ export PS4='+${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}():} '
 set -e
 set -u
 set -o pipefail
+IFS=$'\t\n' # Ignore environment for parsing - security and good sense
 
 readonly progname="${0##*/}"
 

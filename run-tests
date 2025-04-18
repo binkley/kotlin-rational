@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# Script to run multiple test classes in sequence, stopping at the first failure
+
+set -e
+set -u
+set -o pipefail
+IFS=$'\t\n' # Ignore environment for parsing - security and good sense
+
+readonly progname="${0##*/}"
+
+function print-help() {
+    cat <<EOH
+Usage: $progname [OPTIONS] TEST_CLASS [TEST_CLASS...]
+Runs multiple test classes in sequence, stopping at the first failure.
+
+Options:
+  -h, --help     display this help and exit
+
+Examples:
+  $progname hm.binkley.math.ContinuedFractionTest
+  $progname hm.binkley.math.ContinuedFractionTest hm.binkley.math.BigRationalBaseTest
+EOH
+}
+
+function bad-option() {
+    local opt="$1"
+
+    cat <<EOM
+$progname: invalid option -- '$opt'
+Try '$progname --help' for more information.
+EOM
+}
+
+# Parse command line options
+while getopts :h-: opt; do
+    [[ $opt == - ]] && opt=${OPTARG%%=*} OPTARG=${OPTARG#*=}
+    case $opt in
+    h | help)
+        print-help
+        exit 0
+        ;;
+    *)
+        bad-option "$OPTARG"
+        exit 2
+        ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+# Check if at least one test class is provided
+if [[ $# -eq 0 ]]; then
+    echo "$progname: No test classes provided" >&2
+    print-help
+    exit 1
+fi
+
+# Run each test class in sequence, stopping at the first failure
+for test_class in "$@"; do
+    echo "Running test class: $test_class"
+    if ! ./mvnw test -Dtest="$test_class"; then
+        echo "Test class $test_class failed. Stopping." >&2
+        exit 1
+    fi
+    echo "Test class $test_class passed."
+done
+
+echo "All test classes passed."
