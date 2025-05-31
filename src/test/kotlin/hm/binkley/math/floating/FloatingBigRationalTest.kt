@@ -2,17 +2,17 @@
 
 package hm.binkley.math.floating
 
+import hm.binkley.math.`^`
 import hm.binkley.math.BFixed
 import hm.binkley.math.BFloating
-import hm.binkley.math.`^`
 import hm.binkley.math.big
 import hm.binkley.math.ceil
 import hm.binkley.math.compareTo
 import hm.binkley.math.dec
 import hm.binkley.math.divideAndRemainder
 import hm.binkley.math.fixed.FixedBigRational
-import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.NaN
+import hm.binkley.math.floating.FloatingBigRational.Companion.NEGATIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.ONE
 import hm.binkley.math.floating.FloatingBigRational.Companion.POSITIVE_INFINITY
 import hm.binkley.math.floating.FloatingBigRational.Companion.TEN
@@ -29,6 +29,8 @@ import hm.binkley.math.truncate
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.doubles.shouldBeNaN
+import io.kotest.matchers.floats.shouldBeNaN
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -364,16 +366,16 @@ internal class FloatingBigRationalTest {
     @Nested
     inner class ConversionTests {
         @Test
-        fun `should be a number`() {
+        fun `should be well-defined`() {
             ONE.toDouble() shouldBe 1.0
             POSITIVE_INFINITY.toDouble() shouldBe Double.POSITIVE_INFINITY
             NEGATIVE_INFINITY.toDouble() shouldBe Double.NEGATIVE_INFINITY
-            NaN.toDouble() shouldBe Double.NaN
+            NaN.toDouble().shouldBeNaN()
 
             ONE.toFloat() shouldBe 1.0f
             POSITIVE_INFINITY.toFloat() shouldBe Float.POSITIVE_INFINITY
             NEGATIVE_INFINITY.toFloat() shouldBe Float.NEGATIVE_INFINITY
-            NaN.toFloat() shouldBe Float.NaN
+            NaN.toFloat().shouldBeNaN()
         }
 
         @Test
