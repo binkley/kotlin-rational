@@ -169,28 +169,36 @@ internal class FixedContinuedFractionTest {
         }
 
         @Test
-        fun `should add`() = (
-            aFraction.toContinuedFraction() +
-                oneHalf.toContinuedFraction()
-            ) shouldBe cf(3, 1, 2)
+        fun `should add`() {
+            (
+                aFraction.toContinuedFraction() +
+                    oneHalf.toContinuedFraction()
+                ) shouldBe cf(3, 1, 2)
+        }
 
         @Test
-        fun `should subtract`() = (
-            aFraction.toContinuedFraction() -
-                oneHalf.toContinuedFraction()
-            ) shouldBe cf(2, 1, 2)
+        fun `should subtract`() {
+            (
+                aFraction.toContinuedFraction() -
+                    oneHalf.toContinuedFraction()
+                ) shouldBe cf(2, 1, 2)
+        }
 
         @Test
-        fun `should multiply`() = (
-            aFraction.toContinuedFraction() *
-                oneHalf.toContinuedFraction()
-            ) shouldBe cf(1, 1, 1, 2, 2)
+        fun `should multiply`() {
+            (
+                aFraction.toContinuedFraction() *
+                    oneHalf.toContinuedFraction()
+                ) shouldBe cf(1, 1, 1, 2, 2)
+        }
 
         @Test
-        fun `should divide`() = (
-            aFraction.toContinuedFraction() /
-                oneHalf.toContinuedFraction()
-            ) shouldBe cf(6, 3)
+        fun `should divide`() {
+            (
+                aFraction.toContinuedFraction() /
+                    oneHalf.toContinuedFraction()
+                ) shouldBe cf(6, 3)
+        }
     }
 }
 

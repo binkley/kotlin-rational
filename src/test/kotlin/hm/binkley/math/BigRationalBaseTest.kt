@@ -243,16 +243,16 @@ internal class BigRationalBaseTest {
         }
     }
 
-    @Nested
-    internal class BigDecimalConversions {
-        data class Conversion(
-            val numerator: Int,
-            val denominator: Int,
-            val limitPlaces: Int,
-            val roundingMode: RoundingMode?,
-            val result: String,
-        )
+    data class Conversion(
+        val numerator: Int,
+        val denominator: Int,
+        val limitPlaces: Int,
+        val roundingMode: RoundingMode?,
+        val result: String,
+    )
 
+    @Nested
+    inner class BigDecimalConversions {
         @Suppress("unused")
         private fun testData() = listOf(
             // Non-repeating

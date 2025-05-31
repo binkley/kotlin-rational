@@ -12,10 +12,8 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@Nested
 internal class FixedProgressionTests {
     @Suppress("ReplaceCallWithBinaryOperator")
     @Test
