@@ -299,7 +299,7 @@
                 <artifactId>kover-maven-plugin</artifactId>
                 <version>${kover.version}</version>
                 <configuration>
-                    
+
                 </configuration>
                 <executions>
                     <!-- instrument test tasks -->
