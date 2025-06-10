@@ -1,6 +1,6 @@
 <a href="./LICENSE.md">
-<img src="./images/public-domain.svg" alt="Public Domain"
-align="right" width="20%" height="auto"/>
+<img src="./images/cc0.svg" alt="Creative Commons Public Domain Dedication"
+align="right" width="10%" height="auto"/>
 </a>
 
 # Kotlin Rational
@@ -10,7 +10,7 @@ align="right" width="20%" height="auto"/>
 [![pull requests](https://img.shields.io/github/issues-pr/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/pulls)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-rational.svg)](https://github.com/binkley/kotlin-rational/issues/)
 [![vulnerabilities](https://snyk.io/test/github/binkley/kotlin-rational/badge.svg)](https://snyk.io/test/github/binkley/kotlin-rational)
-[![license](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
+[![license](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
 [^1]: The build is _green_ locally. Issues here are related to things like
     software supply-chain such as OWASP NVD data for CVE security checking.
