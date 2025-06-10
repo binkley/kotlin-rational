@@ -12,10 +12,7 @@ build:
     COPY pom.xml .
     COPY config config
     COPY src src
-    # Disable building site until issues resolved
-    # This is interferring with CI
-    RUN --mount type=cache,id=maven-cache,target=/root/.m2 --secret OWASP_NVD_API_KEY ./mvnw --no-transfer-progress clean verify
-    # RUN --mount type=cache,id=maven-cache,target=/root/.m2 --secret OWASP_NVD_API_KEY ./mvnw --no-transfer-progress clean verify site
+    RUN --mount type=cache,id=maven-cache,target=/root/.m2 --secret OWASP_NVD_API_KEY ./mvnw --no-transfer-progress clean verify site
 
     # For CI so that GitHub can copy artifacts:
     # Just copy everything rather than maintain a whitelist of files/dirs.
