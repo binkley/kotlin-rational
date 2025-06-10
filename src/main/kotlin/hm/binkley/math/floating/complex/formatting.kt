@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package hm.binkley.math.floating.complex
 
 import hm.binkley.math.floating.FloatingBigRational

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package hm.binkley.math.floating
 
 import hm.binkley.math.ContinuedFractionBase

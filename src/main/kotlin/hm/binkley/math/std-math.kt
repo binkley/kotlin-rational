@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package hm.binkley.math
 
 import java.math.BigDecimal
