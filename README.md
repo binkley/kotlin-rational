@@ -105,7 +105,7 @@ public repository.
   (**NB** &mdash; not a published version)
 * [1.0.0](https://github.com/binkley/kotlin-rational/tree/kotlin-rational-1.0.0)
   &mdash; (2020-04-02) Initial prototype released for reuse by
-  [KUnits](https://github.com/binkley/kunits) (**NB** &mdash; not a published
+  [KUnits](https://github.com/binkley/kotlin-rational) (**NB** &mdash; not a published
   version)
 
 ---
