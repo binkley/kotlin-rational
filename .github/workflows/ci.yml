@@ -1,8 +1,6 @@
 name: Earthly/Maven CI
 
 env:
-  # When updating pom.xml, keep this in sync
-  PROJECT_VERSION: 2.3.0-SNAPSHOT
   # Read from GitHub secrets -- NEVER provide in source code
   OWASP_NVD_API_KEY: ${{ secrets.OWASP_NVD_API_KEY }}
   # Workaround for: https://github.com/earthly/earthly/issues/4220
@@ -50,23 +48,9 @@ jobs:
       - name: Save main jar archive for Actions page
         uses: actions/upload-artifact@v4
         with:
-          name: jar-main
+          name: jars
           if-no-files-found: error
-          path: "target/kotlin-rational-$PROJECT_VERSION.jar"
-
-      - name: Save source jar archives for Actions page
-        uses: actions/upload-artifact@v4
-        with:
-          name: jar-sources
-          if-no-files-found: error
-          path: "target/kotlin-rational-$PROJECT_VERSION-sources.jar"
-
-      - name: Save doc jar archive for Actions page
-        uses: actions/upload-artifact@v4
-        with:
-          name: jar-javadoc
-          if-no-files-found: error
-          path: "target/kotlin-rational-$PROJECT_VERSION-javadoc.jar"
+          path: target/kotlin-rational-*.jar
 
 # Coverage badge report
 
