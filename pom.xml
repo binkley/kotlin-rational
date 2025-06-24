@@ -48,7 +48,9 @@
         <!-- @formatter:off -->
         <!-- TODO: JaCoCo confused by Kotlin inline and math -->
         <coverage.branches>98</coverage.branches>
-        <coverage.lines>99</coverage.lines>
+        <!-- TODO: Kotlin 2.2 changes bytecode generation for default
+             methods on JVM interfaces -->
+        <coverage.lines>98</coverage.lines>
         <coverage.instructions>99</coverage.instructions>
         <coverage.mutation>90</coverage.mutation>
         <dependency-check-maven.version>12.1.3</dependency-check-maven.version>
