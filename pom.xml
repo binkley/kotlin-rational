@@ -210,7 +210,7 @@
                         <arg>-Xexplicit-api=strict</arg>
                     </args>
                     <javaParameters>true</javaParameters>
-                    <languageVersion>2.1</languageVersion>
+                    <languageVersion>2.2</languageVersion>
                 </configuration>
                 <executions>
                     <execution>
