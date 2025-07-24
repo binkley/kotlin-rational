@@ -2,31 +2,25 @@ package hm.binkley.kotlin.sequences
 
 /**
  * Provides an index operator for [Sequence] to improve developer UX.
- * This allows using square bracket notation for indexing elements in a sequence.
+ * This allows using square bracket notation for indexing elements in a
+ * sequence.
+ * The stdlib does not provide this.
  *
  * Example:
  * ```
  * val element = mySequence[index]
  * ```
  *
- * Sequences are lazy by design, so this must walk each element from the
- * beginning to find the nth element.
- * No assumption is made that the sequence is bounded: this could be very
- * expensive for large indices or hard-to-compute sequences.
- *
- * The index is typically non-negative, but depends on the underlying
- * sequence, and should throw `IndexOutOfBoundsException` when a boundary
- * constraint is violated.
- * Usually the sequence in its implementation of [Sequence.elementAt]
- * relies on the an iterator that may go forward, but some may use a
- * [ListIterator] that can go backward.
- *
- * **Repeatable**: each call starts a new iterator over the sequence.
- * This assumes the sequence is restartable.
+ * For this library using sequences for series of rational numbers assumes a
+ * non-negative index, and throws `IndexOutOfBoundsException` for non-negative
+ * indices.
+ * An underlying sequence indexing is an implicit function call to generate a
+ * next element of a series represented as a `Sequence`.
  *
  * **Inlined**: use of bracket notation is "syntactic sugar" for `elementAt`,
- * so call sites are replaced with the call for sequences.
- * The `@Suppress` annotation makes the compiler happy.
+ * so call sites are replaced with the function call for sequences.
+ * The `@Suppress` annotation makes the compiler happy, but you may have issues
+ * with mutation testing complaining that the code is not covered.
  *
  * @param index the index of the element to return
  * @return the element at the specified position in this sequence

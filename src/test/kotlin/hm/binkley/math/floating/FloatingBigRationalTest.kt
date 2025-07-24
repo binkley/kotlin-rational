@@ -235,13 +235,13 @@ internal class FloatingBigRationalTest {
                 POSITIVE_INFINITY
             NEGATIVE_INFINITY.toDouble().toBigRational() shouldBe
                 NEGATIVE_INFINITY
-            NaN.toDouble().toBigRational() shouldBe NaN
+            NaN.toDouble().toBigRational().shouldBeNaN()
 
             POSITIVE_INFINITY.toFloat().toBigRational() shouldBe
                 POSITIVE_INFINITY
             NEGATIVE_INFINITY.toFloat().toBigRational() shouldBe
                 NEGATIVE_INFINITY
-            NaN.toFloat().toBigRational() shouldBe NaN
+            NaN.toFloat().toBigRational().shouldBeNaN()
         }
 
         @Test
