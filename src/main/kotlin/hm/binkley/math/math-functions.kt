@@ -219,10 +219,9 @@ public fun <T : BigRationalBase<T>> T.truncateAndRemainder(): Pair<T, T> =
  * [other].
  * Returns 0 when `this` and [other] are both 0.
  *
- * See an example
- * [tail-recursive version](https://github.com/breandan/kotlingrad/blob/56a6d4d03544db1bcaa93c31ffc7e075bc564e64/core/src/main/kotlin/edu/umontreal/kotlingrad/typelevel/TypeClassing.kt#L192)
- * Note: this code has recursive calls between [gcd] and [lcm], and Kotlin
- * `tailrec` does not support mutual recursion.
+ * This relies on on your JVM library for implementation of GCD and LCM and is
+ * not optimized for interactions of denominator and numerator.
+ * An obvious improvement is to cache GCM values during calculation steps.
  */
 public fun <T : BigRationalBase<T>> T.gcd(other: T): T = if (isZero()) {
     other
