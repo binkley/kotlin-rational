@@ -87,7 +87,6 @@ public fun <T : BigRationalBase<T>> T.sqrtApproximated(): T = try {
  * @todo Confirm that corner cases exist for denominator
  * @todo Nicer algorithm
  */
-@Suppress("SpellCheckingInspection")
 public fun <T : BigRationalBase<T>> T.cbrt(): T {
     val nRoot = cbrt(numerator.toDouble()).toBigDecimal().toBigIntegerExact()
     val dRoot = cbrt(denominator.toDouble()).toBigDecimal().toBigIntegerExact()
@@ -113,7 +112,6 @@ public fun <T : BigRationalBase<T>> T.cbrt(): T {
  *       seemingly unnecessarily rather than directly using `toDouble()`.
  *       This avoids an `ArithmeticException`
  */
-@Suppress("SpellCheckingInspection")
 public fun <T : BigRationalBase<T>> T.cbrtApproximated(): T = try {
     cbrt()
 } catch (_: ArithmeticException) {
