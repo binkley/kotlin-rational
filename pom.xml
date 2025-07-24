@@ -60,6 +60,7 @@
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>21</jdk.version>
+        <jmh.version>1.36</jmh.version>
         <junit.version>5.13.2</junit.version>
         <kotest.version>6.0.0.M5</kotest.version>
         <kotlin.code.style>official</kotlin.code.style>
@@ -144,6 +145,16 @@
             <artifactId>kotest-assertions-core-jvm</artifactId>
             <version>${kotest.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${jmh.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jmh.version}</version>
         </dependency>
     </dependencies>
 
