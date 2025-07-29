@@ -221,6 +221,8 @@ public class FloatingBigRational private constructor(
          * It is equivalent `0 over 0`.
          *
          * Usable directly from Java via `Companion`.
+         *
+         * The construction avoids the obvious `ZERO / ZERO` for class loading.
          */
         @JvmField
         public val NaN: BRat = BRat(0.big, 0.big)
@@ -230,6 +232,8 @@ public class FloatingBigRational private constructor(
          * It is equivalent `1 over 0`.
          *
          * Usable directly from Java via `Companion`.
+         *
+         * The construction avoids the obvious `ONE / ZERO` for class loading.
          */
         @JvmField
         public val POSITIVE_INFINITY: BRat = BRat(1.big, 0.big)
@@ -239,6 +243,8 @@ public class FloatingBigRational private constructor(
          * It is equivalent `-1 over 0`.
          *
          * Usable directly from Java via `Companion`.
+         *
+         * The construction avoids the obvious `-ONE / ZERO` for class loading.
          */
         @JvmField
         public val NEGATIVE_INFINITY: BRat = BRat(1.big.negate(), 0.big)
