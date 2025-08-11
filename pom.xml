@@ -62,7 +62,7 @@
         <jdk.version>21</jdk.version>
         <jmh.version>1.37</jmh.version>
         <junit.version>5.13.4</junit.version>
-        <kotest.version>6.0.0.M5</kotest.version>
+        <kotest.version>6.0.0.M15</kotest.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>2.2.0-Beta1</kotlin.version>
