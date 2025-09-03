@@ -86,7 +86,7 @@
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
         <maven-wrapper-plugin.version>3.3.3</maven-wrapper-plugin.version>
         <maven.test.skip>false</maven.test.skip> <!-- Make linter happy -->
-        <maven.version>3.9.6</maven.version>
+        <maven.version>3.9.11</maven.version>
         <owasp.nvdApiKey>${env.OWASP_NVD_API_KEY}</owasp.nvdApiKey>
         <owasp.skip>false</owasp.skip>
         <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
