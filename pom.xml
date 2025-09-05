@@ -68,7 +68,7 @@
         <kotlin.version>2.2.10</kotlin.version>
         <kover.version>0.9.1</kover.version>
         <ktlint-maven-plugin.version>3.5.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.40</lombok.version>
         <main.class>demo.KotlinMainKt</main.class>
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
